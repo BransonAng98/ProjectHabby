@@ -34,7 +34,6 @@ public class Civilian : MonoBehaviour
 
     private Vector2 targetPosition;
     private float timeSinceLastDirectionChange = 0.0f;
-    private PlayerScoreScript playerScore;
     private PlayerInputHandler inputHandler;
     private Transform blockingEntity;
     private EventManager eventManager;
@@ -53,7 +52,6 @@ public class Civilian : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
@@ -84,13 +82,8 @@ public class Civilian : MonoBehaviour
         if (collision.gameObject.tag == "PlayerLeg" || collision.gameObject.tag == "End")
         {
             entityCollider.enabled = false;
-            if (playerScore != null)
-            {
-                inputHandler.ChargeUltimate(1);
-                playerScore.EntityDestroyed();
-            }
+            inputHandler.ChargeUltimate(1);
             enemyState = EnemyState.death;
-
         }
     }
 

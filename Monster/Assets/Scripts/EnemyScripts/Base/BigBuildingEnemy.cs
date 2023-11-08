@@ -37,7 +37,6 @@ public class BigBuildingEnemy : MonoBehaviour
     public int maxCoins = 4;
     public float spawnRadius = 3.0f; // Maximum distance from the current position
 
-    private PlayerScoreScript playerScore;
     public ShakeScript shakeScript;
 
     bool isOnFire;
@@ -55,7 +54,6 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
-        playerScore = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         civilianParent = GameObject.Find("---Civillian---");
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
@@ -114,10 +112,6 @@ public class BigBuildingEnemy : MonoBehaviour
 
     void TriggerLoot()
     {
-        if (playerScore != null)
-        {
-            playerScore.EntityDestroyed();
-        }
 
         int numberOfEntities = Random.Range(minCoins, maxCoins + 1);
         for (int i = 0; i < numberOfEntities; i++)
