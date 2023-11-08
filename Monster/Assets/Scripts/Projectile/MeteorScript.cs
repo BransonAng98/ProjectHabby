@@ -95,7 +95,8 @@ public class MeteorScript : MonoBehaviour
 
     public void UseUltimate()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, meteorRadius);
+        Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y - 5f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(explosionPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
         {
             CollateralScript collateralTrigger = collider.GetComponent<CollateralScript>();
