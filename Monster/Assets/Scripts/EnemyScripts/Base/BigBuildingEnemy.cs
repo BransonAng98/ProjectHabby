@@ -25,11 +25,12 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public Sprite destroyedBuilding;
     private LevelManager levelManager;
+    private EventManager eventManager;
     private Vector3 targetScale = new Vector3(2f, 0, 0);
 
     [SerializeField] private GameObject pfCoin;
-
     [SerializeField] private GameObject pfDelvin;
+
     public int minEntities = 1; // Minimum number of entities to spawn
     public int maxEntities = 4; // Maximum number of entities to spawn
     public int minCoins = 1;
@@ -40,6 +41,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public ShakeScript shakeScript;
 
     bool isOnFire;
+    bool hasDied;
 
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
@@ -57,6 +59,7 @@ public class BigBuildingEnemy : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         civilianParent = GameObject.Find("---Civillian---");
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
     }
 
     public void TakeDamage(float damage)
@@ -92,6 +95,13 @@ public class BigBuildingEnemy : MonoBehaviour
         playDeathSFX();
         Destroy(fireHandler);
         TriggerLoot();
+        
+        if(!hasDied)
+        {
+            eventManager.AddScore();
+            hasDied = true;
+        }
+
         buildingCollider.enabled = false;
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
         GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);

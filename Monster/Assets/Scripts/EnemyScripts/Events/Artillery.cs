@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Artillery : MonoBehaviour
 {
-
     public Camera mainCamera;
     public Transform playerPos;
     public int numberOfLocations = 10; // Change the number of locations here
@@ -21,7 +20,7 @@ public class Artillery : MonoBehaviour
     public GameObject impactCrater;
 
     private GameObject storedData;
-
+    private Animator anim;
 
     [SerializeField]
     private List<Vector3> objectPositions = new List<Vector3>();
@@ -29,6 +28,20 @@ public class Artillery : MonoBehaviour
     private void Start()
     {
         CircleIndicatorPrefab.GetComponent<Collider2D>();
+        anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
+    }
+
+
+    public void ActivateArtillery()
+    {
+
+        StartCoroutine(SpawnArtilleryWithDelay());
+
+        Invoke("DeactiveBanner", 3f);
+
+        anim.SetBool("Close", true);
+
+        Invoke("ResetActivation", 15f);
     }
 
     public IEnumerator SpawnArtilleryWithDelay()

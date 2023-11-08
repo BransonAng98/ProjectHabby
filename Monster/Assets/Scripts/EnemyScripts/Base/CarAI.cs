@@ -17,6 +17,7 @@ public class CarAI : MonoBehaviour
     private Vector2 movingDirection;
 
     private SpriteRenderer spriteRenderer;
+    private EventManager eventManager;
     private ObjectFadeEffect objectFader;
     public Sprite upSprite;
     public Sprite downSprite;
@@ -28,56 +29,22 @@ public class CarAI : MonoBehaviour
     private Sprite intitialSprite;
 
     Collider2D entityCollider;
-
-    IAstarAI ai;
+    bool hasDied;
 
     void Start()
     {
+        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        lastPosition = transform.position;
         entityCollider = GetComponent<Collider2D>();
         objectFader = GetComponent<ObjectFadeEffect>();
-        //ai = GetComponent<IAstarAI>();
+
+        lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
 
-        levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
     }
 
-    //Vector3 PickRandomPoint()
-    //{
-    //    var point = Random.insideUnitSphere * roamRadius;
-
-
-    //    point += ai.position;
-    //    return point;
-    //}
-    //void FlipSprite(Vector2 movDir)
-    //{
-    //    if (Mathf.Abs(movDir.x) > Mathf.Abs(movDir.y))
-    //    {
-    //        if (movDir.x > 0)
-    //        {
-    //            spriteRenderer.sprite = rightSprite;
-    //        }
-    //        else
-    //        {
-    //            spriteRenderer.sprite = leftSprite;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (movDir.y > 0)
-    //        {
-    //            spriteRenderer.sprite = upSprite;
-    //        }
-    //        else
-    //        {
-    //            spriteRenderer.sprite = downSprite;
-    //        }
-    //    }
-
-    //}
 
     public void SetSpriteRenderer(SpriteRenderer sr)
     {
@@ -114,6 +81,13 @@ public class CarAI : MonoBehaviour
             levelManager.CalculateScore(3);
             hasTriggered = true;
         }
+
+        if (!hasDied)
+        {
+            eventManager.AddScore();
+            hasDied = true;
+        }
+
         GameObject smokePuff = Instantiate(smokeVFX, transform.position, Quaternion.identity);
         GameObject sparkPuff = Instantiate(sparkVFX, transform.position, Quaternion.identity);
         spriteRenderer.sprite = destroyedSprite;

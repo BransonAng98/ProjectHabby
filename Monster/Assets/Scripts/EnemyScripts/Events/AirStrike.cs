@@ -1,20 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class PlayerScoreScript : MonoBehaviour
+public class AirStrike : MonoBehaviour
 {
-    public int entitiesDestroyedCount = 0;
-
     public int numberOfPlanes;
     public GameObject enemyPlane;
 
     private Animator anim;
     public Transform player;
     public Transform[] spawnPoints;
-    public Artillery ArtilleryScript;
     bool isActivating;
     bool isBombing;
 
@@ -29,13 +24,10 @@ public class PlayerScoreScript : MonoBehaviour
     private float currentAlpha;
     private float blinkDirection = 1.0f; // Used to control the blinking direction
 
-    public TextMeshProUGUI bannerText;
 
     private void Start()
     {
         anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
-        ArtilleryScript = GameObject.Find("ArtySpawner").GetComponent<Artillery>();
-        warningZone.SetActive(false);
 
         // Check if we have at least one spawn point
         if (spawnPoints.Length == 0)
@@ -43,7 +35,7 @@ public class PlayerScoreScript : MonoBehaviour
             Debug.LogError("No spawn points assigned!");
             return;
         }
-        
+
         if (warningZone == null)
         {
             Debug.LogError("SpriteRenderer component not found.");
@@ -53,7 +45,7 @@ public class PlayerScoreScript : MonoBehaviour
         originalColor = warningZone.GetComponent<SpriteRenderer>().color;
         currentAlpha = originalColor.a;
 
-       
+
     }
 
     private void Update()
@@ -97,51 +89,10 @@ public class PlayerScoreScript : MonoBehaviour
 
     }
 
-    public void EntityDestroyed()
-    {
-        entitiesDestroyedCount++;
-
-        if (entitiesDestroyedCount >= 25)
-        {
-            if (isActivating != true)
-            {
-                // Randomly choose between a bombing run and spawning artillery
-                int randomEvent = Random.Range(0, 2); // 0 for bombing run, 1 for artillery
-                if (randomEvent == 0)
-                {
-                    AirStrike();
-                    bannerText.text = "Incoming AirStrike!";
-                }
-                else
-                {
-                    isActivating = true;
-                    bannerText.text = "Incoming Barrage!";
-
-                    StartCoroutine(ArtilleryScript.SpawnArtilleryWithDelay());
-
-                    Invoke("DeactiveBanner", 3f);
-
-                    anim.SetBool("Close", true);
-
-                    entitiesDestroyedCount = 0;
-
-                    Invoke("ResetActivation", 15f);
-
-
-                }
-            }
-            else
-            {
-                entitiesDestroyedCount = 0;
-            }
-        }
-    }
-
-    public void AirStrike()
+    public void ActivateAirStrike()
     {
         if (enemyPlane != null)
         {
-            isActivating = true;
 
             Invoke("DeactiveBanner", 3f);
 
@@ -149,18 +100,10 @@ public class PlayerScoreScript : MonoBehaviour
 
             Invoke("RandomizeAndSpawn", 6f);
 
-            entitiesDestroyedCount = 0;
-
             Invoke("ResetActivation", 15f);
 
         }
-        
-    }
 
-    public void ResetActivation()
-    {
-        isActivating = false;
-        entitiesDestroyedCount = 0;
     }
 
     void DeactiveBanner()
@@ -172,7 +115,7 @@ public class PlayerScoreScript : MonoBehaviour
     {
         // Randomly choose a spawn point
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        
+
         // Instantiate the GameObject at the desired position
         isBombing = true;
         warningZone.transform.position = player.transform.position;
@@ -180,7 +123,7 @@ public class PlayerScoreScript : MonoBehaviour
         // Set spawn points to player y pos
         spawnPoints[0].position = new Vector3(spawnPoints[0].position.x, player.position.y, spawnPoints[0].position.z);
         spawnPoints[1].position = new Vector3(spawnPoints[1].position.x, player.position.y, spawnPoints[1].position.z);
-        
+
         SpawnObject(randomSpawnPoint);
 
     }
@@ -205,5 +148,4 @@ public class PlayerScoreScript : MonoBehaviour
             GameObject fighterJet = Instantiate(enemyPlane, staggeredPosition, spawnPoint.rotation);
         }
     }
-
 }

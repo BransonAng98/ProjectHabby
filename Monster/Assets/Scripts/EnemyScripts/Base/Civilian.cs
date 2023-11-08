@@ -23,7 +23,10 @@ public class Civilian : MonoBehaviour
     private float runSpeed;
 
     [SerializeField] private LevelManager levelManager;
+   
+
     bool isTriggered;
+    bool hasDied;
 
     //Wandering Variables
     public float changeDirectionInterval = 1.0f; // Time interval to change direction
@@ -34,9 +37,11 @@ public class Civilian : MonoBehaviour
     private PlayerScoreScript playerScore;
     private PlayerInputHandler inputHandler;
     private Transform blockingEntity;
+    private EventManager eventManager;
 
     public bool isBlocked;
     private bool hasSpawned;
+
     public FakeHeightScript fakeheight;
 
 
@@ -47,11 +52,12 @@ public class Civilian : MonoBehaviour
         entityCollider = GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
-
-        //Game Manager
+        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+
         fadeEffect = GetComponent<ObjectFadeEffect>();
         entityCollider.enabled = false;
     }
@@ -221,6 +227,12 @@ public class Civilian : MonoBehaviour
         {
             Instantiate(deathVFX, transform.position, Quaternion.identity);
             hasSpawned = true;
+        }
+
+        if (!hasDied)
+        {
+            eventManager.AddScore();
+            hasDied = true;
         }
 
         Destroy(transform.parent.gameObject, 5f);

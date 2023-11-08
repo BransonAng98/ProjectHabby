@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     private int calculateCityDestruction;
-    private int calculation1;
+    public int calculation1;
     public Slider slider;
     private GameManagerScript gameManager;
     public CutSceneManager cutsceneManager;
