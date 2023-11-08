@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BigBuildingEnemy : MonoBehaviour
+public class ItemBuilding : MonoBehaviour
 {
     public EnemyScriptableObject SO_enemy;
     public float tempHealth;
     public SpriteRenderer spriteRenderer;
-    public Sprite damagedSprite;
+    //public Sprite damagedSprite;
     public Targetable buildingType;
     private Collider2D buildingCollider;
     public PlayerHandler inputHandler;
@@ -30,6 +30,9 @@ public class BigBuildingEnemy : MonoBehaviour
     [SerializeField] private GameObject pfCoin;
 
     [SerializeField] private GameObject pfDelvin;
+
+    [SerializeField] private GameObject spawnItem;
+
     public int minEntities = 1; // Minimum number of entities to spawn
     public int maxEntities = 4; // Maximum number of entities to spawn
     public int minCoins = 1;
@@ -96,6 +99,7 @@ public class BigBuildingEnemy : MonoBehaviour
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
         GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.identity);
+        Instantiate(spawnItem, transform.position, Quaternion.identity);
         //GameObject rubble = Instantiate(destroyedBuilding, transform.position, Quaternion.identity);
         spriteRenderer.sprite = destroyedBuilding;
         spriteRenderer.sortingOrder = 2;
@@ -126,7 +130,6 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
         GameObject hitEffect = Instantiate(hitVFX, transform.position, Quaternion.identity);
-        spriteRenderer.sprite = damagedSprite;
         Destroy(hit, 1f);
     }
 
@@ -144,12 +147,11 @@ public class BigBuildingEnemy : MonoBehaviour
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
         }
-
     }
 
     void playDamageSFX()
     {
-       
+
         AudioClip damagesoundtoPlay = damageSFX[Random.Range(0, damageSFX.Length)];
         buildingAudioSource.PlayOneShot(damagesoundtoPlay);
         Debug.Log("PlaySound");
@@ -160,5 +162,4 @@ public class BigBuildingEnemy : MonoBehaviour
         AudioClip deathsoundtoPlay = deathSFX[Random.Range(0, deathSFX.Length)];
         buildingAudioSource.PlayOneShot(deathsoundtoPlay);
     }
-
 }

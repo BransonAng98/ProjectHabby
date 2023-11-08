@@ -53,6 +53,7 @@ public class Civilian : MonoBehaviour
         //Game Manager
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         fadeEffect = GetComponent<ObjectFadeEffect>();
+        entityCollider.enabled = false;
     }
 
 
@@ -201,6 +202,7 @@ public class Civilian : MonoBehaviour
     {
         if(fakeheight.isGrounded == true)
         {
+            entityCollider.enabled = true;
             ChangeRunState();
         }
         

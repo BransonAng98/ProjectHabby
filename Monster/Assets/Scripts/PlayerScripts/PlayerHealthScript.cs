@@ -144,6 +144,18 @@ public class PlayerHealthScript : MonoBehaviour
         }
     }
 
+    public void RecoverHealth(int recover)
+    {
+        if (playerSO.health <= playerSO.maxhealth)
+        {
+            playerSO.health += recover; // Adjust the damage amount as needed
+        }
+        else
+        {
+            return;
+        }
+    }
+
     private void UpdateAbilityBar()
     {
         abilitySlider.value = playerHandler.currentUltimateCharge; // Update the slider's value

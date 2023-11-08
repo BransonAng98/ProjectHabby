@@ -53,7 +53,6 @@ public class FakeHeightScript : MonoBehaviour
 
     void Groundhit()
     {
-        
         onGroundHitEvent.Invoke();
     }
 

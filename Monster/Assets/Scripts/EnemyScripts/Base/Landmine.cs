@@ -8,6 +8,8 @@ public class Landmine : MonoBehaviour
     public float countdown;
     public int damage;
     [SerializeField] private float timer;
+    [SerializeField] private bool isTriggered;
+    [SerializeField] private bool isStep;
 
     public GameObject explosionVFX;
     private AudioSource audioS;
@@ -16,6 +18,25 @@ public class Landmine : MonoBehaviour
     void Start()
     {
         audioS = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (isStep)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= countdown)
+            {
+                Explosion();
+                Destroy(gameObject);
+            }
+        }
+
+        else
+        {
+            timer = 0f;
+        }
     }
 
     private void Explosion()
@@ -33,16 +54,8 @@ public class Landmine : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if(timer > countdown)
-            {
-                timer += Time.deltaTime;
-            }
 
-            if(timer <= countdown)
-            {
-                Explosion();
-                Destroy(gameObject, 2f);
-            }
+            isStep = true;
         }
     }
 
@@ -50,7 +63,7 @@ public class Landmine : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            timer = 0f;
+            isStep = false;
         }
     }
 }
