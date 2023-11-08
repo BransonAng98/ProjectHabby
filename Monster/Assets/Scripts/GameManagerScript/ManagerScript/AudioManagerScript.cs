@@ -4,34 +4,30 @@ using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour
 {
-    public AudioSource audiomanagerSource;
-    public AudioClip[] screamingSFX;
+    public AudioSource BGMSource;
+    public AudioSource CivilianSource;
+    public AudioClip screamingSFX;
     public AudioClip bgm;
-    public AudioClip tornadosirenSFX;
+    public GameManagerScript gamemanager;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
-    void PlayBGM()
+    public void PlayBGM()
     {
-
+        BGMSource.PlayOneShot(bgm);
     }
 
-    void PlayScreaming()
+    public void PlayScreaming()
     {
-
-    }
-
-    void PlayTornadoSiren()
-    {
-
+        CivilianSource.PlayOneShot(screamingSFX);
     }
 }

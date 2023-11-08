@@ -28,6 +28,9 @@ public class CarAI : MonoBehaviour
     public GameObject sparkVFX;
     private Sprite intitialSprite;
 
+    public AudioSource vehicleaudioSource;
+    public AudioClip[] vehicleSFX;
+
     Collider2D entityCollider;
     bool hasDied;
 
@@ -87,6 +90,7 @@ public class CarAI : MonoBehaviour
             eventManager.AddScore();
             hasDied = true;
         }
+        PlaySFX();
 
         GameObject smokePuff = Instantiate(smokeVFX, transform.position, Quaternion.identity);
         GameObject sparkPuff = Instantiate(sparkVFX, transform.position, Quaternion.identity);
@@ -94,6 +98,12 @@ public class CarAI : MonoBehaviour
         spriteRenderer.sortingOrder = 1;
         entityCollider.enabled = false;
         objectFader.StartFading();
+    }
+
+    public void PlaySFX()
+    {
+        AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
+        vehicleaudioSource.PlayOneShot(deathSFX);
     }
 
     private void Update()

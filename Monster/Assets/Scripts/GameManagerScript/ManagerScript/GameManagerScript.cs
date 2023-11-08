@@ -13,7 +13,7 @@ public class GameManagerScript : MonoBehaviour
     public bool gameStarted = false;
     public List<GameObject> obstacleList = new List<GameObject>();
     public MeteorScript meteor;
-
+    public AudioManagerScript audiomanager;
     private GNAManager GNAManager;
     private LevelManager levelManger;
     public GameObject endScreen;
@@ -37,6 +37,7 @@ public class GameManagerScript : MonoBehaviour
         ScanAndInsert();
         DisableObstacles();
         meteor = GameObject.Find("Meteor").GetComponent<MeteorScript>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
 
 
         endScreen.SetActive(false);
@@ -93,6 +94,7 @@ public class GameManagerScript : MonoBehaviour
 
         meteor.isMoving = true;
         meteor.MeteorMovingSFX();
+        audiomanager.PlayBGM();
 
         // Set the game as started
         gameStarted = true;
