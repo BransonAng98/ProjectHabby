@@ -24,7 +24,6 @@ public class NewEnemyScript : MonoBehaviour
     float attackCDLeft;
     private Collider2D entityCollider;
 
-    private PlayerScoreScript playerScore;
     private PlayerInputHandler inputHandler;
     private ObjectFadeEffect objectFader;
 
@@ -51,7 +50,6 @@ public class NewEnemyScript : MonoBehaviour
         entityCollider = GetComponent<Collider2D>();
         objectFader = GetComponent<ObjectFadeEffect>();
 
-        playerScore = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
         aStar = GetComponent<AIBase>();
 
@@ -62,10 +60,6 @@ public class NewEnemyScript : MonoBehaviour
         tempHealth -= damage;
         if (tempHealth <= 0)
         {
-            if (playerScore != null)
-            {
-                playerScore.EntityDestroyed();
-            }
             currentState = EnemyState.death;
         }
     }

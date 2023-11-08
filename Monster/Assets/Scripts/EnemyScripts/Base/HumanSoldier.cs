@@ -16,7 +16,6 @@ public class HumanSoldier : MonoBehaviour
     private float attackCDLeft;
     public bool isBurnt;
 
-    private PlayerScoreScript playerScore;
     private PlayerInputHandler inputHandler;
 
     private bool lootDropped;
@@ -30,7 +29,6 @@ public class HumanSoldier : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        playerScore = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
         
         lastPosX = transform.position.x;
@@ -107,13 +105,8 @@ public class HumanSoldier : MonoBehaviour
 
     void TriggerLoot()
     {
-
-        if (playerScore != null)
-        {
-            inputHandler.ChargeUltimate(1);
-            playerScore.EntityDestroyed();
-            lootDropped = true;
-        }
+        inputHandler.ChargeUltimate(1);
+        lootDropped = true;
     }
 
     void FlipSprite()

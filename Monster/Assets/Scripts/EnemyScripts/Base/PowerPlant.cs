@@ -27,7 +27,6 @@ public class PowerPlant : MonoBehaviour
     [SerializeField] private bool isTriggered;
     [SerializeField] private bool isOnFire;
 
-    private PlayerScoreScript scoreScript;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +34,6 @@ public class PowerPlant : MonoBehaviour
         tempHealth = enemyData.health;
         collider = GetComponent<BoxCollider2D>();
         shakeScript = GetComponent<ShakeScript>();
-        scoreScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScoreScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
     }
@@ -67,11 +65,7 @@ public class PowerPlant : MonoBehaviour
 
     void TriggerLoot()
     {
-        if (scoreScript != null)
-        {
-            scoreScript.EntityDestroyed();
-        }
-
+  
         int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
         for (int i = 0; i < numberOfEntities; i++)
         {
