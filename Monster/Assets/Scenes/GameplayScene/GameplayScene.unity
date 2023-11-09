@@ -1042,8 +1042,12 @@ MonoBehaviour:
   missilePrefab: {fileID: 3755558009072592224, guid: 39d86a03e74232c49ac90bc087a303bf, type: 3}
   mainCam: {fileID: 519420031}
   joystick: {fileID: 1429078429}
+  missileMask:
+    serializedVersion: 2
+    m_Bits: 32768
   missileMaxAmount: 5
-  eventDuration: 20
+  touchRadius: 800
+  eventDuration: 10
   timeScaleDuringEvent: 0.4
   spawnRadius: 4
 --- !u!1 &123827350
@@ -4808,6 +4812,7 @@ MonoBehaviour:
   levelManagerScript: {fileID: 1267804330}
   airStrikeScript: {fileID: 34761370}
   artilleryScript: {fileID: 2001666953}
+  missileScript: {fileID: 0}
   gameStarted: 0
 --- !u!1 &1063633784
 GameObject:

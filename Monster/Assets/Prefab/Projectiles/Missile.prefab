@@ -104,15 +104,11 @@ MonoBehaviour:
   prevPos: {x: 0, y: 0, z: 0}
   speed: 2
   rotateSpeed: 200
-  touchRadius: 10
   enemyData: {fileID: 11400000, guid: d11c98dd9ae9b2641a03e11dbb89df07, type: 2}
   explosionVFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   collateralMask:
     serializedVersion: 2
     m_Bits: 13056
-  missileMask:
-    serializedVersion: 2
-    m_Bits: 32768
   mainCam: {fileID: 0}
 --- !u!50 &3755558009072592156
 Rigidbody2D:

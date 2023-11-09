@@ -7,13 +7,11 @@ public class MissileManager : MonoBehaviour
     public GameObject missilePrefab;
     public Camera mainCam;
     public Joystick joystick;
-    public LayerMask missileMask;
     
     public int missileMaxAmount;
     public float touchRadius;
 
     public float eventDuration;
-    public float timeScaleDuringEvent = 0.5f;
 
     public float spawnRadius;
 
@@ -42,22 +40,23 @@ public class MissileManager : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-
                     // Get the position of the touch
                     Vector3 touchPosition = touch.position;
 
-                    // Convert the touch position to world space if needed (e.g., for 3D objects)
-                    Vector3 worldTouchPosition = mainCam.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, 10));
-
-
-                    Collider2D[] colliders = Physics2D.OverlapCircleAll(touchPosition, touchRadius, missileMask);
-
-                    if (colliders.Length > 0)
+                    Collider2D[] colliders = Physics2D.OverlapCircleAll(touchPosition, touchRadius);
+                    foreach (Collider2D col in colliders)
                     {
-                        foreach (Collider2D col in colliders)
+                        if (col.CompareTag("Missile"))
                         {
                             MissileScript missile = col.GetComponent<MissileScript>();
-                            missile.BlowUp();
+                            if(missile != null)
+                            {
+                                missile.BlowUp();
+                            }
+                            else
+                            {
+                                Debug.Log("nothing");
+                            }
                         }
                     }
 

@@ -16,6 +16,7 @@ public class EventManager : MonoBehaviour
 
     public AirStrike airStrikeScript;
     public Artillery artilleryScript;
+    public MissileManager missileScript;
     [SerializeField] private bool gameStarted;
 
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class EventManager : MonoBehaviour
     {
         airStrikeScript = GameObject.Find("AirStrikeSpawner").GetComponent<AirStrike>();
         artilleryScript = GameObject.Find("ArtySpawner").GetComponent<Artillery>();
+        missileScript = GameObject.Find("MissileManager").GetComponent<MissileManager>();
         levelManagerScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         Invoke("GetScore", 1.1f);
@@ -33,7 +35,7 @@ public class EventManager : MonoBehaviour
     {
         if (gameStarted)
         {
-            if (currentScore == triggerThreshold)
+            if (currentScore > 0)
             {
                 int randomEvent = Random.Range(0, 2); // 0 for bombing run, 1 for artillery
                 if (randomEvent == 0)
