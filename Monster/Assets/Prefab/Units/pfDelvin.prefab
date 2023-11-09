@@ -100,7 +100,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.2}
@@ -151,6 +151,7 @@ MonoBehaviour:
   enemyState: 3
   enemyData: {fileID: 11400000, guid: b7b8f95b6ce889641b00030c048aa67a, type: 2}
   detectionDistance: 10
+  entityCollider: {fileID: 0}
   player: {fileID: 0}
   anim: {fileID: 2121271329903212248}
   deathVFX: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}

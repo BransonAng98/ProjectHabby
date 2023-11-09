@@ -12,7 +12,7 @@ public class Civilian : MonoBehaviour
     Rigidbody2D rb;
     public float detectionDistance = 4f;
 
-    private Collider2D entityCollider;
+    public Collider2D entityCollider;
 
     public Transform player;
     public Animator anim;
@@ -34,7 +34,7 @@ public class Civilian : MonoBehaviour
 
     private Vector2 targetPosition;
     private float timeSinceLastDirectionChange = 0.0f;
-    private PlayerInputHandler inputHandler;
+    private PlayerHandler inputHandler;
     private Transform blockingEntity;
     private EventManager eventManager;
 
@@ -52,12 +52,12 @@ public class Civilian : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
 
         fadeEffect = GetComponent<ObjectFadeEffect>();
-        entityCollider.enabled = false;
+        
     }
 
 
@@ -79,11 +79,11 @@ public class Civilian : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PlayerLeg" || collision.gameObject.tag == "End")
+        if (collision.CompareTag("PlayerLeg"))
         {
-            entityCollider.enabled = false;
             inputHandler.ChargeUltimate(1);
             enemyState = EnemyState.death;
+            Debug.Log("Hit");
         }
     }
 
@@ -99,36 +99,39 @@ public class Civilian : MonoBehaviour
 
     void Run(Vector2 dir)
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        float newDistance = detectionDistance + 5f;
-
-        if (distanceToPlayer < newDistance)
+        if(enemyState != EnemyState.death)
         {
-            if (isBlocked != true)
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            float newDistance = detectionDistance + 5f;
+
+            if (distanceToPlayer < newDistance)
             {
-                // Calculate the direction away from the player
-                Vector3 runDirection = transform.position - player.position;
+                if (isBlocked != true)
+                {
+                    // Calculate the direction away from the player
+                    Vector3 runDirection = transform.position - player.position;
 
-                // Normalize the direction to get a unit vector
-                runDirection.Normalize();
+                    // Normalize the direction to get a unit vector
+                    runDirection.Normalize();
 
-                // Move the enemy in the runDirection
-                transform.position += runDirection * runSpeed * Time.deltaTime;
+                    // Move the enemy in the runDirection
+                    transform.position += runDirection * runSpeed * Time.deltaTime;
+                }
+
+                else
+                {
+                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
+
+                    newRunDirection.Normalize();
+                    // Calculate a new target position within the wander range
+                    transform.position += newRunDirection * runSpeed * Time.deltaTime;
+                }
             }
 
-            else
+            else if (distanceToPlayer > newDistance)
             {
-                Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
-
-                newRunDirection.Normalize();
-                // Calculate a new target position within the wander range
-                transform.position += newRunDirection * runSpeed * Time.deltaTime;
+                ChangeWalkState();
             }
-        }
-
-        else if (distanceToPlayer > newDistance)
-        {
-            ChangeWalkState();
         }
     }
 
@@ -202,7 +205,7 @@ public class Civilian : MonoBehaviour
         if(fakeheight.isGrounded == true)
         {
             entityCollider.enabled = true;
-            ChangeRunState();
+            enemyState = EnemyState.death;
         }
         
     }

@@ -147,6 +147,7 @@ public class BigBuildingEnemy : MonoBehaviour
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
+            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
         }
 
     }
