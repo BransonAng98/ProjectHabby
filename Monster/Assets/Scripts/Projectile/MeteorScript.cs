@@ -131,7 +131,9 @@ public class MeteorScript : MonoBehaviour
 
         player.GetComponent<MeshRenderer>().enabled = true;
         playerStatusBars.SetActive(true);
-        audiomanager.PlayScreaming();
+      
+      
+
     }
 
 
