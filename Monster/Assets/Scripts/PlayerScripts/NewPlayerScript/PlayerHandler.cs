@@ -56,12 +56,18 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float idleTimer;
     public Collider2D entitycollider;
 
+    private float idleRoarTimer = 0f;
+    private float minRoarInterval = 5f;
+    private float maxRoarInterval = 10f;
+
     //FootSteps
     public AudioSource footstepAudioSource;
     public AudioSource attackAudioSource;
     public AudioSource jumpAudioSource;
+    public AudioSource roarAudioSource;
     public AudioClip[] foostepsSFX;
     public AudioClip[] attackSFX;
+    public AudioClip monsterRoarSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -522,12 +528,23 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             AudioClip UltimateAttackToPlay = attackSFX[2];
             attackAudioSource.PlayOneShot(UltimateAttackToPlay);
         }
-     
+        if(isIdle == true)
+        {
+            if (Time.time - idleRoarTimer > Random.Range(minRoarInterval, maxRoarInterval))
+            {
+                Debug.Log("Roar");
+                roarAudioSource.PlayOneShot(monsterRoarSFX);
+                // Reset the timer
+                idleRoarTimer = Time.time;
+            }         
+        }
     }
 
     public void JumpSFX()
     {
         jumpAudioSource.PlayOneShot(jumpAudioSource.clip);
     }
+
+
 }
 
