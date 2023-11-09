@@ -6,19 +6,22 @@ public class AudioManagerScript : MonoBehaviour
 {
     public AudioSource BGMSource;
     public AudioSource CivilianSource;
-    public AudioClip screamingSFX;
+    public AudioClip[] screamingSFX;
     public AudioClip bgm;
     public GameManagerScript gamemanager;
+    [SerializeField] float minTime;
+    [SerializeField] float maxTime;
     // Start is called before the first frame update
     void Start()
     {
-       
+        minTime = 1f;
+        maxTime = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+      
     }
 
     public void PlayBGM()
@@ -28,6 +31,35 @@ public class AudioManagerScript : MonoBehaviour
 
     public void PlayScreaming()
     {
-        CivilianSource.PlayOneShot(screamingSFX);
+        // Choose a random screaming sound from the list
+        AudioClip randomScream = screamingSFX[Random.Range(0, screamingSFX.Length)];
+
+        // Play the chosen screaming sound
+        CivilianSource.PlayOneShot(randomScream);
+    }
+
+   
+
+    public IEnumerator PlayRandomScreaming()
+    {
+        while (true)
+        {
+            // Wait for a random amount of time before playing the next scream
+            float waitTime = Random.Range(minTime, maxTime);
+            yield return new WaitForSeconds(waitTime);
+
+            // Play a random scream
+            PlayScreaming();
+        }
+    }
+
+
+    public IEnumerator StartTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        // After 5 seconds, change min and max times
+        minTime = 10f;
+        maxTime = 15f;
     }
 }

@@ -95,6 +95,9 @@ public class GameManagerScript : MonoBehaviour
         meteor.isMoving = true;
         meteor.MeteorMovingSFX();
         audiomanager.PlayBGM();
+        StartCoroutine(audiomanager.PlayRandomScreaming());
+        StartCoroutine(audiomanager.StartTimer(1f));
+        Debug.Log("Scream");
 
         // Set the game as started
         gameStarted = true;
