@@ -7,7 +7,7 @@ public class MiniGameLandmark : MonoBehaviour
 {
 
     public EnemyScriptableObject enemyData;
-    ShakeScript shakeLandmark;
+    ObjectShakeScript shakeLandmark;
     private float health;
 
 
@@ -24,7 +24,7 @@ public class MiniGameLandmark : MonoBehaviour
     void Start()
     {
         health = enemyData.health;
-        shakeLandmark = GetComponent<ShakeScript>();
+        shakeLandmark = GetComponent<ObjectShakeScript>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

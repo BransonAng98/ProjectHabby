@@ -14,7 +14,7 @@ public class PowerPlant : MonoBehaviour
     public int destructionScore = 5;
 
     private LevelManager levelManager;
-    private ShakeScript shakeScript;
+    private ObjectShakeScript shakeScript;
     private Collider2D collider;
     private GameObject fireHandler;
 
@@ -33,7 +33,7 @@ public class PowerPlant : MonoBehaviour
     {
         tempHealth = enemyData.health;
         collider = GetComponent<BoxCollider2D>();
-        shakeScript = GetComponent<ShakeScript>();
+        shakeScript = GetComponent<ObjectShakeScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
     }

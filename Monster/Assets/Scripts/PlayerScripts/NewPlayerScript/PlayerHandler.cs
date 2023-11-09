@@ -29,6 +29,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public Joystick joystick;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerVFXManager vfxManager;
+    [SerializeField] private CameraShake cameraShake;
     private Vector2 movementInput;
     private Vector2 lastKnownVector;
     public LayerMask enemyLayer;
@@ -49,6 +50,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private bool extendedIdle;
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isIdle;
+
     public bool isEnd;
 
     public float impactTimer;
@@ -75,9 +77,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         vfxManager = GetComponent<PlayerVFXManager>();
         rb = GetComponent<Rigidbody2D>();
         footstepAudioSource = GetComponent<AudioSource>();
+        cameraShake = FindObjectOfType<CameraShake>();
         entitycollider.enabled = false;
     }
-
+                
     // Update is called once per frame
     void Update()
     {
@@ -114,12 +117,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
-           // SpawnFootprint();
-            /*if(Time.time > timer)
-            {
-                timer = Time.time + 1 / footStepRate;
-                PlaySFX();
-            }*/
+            cameraShake.ShakeCamera();
+
             if (!currentState.Equals(PlayerStates.attack))
             {
                 SetCharacterState(PlayerStates.move);
@@ -134,6 +133,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         else
         {
             isMoving = false;
+            cameraShake.StopShaking();
+
             if (!currentState.Equals(PlayerStates.attack))
             {
                 rb.velocity = Vector2.zero;
