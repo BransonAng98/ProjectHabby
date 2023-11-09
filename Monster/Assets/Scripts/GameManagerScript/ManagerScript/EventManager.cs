@@ -35,7 +35,7 @@ public class EventManager : MonoBehaviour
     {
         if (gameStarted)
         {
-            if (currentScore > 0)
+            if (currentScore >= triggerThreshold)
             {
                 int randomEvent = Random.Range(0, 2); // 0 for bombing run, 1 for artillery
                 if (randomEvent == 0)

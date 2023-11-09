@@ -6,6 +6,8 @@ public class AudioManagerScript : MonoBehaviour
 {
     public AudioSource BGMSource;
     public AudioSource CivilianSource;
+    public AudioSource feedbackaudioSource;
+    public AudioClip[] feedbackSFX;
     public AudioClip[] screamingSFX;
     public AudioClip bgm;
     public GameManagerScript gamemanager;
@@ -36,6 +38,12 @@ public class AudioManagerScript : MonoBehaviour
 
         // Play the chosen screaming sound
         CivilianSource.PlayOneShot(randomScream);
+    }
+
+    public void PlayTap()
+    {
+        AudioClip SoundtoPlay = feedbackSFX[Random.Range(0, feedbackSFX.Length)];
+        feedbackaudioSource.PlayOneShot(SoundtoPlay);
     }
 
    

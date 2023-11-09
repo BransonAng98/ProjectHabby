@@ -5,42 +5,53 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+	public AudioManagerScript audiomanager;
 	public GameObject PauseMenu;
 	public GameObject PauseButton;
 
-	public void EnterGame()
+    public void Start()
+    {
+		audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+	}
+
+    public void EnterGame()
 	{
 		SceneManager.LoadScene("LevelSelectScene");
 	}
 
 	public void PauseGame()
 	{
+		
 		PauseMenu.SetActive(true);
 		PauseButton.SetActive(false);
 		Time.timeScale = 0;
-		Debug.Log("paused");
-		
+		audiomanager.PlayTap();
 	}
 
 	public void ResumeGame()
 	{
+		audiomanager.PlayTap();
 		PauseMenu.SetActive(false);
 		PauseButton.SetActive(true);
 		Time.timeScale = 1;
+
 	}
 
 	public void LoadLab()
     {
+		audiomanager.PlayTap();
 		SceneManager.LoadScene("LabScene");
-    }
+	}
 
 	public void LoadGame()
 	{
-		SceneManager.LoadScene("ComicScene");
+		audiomanager.PlayTap();
+		SceneManager.LoadScene("ComicScene");	
 	}
 
 	public void LeaveGame()
     {
+		audiomanager.PlayTap();
 		SceneManager.LoadScene("LevelSelectScene");
     }
 }
