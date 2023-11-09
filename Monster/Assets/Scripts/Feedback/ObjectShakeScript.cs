@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class ShakeScript : MonoBehaviour
+public class ObjectShakeScript : MonoBehaviour
 {
     public float shakeDuration = 0.2f;
     public float shakeStrength = 10f;

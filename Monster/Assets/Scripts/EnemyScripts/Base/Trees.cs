@@ -6,7 +6,7 @@ public class Trees : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     public Sprite destroyedSprite;
-    private ShakeScript shake;
+    private ObjectShakeScript shakeScript;
     private bool isShake;
     private Collider2D entityCollider;
 
@@ -15,7 +15,7 @@ public class Trees : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         entityCollider = GetComponent<Collider2D>();
-        shake = GetComponent<ShakeScript>();
+        shakeScript = GetComponent<ObjectShakeScript>();
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class Trees : MonoBehaviour
             entityCollider.enabled = false;
             if (isShake != true)
             {
-                shake.StartShake();
+                shakeScript.StartShake();
                 isShake = true;
             }
             spriteRenderer.sprite = destroyedSprite;

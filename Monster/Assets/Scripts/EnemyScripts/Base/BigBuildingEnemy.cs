@@ -37,7 +37,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public int maxCoins = 4;
     public float spawnRadius = 3.0f; // Maximum distance from the current position
 
-    public ShakeScript shakeScript;
+    public ObjectShakeScript shakeScript;
 
     bool isOnFire;
     bool hasDied;

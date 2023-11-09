@@ -15,7 +15,7 @@ public class MeteorScript : MonoBehaviour
     public GameObject player;
     public GameObject playerStatusBars;
 
-    private ShakeScript shakeScript;
+    private ObjectShakeScript shakeScript;
     public GameObject crater;
 
     public PlayerHandler playerHandler;
@@ -33,7 +33,7 @@ public class MeteorScript : MonoBehaviour
     public void Start()
     {
         animator = GetComponent<Animator>();
-        shakeScript = GameObject.Find("CM vcam1").GetComponent<ShakeScript>();
+        shakeScript = GameObject.Find("CM vcam1").GetComponent<ObjectShakeScript>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerHandler.canMove = false;

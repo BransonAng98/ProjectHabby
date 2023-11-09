@@ -19,7 +19,7 @@ public class PlayerHealthScript : MonoBehaviour
     public Image abilityFill;
     public float lerpSpeed = 2f;
 
-    private ShakeScript shakeMe;
+    private ObjectShakeScript shakeScript;
     private float currentHealth;
     public HealthState healthState;
 
@@ -39,7 +39,7 @@ public class PlayerHealthScript : MonoBehaviour
     
     private void Start()
     {
-        shakeMe = healthSlider.gameObject.GetComponent<ShakeScript>();
+        shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
         //playerSO.health = 100;
         currentHealth = playerSO.health; // Set initial health to full
         healthSlider.maxValue = currentHealth;
@@ -112,7 +112,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        shakeMe.StartShake();
+        shakeScript.StartShake();
         CheckHealthStatus(currentHealth);
         if(playerSO.health > 0)
         {
