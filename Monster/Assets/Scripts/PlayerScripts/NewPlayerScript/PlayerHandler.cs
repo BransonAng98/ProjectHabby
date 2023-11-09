@@ -62,9 +62,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public AudioClip[] foostepsSFX;
     public AudioClip[] attackSFX;
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -76,9 +73,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         vfxManager = GetComponent<PlayerVFXManager>();
         rb = GetComponent<Rigidbody2D>();
         footstepAudioSource = GetComponent<AudioSource>();
-       
-        
-
     }
 
     // Update is called once per frame
@@ -495,6 +489,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
            PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
            playerhealth.TakeDamage(300);
+        }
+
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            MissileManager missileManager = GameObject.FindGameObjectWithTag("MissileManager").GetComponent<MissileManager>();
+            missileManager.StartEvent();
         }
     }
 

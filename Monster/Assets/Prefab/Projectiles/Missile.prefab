@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3755558009072592156}
   - component: {fileID: 3755558009072592155}
   - component: {fileID: 3341802341135964460}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
   m_SortingLayer: 1
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 3c71094c0dff84748a7359e9ef23afa3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,14 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 5
+  prevPos: {x: 0, y: 0, z: 0}
+  speed: 2
   rotateSpeed: 200
-  destroyTime: 4
+  touchRadius: 10
   enemyData: {fileID: 11400000, guid: d11c98dd9ae9b2641a03e11dbb89df07, type: 2}
   explosionVFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   collateralMask:
     serializedVersion: 2
     m_Bits: 13056
+  missileMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  mainCam: {fileID: 0}
 --- !u!50 &3755558009072592156
 Rigidbody2D:
   serializedVersion: 4
@@ -197,7 +202,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Time: 0.3
   m_Parameters:
     serializedVersion: 3

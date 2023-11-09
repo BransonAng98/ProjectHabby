@@ -1,37 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissileScript : MonoBehaviour
 {
     public Transform target;
+    public Vector3 prevPos;
+
     public float speed = 10f;
     public float rotateSpeed = 200f;
+    
     private Rigidbody2D rb;
-    public float destroyTime = 10f;
-    private float currentTime = 0f;
     public EnemyScriptableObject enemyData;
+
     public GameObject explosionVFX;
     public LayerMask collateralMask;
+
+    public Camera mainCam;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     private void Update()
     {
-        currentTime += Time.deltaTime;
-
-        if (currentTime >= destroyTime)
-        {
-            GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
+       
     }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,15 +46,7 @@ public class MissileScript : MonoBehaviour
 
     public void BlowUp()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
-        foreach (Collider2D collider in hitColliders)
-        {
-            CollateralScript collateralTrigger = collider.GetComponent<CollateralScript>();
-            if (collateralTrigger != null)
-            {
-                collateralTrigger.CollateralDamage(100f);
-            }
-        }
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
