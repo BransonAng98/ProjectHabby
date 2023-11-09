@@ -22,6 +22,7 @@ public class MeteorScript : MonoBehaviour
 
     float meteorRadius = 5f;
     public PlayerStatScriptableObject playerSO;
+    public AudioManagerScript audiomanager;
     public ClockSystem clock;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
@@ -34,6 +35,7 @@ public class MeteorScript : MonoBehaviour
         animator = GetComponent<Animator>();
         shakeScript = GameObject.Find("CM vcam1").GetComponent<ShakeScript>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerHandler.canMove = false;
         animator.SetBool("isMoving", true);
 
@@ -129,6 +131,7 @@ public class MeteorScript : MonoBehaviour
 
         player.GetComponent<MeshRenderer>().enabled = true;
         playerStatusBars.SetActive(true);
+        audiomanager.PlayScreaming();
     }
 
 
