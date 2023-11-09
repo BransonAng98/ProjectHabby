@@ -55,7 +55,11 @@ public class AudioManagerScript : MonoBehaviour
             // Wait for a random amount of time before playing the next scream
             float waitTime = Random.Range(minTime, maxTime);
             yield return new WaitForSeconds(waitTime);
-
+            
+            while (CivilianSource.isPlaying)
+            {
+                yield return null;
+            }
             // Play a random scream
             PlayScreaming();
         }
@@ -67,7 +71,7 @@ public class AudioManagerScript : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         // After 5 seconds, change min and max times
-        minTime = 10f;
-        maxTime = 15f;
+        minTime = 20f;
+        maxTime = 30f;
     }
 }

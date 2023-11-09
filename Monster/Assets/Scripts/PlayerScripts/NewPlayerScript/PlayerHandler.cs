@@ -54,6 +54,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float impactTimer;
     public float currentImpactTimer;
     public float idleTimer;
+    public Collider2D entitycollider;
 
     //FootSteps
     public AudioSource footstepAudioSource;
@@ -69,10 +70,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         SetCharacterState(currentState);
         skeletonAnim = GetComponent<SkeletonAnimation>();
         skeletonAnim.AnimationState.Event += OnSpineEvent;
+        entitycollider = GetComponent<Collider2D>();
 
         vfxManager = GetComponent<PlayerVFXManager>();
         rb = GetComponent<Rigidbody2D>();
         footstepAudioSource = GetComponent<AudioSource>();
+        entitycollider.enabled = false;
     }
 
     // Update is called once per frame

@@ -38,6 +38,7 @@ public class MeteorScript : MonoBehaviour
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerHandler.canMove = false;
         animator.SetBool("isMoving", true);
+        
 
         Vector2 landingPos = new Vector2(player.transform.position.x + 0.9f, player.transform.position.y + 4f);
         targetPosition = landingPos;
@@ -122,6 +123,7 @@ public class MeteorScript : MonoBehaviour
     {
         playerHandler.canMove = true;
         clock.startTime = true;
+        playerHandler.entitycollider.enabled = true;
     }
 
     public void SpawnPlayer()

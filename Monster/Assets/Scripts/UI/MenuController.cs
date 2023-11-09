@@ -16,6 +16,8 @@ public class MenuController : MonoBehaviour
 
     public void EnterGame()
 	{
+		audiomanager.PlayTap();
+		Debug.Log("Sound");
 		SceneManager.LoadScene("LevelSelectScene");
 	}
 
