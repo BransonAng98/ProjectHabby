@@ -58,10 +58,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float idleTimer;
     public Collider2D entitycollider;
 
-    private float idleRoarTimer = 0f;
-    private float minRoarInterval = 5f;
-    private float maxRoarInterval = 10f;
-
+   [SerializeField] private float idleRoarTimer = 0f;
+    private float minRoarThreshold = 10f;
+    private float maxRoarThreshold = 20f;
+    private float varTime;
+    
     //FootSteps
     public AudioSource footstepAudioSource;
     public AudioSource attackAudioSource;
@@ -85,6 +86,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         footstepAudioSource = GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
         entitycollider.enabled = false;
+
+       varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
                 
     // Update is called once per frame
@@ -92,6 +95,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         CheckUltiRdy();
         Cheats();
+        IdleRoar();
         if (canMove)
         {
             if (!isEnd)
@@ -524,22 +528,29 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             attackAudioSource.pitch = UnityEngine.Random.Range(1f, 1.5f);
             attackAudioSource.PlayOneShot(AttackToPlay);
         }
-       if(isUltimate == true)
+        if (isUltimate == true)
         {
             AudioClip UltimateAttackToPlay = attackSFX[2];
             attackAudioSource.PlayOneShot(UltimateAttackToPlay);
         }
-        if(isIdle == true)
+       
+    }
+
+    public void IdleRoar()
+    {
+        if (isIdle == true || isMoving == true)
         {
-            if (Time.time - idleRoarTimer > Random.Range(minRoarInterval, maxRoarInterval))
+            idleRoarTimer += Time.deltaTime;
+            
+            if (idleRoarTimer > varTime)
             {
-                Debug.Log("Roar");
                 roarAudioSource.PlayOneShot(monsterRoarSFX);
-                // Reset the timer
-                idleRoarTimer = Time.time;
-            }         
+                varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
+                idleRoarTimer = 0f;
+            }
         }
     }
+
 
     public void JumpSFX()
     {
