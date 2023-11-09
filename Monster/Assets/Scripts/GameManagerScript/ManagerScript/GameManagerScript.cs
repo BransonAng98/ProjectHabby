@@ -51,6 +51,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (!gameStarted && Input.anyKeyDown)
         {
+            audiomanager.PlayTap();
             StartGame();
         }
     }
@@ -95,7 +96,6 @@ public class GameManagerScript : MonoBehaviour
         meteor.isMoving = true;
         meteor.MeteorMovingSFX();
         audiomanager.PlayBGM();
-        audiomanager.PlayTap();
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
 

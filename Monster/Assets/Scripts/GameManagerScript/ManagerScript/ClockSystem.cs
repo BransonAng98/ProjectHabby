@@ -13,6 +13,8 @@ public class ClockSystem : MonoBehaviour
     private float addOnTime;
 
     public bool startTime;
+
+    public float timeSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,7 @@ public class ClockSystem : MonoBehaviour
         {
             if (timerValue > 0)
             {
-                timerValue -= Time.deltaTime;
+                timerValue -= timeSpeed * Time.deltaTime;
             }
             else
             {
