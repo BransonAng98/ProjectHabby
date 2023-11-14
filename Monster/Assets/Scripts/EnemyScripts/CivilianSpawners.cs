@@ -24,7 +24,6 @@ public class CivilianSpawners : MonoBehaviour
     private void Awake()
     {
         civiParent = GameObject.Find("---Civillian---");
-        Debug.Log("Parent");
     }
     void Start()
     {

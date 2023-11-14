@@ -73,7 +73,7 @@ public class ArtilleryBullet : MonoBehaviour
                 if (playerHealth != null)
                 {
                     playerHealth.TakeDamage(enemyData.attackDamage);
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
                 }
 
                 

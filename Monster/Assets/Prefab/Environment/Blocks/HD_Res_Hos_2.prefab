@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8817020209569311907}
   - component: {fileID: 4703567724024550405}
   - component: {fileID: 731179308014754046}
+  - component: {fileID: 373270467192598308}
   m_Layer: 0
-  m_Name: CarSpawnZone
+  m_Name: Car&ObstacleSpawnZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,6 +138,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.1690745, y: 1.7882705}
   m_EdgeRadius: 0
+--- !u!114 &373270467192598308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394559390444376549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e1d2e7095273c247a45c0abd4234fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnableObstacles:
+  - {fileID: 6414357432507211019, guid: 8d433a1c180024344b3d5108d82c0273, type: 3}
+  - {fileID: 491420913294100523, guid: 5e0acbb84e1efeb4a9e09c5be9df125a, type: 3}
+  minNumberOfObjectsToSpawn: 1
+  maxNumberOfObjectsToSpawn: 3
+  minDistanceBetweenObstacles: 5
+  obstacleparent: {fileID: 0}
 --- !u!1 &482004105887340979
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,8 +557,8 @@ MonoBehaviour:
   enemySpawnInfoList:
   - enemyPrefab: {fileID: 2411092050883332399, guid: e44870b68705c5a4c8352f73f8249dc1, type: 3}
     spawnProbability: 0.52
-  minNumberOfEnemiesToSpawn: 15
-  maxNumberOfEnemiesToSpawn: 35
+  minNumberOfEnemiesToSpawn: 5
+  maxNumberOfEnemiesToSpawn: 15
   civiParent: {fileID: 0}
   minSpawnPosition: {x: -8, y: -8}
   maxSpawnPosition: {x: 8, y: 8}
