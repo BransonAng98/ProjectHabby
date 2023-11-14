@@ -8,6 +8,7 @@ public class MissileManager : MonoBehaviour
     public Camera mainCam;
     public Joystick joystick;
     [SerializeField] private PlayerHandler playerHandler;
+    [SerializeField] private Animator anim;
 
     public int missileMaxAmount;
     public float touchRadius;
@@ -18,6 +19,7 @@ public class MissileManager : MonoBehaviour
     private float eventTimer;
     private bool isEventActive;
     private bool isLaunched;
+ 
 
 
     // Start is called before the first frame update
@@ -26,6 +28,7 @@ public class MissileManager : MonoBehaviour
         eventTimer = 0;
         isEventActive = false;
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
+        anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +36,12 @@ public class MissileManager : MonoBehaviour
     {
         if (isEventActive)
         {
+            Invoke("DeactiveBanner", 3f);
+
+            anim.SetBool("Close", true);
+
+            Invoke("ResetActivation", 15f);
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0); // Get the first touch (you can loop through all touches if needed)
