@@ -24,7 +24,7 @@ public class NewEnemyScript : MonoBehaviour
     float attackCDLeft;
     private Collider2D entityCollider;
 
-    private PlayerInputHandler inputHandler;
+    private PlayerHandler inputHandler;
     private ObjectFadeEffect objectFader;
 
     [SerializeField] private Transform pfBullet;
@@ -50,7 +50,7 @@ public class NewEnemyScript : MonoBehaviour
         entityCollider = GetComponent<Collider2D>();
         objectFader = GetComponent<ObjectFadeEffect>();
 
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         aStar = GetComponent<AIBase>();
 
     }

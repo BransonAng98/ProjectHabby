@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerUltimateButton : MonoBehaviour
 {
 
-    public PlayerInputHandler inputHandler;
+    public PlayerHandler inputHandler;
     public Image radialFill;
     private Button button;
     public UltimateButtonScript ultButton;
@@ -14,13 +14,13 @@ public class PlayerUltimateButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         button = GetComponent<Button>();
     }
 
     void CheckInteractivity()
     {
-        if(inputHandler.currentUltimateCharge != inputHandler.playerSO.maxUltimateCharge)
+        if(inputHandler.currentUltimateCharge != inputHandler.playerData.maxUltimateCharge)
         {
             button.interactable = false;
         }
@@ -30,9 +30,9 @@ public class PlayerUltimateButton : MonoBehaviour
 
     public void ActivateUltimate()
     {
-        if(inputHandler.currentUltimateCharge == inputHandler.playerSO.maxUltimateCharge)
+        if(inputHandler.currentUltimateCharge == inputHandler.playerData.maxUltimateCharge)
         {
-            inputHandler.ultimating = true;
+            //inputHandler.ultimating = true;
         }
         else
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RainWeather : Weather
 {
     public WeatherScriptableObject weatherData;
-    private PlayerInputHandler inputHandler;
+    private PlayerHandler inputHandler;
     public bool isLeft;
     private Rigidbody2D rb;
 
@@ -15,8 +15,8 @@ public class RainWeather : Weather
     {
         weatherData.target = GameObject.FindGameObjectWithTag("Player");
         rb = weatherData.target.GetComponent<Rigidbody2D>();
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
-        ogSpeed = inputHandler.playerSO.speed;
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        ogSpeed = inputHandler.playerData.speed;
         RandomizeRainDirection();
     }
 
@@ -34,36 +34,36 @@ public class RainWeather : Weather
             isLeft = false;
         }
     }
-    void StaticEffect()
-    {
-        if (isLeft)
-        {
-            if (rb.velocity.x < 0)
-            {
-                inputHandler.move = 1f;
-            }
-            else
-            {
-                inputHandler.move = ogSpeed;
-            }
-        }
+    //void StaticEffect()
+    //{
+    //    if (isLeft)
+    //    {
+    //        if (rb.velocity.x < 0)
+    //        {
+    //            inputHandler.move = 1f;
+    //        }
+    //        else
+    //        {
+    //            inputHandler.move = ogSpeed;
+    //        }
+    //    }
 
-        else
-        {
-            if (rb.velocity.x > 0)
-            {
-                inputHandler.move = 1f;
-            }
-            else
-            {
-                inputHandler.move = ogSpeed;
-            }
-        }
-    }
+    //    else
+    //    {
+    //        if (rb.velocity.x > 0)
+    //        {
+    //            inputHandler.move = 1f;
+    //        }
+    //        else
+    //        {
+    //            inputHandler.move = ogSpeed;
+    //        }
+    //    }
+    //}
 
     // Update is called once per frame
     void Update()
     {
-        StaticEffect();
+        //StaticEffect();
     }
 }

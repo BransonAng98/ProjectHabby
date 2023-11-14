@@ -16,7 +16,7 @@ public class HumanSoldier : MonoBehaviour
     private float attackCDLeft;
     public bool isBurnt;
 
-    private PlayerInputHandler inputHandler;
+    private PlayerHandler inputHandler;
 
     private bool lootDropped;
 
@@ -29,7 +29,7 @@ public class HumanSoldier : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         
         lastPosX = transform.position.x;
         enemyState = EnemyState.move;

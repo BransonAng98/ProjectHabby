@@ -7,14 +7,14 @@ public class FogWeather : Weather
     public WeatherScriptableObject weatherData;
     public float visionDistance = 5f;
     public Transform player;
-    private PlayerInputHandler inputHandler;
+    private PlayerHandler inputHandler;
 
     public Transform visionMask; // Reference to the vision mask sprite
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInputHandler>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
     }
 
     void StaticEffect()
