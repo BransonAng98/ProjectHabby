@@ -61,11 +61,22 @@ public class PlaneMissileScript : MonoBehaviour
 
             Destroy(gameObject);
         }
-
         else if (collision.CompareTag("BigBuilding"))
         {
-            SpawnExplosion();
-            collision.GetComponent<BigBuildingEnemy>().TakeDamage(enemyData.attackDamage);
+            // Check if the collider has a BigBuildingEnemy component
+            BigBuildingEnemy bigBuilding = collision.GetComponent<BigBuildingEnemy>();
+
+            if (bigBuilding != null)
+            {
+                SpawnExplosion();
+                bigBuilding.TakeDamage(enemyData.attackDamage);
+            }
+            else
+            {
+                Debug.LogWarning("BigBuildingEnemy component not found on the collided object.");
+            }
+
+            Destroy(gameObject);
         }
     }
 
@@ -86,4 +97,5 @@ public class PlaneMissileScript : MonoBehaviour
     {
         GameObject bomb = Instantiate(explosionVFX, transform.position, Quaternion.identity);
     }
+
 }

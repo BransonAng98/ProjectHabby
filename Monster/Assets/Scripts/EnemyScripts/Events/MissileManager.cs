@@ -7,18 +7,19 @@ public class MissileManager : MonoBehaviour
     public GameObject missilePrefab;
     public Camera mainCam;
     public Joystick joystick;
-    
+    [SerializeField] private PlayerHandler playerHandler;
+    [SerializeField] private Animator anim;
+
     public int missileMaxAmount;
     public float touchRadius;
 
     public float eventDuration;
-
     public float spawnRadius;
 
     private float eventTimer;
     private bool isEventActive;
     private bool isLaunched;
-
+ 
 
 
     // Start is called before the first frame update
@@ -26,7 +27,8 @@ public class MissileManager : MonoBehaviour
     {
         eventTimer = 0;
         isEventActive = false;
-        
+        playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
+        anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,12 @@ public class MissileManager : MonoBehaviour
     {
         if (isEventActive)
         {
+            Invoke("DeactiveBanner", 3f);
+
+            anim.SetBool("Close", true);
+
+            Invoke("ResetActivation", 15f);
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0); // Get the first touch (you can loop through all touches if needed)
@@ -41,7 +49,9 @@ public class MissileManager : MonoBehaviour
                 if (touch.phase == TouchPhase.Began)
                 {
                     // Get the position of the touch
-                    Vector3 touchPosition = touch.position;
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+
+                    transform.position = touchPosition;
 
                     Collider2D[] colliders = Physics2D.OverlapCircleAll(touchPosition, touchRadius);
                     foreach (Collider2D col in colliders)
@@ -49,7 +59,7 @@ public class MissileManager : MonoBehaviour
                         if (col.CompareTag("Missile"))
                         {
                             MissileScript missile = col.GetComponent<MissileScript>();
-                            if(missile != null)
+                            if (missile != null)
                             {
                                 missile.BlowUp();
                             }
@@ -63,7 +73,7 @@ public class MissileManager : MonoBehaviour
                 }
             }
             eventTimer += Time.deltaTime;
-            if (eventTimer >= eventDuration)
+            if (eventTimer >= eventDuration || playerHandler.isEnd == true)
             {
                 EndEvent();
             }
