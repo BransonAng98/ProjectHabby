@@ -578,22 +578,17 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             csManager.TriggerEnd();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space)) // Triggers event randomly
         {
-            Artillery artillery = GameObject.FindGameObjectWithTag("Artillery").GetComponent<Artillery>();
-            StartCoroutine(artillery.SpawnArtilleryWithDelay());
+            EventManager eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+            eventManager.currentScore = eventManager.triggerThreshold;
+           
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
            PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
            playerhealth.TakeDamage(300);
-        }
-
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            MissileManager missileManager = GameObject.FindGameObjectWithTag("MissileManager").GetComponent<MissileManager>();
-            missileManager.StartEvent();
         }
     }
 

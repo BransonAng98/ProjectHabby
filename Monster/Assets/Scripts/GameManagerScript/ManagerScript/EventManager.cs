@@ -7,8 +7,8 @@ using TMPro;
 public class EventManager : MonoBehaviour
 {
     [SerializeField] private int totalScore;
-    [SerializeField] private int triggerThreshold;
-    [SerializeField] private int currentScore;
+    public int triggerThreshold;
+    public int currentScore;
     public int numberOfEvents;
 
     public TextMeshProUGUI bannerText;
