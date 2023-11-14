@@ -12,7 +12,9 @@ public class EnemySpawnInfo
 public class CivilianSpawners : MonoBehaviour
 {
     public List<EnemySpawnInfo> enemySpawnInfoList; // List of enemy prefabs with spawn probabilities
-    public int numberOfEnemiesToSpawn; // Number of enemies to spawn
+
+    [SerializeField] int minNumberOfEnemiesToSpawn = 15;
+    [SerializeField] int maxNumberOfEnemiesToSpawn = 35;
     public GameObject civiParent;
 
     // The minimum and maximum positions where enemies can spawn
@@ -21,15 +23,18 @@ public class CivilianSpawners : MonoBehaviour
 
     private void Awake()
     {
-        civiParent = new GameObject("---Civillian---");
+        civiParent = GameObject.Find("---Civillian---");
+        Debug.Log("Parent");
     }
     void Start()
     {
         SpawnEnemies();
+
     }
 
     void SpawnEnemies()
     {
+        int numberOfEnemiesToSpawn = Random.Range(minNumberOfEnemiesToSpawn, maxNumberOfEnemiesToSpawn + 1);
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
             // Generate a random value between 0 and 1
@@ -55,11 +60,10 @@ public class CivilianSpawners : MonoBehaviour
                 );
 
                 // Spawn the selected enemy prefab at the random position
-               GameObject preFabtocreate = Instantiate(enemyPrefabToSpawn, spawnPosition, Quaternion.identity);
+                GameObject preFabtocreate = Instantiate(enemyPrefabToSpawn, spawnPosition, Quaternion.identity);
                 preFabtocreate.transform.parent = civiParent.transform;
-     
+
             }
         }
     }
 }
-
