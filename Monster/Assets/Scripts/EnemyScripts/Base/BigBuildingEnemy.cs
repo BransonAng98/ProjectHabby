@@ -18,8 +18,9 @@ public class BigBuildingEnemy : MonoBehaviour
     public GameObject fireVFX;
     public GameObject deathVFX;
     public GameObject damageVFX;
-    public GameObject smokeVFX;
+    public GameObject crumblingVFX;
     public GameObject hitVFX;
+    public GameObject smokeVFX;
     public GameObject pointIndicatorVFX;
     private GameObject fireHandler;
 
@@ -101,13 +102,33 @@ public class BigBuildingEnemy : MonoBehaviour
         }
 
         buildingCollider.enabled = false;
-        Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
-        GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
-        GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.identity);
-        //GameObject rubble = Instantiate(destroyedBuilding, transform.position, Quaternion.identity);
+        SpawnDeathVFX();
         spriteRenderer.sprite = destroyedBuilding;
         spriteRenderer.sortingOrder = 2;
-        Destroy(smoke, 1.5f);
+ 
+    }
+
+
+    public void SpawnDeathVFX()
+    {
+        Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
+        GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
+        GameObject crumble = Instantiate(crumblingVFX, transform.position, Quaternion.identity);
+
+        int randomEvent = Random.Range(0, 2); 
+        if (randomEvent == 0)
+        {
+            GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+            Destroy(crumble, 1.5f);
+            Destroy(smoke, 10f);
+        }
+        else
+        {
+            Destroy(crumble, 1.5f);
+        }
+            
+        
+    
     }
 
     void TriggerLoot()
@@ -154,7 +175,6 @@ public class BigBuildingEnemy : MonoBehaviour
 
     void playDamageSFX()
     {
-       
         AudioClip damagesoundtoPlay = damageSFX[Random.Range(0, damageSFX.Length)];
         buildingAudioSource.PlayOneShot(damagesoundtoPlay);
         Debug.Log("PlaySound");
