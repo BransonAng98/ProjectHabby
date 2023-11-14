@@ -13,6 +13,7 @@ public class EventManager : MonoBehaviour
 
     public TextMeshProUGUI bannerText;
     public LevelManager levelManagerScript;
+    public PlayerHandler playerHandler;
 
     public AirStrike airStrikeScript;
     public Artillery artilleryScript;
@@ -26,6 +27,7 @@ public class EventManager : MonoBehaviour
         artilleryScript = GameObject.Find("ArtySpawner").GetComponent<Artillery>();
         missileScript = GameObject.Find("MissileManager").GetComponent<MissileManager>();
         levelManagerScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
+        playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
 
         Invoke("GetScore", 1.1f);
     }
@@ -33,22 +35,31 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        if (gameStarted)
+        if (gameStarted && playerHandler.isEnd != true)
         {
             if (currentScore >= triggerThreshold)
             {
-                int randomEvent = Random.Range(0, 2); // 0 for bombing run, 1 for artillery
-                if (randomEvent == 0)
+                int randomEvent = Random.Range(0, 3); 
+
+                switch (randomEvent)
                 {
-                    airStrikeScript.ActivateAirStrike();
-                    bannerText.text = "Incoming AirStrike!";
-                    currentScore = 0;
-                }
-                else
-                {
-                    artilleryScript.ActivateArtillery();
-                    bannerText.text = "Incoming Barrage!";
-                    currentScore = 0;
+                    case 0:
+                        airStrikeScript.ActivateAirStrike();
+                        bannerText.text = "Incoming AirStrike!";
+                        currentScore = 0;
+                        break;
+                    case 1:
+                        artilleryScript.ActivateArtillery();
+                        bannerText.text = "Incoming Barrage!";
+                        currentScore = 0;
+                        break;
+                    case 2:
+                        missileScript.StartEvent();
+                        bannerText.text = "Incoming Missiles!";
+                        currentScore = 0;
+                        break;
+                    default:
+                        break;
                 }
             }
         }

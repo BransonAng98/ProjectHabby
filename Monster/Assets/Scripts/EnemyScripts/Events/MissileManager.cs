@@ -7,12 +7,12 @@ public class MissileManager : MonoBehaviour
     public GameObject missilePrefab;
     public Camera mainCam;
     public Joystick joystick;
-    
+    [SerializeField] private PlayerHandler playerHandler;
+
     public int missileMaxAmount;
     public float touchRadius;
 
     public float eventDuration;
-
     public float spawnRadius;
 
     private float eventTimer;
@@ -20,13 +20,12 @@ public class MissileManager : MonoBehaviour
     private bool isLaunched;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
         eventTimer = 0;
         isEventActive = false;
-        
+        playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
     }
 
     // Update is called once per frame
@@ -41,7 +40,9 @@ public class MissileManager : MonoBehaviour
                 if (touch.phase == TouchPhase.Began)
                 {
                     // Get the position of the touch
-                    Vector3 touchPosition = touch.position;
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+
+                    transform.position = touchPosition;
 
                     Collider2D[] colliders = Physics2D.OverlapCircleAll(touchPosition, touchRadius);
                     foreach (Collider2D col in colliders)
@@ -49,7 +50,7 @@ public class MissileManager : MonoBehaviour
                         if (col.CompareTag("Missile"))
                         {
                             MissileScript missile = col.GetComponent<MissileScript>();
-                            if(missile != null)
+                            if (missile != null)
                             {
                                 missile.BlowUp();
                             }
@@ -63,7 +64,7 @@ public class MissileManager : MonoBehaviour
                 }
             }
             eventTimer += Time.deltaTime;
-            if (eventTimer >= eventDuration)
+            if (eventTimer >= eventDuration || playerHandler.isEnd == true)
             {
                 EndEvent();
             }
