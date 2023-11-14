@@ -7,7 +7,7 @@ public class ItemBuilding : MonoBehaviour
     public EnemyScriptableObject SO_enemy;
     public float tempHealth;
     public SpriteRenderer spriteRenderer;
-    //public Sprite damagedSprite;
+    public Sprite damagedSprite;
     public Targetable buildingType;
     private Collider2D buildingCollider;
     public PlayerHandler inputHandler;
@@ -124,6 +124,7 @@ public class ItemBuilding : MonoBehaviour
     {
         GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
         GameObject hitEffect = Instantiate(hitVFX, transform.position, Quaternion.identity);
+        spriteRenderer.sprite = damagedSprite;
         Destroy(hit, 1f);
     }
 

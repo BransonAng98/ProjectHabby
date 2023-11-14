@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Spine;
+using Spine.Unity;
 
 public class PlayerHealthScript : MonoBehaviour
 {
@@ -34,6 +36,7 @@ public class PlayerHealthScript : MonoBehaviour
     //Berserk mode Feedback
     private CanvasGroup berserkVignette;
     public CutSceneManager cutsceneManager;
+    [SerializeField] private float ogValues;
 
     [SerializeField] private bool isTriggered;
     
@@ -52,7 +55,6 @@ public class PlayerHealthScript : MonoBehaviour
         berserkVignette = GameObject.Find("Vignette").GetComponent<CanvasGroup>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GetComponent<PlayerHandler>();
-
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
     }
 
@@ -62,7 +64,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (berserkVignette.alpha >= 0)
             {
-                
                 berserkVignette.alpha -= Time.deltaTime;
             }
         }
@@ -102,11 +103,16 @@ public class PlayerHealthScript : MonoBehaviour
         if (healthPercentage <= 45)
         {
             healthState = HealthState.normal;
+            playerHandler.animationSpeed = ogValues;
+            playerSO.speed = 3.5f;
         }
 
         else
         {
             healthState = HealthState.berserk;
+            ogValues = playerHandler.animationSpeed;
+            playerHandler.animationSpeed = 2f;
+            playerSO.speed = 5;
         }
     }
 

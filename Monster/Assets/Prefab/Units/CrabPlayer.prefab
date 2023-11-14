@@ -1503,6 +1503,7 @@ GameObject:
   - component: {fileID: 61134915}
   - component: {fileID: 1592051404207819794}
   - component: {fileID: 2672258370825986194}
+  - component: {fileID: 8074805381918868768}
   m_Layer: 6
   m_Name: CrabPlayer
   m_TagString: Player
@@ -1578,6 +1579,7 @@ MonoBehaviour:
   attacking4: {fileID: 11400000, guid: 30e41ce0d8e251940b1bda8c32fe0379, type: 2}
   attacking5: {fileID: 11400000, guid: 7a4b0deb7850b77418dad47da8c4e583, type: 2}
   attacking6: {fileID: 11400000, guid: b1b2a6ab43a382943a8e5d0146624556, type: 2}
+  attacking7: {fileID: 11400000, guid: a96a901610c6ccd4185663e8c18e75c4, type: 2}
   ultimating: {fileID: 11400000, guid: 9aded212738e22640b01e94c146325a3, type: 2}
   victorying: {fileID: 11400000, guid: 8fbbc6ad3d2650c46b258fbdb22c899d, type: 2}
   defeating: {fileID: 11400000, guid: 1ba4c23a51bf8b546a69852cd0963cb9, type: 2}
@@ -1596,6 +1598,7 @@ MonoBehaviour:
   selectedEnemy: {fileID: 0}
   canMove: 0
   isAttacking: 0
+  attackCount: 0
   legLocations:
   - {fileID: 5442216774189711269}
   - {fileID: 8584766228217194350}
@@ -1606,6 +1609,7 @@ MonoBehaviour:
   - {fileID: 61134897}
   currentUltimateCharge: 0
   ultimateRadius: 20
+  animationSpeed: 2
   isUltimate: 0
   isRaging: 0
   extendedIdle: 0
@@ -1652,6 +1656,7 @@ MonoBehaviour:
   healthState: 0
   triggerNumber: 10
   cutsceneManager: {fileID: 0}
+  ogValues: 0
   isTriggered: 0
 --- !u!23 &6516790000295486548
 MeshRenderer:
@@ -2212,6 +2217,24 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1592051404207819794}
+--- !u!114 &8074805381918868768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6516790000295486554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26947ae098a8447408d80c0c86e35b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 6516790000295486551}
+  customSlotMaterials:
+  - overrideDisabled: 1
+    slotName: px_4
+    material: {fileID: 2100000, guid: b67326eababc885439f1bc5c6b40e10f, type: 2}
+  customMaterialOverrides: []
 --- !u!1 &6826326143117076704
 GameObject:
   m_ObjectHideFlags: 0

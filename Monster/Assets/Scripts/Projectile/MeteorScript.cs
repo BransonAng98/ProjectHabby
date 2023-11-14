@@ -14,6 +14,7 @@ public class MeteorScript : MonoBehaviour
     public bool isActive;
     public GameObject player;
     public GameObject playerStatusBars;
+    public GameObject hitIndicator;
 
     private ObjectShakeScript shakeScript;
     public GameObject crater;
@@ -47,6 +48,7 @@ public class MeteorScript : MonoBehaviour
         direction = (targetPosition - (Vector2)transform.position).normalized;
         //hitcircle.SetActive(false);
         playerStatusBars.SetActive(false);
+        hitIndicator.SetActive(false);
     }
 
     public void Shake()
@@ -133,9 +135,7 @@ public class MeteorScript : MonoBehaviour
 
         player.GetComponent<MeshRenderer>().enabled = true;
         playerStatusBars.SetActive(true);
-      
-      
-
+        hitIndicator.SetActive(true);
     }
 
 

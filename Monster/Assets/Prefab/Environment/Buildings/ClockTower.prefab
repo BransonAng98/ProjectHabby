@@ -51,7 +51,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0038013458, y: 2.540431}
+  m_Offset: {x: 0.009023666, y: -0.80663204}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.03}
@@ -62,7 +62,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4970741, y: 4.436121}
+  m_Size: {x: 3.7025337, y: 2.6151142}
   m_EdgeRadius: 0
 --- !u!114 &2273679577739654921
 MonoBehaviour:
@@ -121,6 +121,7 @@ MonoBehaviour:
   SO_enemy: {fileID: 11400000, guid: b51200baf09f3cd4cb74f309afc3e9d5, type: 2}
   tempHealth: 0
   spriteRenderer: {fileID: 8464750325842619377}
+  damagedSprite: {fileID: 21300000, guid: 78923d16fb9ec5b42b630bf78b161009, type: 3}
   buildingType: {fileID: 2273679577739654921}
   inputHandler: {fileID: 0}
   civilianParent: {fileID: 0}
@@ -131,7 +132,7 @@ MonoBehaviour:
   smokeVFX: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
   hitVFX: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   pointIndicatorVFX: {fileID: 1044996948412729999, guid: 5a0f46f8826e32c4b9ce89bc06589d53, type: 3}
-  destroyedBuilding: {fileID: 21300000, guid: ef159b8b1dd31d649ae032f00671988b, type: 3}
+  destroyedBuilding: {fileID: 21300000, guid: 770abc09578b950419f41810cc8b29c9, type: 3}
   pfCoin: {fileID: 68998136515679623, guid: 97d85bc601e37404c8ddadc334626a85, type: 3}
   pfDelvin: {fileID: 2411092050883332399, guid: e44870b68705c5a4c8352f73f8249dc1, type: 3}
   spawnItem: {fileID: 6701158373401588127, guid: a6136e780b213e343aae8c48501e08f3, type: 3}
@@ -321,7 +322,7 @@ SpriteRenderer:
   m_SortingLayerID: 963744515
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c83d15b022f3e5b44b8ecbd70c2111bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 519498b18f0cf6840a488d5c2d48db47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

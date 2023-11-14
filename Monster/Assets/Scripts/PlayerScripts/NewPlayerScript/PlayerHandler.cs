@@ -19,7 +19,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, ultimating, victorying, defeating, raging;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -36,6 +36,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private Collider2D selectedEnemy;
     public bool canMove;
     [SerializeField] private bool isAttacking;
+    [SerializeField] private int attackCount;
 
     public GameObject[] legLocations;
     public GameObject HitDetection;
@@ -44,12 +45,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
+    public float animationSpeed;
 
     [SerializeField] private bool isUltimate;
     [SerializeField] private bool isRaging;
     [SerializeField] private bool extendedIdle;
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isIdle;
+    [SerializeField] private bool isTriggered;
 
     public bool isEnd;
 
@@ -111,6 +114,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
         }
 
+        else
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         if(playerData.health == 0)
         {
             vfxManager.SpawnDeathVFX();
@@ -124,6 +133,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         movementInput = new Vector2(moveX, moveY).normalized;
         rb.velocity = new Vector2(movementInput.x * playerData.speed, movementInput.y * playerData.speed);
+        skeletonAnim.timeScale = animationSpeed;
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
@@ -157,6 +167,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if(currentState == PlayerStates.idle)
         {
+            skeletonAnim.timeScale = 1f;
             isIdle = true;
             
             if(idleTimer < 4f)
@@ -231,6 +242,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     }
     private void PlayerAttack()
     {
+        skeletonAnim.timeScale = animationSpeed;
         RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, playerData.attackRange, enemyLayer);
         // Check if the raycast hits an object
         if (hit.collider != null)
@@ -261,41 +273,102 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        float playerX = this.transform.position.x;
-        float objectX = selectedEnemy.gameObject.transform.position.x;
-        Vector3 dir =  selectedEnemy.transform.position - HitDetection.transform.position;
-        float angle = Vector3.Angle(dir, Vector3.down);
+        if (attackCount <= 2)
+        {
+            float playerX = this.transform.position.x;
+            float objectX = selectedEnemy.gameObject.transform.position.x;
+            Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
+            float angle = Vector3.Angle(dir, Vector3.down);
 
-        if (objectX > playerX)
-        {
-            if(angle >= 135f)
+            if (objectX > playerX)
             {
-                SetAnimation(0, attacking3, true, 1f);
+                if (angle >= 135f)
+                {
+                    SetAnimation(0, attacking3, true, 1f);
+                }
+                if (angle >= 45f && angle < 135f)
+                {
+                    SetAnimation(0, attacking2, true, 1f);
+                }
+                if (angle >= 0f && angle < 45f)
+                {
+                    SetAnimation(0, attacking, true, 1f);
+                }
             }
-            if(angle >= 45f && angle < 135f)
+            else if (objectX < playerX)
             {
-                SetAnimation(0, attacking2, true, 1f);
-            }
-            if(angle >= 0f && angle < 45f)
-            {
-                SetAnimation(0, attacking, true, 1f);
+                if (angle >= 135f)
+                {
+                    SetAnimation(0, attacking6, true, 1f);
+                }
+                if (angle >= 45f && angle < 135f)
+                {
+                    SetAnimation(0, attacking5, true, 1f);
+                }
+                if (angle >= 0f && angle < 45f)
+                {
+                    SetAnimation(0, attacking4, true, 1f);
+                }
             }
         }
-        else if (objectX < playerX)
+
+        else
         {
-            if (angle >= 135f)
+            skeletonAnim.timeScale = 1f;
+            SetAnimation(0, attacking7, true, 1f);
+            Invoke("TriggerAOE", 2.2f);
+        }
+    }
+
+    public void TriggerAOE()
+    {
+        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y - 0.8f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.CompareTag("BigBuilding"))
             {
-                SetAnimation(0, attacking6, true, 1f);
+                BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
+                if (bigBuilding != null)
+                {
+                    bigBuilding.TakeDamage(100);
+                }
+                else { return; }
             }
-            if (angle >= 45f && angle < 135f)
+
+            else if (collider.CompareTag("Civilian"))
             {
-                SetAnimation(0, attacking5, true, 1f);
+                Civilian civilian = collider.GetComponent<Civilian>();
+                if (civilian != null)
+                {
+                    civilian.enemyState = Civilian.EnemyState.death;
+                }
+                else { return; }
             }
-            if (angle >= 0f && angle < 45f)
+
+
+            else if (collider.CompareTag("Tree"))
             {
-                SetAnimation(0, attacking4, true, 1f);
+                Trees tree = collider.GetComponent<Trees>();
+                if (tree != null)
+                {
+                    tree.Death();
+                }
+                else { return; }
+            }
+
+            else if (collider.CompareTag("Car"))
+            {
+                CarAI car = collider.GetComponent<CarAI>();
+                if (car != null)
+                {
+                    car.Death();
+                }
+                else { return; }
             }
         }
+
+        attackCount = 0;
     }
 
     //In the animation, this will deal damage to the select unit
@@ -304,6 +377,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (selectedEnemy != null)
         {
             selectedEnemy.GetComponent<Targetable>().TakeDamage();
+            attackCount += 1;
         }
 
         else { return; }
@@ -336,7 +410,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             case 0:
                 SetCharacterState(PlayerStates.ultimate);
-
+                skeletonAnim.timeScale = 1f;
                 if (!currentState.Equals(PlayerStates.ultimate))
                 {
                     prevState = currentState;
@@ -350,6 +424,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
             case 1:
                 SetCharacterState(PlayerStates.rage);
+                skeletonAnim.timeScale = 1f;
                 if (!currentState.Equals(PlayerStates.rage))
                 {
                     prevState = currentState;
@@ -362,9 +437,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
             case 2:
                 SetCharacterState(PlayerStates.victory);
+                skeletonAnim.timeScale = 1f;
                 break;
             case 3:
                 SetCharacterState(PlayerStates.defeat);
+                skeletonAnim.timeScale = 1f;
                 vfxManager.SpawnDeathVFX();
                 break;
         }
@@ -415,7 +492,15 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             return;
         }
 
-        SetCharacterState(prevState);
+        if(currentState != PlayerStates.victory || currentState != PlayerStates.defeat)
+        {
+            SetCharacterState(prevState);
+        }
+
+        else
+        {
+            return;
+        }
     }
 
     public void SetCharacterState(PlayerStates state)

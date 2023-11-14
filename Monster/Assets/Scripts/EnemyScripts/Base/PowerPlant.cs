@@ -9,6 +9,8 @@ public class PowerPlant : MonoBehaviour
     public PlayerHandler inputHandler;
     public float explosionRange;
     public int explosionDamage;
+    public Sprite damagedSprite;
+    public Sprite destroyedSprite;
     public int minEntities = 1; // Minimum number of entities to spawn
     public int maxEntities = 4; // Maximum number of entities to spawn
     public int destructionScore = 5;
@@ -17,6 +19,7 @@ public class PowerPlant : MonoBehaviour
     private ObjectShakeScript shakeScript;
     private Collider2D collider;
     private GameObject fireHandler;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField] private GameObject pfCoin;
     [SerializeField] private GameObject explosionVFX;
@@ -34,6 +37,7 @@ public class PowerPlant : MonoBehaviour
         tempHealth = enemyData.health;
         collider = GetComponent<BoxCollider2D>();
         shakeScript = GetComponent<ObjectShakeScript>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
     }
@@ -82,6 +86,7 @@ public class PowerPlant : MonoBehaviour
     {
         GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
         GameObject hitEffect = Instantiate(hitVFX, transform.position, Quaternion.identity);
+        spriteRenderer.sprite = damagedSprite;
         Destroy(hit, 1f);
     }
 
@@ -147,7 +152,7 @@ public class PowerPlant : MonoBehaviour
             }
             isTriggered = true;
             Destroy(explosion, 1f);
-            Destroy(gameObject, 1.1f);
+            spriteRenderer.sprite = destroyedSprite;
         }
     }
 }

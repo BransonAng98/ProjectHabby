@@ -548,6 +548,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 221350691}
     - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: hitIndicator
+      value: 
+      objectReference: {fileID: 635596423}
+    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: playerStatusBars
       value: 
       objectReference: {fileID: 17487342}
@@ -556,13 +560,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1429078429}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: attackCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: skillRdyText
       value: 
       objectReference: {fileID: 1993682386}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: animationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b67326eababc885439f1bc5c6b40e10f, type: 2}
+    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: faff18a5b68c8514da848fa291215c40, type: 2}
     - target: {fileID: 6516790000295486552, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -610,6 +634,14 @@ PrefabInstance:
     - target: {fileID: 6516790000295486554, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Name
       value: CrabPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074805381918868768, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: customMaterialOverrides.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074805381918868768, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: customSlotMaterials.Array.data[0].overrideDisabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}

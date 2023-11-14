@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 963744515
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: fa391feed18d3f445986d7d863624458, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4dba93ac2a5fc2f4f8d48f3e97cb840f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,18 +102,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.081698895, y: 1.2}
+  m_Offset: {x: 0.05688858, y: -0.5554476}
   m_SpriteTilingProperty:
-    border: {x: 0.64, y: 0.84999996, z: 0.64, w: 0.83}
-    pivot: {x: 0.5159568, y: 0.17078184}
-    oldSize: {x: 5.12, y: 5.12}
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.19, y: 3.06}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.85, y: 2.5}
+  m_Size: {x: 2.0206375, y: 1.8717327}
   m_EdgeRadius: 0
 --- !u!114 &6836064436617867200
 MonoBehaviour:
@@ -132,8 +132,11 @@ MonoBehaviour:
   inputHandler: {fileID: 0}
   explosionRange: 5
   explosionDamage: 20
+  damagedSprite: {fileID: 21300000, guid: 219c77f659ee8794299aee471c02eb19, type: 3}
+  destroyedSprite: {fileID: 21300000, guid: 6ed6d92e2e91c1848be590db6bc9fded, type: 3}
   minEntities: 1
   maxEntities: 4
+  destructionScore: 5
   pfCoin: {fileID: 68998136515679623, guid: 97d85bc601e37404c8ddadc334626a85, type: 3}
   explosionVFX: {fileID: 0}
   smokeVFX: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
