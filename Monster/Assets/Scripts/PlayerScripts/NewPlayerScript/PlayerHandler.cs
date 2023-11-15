@@ -76,6 +76,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public AudioClip[] foostepsSFX;
     public AudioClip[] attackSFX;
     public AudioClip monsterRoarSFX;
+    public AudioClip[] painRoarSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -636,6 +637,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 idleRoarTimer = 0f;
             }
         }
+    }
+
+    public void PainRoar()
+    {
+        AudioClip roarSoundToPlay = painRoarSFX[Random.Range(0, painRoarSFX.Length)];
+        roarAudioSource.PlayOneShot(roarSoundToPlay);
     }
 
 

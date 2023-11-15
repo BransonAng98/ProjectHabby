@@ -141,6 +141,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        playerHandler.PainRoar();
         //shakeScript.StartShake();
         if (playerSO.health >= 1)
         {

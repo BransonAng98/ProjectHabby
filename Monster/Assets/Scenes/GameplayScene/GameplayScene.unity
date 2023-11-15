@@ -575,6 +575,22 @@ PrefabInstance:
       propertyPath: attackAnimationSpeed
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: painRoarSFX.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: painRoarSFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: fd710a1968348b042abe5206330ea6fd, type: 3}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: painRoarSFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3caa468ddfdacd34aa117782af94b06c, type: 3}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: painRoarSFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3da16ea8fbe4f0240aa5f860d64173eb, type: 3}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2704,6 +2720,7 @@ GameObject:
   - component: {fileID: 578252694}
   - component: {fileID: 578252695}
   - component: {fileID: 578252696}
+  - component: {fileID: 578252697}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -2741,19 +2758,19 @@ MonoBehaviour:
   BGMSource: {fileID: 578252694}
   CivilianSource: {fileID: 578252695}
   feedbackaudioSource: {fileID: 578252696}
-  militaryAbilitySource: {fileID: 0}
+  militaryAbilitySource: {fileID: 578252697}
   feedbackSFX:
   - {fileID: 8300000, guid: 415129ff45476f941829940cff695232, type: 3}
   - {fileID: 8300000, guid: 74f7f9b634ef00c4d9c634943ecab96d, type: 3}
   - {fileID: 8300000, guid: 0621c294fa3795647b00436c68fcfae7, type: 3}
   - {fileID: 8300000, guid: c8dda5d16cfe655469c8960a7deaeb3c, type: 3}
-  wooshSFX1: {fileID: 0}
-  wooshSFX2: {fileID: 0}
+  wooshSFX1: {fileID: 8300000, guid: 3d608adc7a020614fb32d437493ee25f, type: 3}
+  wooshSFX2: {fileID: 8300000, guid: 771a397b7b771744abc4b35e01416281, type: 3}
   screamingSFX:
   - {fileID: 8300000, guid: 28f6b5ffd05433044a93e80a98993d53, type: 3}
   - {fileID: 8300000, guid: 1be67d6cda070dc418ff10a6eea512b4, type: 3}
   - {fileID: 8300000, guid: 097db12577f665d42a5e646bfd4224bf, type: 3}
-  sirenSFX: {fileID: 0}
+  sirenSFX: {fileID: 8300000, guid: aa6cf1b3efb0fe44f9af2ad61d664d23, type: 3}
   bgm: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
   gamemanager: {fileID: 1267804331}
   minTime: 0
@@ -2962,6 +2979,102 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &578252697
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578252691}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4886,6 +4999,7 @@ GameObject:
   - component: {fileID: 1137180214}
   - component: {fileID: 1137180213}
   - component: {fileID: 1137180212}
+  - component: {fileID: 1137180215}
   m_Layer: 5
   m_Name: MilitaryAbilityWarning
   m_TagString: Untagged
@@ -4972,6 +5086,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137180210}
   m_CullTransparentMesh: 1
+--- !u!114 &1137180215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137180210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4b156050b053941a929348fcf86d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audiomanager: {fileID: 0}
 --- !u!1 &1195934245
 GameObject:
   m_ObjectHideFlags: 0
