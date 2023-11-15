@@ -6,9 +6,11 @@ public class ArtilleryBullet : MonoBehaviour
 {
     public EnemyScriptableObject enemyData;
     public GameObject explosionVFX;
-
     private CircularIndicator storedData;
     private Collider2D entityCollider;
+
+    public AudioSource artiAudioSource;
+    public AudioClip[] artiSFX;
 
     private void Start()
     {
@@ -50,6 +52,7 @@ public class ArtilleryBullet : MonoBehaviour
 
     public void BlowUp()
     {
+        PlayDeathSFX();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -63,6 +66,7 @@ public class ArtilleryBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        PlayDeathSFX();
         if (collision.gameObject != null && collision.gameObject.CompareTag("Player"))
         {
             if (gameObject != null)
@@ -79,5 +83,11 @@ public class ArtilleryBullet : MonoBehaviour
                 
             }
         }
+    }
+
+    public void PlayDeathSFX()
+    {
+        AudioClip soundtoPlay = artiSFX[Random.Range(0, artiSFX.Length)];
+        artiAudioSource.PlayOneShot(soundtoPlay);
     }
 }
