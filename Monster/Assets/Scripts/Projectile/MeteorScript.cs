@@ -10,17 +10,15 @@ public class MeteorScript : MonoBehaviour
     public float speed = 2.0f; // Speed at which the object moves
 
     public bool isMoving;
-    private Animator animator;
     public bool isActive;
-    public GameManagerScript gamemanager;
-
+    private Animator animator;
+    public GameManagerScript gameManager;
     public GameObject crater;
-
+    private CameraShake cameraShake;
     public PlayerHandler playerHandler;
 
     float meteorRadius = 8f;
     public PlayerStatScriptableObject playerSO;
-    public AudioManagerScript audiomanager;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
     public AudioClip meteorExplosionSFX;
@@ -30,10 +28,10 @@ public class MeteorScript : MonoBehaviour
         isMoving = true;
         
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        cameraShake = FindObjectOfType<CameraShake>();
 
-        
+
         animator = GetComponent<Animator>();
         animator.SetBool("isMoving", true);
        
@@ -46,11 +44,9 @@ public class MeteorScript : MonoBehaviour
 
     private void Update()
     {
-
         if (isMoving == true)
         {
             // Update the object's position
-            //transform.position = (Vector2)transform.position + direction * speed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
             // Calculate the angle in radians
@@ -64,9 +60,8 @@ public class MeteorScript : MonoBehaviour
             {
                 isMoving = false;
                 transform.rotation = Quaternion.Euler(Vector3.zero);
-                //Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y);
-                //transform.position = explosionPos;
                 ImpactDamage();
+                
             }
         }
     }
@@ -74,9 +69,11 @@ public class MeteorScript : MonoBehaviour
     public void ImpactDamage()
     {
         PlayExplosion();
+        SetShakeValues();
+        cameraShake.ShakeCamera();
         MeteorCrashingSFX();
-        Crater();
-        Vector2 OverlapPos = new Vector2(transform.position.x, transform.position.y);
+        SpawnCrater();
+        Vector2 OverlapPos = new Vector2(transform.position.x, transform.position.y -5f);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
         {
@@ -86,7 +83,21 @@ public class MeteorScript : MonoBehaviour
                 collateralTrigger.CollateralDamage(100f);
             }
         }
+        ResetShakeValues();
     }
+
+    void SetShakeValues()
+    {
+        cameraShake.shakeStrength = 5f;
+        cameraShake.shakeFrequency = 4f;
+    }
+    void ResetShakeValues()
+    {
+        cameraShake.shakeStrength = 1.3f;
+        cameraShake.shakeFrequency = 3f;
+    }
+
+
     public void PlayExplosion()
 
     {
@@ -100,7 +111,7 @@ public class MeteorScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Crater()
+    public void SpawnCrater()
     {
         Vector2 spawnPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 3f);
         Instantiate(crater, spawnPos, Quaternion.identity);
@@ -108,12 +119,12 @@ public class MeteorScript : MonoBehaviour
 
     public void SpawnPlayer()
     {
-        gamemanager.SpawnPlayer();
+        gameManager.SpawnPlayer();
     }
 
     public void ActivatePlayer()
     {
-        gamemanager.ActivatePlayer();
+        gameManager.ActivatePlayer();
     }
 
     public void MeteorMovingSFX()

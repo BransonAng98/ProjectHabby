@@ -43,7 +43,7 @@ public class GameManagerScript : MonoBehaviour
         DisableObstacles();
      
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-
+        
 
         endScreen.SetActive(false);
         levelManger = GetComponent<LevelManager>();
