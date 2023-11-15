@@ -2741,15 +2741,19 @@ MonoBehaviour:
   BGMSource: {fileID: 578252694}
   CivilianSource: {fileID: 578252695}
   feedbackaudioSource: {fileID: 578252696}
+  militaryAbilitySource: {fileID: 0}
   feedbackSFX:
   - {fileID: 8300000, guid: 415129ff45476f941829940cff695232, type: 3}
   - {fileID: 8300000, guid: 74f7f9b634ef00c4d9c634943ecab96d, type: 3}
   - {fileID: 8300000, guid: 0621c294fa3795647b00436c68fcfae7, type: 3}
   - {fileID: 8300000, guid: c8dda5d16cfe655469c8960a7deaeb3c, type: 3}
+  wooshSFX1: {fileID: 0}
+  wooshSFX2: {fileID: 0}
   screamingSFX:
   - {fileID: 8300000, guid: 28f6b5ffd05433044a93e80a98993d53, type: 3}
   - {fileID: 8300000, guid: 1be67d6cda070dc418ff10a6eea512b4, type: 3}
   - {fileID: 8300000, guid: 097db12577f665d42a5e646bfd4224bf, type: 3}
+  sirenSFX: {fileID: 0}
   bgm: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
   gamemanager: {fileID: 1267804331}
   minTime: 0
@@ -3425,11 +3429,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649562142}
   m_CullTransparentMesh: 1
---- !u!1 &680746369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4808522481813150684, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &695009210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,6 +5242,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236679038}
   m_CullTransparentMesh: 1
+--- !u!61 &1250580600 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3908049863818947856, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1258692816 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5818220570735896870, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1267804328
 GameObject:
   m_ObjectHideFlags: 0
@@ -5310,12 +5319,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 61134889}
-  meteorObject: {fileID: 680746369}
+  meteorObject: {fileID: 5820943973999638618, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
   deployScreen: {fileID: 199858857}
   barAnim: {fileID: 1671595073}
   gameStarted: 0
   obstacleList: []
-  meteor: {fileID: 0}
   audiomanager: {fileID: 0}
   endScreen: {fileID: 1594514526}
   winScreen: {fileID: 1354473559}
@@ -5323,6 +5331,13 @@ MonoBehaviour:
   levelText: {fileID: 962093805}
   GNAText: {fileID: 2029736535}
   isVictory: 0
+  playerStatusBars: {fileID: 17487342}
+  hitIndicator: {fileID: 635596423}
+  playerLegs:
+  - {fileID: 1250580600}
+  - {fileID: 1258692816}
+  joystick: {fileID: 2026836919}
+  clock: {fileID: 221350691}
 --- !u!114 &1267804332
 MonoBehaviour:
   m_ObjectHideFlags: 0

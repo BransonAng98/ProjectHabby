@@ -12,7 +12,7 @@ public class GameManagerScript : MonoBehaviour
     public Animator barAnim;
     public bool gameStarted = false;
     public List<GameObject> obstacleList = new List<GameObject>();
-    public MeteorScript meteor;
+   
     public AudioManagerScript audiomanager;
     private GNAManager GNAManager;
     private LevelManager levelManger;
@@ -24,10 +24,15 @@ public class GameManagerScript : MonoBehaviour
     private PlayerHandler inputHandler;
     public bool isVictory;
 
+    //Meteor
+    public GameObject playerStatusBars;
+    public GameObject hitIndicator;
+    public List<Collider2D> playerLegs = new List<Collider2D>();
+    public GameObject joystick;
+    public ClockSystem clock;
+
     private void Start()
     {
-
-        
         Time.timeScale = 1f;
         deployScreen.SetActive(true);
 
@@ -36,7 +41,7 @@ public class GameManagerScript : MonoBehaviour
         AstarPath.active.Scan(); //scan the grid
         ScanAndInsert();
         DisableObstacles();
-        meteor = GameObject.Find("Meteor").GetComponent<MeteorScript>();
+     
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
 
 
@@ -44,6 +49,7 @@ public class GameManagerScript : MonoBehaviour
         levelManger = GetComponent<LevelManager>();
         GNAManager = GetComponent<GNAManager>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        DeactivatePlayer();
     }
 
 
@@ -87,13 +93,48 @@ public class GameManagerScript : MonoBehaviour
     {
         barAnim.SetBool("RevealGame", true);
     }
+
+    void DeactivatePlayer()
+    {
+        playerStatusBars.SetActive(false);
+        hitIndicator.SetActive(false);
+        joystick.SetActive(false);
+        foreach (Collider2D collider in playerLegs)
+        {
+            collider.gameObject.SetActive(false);
+        }
+    }
+
+    public void ActivatePlayer()
+    {
+        inputHandler.canMove = true;
+        clock.startTime = true;
+        inputHandler.entitycollider.enabled = true;
+        joystick.SetActive(true);
+
+        foreach (Collider2D collider in playerLegs)
+        {
+            collider.gameObject.SetActive(true);
+        }
+    }
+
+    public void SpawnPlayer()
+    {
+        player.GetComponent<MeshRenderer>().enabled = true;
+        playerStatusBars.SetActive(true);
+        hitIndicator.SetActive(true);
+    }
+
+    void SpawnMeteor()
+    {
+        Vector2 MeteorSpawnZone = new Vector2(player.transform.position.x + 15f, player.transform.position.y + 25f);
+        Instantiate(meteorObject, MeteorSpawnZone, Quaternion.identity);
+    }
     void StartGame()
     {
         // Call any other functions or actions to start your game
         deployScreen.SetActive(false);
 
-        meteor.isMoving = true;
-        meteor.MeteorMovingSFX();
         audiomanager.PlayBGM();
         audiomanager.PlayTap(); 
         StartCoroutine(audiomanager.PlayRandomScreaming());
@@ -102,6 +143,7 @@ public class GameManagerScript : MonoBehaviour
         // Set the game as started
         gameStarted = true;
         OpenBar();
+        SpawnMeteor();
 
     }
 

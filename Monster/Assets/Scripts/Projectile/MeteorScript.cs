@@ -12,62 +12,36 @@ public class MeteorScript : MonoBehaviour
     public bool isMoving;
     private Animator animator;
     public bool isActive;
-    public GameObject player;
-    public GameObject playerStatusBars;
-    public GameObject hitIndicator;
-    public List<Collider2D> playerLegs = new List<Collider2D>();
-    public GameObject joystick;
+    public GameManagerScript gamemanager;
 
-    private ObjectShakeScript shakeScript;
     public GameObject crater;
 
     public PlayerHandler playerHandler;
 
-    float meteorRadius = 5f;
+    float meteorRadius = 8f;
     public PlayerStatScriptableObject playerSO;
     public AudioManagerScript audiomanager;
-    public ClockSystem clock;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
     public AudioClip meteorExplosionSFX;
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
-        shakeScript = GameObject.Find("CM vcam1").GetComponent<ObjectShakeScript>();
+        isMoving = true;
+        
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        playerHandler.canMove = false;
-        animator.SetBool("isMoving", true);
-        
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
-        Vector2 landingPos = new Vector2(player.transform.position.x + 0.9f, player.transform.position.y + 4f);
+        
+        animator = GetComponent<Animator>();
+        animator.SetBool("isMoving", true);
+       
+        Vector2 landingPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 5f);
         targetPosition = landingPos;
 
         // Calculate the direction vector towards the target position
         direction = (targetPosition - (Vector2)transform.position).normalized;
-        DeactivatePlayer();
-    }
-
-    void DeactivatePlayer()
-    {
-        playerStatusBars.SetActive(false);
-        hitIndicator.SetActive(false);
-        joystick.SetActive(false);
-        foreach (Collider2D collider in playerLegs)
-        {
-            collider.gameObject.SetActive(false);
-        }
-    }
-
-    public void Shake()
-    {
-        shakeScript.CineShake();
-    }
-
-    public void ReassignFollow()
-    {
-        shakeScript.ReAssignCam();
     }
 
     private void Update()
@@ -90,20 +64,20 @@ public class MeteorScript : MonoBehaviour
             {
                 isMoving = false;
                 transform.rotation = Quaternion.Euler(Vector3.zero);
-
-                // Object has reached the target, you can add further actions here if needed.
-                PlayExplosion();
-                Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y + 3f);
-                transform.position = explosionPos;
-                UseUltimate();
+                //Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y);
+                //transform.position = explosionPos;
+                ImpactDamage();
             }
         }
     }
 
-    public void UseUltimate()
+    public void ImpactDamage()
     {
-        Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y - 5f);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(explosionPos, meteorRadius);
+        PlayExplosion();
+        MeteorCrashingSFX();
+        Crater();
+        Vector2 OverlapPos = new Vector2(transform.position.x, transform.position.y);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
         {
             CollateralScript collateralTrigger = collider.GetComponent<CollateralScript>();
@@ -114,7 +88,10 @@ public class MeteorScript : MonoBehaviour
         }
     }
     public void PlayExplosion()
+
     {
+        Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y + 3.3f);
+        transform.position = explosionPos;
         animator.SetBool("isMoving", false);
     }
 
@@ -123,34 +100,20 @@ public class MeteorScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ActivatePlayer()
+    public void Crater()
     {
-        playerHandler.canMove = true;
-        clock.startTime = true;
-        playerHandler.entitycollider.enabled = true;
-        joystick.SetActive(true);
-
-        foreach (Collider2D collider in playerLegs)
-        {
-            collider.gameObject.SetActive(true);
-        }
+        Vector2 spawnPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 3f);
+        Instantiate(crater, spawnPos, Quaternion.identity);
     }
 
     public void SpawnPlayer()
     {
-        Vector2 spawnPos = new Vector2(player.transform.position.x, player.transform.position.y + 3f);
-        Instantiate(crater, spawnPos, Quaternion.identity);
-
-        player.GetComponent<MeshRenderer>().enabled = true;
-        playerStatusBars.SetActive(true);
-        hitIndicator.SetActive(true);
+        gamemanager.SpawnPlayer();
     }
 
-
-
-    public void StartMoving()
+    public void ActivatePlayer()
     {
-        isMoving = true;
+        gamemanager.ActivatePlayer();
     }
 
     public void MeteorMovingSFX()

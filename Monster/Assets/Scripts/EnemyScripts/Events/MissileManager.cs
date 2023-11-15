@@ -125,7 +125,7 @@ public class MissileManager : MonoBehaviour
         if(isLaunched == false)
         {
             joystick.gameObject.SetActive(false);
-            GetSpawnPoints();
+            Invoke("GetSpawnPoints" ,2f);
             isEventActive = true;
             isLaunched = true;
         }
