@@ -7,8 +7,12 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource BGMSource;
     public AudioSource CivilianSource;
     public AudioSource feedbackaudioSource;
+    public AudioSource militaryAbilitySource;
     public AudioClip[] feedbackSFX;
+    public AudioClip wooshSFX1;
+    public AudioClip wooshSFX2;
     public AudioClip[] screamingSFX;
+    public AudioClip sirenSFX;
     public AudioClip bgm;
     public GameManagerScript gamemanager;
     [SerializeField] float minTime;
@@ -46,7 +50,23 @@ public class AudioManagerScript : MonoBehaviour
         feedbackaudioSource.PlayOneShot(SoundtoPlay);
     }
 
-   
+    public void PlayWarningSFX()
+    {
+        militaryAbilitySource.PlayOneShot(sirenSFX);
+    }
+
+    public void PlayWoosh1SFX()
+    {
+        militaryAbilitySource.PlayOneShot(wooshSFX1);
+    }
+
+    public void PlayWoosh2SFX()
+    {
+        militaryAbilitySource.PlayOneShot(wooshSFX2);
+    }
+
+
+
 
     public IEnumerator PlayRandomScreaming()
     {

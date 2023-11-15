@@ -84,7 +84,5 @@ public class CrabUltimateD : UltimateBase
                 else { return; }
             }
         }
-
-        player.GetComponent<PlayerHandler>().currentUltimateCharge = 0;
     }
 }

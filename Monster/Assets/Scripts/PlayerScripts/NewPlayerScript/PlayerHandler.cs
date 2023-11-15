@@ -45,7 +45,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
+    public float aoeRange;
     public float animationSpeed;
+    public float attackAnimationSpeed;
 
     [SerializeField] private bool isUltimate;
     [SerializeField] private bool isRaging;
@@ -223,6 +225,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "land")
         {
             PlaySFX();
+            UseUltimate1();
+        }
+
+        if(eventName == "Smash")
+        {
+            TriggerAOE();
         }
     }
 
@@ -279,7 +287,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             float objectX = selectedEnemy.gameObject.transform.position.x;
             Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
             float angle = Vector3.Angle(dir, Vector3.down);
-
+            skeletonAnim.timeScale = attackAnimationSpeed;
             if (objectX > playerX)
             {
                 if (angle >= 135f)
@@ -315,15 +323,15 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         else
         {
             skeletonAnim.timeScale = 1f;
-            SetAnimation(0, attacking7, true, 1f);
-            Invoke("TriggerAOE", 2.2f);
+            SetAnimation(0, attacking7, false, 1f);
         }
     }
 
     public void TriggerAOE()
     {
-        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y - 0.8f);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
+        attackCount = 0;
+        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, aoeRange);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("BigBuilding"))
@@ -367,8 +375,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 else { return; }
             }
         }
-
-        attackCount = 0;
     }
 
     //In the animation, this will deal damage to the select unit
@@ -376,6 +382,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if (selectedEnemy != null)
         {
+            skeletonAnim.timeScale = animationSpeed;
             selectedEnemy.GetComponent<Targetable>().TakeDamage();
             attackCount += 1;
         }
@@ -400,6 +407,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
+        currentUltimateCharge = 0;
     }
 
     //Trigger ultimate, rage, victory and defeat state here
@@ -418,7 +426,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 SetCharacterState(PlayerStates.ultimate);
                 if (!isUltimate)
                 {
-                    Invoke("UseUltimate1", 1f);
                     isUltimate = true;
                 }
                 break;
@@ -588,7 +595,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (Input.GetKeyUp(KeyCode.K))
         {
            PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
-           playerhealth.TakeDamage(300);
+           playerhealth.TakeDamage(100);
         }
     }
 

@@ -37,9 +37,13 @@ public class PlayerHealthScript : MonoBehaviour
     private CanvasGroup berserkVignette;
     public CutSceneManager cutsceneManager;
     [SerializeField] private float ogValues;
-
+    [SerializeField] private float ogAtkSpeed;
     [SerializeField] private bool isTriggered;
-    
+
+    [SerializeField] private SkeletonAnimation meshRenderer;
+    public Material originalMat;
+    public Material rageMat;
+
     private void Start()
     {
         shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
@@ -55,7 +59,11 @@ public class PlayerHealthScript : MonoBehaviour
         berserkVignette = GameObject.Find("Vignette").GetComponent<CanvasGroup>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GetComponent<PlayerHandler>();
+        ogValues = playerHandler.animationSpeed;
+        ogAtkSpeed = playerHandler.attackAnimationSpeed;
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
+
+        meshRenderer = GetComponent<SkeletonAnimation>();
     }
 
     void TriggerVignette()
@@ -102,25 +110,39 @@ public class PlayerHealthScript : MonoBehaviour
 
         if (healthPercentage <= 45)
         {
-            healthState = HealthState.normal;
-            playerHandler.animationSpeed = ogValues;
-            playerSO.speed = 3.5f;
+            if(healthState == HealthState.berserk)
+            {
+                healthState = HealthState.normal;
+                meshRenderer.CustomMaterialOverride.Add(rageMat, originalMat);
+                playerHandler.attackAnimationSpeed = ogAtkSpeed;
+                playerHandler.animationSpeed = ogValues;
+                playerHandler.aoeRange = 5f;
+                playerSO.speed = 3.5f;
+            }
         }
 
         else
         {
-            healthState = HealthState.berserk;
-            ogValues = playerHandler.animationSpeed;
-            playerHandler.animationSpeed = 2f;
-            playerSO.speed = 5;
+            if(healthState != HealthState.berserk)
+            {
+                healthState = HealthState.berserk;
+                meshRenderer.CustomMaterialOverride.Add(originalMat, rageMat);
+                playerHandler.animationSpeed = 2f;
+                playerHandler.attackAnimationSpeed = 2f;
+                playerHandler.aoeRange = 10f;
+                playerSO.speed = 5;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 
     public void TakeDamage(int damage)
     {
-        shakeScript.StartShake();
-        CheckHealthStatus(currentHealth);
-        if(playerSO.health > 0)
+        //shakeScript.StartShake();
+        if (playerSO.health >= 1)
         {
             if (healthState == HealthState.normal)
             {
@@ -132,6 +154,7 @@ public class PlayerHealthScript : MonoBehaviour
                 playerSO.health -= damage * 2; // Player takes double damage when they are in berserk mode
             }
 
+            CheckHealthStatus(playerSO.health);
             int healthDifference = thresholdHealth - playerSO.health;
             if (healthDifference >= triggerNumber)
             {
@@ -146,7 +169,6 @@ public class PlayerHealthScript : MonoBehaviour
             playerHandler.DisableMovement(3);
             gameManager.isVictory = false;
             cutsceneManager.TriggerEnd();
-
         }
     }
 
