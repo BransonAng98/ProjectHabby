@@ -55,6 +55,7 @@ public class PlayerHealthScript : MonoBehaviour
         berserkVignette = GameObject.Find("Vignette").GetComponent<CanvasGroup>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GetComponent<PlayerHandler>();
+        ogValues = playerHandler.animationSpeed;
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
     }
 
@@ -110,7 +111,6 @@ public class PlayerHealthScript : MonoBehaviour
         else
         {
             healthState = HealthState.berserk;
-            ogValues = playerHandler.animationSpeed;
             playerHandler.animationSpeed = 2f;
             playerSO.speed = 5;
         }
@@ -118,9 +118,8 @@ public class PlayerHealthScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        shakeScript.StartShake();
-        CheckHealthStatus(currentHealth);
-        if(playerSO.health > 0)
+        //shakeScript.StartShake();
+        if(playerSO.health >= 1)
         {
             if (healthState == HealthState.normal)
             {
@@ -132,6 +131,7 @@ public class PlayerHealthScript : MonoBehaviour
                 playerSO.health -= damage * 2; // Player takes double damage when they are in berserk mode
             }
 
+            CheckHealthStatus(currentHealth);
             int healthDifference = thresholdHealth - playerSO.health;
             if (healthDifference >= triggerNumber)
             {
@@ -146,7 +146,6 @@ public class PlayerHealthScript : MonoBehaviour
             playerHandler.DisableMovement(3);
             gameManager.isVictory = false;
             cutsceneManager.TriggerEnd();
-
         }
     }
 

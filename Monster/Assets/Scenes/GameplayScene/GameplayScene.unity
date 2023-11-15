@@ -548,6 +548,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 221350691}
     - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 2026836919}
+    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: hitIndicator
       value: 
       objectReference: {fileID: 635596423}
@@ -555,13 +559,25 @@ PrefabInstance:
       propertyPath: playerStatusBars
       value: 
       objectReference: {fileID: 17487342}
+    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: playerLegs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: playerLegs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1778522092}
+    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: playerLegs.Array.data[1]
+      value: 
+      objectReference: {fileID: 185971646}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: joystick
       value: 
       objectReference: {fileID: 1429078429}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: attackCount
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: skillRdyText
@@ -749,6 +765,7 @@ MonoBehaviour:
   mainCam: {fileID: 519420031}
   joystick: {fileID: 1429078429}
   playerHandler: {fileID: 0}
+  anim: {fileID: 0}
   missileMaxAmount: 5
   touchRadius: 0.5
   eventDuration: 10
@@ -985,6 +1002,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &185971646 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5818220570735896870, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &194128754
 GameObject:
   m_ObjectHideFlags: 0
@@ -5991,7 +6013,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   m_PrefabInstance: {fileID: 1429078426}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2026836919}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
@@ -7111,6 +7133,11 @@ MonoBehaviour:
   LevelManagerScript: {fileID: 1267804330}
   minSpawnPosition: {x: -50, y: -50}
   maxSpawnPosition: {x: 50, y: 50}
+--- !u!61 &1778522092 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3908049863818947856, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1808873699
 GameObject:
   m_ObjectHideFlags: 0
@@ -7766,6 +7793,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001900939}
   m_CullTransparentMesh: 1
+--- !u!1 &2026836919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 1429078426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2029736533
 GameObject:
   m_ObjectHideFlags: 0

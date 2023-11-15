@@ -15,6 +15,8 @@ public class MeteorScript : MonoBehaviour
     public GameObject player;
     public GameObject playerStatusBars;
     public GameObject hitIndicator;
+    public List<Collider2D> playerLegs = new List<Collider2D>();
+    public GameObject joystick;
 
     private ObjectShakeScript shakeScript;
     public GameObject crater;
@@ -28,8 +30,6 @@ public class MeteorScript : MonoBehaviour
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
     public AudioClip meteorExplosionSFX;
-
-
 
     public void Start()
     {
@@ -46,9 +46,18 @@ public class MeteorScript : MonoBehaviour
 
         // Calculate the direction vector towards the target position
         direction = (targetPosition - (Vector2)transform.position).normalized;
-        //hitcircle.SetActive(false);
+        DeactivatePlayer();
+    }
+
+    void DeactivatePlayer()
+    {
         playerStatusBars.SetActive(false);
         hitIndicator.SetActive(false);
+        joystick.SetActive(false);
+        foreach (Collider2D collider in playerLegs)
+        {
+            collider.gameObject.SetActive(false);
+        }
     }
 
     public void Shake()
@@ -76,10 +85,6 @@ public class MeteorScript : MonoBehaviour
             // Rotate the object to face the movement direction
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-
-
-
-
             // Check if the object has reached the target position
             if (Vector2.Distance(transform.position, targetPosition) <= 0f)
             {
@@ -93,9 +98,6 @@ public class MeteorScript : MonoBehaviour
                 UseUltimate();
             }
         }
-
-     
-
     }
 
     public void UseUltimate()
@@ -126,6 +128,12 @@ public class MeteorScript : MonoBehaviour
         playerHandler.canMove = true;
         clock.startTime = true;
         playerHandler.entitycollider.enabled = true;
+        joystick.SetActive(true);
+
+        foreach (Collider2D collider in playerLegs)
+        {
+            collider.gameObject.SetActive(true);
+        }
     }
 
     public void SpawnPlayer()

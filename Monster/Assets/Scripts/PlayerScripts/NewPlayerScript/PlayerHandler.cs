@@ -279,7 +279,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             float objectX = selectedEnemy.gameObject.transform.position.x;
             Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
             float angle = Vector3.Angle(dir, Vector3.down);
-
+            skeletonAnim.timeScale = 0.8f;
             if (objectX > playerX)
             {
                 if (angle >= 135f)
@@ -322,7 +322,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void TriggerAOE()
     {
-        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y - 0.8f);
+        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D collider in hitColliders)
         {
@@ -376,6 +376,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if (selectedEnemy != null)
         {
+            skeletonAnim.timeScale = animationSpeed;
             selectedEnemy.GetComponent<Targetable>().TakeDamage();
             attackCount += 1;
         }
@@ -400,6 +401,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
+        currentUltimateCharge = 0;
     }
 
     //Trigger ultimate, rage, victory and defeat state here
