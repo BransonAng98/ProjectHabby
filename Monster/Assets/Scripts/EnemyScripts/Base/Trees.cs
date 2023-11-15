@@ -10,6 +10,9 @@ public class Trees : MonoBehaviour
     private bool isShake;
     private Collider2D entityCollider;
 
+    public AudioSource treeaudioSource;
+    public AudioClip[] treeSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,7 @@ public class Trees : MonoBehaviour
 
         else
         {
+            PlaySFX();
             entityCollider.enabled = false;
             if (isShake != true)
             {
@@ -47,7 +51,14 @@ public class Trees : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
+          
             Death();
         }
+    }
+
+    public void PlaySFX()
+    {
+        AudioClip deathSFX = treeSFX[(Random.Range(0, treeSFX.Length))];
+        treeaudioSource.PlayOneShot(deathSFX);
     }
 }
