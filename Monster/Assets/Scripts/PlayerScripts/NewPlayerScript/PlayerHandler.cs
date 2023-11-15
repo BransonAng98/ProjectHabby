@@ -223,6 +223,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "land")
         {
             PlaySFX();
+            UseUltimate1();
+        }
+
+        if(eventName == "Smash")
+        {
+            TriggerAOE();
         }
     }
 
@@ -315,13 +321,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         else
         {
             skeletonAnim.timeScale = 1f;
-            SetAnimation(0, attacking7, true, 1f);
-            Invoke("TriggerAOE", 2.2f);
+            SetAnimation(0, attacking7, false, 1f);
         }
     }
 
     public void TriggerAOE()
     {
+        attackCount = 0;
         Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D collider in hitColliders)
@@ -367,8 +373,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 else { return; }
             }
         }
-
-        attackCount = 0;
     }
 
     //In the animation, this will deal damage to the select unit
@@ -420,7 +424,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 SetCharacterState(PlayerStates.ultimate);
                 if (!isUltimate)
                 {
-                    Invoke("UseUltimate1", 1f);
                     isUltimate = true;
                 }
                 break;

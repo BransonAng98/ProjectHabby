@@ -1569,21 +1569,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnim: {fileID: 6516790000295486551}
-  idling: {fileID: 11400000, guid: 91e806866a904b94bb5483412e4f8c1a, type: 2}
-  idling2: {fileID: 11400000, guid: a0b2e31d8e537a24896d5c8718a47ec9, type: 2}
-  moving: {fileID: 11400000, guid: c0b49d4b71e10cd499f081455e8fa975, type: 2}
-  moving2: {fileID: 11400000, guid: e46718769248a564ca1ec204a492c4fa, type: 2}
-  attacking: {fileID: 11400000, guid: 41f25dc2da7fd2f45a67032c1aae97b0, type: 2}
-  attacking2: {fileID: 11400000, guid: bcda2d3ad07463e4bbd81e4122375c88, type: 2}
-  attacking3: {fileID: 11400000, guid: f4967185d67370c47965feb6c05f63e3, type: 2}
-  attacking4: {fileID: 11400000, guid: 30e41ce0d8e251940b1bda8c32fe0379, type: 2}
-  attacking5: {fileID: 11400000, guid: 7a4b0deb7850b77418dad47da8c4e583, type: 2}
-  attacking6: {fileID: 11400000, guid: b1b2a6ab43a382943a8e5d0146624556, type: 2}
-  attacking7: {fileID: 11400000, guid: a96a901610c6ccd4185663e8c18e75c4, type: 2}
-  ultimating: {fileID: 11400000, guid: 9aded212738e22640b01e94c146325a3, type: 2}
-  victorying: {fileID: 11400000, guid: 8fbbc6ad3d2650c46b258fbdb22c899d, type: 2}
-  defeating: {fileID: 11400000, guid: 1ba4c23a51bf8b546a69852cd0963cb9, type: 2}
-  raging: {fileID: 11400000, guid: 53e71ec0f3a9fde4b8a7171a24d0072d, type: 2}
+  idling: {fileID: 11400000, guid: eed519384833b8547874bcb1b5148e0f, type: 2}
+  idling2: {fileID: 11400000, guid: c63ddb324baee2042bd23b7e0fb68c3f, type: 2}
+  moving: {fileID: 11400000, guid: bafd5be2e06cea7428e2003a2a7f8a58, type: 2}
+  moving2: {fileID: 11400000, guid: d6f9a8c92a0f0464592b368edbc3d442, type: 2}
+  attacking: {fileID: 11400000, guid: 1f43a10cd1b6e0049a1ee740125e355e, type: 2}
+  attacking2: {fileID: 11400000, guid: c60bc6c2d2052d643973b6b3189df972, type: 2}
+  attacking3: {fileID: 11400000, guid: 2c50433910c46e447a15ea4d2da3d4a1, type: 2}
+  attacking4: {fileID: 11400000, guid: 13651a4cbfbdb8e41ab361e644234bee, type: 2}
+  attacking5: {fileID: 11400000, guid: 12eca6459d0439e4494d3d9d76dd4a15, type: 2}
+  attacking6: {fileID: 11400000, guid: 9e230d08c97201648a30922cb2d45a51, type: 2}
+  attacking7: {fileID: 11400000, guid: d2b530d615db10745bd03d22877809f5, type: 2}
+  ultimating: {fileID: 11400000, guid: 9a912daae27819747a235a31a2656fb6, type: 2}
+  victorying: {fileID: 11400000, guid: 71db7aa3bc2c8d8429803673d97913f6, type: 2}
+  defeating: {fileID: 11400000, guid: 6dd96cef322cbee40a3f718ded061341, type: 2}
+  raging: {fileID: 11400000, guid: b5764e168b1f11048b963cec21cef916, type: 2}
   currentState: 0
   prevState: 0
   currentAnimation: 
@@ -1609,12 +1609,13 @@ MonoBehaviour:
   - {fileID: 61134897}
   currentUltimateCharge: 0
   ultimateRadius: 20
-  animationSpeed: 2
+  animationSpeed: 1.5
   isUltimate: 0
   isRaging: 0
   extendedIdle: 0
   isMoving: 0
   isIdle: 0
+  isTriggered: 0
   isEnd: 0
   impactTimer: 0.4
   currentImpactTimer: 0
@@ -1678,7 +1679,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: faff18a5b68c8514da848fa291215c40, type: 2}
+  - {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1712,7 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 28884e974c458844db14211bc789b9d1, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 1eb4d6fd8a4f80a4092df2020054903b, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -3031,6 +3032,18 @@ PrefabInstance:
       propertyPath: meteorExplosionSFX
       value: 
       objectReference: {fileID: 8300000, guid: 9bf966af08144e044a4f04faf5ad0b43, type: 3}
+    - target: {fileID: 5820943973999638597, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
+      propertyPath: playerLegs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820943973999638597, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
+      propertyPath: playerLegs.Array.data[0]
+      value: 
+      objectReference: {fileID: 3908049863818947856}
+    - target: {fileID: 5820943973999638597, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
+      propertyPath: playerLegs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5818220570735896870}
     - target: {fileID: 5820943973999638598, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
       propertyPath: m_RootOrder
       value: 2

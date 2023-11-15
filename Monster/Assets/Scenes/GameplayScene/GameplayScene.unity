@@ -559,50 +559,18 @@ PrefabInstance:
       propertyPath: playerStatusBars
       value: 
       objectReference: {fileID: 17487342}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: playerLegs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: playerLegs.Array.data[0]
-      value: 
-      objectReference: {fileID: 1778522092}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: playerLegs.Array.data[1]
-      value: 
-      objectReference: {fileID: 185971646}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: joystick
       value: 
       objectReference: {fileID: 1429078429}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: attackCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: skillRdyText
       value: 
       objectReference: {fileID: 1993682386}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: animationSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b67326eababc885439f1bc5c6b40e10f, type: 2}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: faff18a5b68c8514da848fa291215c40, type: 2}
     - target: {fileID: 6516790000295486552, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -650,14 +618,6 @@ PrefabInstance:
     - target: {fileID: 6516790000295486554, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Name
       value: CrabPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8074805381918868768, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: customMaterialOverrides.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8074805381918868768, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: customSlotMaterials.Array.data[0].overrideDisabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
@@ -1002,11 +962,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &185971646 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5818220570735896870, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &194128754
 GameObject:
   m_ObjectHideFlags: 0
@@ -7133,11 +7088,6 @@ MonoBehaviour:
   LevelManagerScript: {fileID: 1267804330}
   minSpawnPosition: {x: -50, y: -50}
   maxSpawnPosition: {x: 50, y: 50}
---- !u!61 &1778522092 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3908049863818947856, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1808873699
 GameObject:
   m_ObjectHideFlags: 0
