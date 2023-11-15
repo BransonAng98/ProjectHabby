@@ -22,6 +22,7 @@ public class MissileManager : MonoBehaviour
     private bool isEventActive;
     private bool isLaunched;
     private bool hasSpawned;
+    public bool hasEnded;
     
 
     // Start is called before the first frame update
@@ -144,6 +145,7 @@ public class MissileManager : MonoBehaviour
         eventTimer = 0;
         isEventActive = false;
         isLaunched = false;
+        hasEnded = true;
     }
 
     public void StartEvent()
@@ -154,6 +156,7 @@ public class MissileManager : MonoBehaviour
             Invoke("GetSpawnPoints" ,2f);
             isEventActive = true;
             isLaunched = true;
+            hasEnded = false;
         }
        
     }

@@ -5,19 +5,15 @@ using UnityEngine.UI;
 
 public class MissileScript : MonoBehaviour
 {
+    public Camera mainCam;
     public Transform target;
-    public Vector3 prevPos;
-
-    public float speed = 10f;
-    public float rotateSpeed = 200f;
-    
     private Rigidbody2D rb;
     public EnemyScriptableObject enemyData;
-
+    private MissileManager missileManager;
     public GameObject explosionVFX;
-    public LayerMask collateralMask;
 
-    public Camera mainCam;
+    public float speed;
+    public float rotateSpeed = 200f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,23 +21,27 @@ public class MissileScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        missileManager = GameObject.FindGameObjectWithTag("MissileManager").GetComponent<MissileManager>();
     }
 
-    private void Update()
-    {
-       
-    }
     // Update is called once per frame
     void FixedUpdate()
     {
         Vector2 direction = (Vector2)target.position - rb.position;
         direction.Normalize();
         
-        
         float rotateAmount = Vector3.Cross(direction, transform.up).z;
 
         rb.angularVelocity = -rotateAmount * rotateSpeed;
         rb.velocity = transform.up * speed;
+        if(missileManager.hasEnded == true)
+        {
+            speed = 10f;
+        }
+        else if (missileManager.hasEnded == false)
+        {
+            speed = 2f;
+        }
     }
 
     public void BlowUp()
