@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissileManager : MonoBehaviour
 {
     public GameObject missilePrefab;
+    public GameObject tapText;
     public Camera mainCam;
     public Joystick joystick;
     [SerializeField] private PlayerHandler playerHandler;
@@ -17,10 +18,11 @@ public class MissileManager : MonoBehaviour
     public float spawnRadius;
 
     private float eventTimer;
+    private GameObject guide;
     private bool isEventActive;
     private bool isLaunched;
- 
-
+    private bool hasSpawned;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,9 @@ public class MissileManager : MonoBehaviour
     {
         if (isEventActive)
         {
+
+            SpawnGuide();
+
             Invoke("DeactiveBanner", 3f);
 
             anim.SetBool("Close", true);
@@ -76,9 +81,30 @@ public class MissileManager : MonoBehaviour
             if (eventTimer >= eventDuration || playerHandler.isEnd == true)
             {
                 EndEvent();
+                DestroyGuide();
             }
         }
     }
+
+    void SpawnGuide()
+    {
+        if (!hasSpawned)
+        {
+            Vector2 textPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 8f);
+            guide = Instantiate(tapText, textPos, Quaternion.identity);
+            hasSpawned = true;
+        }
+    }
+
+    void DestroyGuide()
+    {
+        if (guide != null)
+        {
+            Destroy(guide);
+            hasSpawned = false;
+        }
+    }
+
 
     public void SpawnMissiles(Vector3 position)
     {
