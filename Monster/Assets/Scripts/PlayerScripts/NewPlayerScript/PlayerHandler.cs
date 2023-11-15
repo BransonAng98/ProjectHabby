@@ -45,7 +45,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
+    public float aoeRange;
     public float animationSpeed;
+    public float attackAnimationSpeed;
 
     [SerializeField] private bool isUltimate;
     [SerializeField] private bool isRaging;
@@ -285,7 +287,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             float objectX = selectedEnemy.gameObject.transform.position.x;
             Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
             float angle = Vector3.Angle(dir, Vector3.down);
-            skeletonAnim.timeScale = 0.8f;
+            skeletonAnim.timeScale = attackAnimationSpeed;
             if (objectX > playerX)
             {
                 if (angle >= 135f)
@@ -329,7 +331,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         attackCount = 0;
         Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, aoeRange);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("BigBuilding"))
@@ -593,7 +595,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (Input.GetKeyUp(KeyCode.K))
         {
            PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
-           playerhealth.TakeDamage(300);
+           playerhealth.TakeDamage(100);
         }
     }
 
