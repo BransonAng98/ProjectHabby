@@ -21,9 +21,8 @@ public class MissileManager : MonoBehaviour
     private GameObject guide;
     private bool isEventActive;
     private bool isLaunched;
-    private bool hasSpawned;
     public bool hasEnded;
-    
+    private bool hasSpawned;
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +39,6 @@ public class MissileManager : MonoBehaviour
         if (isEventActive)
         {
             SpawnGuide();
-
-          
 
             if (Input.touchCount > 0)
             {
@@ -77,7 +74,7 @@ public class MissileManager : MonoBehaviour
             if (eventTimer >= eventDuration || playerHandler.isEnd == true)
             {
                 EndEvent();
-                DestroyGuide();
+                hasSpawned = false;
             }
         }
     }
@@ -86,25 +83,16 @@ public class MissileManager : MonoBehaviour
     {
         if (!hasSpawned)
         {
-            Vector2 textPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 8f);
-            guide = Instantiate(tapText, textPos, Quaternion.identity);
-            hasSpawned = true;
-
             Invoke("DeactiveBanner", 3f);
             anim.SetBool("Close", true);
             Invoke("ResetActivation", 15f);
-        }
-    }
 
-    void DestroyGuide()
-    {
-        if (guide != null)
-        {
-            Destroy(guide);
-            hasSpawned = false;
+            Vector2 textPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 8f);
+            guide = Instantiate(tapText, textPos, Quaternion.Euler(0f, 0f, 0f));
+            hasSpawned = true;
         }
+        
     }
-
 
     public void SpawnMissiles(Vector3 position)
     {

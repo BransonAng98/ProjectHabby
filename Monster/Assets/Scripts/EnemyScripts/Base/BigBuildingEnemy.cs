@@ -114,7 +114,7 @@ public class BigBuildingEnemy : MonoBehaviour
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
         GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
         GameObject crumble = Instantiate(crumblingVFX, transform.position, Quaternion.identity);
-        GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+        GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0)); 
   
     }
 
