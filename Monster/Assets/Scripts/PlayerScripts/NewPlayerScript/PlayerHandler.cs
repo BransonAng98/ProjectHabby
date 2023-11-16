@@ -78,6 +78,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public AudioClip monsterRoarSFX;
     public AudioClip[] painRoarSFX;
 
+    //VFX
+    public GameObject aoeVFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -232,6 +235,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "Smash")
         {
             TriggerAOE();
+            SpawnAoeVFX();
         }
     }
 
@@ -376,6 +380,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 else { return; }
             }
         }
+    }
+
+    void SpawnAoeVFX()
+    {
+        Vector2 aoePos = new Vector2(transform.position.x, transform.position.y - 1f);
+        GameObject aoe = Instantiate(aoeVFX, aoePos, Quaternion.identity);
     }
 
     //In the animation, this will deal damage to the select unit
