@@ -47,6 +47,7 @@ public class MissileScript : MonoBehaviour
     public void BlowUp()
     {
         Destroy(gameObject);
+        Instantiate(explosionVFX, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -39,14 +39,9 @@ public class MissileManager : MonoBehaviour
     {
         if (isEventActive)
         {
-
             SpawnGuide();
 
-            Invoke("DeactiveBanner", 3f);
-
-            anim.SetBool("Close", true);
-
-            Invoke("ResetActivation", 15f);
+          
 
             if (Input.touchCount > 0)
             {
@@ -94,6 +89,10 @@ public class MissileManager : MonoBehaviour
             Vector2 textPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 8f);
             guide = Instantiate(tapText, textPos, Quaternion.identity);
             hasSpawned = true;
+
+            Invoke("DeactiveBanner", 3f);
+            anim.SetBool("Close", true);
+            Invoke("ResetActivation", 15f);
         }
     }
 
