@@ -12,6 +12,13 @@ public class PlayerVFXManager : MonoBehaviour
     public float deathVFXRadius; // The radius in which VFX will be spawned
     public int numberOfVFX = 3; // Number of VFX to spawn
 
+    [SerializeField] private bool isTriggered;
+
+    private void Start()
+    {
+        isTriggered = false;
+    }
+
     public void SpawnImpactAtFoot(int footIndex)
     {
         if (footIndex >= 0 && footIndex < inputHandler.legLocations.Length)
@@ -25,11 +32,15 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SpawnDeathVFX()
     {
-        for (int i = 0; i < numberOfVFX; i++)
+        if (!isTriggered)
         {
-            Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 2f);
-            Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
-            Instantiate(deathVFX, randomPosition, Quaternion.identity);
+            for (int i = 0; i < numberOfVFX; i++)
+            {
+                isTriggered = true;
+                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 2f);
+                Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
+                Instantiate(deathVFX, randomPosition, Quaternion.identity);
+            }
         }
     }
 }

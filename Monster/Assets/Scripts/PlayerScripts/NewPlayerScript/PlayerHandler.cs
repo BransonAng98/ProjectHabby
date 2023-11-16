@@ -331,8 +331,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public void TriggerAOE()
     {
         attackCount = 0;
-        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, aoeRange);
+        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y + 2f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, aoeRange);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("BigBuilding"))
@@ -550,7 +550,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.victory))
         {
-            SetAnimation(0, victorying, false, 1f);
+            SetAnimation(0, victorying, true, 1f);
         }
 
         if (state.Equals(PlayerStates.defeat))
