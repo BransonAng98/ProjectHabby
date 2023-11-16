@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public int triggerThreshold;
     public int currentScore;
     public int numberOfEvents;
+    public int eventNumber;
 
     public TextMeshProUGUI bannerText;
     public LevelManager levelManagerScript;
@@ -20,9 +21,12 @@ public class EventManager : MonoBehaviour
     public MissileManager missileScript;
     [SerializeField] private bool gameStarted;
 
+    public AudioManagerScript audiomanager;
+
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         airStrikeScript = GameObject.Find("AirStrikeSpawner").GetComponent<AirStrike>();
         artilleryScript = GameObject.Find("ArtySpawner").GetComponent<Artillery>();
         missileScript = GameObject.Find("MissileManager").GetComponent<MissileManager>();
@@ -35,21 +39,29 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
+
+        GenerateEvents();
+    }
+
+    public void GenerateEvents()
+    {
         if (gameStarted && playerHandler.isEnd != true)
         {
             if (currentScore >= triggerThreshold)
             {
-                int randomEvent = Random.Range(0, 3); 
+                eventNumber = Random.Range(0, 3);
 
-                switch (randomEvent)
+                switch (eventNumber)
                 {
                     case 0:
                         airStrikeScript.ActivateAirStrike();
+                        audiomanager.PlayIncomingAbility();
                         bannerText.text = "Incoming AirStrike!";
                         currentScore = 0;
                         break;
                     case 1:
                         artilleryScript.ActivateArtillery();
+                        audiomanager.PlayIncomingAbility();
                         bannerText.text = "Incoming Barrage!";
                         currentScore = 0;
                         break;
@@ -65,7 +77,7 @@ public class EventManager : MonoBehaviour
         }
 
     }
-
+    
     void GetScore()
     {
         totalScore = levelManagerScript.calculation1;

@@ -103,7 +103,11 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 08d669bf5a66e6f45b35b79c6cb0c199, type: 2}
   explosionVFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   artiAudioSource: {fileID: 6672776000641274943}
-  artiSFX: []
+  artiSFX:
+  - {fileID: 8300000, guid: f8fbb657cce751347aa7be5565cccbc9, type: 3}
+  - {fileID: 8300000, guid: 43bd45c1377e9344c834571bfff20ea7, type: 3}
+  - {fileID: 8300000, guid: 8fd3ef887a9be7b4296badb1b29283d6, type: 3}
+  - {fileID: 8300000, guid: 2c8eaaaabe5d3bd4cb7b64d815edbcfe, type: 3}
 --- !u!70 &2939362524460145714
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -240,7 +244,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.748
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -7,7 +7,9 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource BGMSource;
     public AudioSource CivilianSource;
     public AudioSource feedbackaudioSource;
+    public AudioSource militaryAbilityWarningSource;
     public AudioSource militaryAbilitySource;
+    public AudioClip[] militaryIncomingSFX;
     public AudioClip[] feedbackSFX;
     public AudioClip wooshSFX1;
     public AudioClip wooshSFX2;
@@ -15,6 +17,7 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip sirenSFX;
     public AudioClip bgm;
     public GameManagerScript gamemanager;
+    public EventManager eventmanagerScript;
     [SerializeField] float minTime;
     [SerializeField] float maxTime;
     // Start is called before the first frame update
@@ -22,6 +25,7 @@ public class AudioManagerScript : MonoBehaviour
     {
         minTime = 1f;
         maxTime = 1f;
+        eventmanagerScript = GameObject.Find("EventManager").GetComponent<EventManager>();
     }
 
     // Update is called once per frame
@@ -52,20 +56,45 @@ public class AudioManagerScript : MonoBehaviour
 
     public void PlayWarningSFX()
     {
-        militaryAbilitySource.PlayOneShot(sirenSFX);
+        militaryAbilityWarningSource.PlayOneShot(sirenSFX);
     }
 
     public void PlayWoosh1SFX()
     {
-        militaryAbilitySource.PlayOneShot(wooshSFX1);
+        militaryAbilityWarningSource.PlayOneShot(wooshSFX1);
     }
 
     public void PlayWoosh2SFX()
     {
-        militaryAbilitySource.PlayOneShot(wooshSFX2);
+        militaryAbilityWarningSource.PlayOneShot(wooshSFX2);
     }
 
+    public void PlayIncomingAbility()
+    {
+        //float randomPitch = Random.Range(0.8f, 1.2f);
+        //militaryAbilitySource.pitch = randomPitch;
+        
+      
+        if(eventmanagerScript.eventNumber == 0)
+        {
+            //airstrike
+            AudioClip soundtoPlay = militaryIncomingSFX[0];
+            militaryAbilitySource.PlayOneShot(soundtoPlay);
+        }
+        if (eventmanagerScript.eventNumber == 1)
+        {
+            //artillery
+            AudioClip soundtoPlay = militaryIncomingSFX[1];
+            militaryAbilitySource.PlayOneShot(soundtoPlay);
+        }
+        if (eventmanagerScript.eventNumber == 2)
+        {
+            AudioClip soundtoPlay = militaryIncomingSFX[0];
+            militaryAbilitySource.PlayOneShot(soundtoPlay);
+        }
 
+       
+    }
 
 
     public IEnumerator PlayRandomScreaming()
