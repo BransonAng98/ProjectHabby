@@ -14,7 +14,7 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
     }
 
     void UpdateLevelName()
@@ -25,7 +25,7 @@ public class LobbyManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        audiomanager.PlayTap();
+        //audiomanager.PlayTap();
         if(levelData.cutscenePlayed)
         {
             if (levelData.cityLevel < 10)

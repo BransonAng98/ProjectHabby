@@ -3800,7 +3800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &2140374373
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4104,17 +4104,26 @@ MonoBehaviour:
   BGMSource: {fileID: 2140374375}
   CivilianSource: {fileID: 2140374374}
   feedbackaudioSource: {fileID: 2140374373}
+  militaryAbilityWarningSource: {fileID: 0}
+  militaryAbilitySource: {fileID: 0}
+  militaryIncomingSFX: []
   feedbackSFX:
   - {fileID: 8300000, guid: 415129ff45476f941829940cff695232, type: 3}
   - {fileID: 8300000, guid: 74f7f9b634ef00c4d9c634943ecab96d, type: 3}
   - {fileID: 8300000, guid: 0621c294fa3795647b00436c68fcfae7, type: 3}
   - {fileID: 8300000, guid: c8dda5d16cfe655469c8960a7deaeb3c, type: 3}
+  wooshSFX1: {fileID: 0}
+  wooshSFX2: {fileID: 0}
   screamingSFX:
   - {fileID: 8300000, guid: 28f6b5ffd05433044a93e80a98993d53, type: 3}
   - {fileID: 8300000, guid: 1be67d6cda070dc418ff10a6eea512b4, type: 3}
   - {fileID: 8300000, guid: 097db12577f665d42a5e646bfd4224bf, type: 3}
+  sirenSFX: {fileID: 0}
   bgm: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
+  Victory: {fileID: 0}
+  Defeat: {fileID: 0}
   gamemanager: {fileID: 0}
+  eventmanagerScript: {fileID: 0}
   minTime: 0
   maxTime: 0
 --- !u!4 &2140374377

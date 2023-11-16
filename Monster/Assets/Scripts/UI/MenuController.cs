@@ -11,12 +11,12 @@ public class MenuController : MonoBehaviour
 
     public void Start()
     {
-		audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+		//audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
 	}
 
     public void EnterGame()
 	{
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 		Debug.Log("Sound");
 		SceneManager.LoadScene("LevelSelectScene");
 	}
@@ -27,12 +27,12 @@ public class MenuController : MonoBehaviour
 		PauseMenu.SetActive(true);
 		PauseButton.SetActive(false);
 		Time.timeScale = 0;
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 	}
 
 	public void ResumeGame()
 	{
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 		PauseMenu.SetActive(false);
 		PauseButton.SetActive(true);
 		Time.timeScale = 1;
@@ -41,19 +41,19 @@ public class MenuController : MonoBehaviour
 
 	public void LoadLab()
     {
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 		SceneManager.LoadScene("LabScene");
 	}
 
 	public void LoadGame()
 	{
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 		SceneManager.LoadScene("ComicScene");	
 	}
 
 	public void LeaveGame()
     {
-		audiomanager.PlayTap();
+		//audiomanager.PlayTap();
 		SceneManager.LoadScene("LevelSelectScene");
     }
 }
