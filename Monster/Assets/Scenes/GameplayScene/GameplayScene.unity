@@ -543,26 +543,6 @@ PrefabInstance:
       propertyPath: abilitySlider
       value: 
       objectReference: {fileID: 1356264708}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: clock
-      value: 
-      objectReference: {fileID: 221350691}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 2026836919}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: hitIndicator
-      value: 
-      objectReference: {fileID: 635596423}
-    - target: {fileID: 4808522481813150659, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: playerStatusBars
-      value: 
-      objectReference: {fileID: 17487342}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: aoeRange
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: joystick
       value: 
@@ -571,42 +551,10 @@ PrefabInstance:
       propertyPath: skillRdyText
       value: 
       objectReference: {fileID: 1993682386}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: attackAnimationSpeed
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: painRoarSFX.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: painRoarSFX.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: fd710a1968348b042abe5206330ea6fd, type: 3}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: painRoarSFX.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3caa468ddfdacd34aa117782af94b06c, type: 3}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: painRoarSFX.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3da16ea8fbe4f0240aa5f860d64173eb, type: 3}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
-    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
     - target: {fileID: 6516790000295486552, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -654,18 +602,6 @@ PrefabInstance:
     - target: {fileID: 6516790000295486554, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Name
       value: CrabPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948020723646364850, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Size.x
-      value: 5.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948020723646364850, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Size.y
-      value: 1.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948020723646364850, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Direction
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
@@ -2791,6 +2727,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 097db12577f665d42a5e646bfd4224bf, type: 3}
   sirenSFX: {fileID: 8300000, guid: aa6cf1b3efb0fe44f9af2ad61d664d23, type: 3}
   bgm: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
+  Victory: {fileID: 8300000, guid: 565a4ffccc2017f4586c83266f7593c7, type: 3}
+  Defeat: {fileID: 8300000, guid: fe7114cc7ffa3da49a8269de21008db2, type: 3}
   gamemanager: {fileID: 1267804331}
   eventmanagerScript: {fileID: 0}
   minTime: 0
@@ -7641,6 +7579,7 @@ MonoBehaviour:
   commanderDialogues:
   - {fileID: 21300000, guid: b93e8e207e89f3641a0a1b3d30ae11b7, type: 3}
   - {fileID: 21300000, guid: a5092e2daf940f94dad27354187ff747, type: 3}
+  audiomanager: {fileID: 0}
 --- !u!95 &1954519007
 Animator:
   serializedVersion: 5

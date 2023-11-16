@@ -16,6 +16,8 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip[] screamingSFX;
     public AudioClip sirenSFX;
     public AudioClip bgm;
+    public AudioClip Victory;
+    public AudioClip Defeat;
     public GameManagerScript gamemanager;
     public EventManager eventmanagerScript;
     [SerializeField] float minTime;
@@ -38,7 +40,18 @@ public class AudioManagerScript : MonoBehaviour
     {
         BGMSource.PlayOneShot(bgm);
     }
+    
+    public void PlayVictoryBGM()
+    {
+        BGMSource.PlayOneShot(Victory);
+        Debug.Log("Win");
+    }
 
+    public void PlayDefeatBGM()
+    {
+        BGMSource.PlayOneShot(Defeat);
+        Debug.Log("Lose");
+    }
     public void PlayScreaming()
     {
         // Choose a random screaming sound from the list
@@ -96,6 +109,10 @@ public class AudioManagerScript : MonoBehaviour
        
     }
 
+    public void StopBGM()
+    {
+        BGMSource.Stop();
+    }
 
     public IEnumerator PlayRandomScreaming()
     {

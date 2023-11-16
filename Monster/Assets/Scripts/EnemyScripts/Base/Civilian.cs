@@ -43,6 +43,10 @@ public class Civilian : MonoBehaviour
 
     public FakeHeightScript fakeheight;
 
+    public AudioSource civilianAudioSource;
+    public AudioClip[] DeathSFX;
+    private bool deathSFXPlayed = false;
+
 
     private void Awake()
     {
@@ -204,6 +208,7 @@ public class Civilian : MonoBehaviour
     {
         if(fakeheight.isGrounded == true)
         {
+            PlayDeathSFX();
             entityCollider.enabled = true;
             enemyState = EnemyState.death;
         }
@@ -212,6 +217,7 @@ public class Civilian : MonoBehaviour
 
     public void Death()
     {
+       
         if (!isTriggered)
         {
             levelManager.CalculateScore(0.1f);
@@ -229,6 +235,13 @@ public class Civilian : MonoBehaviour
         {
             eventManager.AddScore();
             hasDied = true;
+        }
+
+        // Check if the death sound effect has already been played
+        if (!deathSFXPlayed)
+        {
+            PlayDeathSFX();
+            deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
 
         Destroy(transform.parent.gameObject, 5f);
@@ -279,5 +292,11 @@ public class Civilian : MonoBehaviour
                 break;
 
         }
+    }
+
+    public void PlayDeathSFX()
+    {
+        AudioClip deathsoundtoPlay = DeathSFX[Random.Range(0, DeathSFX.Length)];
+        civilianAudioSource.PlayOneShot(deathsoundtoPlay);
     }
 }

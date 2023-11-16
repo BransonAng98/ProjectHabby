@@ -70,12 +70,17 @@ public class GameManagerScript : MonoBehaviour
         endScreen.SetActive(true);
         if (isVictory == false)
         {
+            
+            audiomanager.PlayVictoryBGM();  
             winScreen.SetActive(false);
+           
         }
 
         else
         {
+            audiomanager.PlayDefeatBGM();
             loseScreen.SetActive(false);
+            
         }
     }
 
@@ -132,11 +137,10 @@ public class GameManagerScript : MonoBehaviour
     }
     void StartGame()
     {
+        audiomanager.PlayTap();
         // Call any other functions or actions to start your game
         deployScreen.SetActive(false);
-
         audiomanager.PlayBGM();
-        audiomanager.PlayTap(); 
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
 

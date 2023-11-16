@@ -20,6 +20,8 @@ public class PlayerHealthScript : MonoBehaviour
     public Image healthFill;
     public Image abilityFill;
     public float lerpSpeed = 2f;
+    private float lastPainRoarTime; // Variable to store the time of the last pain roar
+    private float painRoarCooldown = 5f; // Adjust the cooldown duration as needed
 
     private ObjectShakeScript shakeScript;
     private float currentHealth;
@@ -141,7 +143,11 @@ public class PlayerHealthScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        playerHandler.PainRoar();
+        if (Time.time - lastPainRoarTime >= painRoarCooldown)
+        {
+            playerHandler.PainRoar(); // Play the pain roar
+            lastPainRoarTime = Time.time; // Update the last pain roar time
+        }
         //shakeScript.StartShake();
         if (playerSO.health >= 1)
         {

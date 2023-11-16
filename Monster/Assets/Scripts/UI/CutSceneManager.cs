@@ -10,12 +10,15 @@ public class CutSceneManager : MonoBehaviour
     private PlayerHandler inputHandler;
     public Image commanderImage;
     public List<Sprite> commanderDialogues = new List<Sprite>();
+    public AudioManagerScript audiomanager;
+
 
     private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         anim = GetComponent<Animator>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
     }
 
     public void TriggerDialogue()
@@ -33,11 +36,13 @@ public class CutSceneManager : MonoBehaviour
 
     public void CallEndScreen()
     {
+        ;
         gameManager.TriggerEndScreen();
     }
 
     public void TriggerEnd()
     {
+        audiomanager.StopBGM();
         inputHandler.canMove = false;
         TriggerDialogue();
         anim.SetBool("isTriggered", true);

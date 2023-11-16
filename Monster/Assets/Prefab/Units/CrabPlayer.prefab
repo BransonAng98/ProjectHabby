@@ -1608,9 +1608,9 @@ MonoBehaviour:
   - {fileID: 61134897}
   currentUltimateCharge: 0
   ultimateRadius: 20
-  aoeRange: 0
+  aoeRange: 5
   animationSpeed: 1.5
-  attackAnimationSpeed: 0
+  attackAnimationSpeed: 0.8
   isUltimate: 0
   isRaging: 0
   extendedIdle: 0
@@ -1637,6 +1637,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2580c76bdc5e10a4e8c9352af78856b4, type: 3}
   - {fileID: 8300000, guid: 0667514fcb2816e4ea74213c81ebc405, type: 3}
   monsterRoarSFX: {fileID: 8300000, guid: 18f3830218821b04d99e49edc2176462, type: 3}
+  painRoarSFX:
+  - {fileID: 8300000, guid: fd710a1968348b042abe5206330ea6fd, type: 3}
+  - {fileID: 8300000, guid: 3caa468ddfdacd34aa117782af94b06c, type: 3}
+  - {fileID: 8300000, guid: 3da16ea8fbe4f0240aa5f860d64173eb, type: 3}
 --- !u!114 &61134896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1786,6 +1790,7 @@ MonoBehaviour:
   deathVFX: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   deathVFXRadius: 2
   numberOfVFX: 3
+  isTriggered: 0
 --- !u!70 &8948020723646364850
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1799,8 +1804,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18464021, y: 2.2201722}
-  m_Size: {x: 7.9269476, y: 5.001038}
+  m_Offset: {x: 0, y: 1.5}
+  m_Size: {x: 5.5, y: 4}
   m_Direction: 1
 --- !u!82 &61134904
 AudioSource:
