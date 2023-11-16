@@ -53,12 +53,10 @@ MonoBehaviour:
   speed: 20
   isMoving: 0
   isActive: 0
-  player: {fileID: 0}
-  gamemanager: {fileID: 0}
+  gameManager: {fileID: 0}
   crater: {fileID: 5358245250867353744, guid: 1857e2866141d7f4c910836ab96224e2, type: 3}
   playerHandler: {fileID: 0}
   playerSO: {fileID: 0}
-  audiomanager: {fileID: 0}
   meteorAudioSource: {fileID: 5499134777875608885}
   meteormovingSFX: {fileID: 8300000, guid: dac91c514d4ef6d4fb7a2ccdd18af89d, type: 3}
   meteorExplosionSFX: {fileID: 8300000, guid: 9bf966af08144e044a4f04faf5ad0b43, type: 3}
@@ -163,7 +161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
