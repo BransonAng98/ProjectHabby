@@ -24,7 +24,7 @@ public class PlayerVFXManager : MonoBehaviour
         if (footIndex >= 0 && footIndex < inputHandler.legLocations.Length)
         {
             GameObject foot = inputHandler.legLocations[footIndex];
-            Vector2 footPos = new Vector2(foot.transform.position.x, foot.transform.position.y);
+            Vector2 footPos = new Vector2(foot.transform.position.x, foot.transform.position.y - 0.2f);
             Instantiate(impactSprite, footPos, Quaternion.identity);
             Instantiate(smokeVFX, footPos, Quaternion.identity);
         }
