@@ -65,7 +65,10 @@ public class BigBuildingEnemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         tempHealth -= damage;
-        shakeScript.StartShake();
+        if(shakeScript != null)
+        {
+            shakeScript.StartShake();
+        }
         SpawnCivilian();
         DamageEffect();
         playDamageSFX();

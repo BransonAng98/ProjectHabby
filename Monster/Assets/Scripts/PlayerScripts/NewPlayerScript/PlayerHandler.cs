@@ -19,7 +19,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -537,15 +537,53 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.move))
         {
-            if(movementInput.y > 0)
+            Debug.Log(movementInput);
+            //Moving Upwards
+            if(movementInput.x > -0.60 && movementInput.x < 0.60f && movementInput.y > 0f && movementInput.y < 1f)
             {
                 SetAnimation(0, moving, true, 1f);
             }
-
-            else if(movementInput.y < 0)
+            //Moving Downwards
+            if (movementInput.x > -0.60f && movementInput.x < 0.60f && movementInput.y < 0f && movementInput.y > -1f)
             {
                 SetAnimation(0, moving2, true, 1f);
             }
+            //Moving Left
+            if (movementInput.x < 0f && movementInput.x > -1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
+            {
+                SetAnimation(0, moving3, true, 1f);
+            } 
+            //Moving Right
+            if (movementInput.x > 0f && movementInput.x < 1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
+            {
+                SetAnimation(0, moving4, true, 1f);
+            }
+
+
+            //if (movementInput.y != 0 && movementInput.y > movementInput.x)
+            //{
+            //    if (movementInput.y > 0)
+            //    {
+            //        SetAnimation(0, moving, true, 1f);
+            //    }
+
+            //    else if (movementInput.y < 0)
+            //    {
+            //        SetAnimation(0, moving3, true, 1f);
+            //    }
+            //}
+            //if (movementInput.x != 0 && movementInput.x > movementInput.y)
+            //{
+            //    if (movementInput.x > 0)
+            //    {
+            //        SetAnimation(0, moving4, true, 1f);
+            //    }
+
+            //    else if (movementInput.x < 0)
+            //    {
+            //        SetAnimation(0, moving2, true, 1f);
+            //    }
+            //}
         }
 
         if (state.Equals(PlayerStates.attack))
