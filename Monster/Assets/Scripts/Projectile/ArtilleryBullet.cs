@@ -51,7 +51,8 @@ public class ArtilleryBullet : MonoBehaviour
 
     public void BlowUp()
     {
-        PlayExplodeSFX();
+        Debug.Log("Blow Up");
+        //PlayExplodeSFX();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
         foreach (Collider2D collider in hitColliders)
         {

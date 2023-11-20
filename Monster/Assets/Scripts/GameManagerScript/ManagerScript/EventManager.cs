@@ -55,13 +55,13 @@ public class EventManager : MonoBehaviour
                 {
                     case 0:
                         airStrikeScript.ActivateAirStrike();
-                        audiomanager.PlayIncomingAbility();
+                        Invoke("PlaySFX", 6f);
                         bannerText.text = "Incoming AirStrike!";
                         currentScore = 0;
                         break;
                     case 1:
                         artilleryScript.ActivateArtillery();
-                        audiomanager.PlayIncomingAbility();
+                        Invoke("PlaySFX", 6f);
                         bannerText.text = "Incoming Barrage!";
                         currentScore = 0;
                         break;
@@ -78,6 +78,11 @@ public class EventManager : MonoBehaviour
 
     }
     
+    public void PlaySFX()
+    {
+        audiomanager.PlayIncomingAbility();
+    }
+
     void GetScore()
     {
         totalScore = levelManagerScript.calculation1;

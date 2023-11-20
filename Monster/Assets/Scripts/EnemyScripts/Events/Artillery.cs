@@ -129,6 +129,7 @@ public class Artillery : MonoBehaviour
                 if (artilleryBulletComponent != null)
                 {
                     artilleryBulletComponent.BlowUp();
+                    artilleryBulletComponent.PlayExplodeSFX();
                 }
 
                 // Destroy the artillery prefab instance
