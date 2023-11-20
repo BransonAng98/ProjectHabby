@@ -1568,21 +1568,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnim: {fileID: 6516790000295486551}
-  idling: {fileID: 11400000, guid: eed519384833b8547874bcb1b5148e0f, type: 2}
-  idling2: {fileID: 11400000, guid: c63ddb324baee2042bd23b7e0fb68c3f, type: 2}
-  moving: {fileID: 11400000, guid: bafd5be2e06cea7428e2003a2a7f8a58, type: 2}
-  moving2: {fileID: 11400000, guid: d6f9a8c92a0f0464592b368edbc3d442, type: 2}
-  attacking: {fileID: 11400000, guid: 1f43a10cd1b6e0049a1ee740125e355e, type: 2}
-  attacking2: {fileID: 11400000, guid: c60bc6c2d2052d643973b6b3189df972, type: 2}
-  attacking3: {fileID: 11400000, guid: 2c50433910c46e447a15ea4d2da3d4a1, type: 2}
-  attacking4: {fileID: 11400000, guid: 13651a4cbfbdb8e41ab361e644234bee, type: 2}
-  attacking5: {fileID: 11400000, guid: 12eca6459d0439e4494d3d9d76dd4a15, type: 2}
-  attacking6: {fileID: 11400000, guid: 9e230d08c97201648a30922cb2d45a51, type: 2}
-  attacking7: {fileID: 11400000, guid: d2b530d615db10745bd03d22877809f5, type: 2}
-  ultimating: {fileID: 11400000, guid: 9a912daae27819747a235a31a2656fb6, type: 2}
-  victorying: {fileID: 11400000, guid: 71db7aa3bc2c8d8429803673d97913f6, type: 2}
-  defeating: {fileID: 11400000, guid: 6dd96cef322cbee40a3f718ded061341, type: 2}
-  raging: {fileID: 11400000, guid: b5764e168b1f11048b963cec21cef916, type: 2}
+  idling: {fileID: 11400000, guid: 8c49f57c967a11b4894b56b57960f161, type: 2}
+  idling2: {fileID: 11400000, guid: fafb0f0a19af316449f8b2fabe13e5ba, type: 2}
+  moving: {fileID: 11400000, guid: 3ae30212a0643584687607ea6cbe93ca, type: 2}
+  moving2: {fileID: 11400000, guid: d7f700ca747bd224a9757396f37c45ef, type: 2}
+  attacking: {fileID: 11400000, guid: cebb7256f7e8f8b4db4e1d4f566c483b, type: 2}
+  attacking2: {fileID: 11400000, guid: ceccc2c904b7e624db704e8ee224e431, type: 2}
+  attacking3: {fileID: 11400000, guid: 1578e4dfe7b54a74f928fab008011a4d, type: 2}
+  attacking4: {fileID: 11400000, guid: 3f4ac8e3cb6744c42b2fa72bbbd41095, type: 2}
+  attacking5: {fileID: 11400000, guid: 5e207a73c7daf8b41b1f3174f147d2cc, type: 2}
+  attacking6: {fileID: 11400000, guid: 777bb5bd7a33e7f4696ebd814587d0f7, type: 2}
+  attacking7: {fileID: 11400000, guid: 783e356eaf4a994488f554d5e62f50ea, type: 2}
+  ultimating: {fileID: 11400000, guid: 9da955b3ed690594d891c211789a90cb, type: 2}
+  victorying: {fileID: 11400000, guid: d3264b9b27ebb144c9a82718ae3db06d, type: 2}
+  defeating: {fileID: 11400000, guid: 5206786a36d688c45b54b909bdedf96f, type: 2}
+  raging: {fileID: 11400000, guid: a346fa424cccd204ab99471d4992ce16, type: 2}
   currentState: 0
   prevState: 0
   currentAnimation: 
@@ -1641,6 +1641,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fd710a1968348b042abe5206330ea6fd, type: 3}
   - {fileID: 8300000, guid: 3caa468ddfdacd34aa117782af94b06c, type: 3}
   - {fileID: 8300000, guid: 3da16ea8fbe4f0240aa5f860d64173eb, type: 3}
+  aoeVFX: {fileID: 0}
 --- !u!114 &61134896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1666,8 +1667,8 @@ MonoBehaviour:
   ogAtkSpeed: 0
   isTriggered: 0
   meshRenderer: {fileID: 0}
-  originalMat: {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
-  rageMat: {fileID: 2100000, guid: 2d420301d34c18344915f7f080bf7c74, type: 2}
+  originalMat: {fileID: 2100000, guid: 07e5c75f43006234ab1de2c3ee0eefa4, type: 2}
+  rageMat: {fileID: 2100000, guid: b0d0b4502772f5f42985dd584aa804d6, type: 2}
 --- !u!23 &6516790000295486548
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1688,7 +1689,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
+  - {fileID: 2100000, guid: 07e5c75f43006234ab1de2c3ee0eefa4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1722,7 +1723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 1eb4d6fd8a4f80a4092df2020054903b, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 409556e3e5e45544ba645cd197dfd52b, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0

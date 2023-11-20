@@ -96,7 +96,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         cameraShake = FindObjectOfType<CameraShake>();
         entitycollider.enabled = false;
 
-       varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
+        varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
                 
     // Update is called once per frame
@@ -215,7 +215,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             PlaySFX();
         }
 
-        if(eventName == "foot")
+        if(eventName == "step")
         {
             SpawnFootprint();
             PlaySFX();

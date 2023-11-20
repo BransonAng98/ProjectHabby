@@ -59,6 +59,7 @@ public class BigBuildingEnemy : MonoBehaviour
         civilianParent = GameObject.Find("---Civillian---");
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        buildingAudioSource = GetComponent<AudioSource>();
     }
 
     public void TakeDamage(float damage)
