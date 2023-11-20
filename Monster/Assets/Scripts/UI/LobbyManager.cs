@@ -11,10 +11,11 @@ public class LobbyManager : MonoBehaviour
     public ResourceScriptableObject resourceData;
     public TextMeshProUGUI gnaText;
     public AudioManagerScript audiomanager;
+    public MenuAMScript menuaudiomanager;
     // Start is called before the first frame update
     void Start()
     {
-        //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
     }
 
     void UpdateLevelName()
@@ -25,7 +26,7 @@ public class LobbyManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        //audiomanager.PlayTap();
+        menuaudiomanager.PlayTap();
         if(levelData.cutscenePlayed)
         {
             if (levelData.cityLevel < 10)
