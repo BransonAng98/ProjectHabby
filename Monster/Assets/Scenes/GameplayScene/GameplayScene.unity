@@ -543,34 +543,34 @@ PrefabInstance:
       propertyPath: abilitySlider
       value: 
       objectReference: {fileID: 1356264708}
-    - target: {fileID: 61134904, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Volume
-      value: 0.518
-      objectReference: {fileID: 0}
-    - target: {fileID: 61134914, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: m_Volume
-      value: 0.492
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: aoeVFX
-      value: 
-      objectReference: {fileID: 4593184484909914552, guid: d31268f43c29d024d9f8578b97c308f5, type: 3}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: joystick
       value: 
       objectReference: {fileID: 1429078429}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: slowDown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: skillRdyText
       value: 
       objectReference: {fileID: 1993682386}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: animationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: attackAnimationSpeed
-      value: 1.2
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17cbdd9082500c04091388ea5a8271f0, type: 2}
     - target: {fileID: 6516790000295486552, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -5613,7 +5613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9b234ec21d1194fb151b10cbba12e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audiomanager: {fileID: 0}
+  menuaudiomanager: {fileID: 0}
   PauseMenu: {fileID: 1320678912}
   PauseButton: {fileID: 486892283}
 --- !u!114 &1320678914
@@ -6065,6 +6065,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 924281399}
     m_Modifications:
+    - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+      propertyPath: deadZone
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: background
       value: 

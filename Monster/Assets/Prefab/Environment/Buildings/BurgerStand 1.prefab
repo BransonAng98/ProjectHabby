@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 184248125}
   - component: {fileID: 3435494958905190913}
   - component: {fileID: 3575300409068123782}
+  - component: {fileID: 5537119307784137995}
   m_Layer: 7
   m_Name: BurgerStand 1
   m_TagString: BigBuilding
@@ -286,7 +287,7 @@ MonoBehaviour:
   minCoins: 1
   maxCoins: 4
   spawnRadius: 3
-  shakeScript: {fileID: 0}
+  shakeScript: {fileID: 5239119792657887147}
   groundDispenseVelocity: {x: 12, y: 12}
   verticalDispenseVelocity: {x: 15, y: 15}
   buildingAudioSource: {fileID: 0}
@@ -394,6 +395,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5537119307784137995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221071100537269565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d1dee8165ad3646b74c4ac32988a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.2
+  shakeStrength: 0.2
+  player: {fileID: 0}
 --- !u!1 &4489786999218458982
 GameObject:
   m_ObjectHideFlags: 0

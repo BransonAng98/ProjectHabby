@@ -5,34 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-	public AudioManagerScript audiomanager;
+	public MenuAMScript menuaudiomanager;
 	public GameObject PauseMenu;
 	public GameObject PauseButton;
 
     public void Start()
     {
-		//audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+		menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
 	}
 
     public void EnterGame()
 	{
-		//audiomanager.PlayTap();
+		menuaudiomanager.PlayTap();
 		Debug.Log("Sound");
 		SceneManager.LoadScene("LevelSelectScene");
 	}
 
 	public void PauseGame()
 	{
-		
+		menuaudiomanager.PlayTap();
 		PauseMenu.SetActive(true);
 		PauseButton.SetActive(false);
 		Time.timeScale = 0;
-		//audiomanager.PlayTap();
 	}
 
 	public void ResumeGame()
 	{
-		//audiomanager.PlayTap();
+		menuaudiomanager.PlayTap();
 		PauseMenu.SetActive(false);
 		PauseButton.SetActive(true);
 		Time.timeScale = 1;
@@ -41,19 +40,19 @@ public class MenuController : MonoBehaviour
 
 	public void LoadLab()
     {
-		//audiomanager.PlayTap();
+		menuaudiomanager.PlayTap();
 		SceneManager.LoadScene("LabScene");
 	}
 
 	public void LoadGame()
 	{
-		//audiomanager.PlayTap();
+		menuaudiomanager.PlayTap();
 		SceneManager.LoadScene("ComicScene");	
 	}
 
 	public void LeaveGame()
     {
-		//audiomanager.PlayTap();
+		menuaudiomanager.PlayTap();
 		SceneManager.LoadScene("LevelSelectScene");
     }
 }

@@ -19,7 +19,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -37,6 +37,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public bool canMove;
     [SerializeField] private bool isAttacking;
     [SerializeField] private int attackCount;
+    [SerializeField] private float degreeAngle;
 
     public GameObject[] legLocations;
     public GameObject HitDetection;
@@ -140,10 +141,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         movementInput = new Vector2(moveX, moveY).normalized;
         rb.velocity = new Vector2(movementInput.x * playerData.speed, movementInput.y * playerData.speed);
         skeletonAnim.timeScale = animationSpeed;
+
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
             cameraShake.ShakeCamera();
+            float angleRadians = Mathf.Atan2(movementInput.y, movementInput.x);
+
+            // Convert the angle from radians to degrees
+            degreeAngle = angleRadians * Mathf.Rad2Deg;
+
+            // Ensure the angle is positive (0 to 360 degrees)
+            degreeAngle = (degreeAngle + 360) % 360;
+
 
             if (!currentState.Equals(PlayerStates.attack))
             {
@@ -292,42 +302,40 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             float objectX = selectedEnemy.gameObject.transform.position.x;
             Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
             float angle = Vector3.Angle(dir, Vector3.down);
-            skeletonAnim.timeScale = attackAnimationSpeed;
             if (objectX > playerX)
             {
                 if (angle >= 135f)
                 {
-                    SetAnimation(0, attacking3, true, 1f);
+                    SetAnimation(0, attacking3, true, attackAnimationSpeed);
                 }
                 if (angle >= 45f && angle < 135f)
                 {
-                    SetAnimation(0, attacking2, true, 1f);
+                    SetAnimation(0, attacking2, true, attackAnimationSpeed);
                 }
                 if (angle >= 0f && angle < 45f)
                 {
-                    SetAnimation(0, attacking, true, 1f);
+                    SetAnimation(0, attacking, true, attackAnimationSpeed);
                 }
             }
             else if (objectX < playerX)
             {
                 if (angle >= 135f)
                 {
-                    SetAnimation(0, attacking6, true, 1f);
+                    SetAnimation(0, attacking6, true, attackAnimationSpeed);
                 }
                 if (angle >= 45f && angle < 135f)
                 {
-                    SetAnimation(0, attacking5, true, 1f);
+                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
                 }
                 if (angle >= 0f && angle < 45f)
                 {
-                    SetAnimation(0, attacking4, true, 1f);
+                    SetAnimation(0, attacking4, true, attackAnimationSpeed);
                 }
             }
         }
 
         else
         {
-            skeletonAnim.timeScale = 1f;
             SetAnimation(0, attacking7, false, 1f);
         }
     }
@@ -429,7 +437,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             case 0:
                 SetCharacterState(PlayerStates.ultimate);
-                skeletonAnim.timeScale = 1f;
                 if (!currentState.Equals(PlayerStates.ultimate))
                 {
                     prevState = currentState;
@@ -442,7 +449,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
             case 1:
                 SetCharacterState(PlayerStates.rage);
-                skeletonAnim.timeScale = 1f;
                 if (!currentState.Equals(PlayerStates.rage))
                 {
                     prevState = currentState;
@@ -455,11 +461,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
             case 2:
                 SetCharacterState(PlayerStates.victory);
-                skeletonAnim.timeScale = 1f;
                 break;
             case 3:
                 SetCharacterState(PlayerStates.defeat);
-                skeletonAnim.timeScale = 1f;
                 vfxManager.SpawnDeathVFX();
                 break;
         }
@@ -537,15 +541,51 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.move))
         {
-            if(movementInput.y > 0)
+            Debug.Log(degreeAngle);
+            //Moving Upwards
+            if(degreeAngle > 45 && degreeAngle < 135)
             {
-                SetAnimation(0, moving, true, 1f);
+                SetAnimation(0, moving, true, animationSpeed);
             }
 
-            else if(movementInput.y < 0)
+            //Moving Leftwards
+            if (degreeAngle > 135 && degreeAngle < 225)
             {
-                SetAnimation(0, moving2, true, 1f);
+                SetAnimation(0, moving3, true, animationSpeed);
             }
+
+            //Moving Downwards
+            if (degreeAngle > 225 && degreeAngle < 315)
+            {
+                SetAnimation(0, moving2, true, animationSpeed);
+            }
+
+            //Moving Rightward
+            if (degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45)
+            {
+                SetAnimation(0, moving4, true, animationSpeed);
+            }
+
+            ////Moving Upwards
+            //if(movementInput.x > -0.60 && movementInput.x < 0.60f && movementInput.y > 0f && movementInput.y < 1f)
+            //{
+            //    SetAnimation(0, moving, true, animationSpeed);
+            //}
+            ////Moving Downwards
+            //if (movementInput.x > -0.60f && movementInput.x < 0.60f && movementInput.y < 0f && movementInput.y > -1f)
+            //{
+            //    SetAnimation(0, moving2, true, animationSpeed);
+            //}
+            ////Moving Left
+            //if (movementInput.x < 0f && movementInput.x > -1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
+            //{
+            //    SetAnimation(0, moving3, true, animationSpeed);
+            //} 
+            ////Moving Right
+            //if (movementInput.x > 0f && movementInput.x < 1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
+            //{
+            //    SetAnimation(0, moving4, true, animationSpeed);
+            //}
         }
 
         if (state.Equals(PlayerStates.attack))
