@@ -118,7 +118,7 @@ public class PlayerHealthScript : MonoBehaviour
                 meshRenderer.CustomMaterialOverride.Add(rageMat, originalMat);
                 playerHandler.attackAnimationSpeed = ogAtkSpeed;
                 playerHandler.animationSpeed = ogValues;
-                playerHandler.aoeRange = 5f;
+                playerHandler.aoeDmg = 10;
                 playerSO.speed = 3.5f;
             }
         }
@@ -131,7 +131,7 @@ public class PlayerHealthScript : MonoBehaviour
                 meshRenderer.CustomMaterialOverride.Add(originalMat, rageMat);
                 playerHandler.animationSpeed = 2f;
                 playerHandler.attackAnimationSpeed = 2f;
-                playerHandler.aoeRange = 10f;
+                playerHandler.aoeDmg = 20;
                 playerSO.speed = 5;
             }
             else

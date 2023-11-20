@@ -46,7 +46,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
-    public float aoeRange;
+    public float aoeDmg = 10f;
     public float animationSpeed;
     public float attackAnimationSpeed;
 
@@ -296,7 +296,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        if (attackCount <= 2)
+        if (attackCount <= 5)
         {
             float playerX = this.transform.position.x;
             float objectX = selectedEnemy.gameObject.transform.position.x;
@@ -344,7 +344,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         attackCount = 0;
         Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y + 2f);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, aoeRange);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, 10f);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("BigBuilding"))
@@ -352,7 +352,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
                 if (bigBuilding != null)
                 {
-                    bigBuilding.TakeDamage(100);
+                    bigBuilding.TakeDamage(aoeDmg);
                 }
                 else { return; }
             }
