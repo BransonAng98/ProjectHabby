@@ -5,11 +5,14 @@ using UnityEngine;
 public class Targetable : MonoBehaviour
 {
     public enum EnemyType {  Building, Tank, BigBuilding, Car, Civilian, Soldier, Tree, PowerPlant, ItemBuilding, }
+
     public EnemyType enemyType;
 
     private NewEnemyScript tankEnemy;
 
     private BigBuildingEnemy bigBEnemy;
+
+    private BigBuildingEnemy buildingEnemy;
 
     private PowerPlant powerPlant;
 
@@ -31,6 +34,10 @@ public class Targetable : MonoBehaviour
                 tankEnemy = GetComponent<NewEnemyScript>();
                 break;
 
+            case EnemyType.Building:
+                buildingEnemy = GetComponent<BigBuildingEnemy>();
+                break;
+
             case EnemyType.BigBuilding:
                 bigBEnemy = GetComponent<BigBuildingEnemy>();
                 break;
@@ -50,6 +57,7 @@ public class Targetable : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Building:
+                buildingEnemy.TakeDamage(player.playerData.attackDamage);
                 break;
 
             case EnemyType.Tank:

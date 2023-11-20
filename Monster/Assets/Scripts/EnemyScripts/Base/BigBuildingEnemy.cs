@@ -60,6 +60,18 @@ public class BigBuildingEnemy : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         buildingAudioSource = GetComponent<AudioSource>();
+        buildingType = GetComponent<Targetable>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(buildingType.enemyType == Targetable.EnemyType.Building)
+        {
+            if (collision.CompareTag("PlayerLeg"))
+            {
+                TakeDamage(100);
+            }
+        }
     }
 
     public void TakeDamage(float damage)
