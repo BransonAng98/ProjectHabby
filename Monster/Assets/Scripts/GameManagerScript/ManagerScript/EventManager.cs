@@ -49,7 +49,7 @@ public class EventManager : MonoBehaviour
         {
             if (currentScore >= triggerThreshold)
             {
-                eventNumber = Random.Range(0, 3);
+                eventNumber = Random.Range(0, 2);
 
                 switch (eventNumber)
                 {
@@ -65,11 +65,11 @@ public class EventManager : MonoBehaviour
                         bannerText.text = "Incoming Barrage!";
                         currentScore = 0;
                         break;
-                    case 2:
+                    /*case 2:
                         missileScript.StartEvent();
                         bannerText.text = "Incoming Missiles!";
                         currentScore = 0;
-                        break;
+                        break;*/
                     default:
                         break;
                 }
