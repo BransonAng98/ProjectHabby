@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6502020048164583292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 0.59999996}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6363699475410207370}
@@ -74,8 +74,8 @@ MonoBehaviour:
   maxCoins: 4
   spawnRadius: 3
   shakeScript: {fileID: 5642169919626815220}
-  groundDispenseVelocity: {x: 12, y: 12}
-  verticalDispenseVelocity: {x: 15, y: 15}
+  groundDispenseVelocity: {x: 5, y: 3}
+  verticalDispenseVelocity: {x: 10, y: 4}
   buildingAudioSource: {fileID: -4256909679947871862}
   damageSFX:
   - {fileID: 8300000, guid: 7b550e979b8d3d84ebd608008e18094b, type: 3}

@@ -82,7 +82,7 @@ public class CarAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerLeg")
         {
-            int random = Random.Range(0, 2);
+            int random = Random.Range(0, 1 +1);
             switch (random)
             {
                 case 0:
@@ -90,10 +90,6 @@ public class CarAI : MonoBehaviour
                         break;
 
                 case 1:
-                    Death();
-                    break;
-
-                case 2:
                     KickLogic(collision);
                     break;
             }
@@ -101,12 +97,17 @@ public class CarAI : MonoBehaviour
 
         if (collision.gameObject.tag == "BigBuilding")
         {
-            BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
-            if (bigBuilding != null)
+            if (isKicking)
             {
-                bigBuilding.TakeDamage(1);
+                BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
+                if (bigBuilding != null)
+                {
+                    bigBuilding.TakeDamage(1);
+                }
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
+            else { return; }
+            
         }
 
         if (collision.gameObject.tag == "Civilian")
