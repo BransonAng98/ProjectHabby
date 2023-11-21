@@ -31,6 +31,7 @@ public class CarAI : MonoBehaviour
     [SerializeField] private bool isKicking;
     public float kickForce;
     public float rotationSpeed = 180f;
+    public float stopDelay = 2f;
 
     //VFX
     public GameObject explosionVFX;
@@ -187,6 +188,20 @@ public class CarAI : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
+
+        StartCoroutine(StopMovementAfterDelay());
+    }
+
+    IEnumerator StopMovementAfterDelay()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(stopDelay);
+
+        // Stop the movement by setting the velocity to zero
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        // Stop the rotation
+        GetComponent<Rigidbody2D>().angularVelocity = 0f;
     }
 
     public void CheckOrientation()

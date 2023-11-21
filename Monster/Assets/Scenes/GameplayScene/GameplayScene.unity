@@ -566,6 +566,10 @@ PrefabInstance:
       propertyPath: skillRdyText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: ultimateRadius
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1289,6 +1293,7 @@ MonoBehaviour:
   timerText: {fileID: 221350689}
   countDownText: {fileID: 945889228}
   countDownBG: {fileID: 1940915280}
+  playerHandler: {fileID: 0}
   startTime: 0
   timeSpeed: 1
 --- !u!1 &254012708
