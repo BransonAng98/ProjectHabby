@@ -146,8 +146,9 @@ public class CarAI : MonoBehaviour
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+        smoke.transform.SetParent(this.gameObject.transform);
 
-        if(isVertical == true)
+        if (isVertical == true)
         {
             spriteRenderer.sprite = verticaldestroyedSprite;
         }
