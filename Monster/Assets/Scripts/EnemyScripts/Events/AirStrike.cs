@@ -10,21 +10,10 @@ public class AirStrike : MonoBehaviour
     private Animator anim;
     public Transform player;
     public Transform[] spawnPoints;
-    bool isActivating;
     bool isBombing;
 
-    public float blinkSpeed = 0.1f; // Speed of the blinking effect
-    public float minAlpha = 0.0f;   // Minimum alpha value (fully transparent)
-    public float maxAlpha = 1.0f;   // Maximum alpha value (fully opaque)
-    public float lifeDuration = 1.5f; // Time the zone will exist before being destroyed
-    private float currentLife;
-
     public GameObject warningZone;
-    private Color originalColor;
-    private float currentAlpha;
-    private float blinkDirection = 1.0f; // Used to control the blinking direction
-
-
+   
     private void Start()
     {
         anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
@@ -42,50 +31,10 @@ public class AirStrike : MonoBehaviour
             return;
         }
 
-        originalColor = warningZone.GetComponent<SpriteRenderer>().color;
-        currentAlpha = originalColor.a;
-
-
     }
 
     private void Update()
     {
-        currentLife += Time.deltaTime;
-
-        if (isBombing == true & currentLife <= lifeDuration)
-        {
-            BlinkingEffect();
-        }
-        else // Turn off after the specified duration
-        {
-            warningZone.SetActive(false);
-            currentLife = 0;
-            isBombing = false;
-
-        }
-    }
-
-    void BlinkingEffect()
-    {
-        if (isBombing == true)
-        {
-            warningZone.SetActive(true);
-            // Update the alpha value to create a blinking effect
-            currentAlpha += blinkDirection * blinkSpeed * Time.deltaTime;
-            currentAlpha = Mathf.Clamp(currentAlpha, minAlpha, maxAlpha);
-
-            // Apply the new color with the updated alpha value
-            Color newColor = warningZone.GetComponent<SpriteRenderer>().color;
-            newColor.a = currentAlpha;
-            warningZone.GetComponent<SpriteRenderer>().color = newColor;
-
-            // Change blinking direction at the alpha limits
-            if (currentAlpha <= minAlpha || currentAlpha >= maxAlpha)
-            {
-                blinkDirection *= -1.0f;
-            }
-
-        }
 
     }
 
@@ -113,24 +62,40 @@ public class AirStrike : MonoBehaviour
 
     public void RandomizeAndSpawn()
     {
-        // Randomly choose a spawn point
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-        // Instantiate the GameObject at the desired position
         isBombing = true;
-        warningZone.transform.position = player.transform.position;
+        
+        spawnPoints[0].position = new Vector3(player.position.x, player.position.y + 20f, player.position.z);
+        spawnPoints[1].position = new Vector3(player.position.x, player.position.y, player.position.z);
+        spawnPoints[2].position = new Vector3(player.position.x, player.position.y - 20f, player.position.z);
 
-        // Set spawn points to player y pos
-        spawnPoints[0].position = new Vector3(spawnPoints[0].position.x, player.position.y, spawnPoints[0].position.z);
-        spawnPoints[1].position = new Vector3(spawnPoints[1].position.x, player.position.y, spawnPoints[1].position.z);
+        //Choose a random spawn point
+        foreach (Transform pos in spawnPoints)
+        {
+            GameObject scapeGoat = Instantiate(warningZone, pos.position, Quaternion.identity);
+            DestroyWarningZone(scapeGoat);
 
-        SpawnObject(randomSpawnPoint);
-
+            float leftOrRight = Random.Range(0, 1 + 1);
+            switch (leftOrRight)
+            {
+                case 0:
+                    Vector3 spawnPointL = new Vector3(pos.position.x - 50f, pos.position.y, 0f);
+                    SpawnObject(spawnPointL);
+                    break;
+                case 1:
+                    Vector3 spawnPointR = new Vector3(pos.position.x + 50f, pos.position.y, 0f);
+                    SpawnObject(spawnPointR);
+                    break;
+            }
+        }
     }
 
-    public void SpawnObject(Transform spawnPoint)
+    void DestroyWarningZone(GameObject zone)
     {
+        Destroy(zone, 3f);
+    }
 
+    public void SpawnObject(Vector3 spawnPoint)
+    {
         // Define the stagger amount and initial offset
         float staggerAmountX = 2.0f;  // Adjust this based on desired spacing along x-axis
         float staggerAmountY = 2.0f;  // Adjust this based on desired spacing along y-axis
@@ -142,10 +107,10 @@ public class AirStrike : MonoBehaviour
             // Calculate the staggered position for each fighter plane
             float xOffset = initialOffsetX + i * staggerAmountX;
             float yOffset = initialOffsetY + i * staggerAmountY;
-            Vector3 staggeredPosition = new Vector3(spawnPoint.position.x + xOffset, spawnPoint.position.y + yOffset, 0f);
+            Vector3 staggeredPosition = new Vector3(spawnPoint.x + xOffset, spawnPoint.y + yOffset, 0f);
 
             // Instantiate the fighter jet at the staggered position
-            GameObject fighterJet = Instantiate(enemyPlane, staggeredPosition, spawnPoint.rotation);
+            GameObject fighterJet = Instantiate(enemyPlane, staggeredPosition, Quaternion.identity);
         }
     }
 }
