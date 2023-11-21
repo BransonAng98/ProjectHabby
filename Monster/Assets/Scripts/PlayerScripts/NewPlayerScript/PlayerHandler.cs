@@ -276,48 +276,50 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        if (attackCount <= 5)
+        float playerX = this.transform.position.x;
+        float objectX = selectedEnemy.gameObject.transform.position.x;
+        Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
+        float angle = Vector3.Angle(dir, Vector3.down);
+        if (objectX > playerX)
         {
-            float playerX = this.transform.position.x;
-            float objectX = selectedEnemy.gameObject.transform.position.x;
-            Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
-            float angle = Vector3.Angle(dir, Vector3.down);
-            if (objectX > playerX)
+            if (angle >= 135f)
             {
-                if (angle >= 135f)
-                {
-                    SetAnimation(0, attacking3, true, attackAnimationSpeed);
-                }
-                if (angle >= 45f && angle < 135f)
-                {
-                    SetAnimation(0, attacking2, true, attackAnimationSpeed);
-                }
-                if (angle >= 0f && angle < 45f)
-                {
-                    SetAnimation(0, attacking, true, attackAnimationSpeed);
-                }
+                SetAnimation(0, attacking3, true, attackAnimationSpeed);
             }
-            else if (objectX < playerX)
+            if (angle >= 45f && angle < 135f)
             {
-                if (angle >= 135f)
-                {
-                    SetAnimation(0, attacking6, true, attackAnimationSpeed);
-                }
-                if (angle >= 45f && angle < 135f)
-                {
-                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
-                }
-                if (angle >= 0f && angle < 45f)
-                {
-                    SetAnimation(0, attacking4, true, attackAnimationSpeed);
-                }
+                SetAnimation(0, attacking2, true, attackAnimationSpeed);
+            }
+            if (angle >= 0f && angle < 45f)
+            {
+                SetAnimation(0, attacking, true, attackAnimationSpeed);
+            }
+        }
+        else if (objectX < playerX)
+        {
+            if (angle >= 135f)
+            {
+                SetAnimation(0, attacking6, true, attackAnimationSpeed);
+            }
+            if (angle >= 45f && angle < 135f)
+            {
+                SetAnimation(0, attacking5, true, attackAnimationSpeed);
+            }
+            if (angle >= 0f && angle < 45f)
+            {
+                SetAnimation(0, attacking4, true, attackAnimationSpeed);
             }
         }
 
-        else
-        {
-            SetAnimation(0, attacking7, false, 1f);
-        }
+        //if (attackCount <= 5)
+        //{
+            
+        //}
+
+        //else
+        //{
+        //    SetAnimation(0, attacking7, false, 1f);
+        //}
     }
 
     public void TriggerAOE()
@@ -379,7 +381,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             skeletonAnim.timeScale = animationSpeed;
             selectedEnemy.GetComponent<Targetable>().TakeDamage();
-            attackCount += 1;
+            //attackCount += 1;
         }
 
         else { return; }

@@ -86,13 +86,11 @@ public class CarAI : MonoBehaviour
             switch (random)
             {
                 case 0:
-                    KickLogic(collision);
-                    //Death();
+                    Death();
                         break;
 
                 case 1:
-                    KickLogic(collision);
-                    //Death();
+                    Death();
                     break;
 
                 case 2:
@@ -101,34 +99,30 @@ public class CarAI : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("BigBuilding"))
+        if (collision.gameObject.tag == "BigBuilding")
         {
-            if (isKicking)
+            BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
+            if (bigBuilding != null)
             {
-                Debug.Log(collision.name);
-                BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
-                if (bigBuilding != null)
-                {
-                    bigBuilding.TakeDamage(1);
-                }
-                Destroy(gameObject);
+                bigBuilding.TakeDamage(1);
             }
+            Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Civilian"))
+        if (collision.gameObject.tag == "Civilian")
         {
             if (isKicking)
             {
-                Debug.Log(collision.name);
+                Debug.Log(collision.gameObject.name);
                 Civilian civilian = collision.gameObject.GetComponent<Civilian>();
                 if (civilian != null)
                 {
                     civilian.enemyState = Civilian.EnemyState.death;
                 }
             }
+            else { return; }
         }
     }
-
 
     public void Death()
     {
@@ -149,7 +143,14 @@ public class CarAI : MonoBehaviour
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
         spriteRenderer.sprite = destroyedSprite;
         spriteRenderer.sortingOrder = 1;
-        entityCollider.enabled = false;
+        if (isKicking)
+        {
+            return;
+        }
+        else
+        {
+            entityCollider.enabled = false;
+        }
         objectFader.StartFading();
     }
 
