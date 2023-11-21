@@ -145,7 +145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394559390444376549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e1d2e7095273c247a45c0abd4234fa2, type: 3}
   m_Name: 
@@ -364,7 +364,6 @@ Transform:
   - {fileID: 2936415064367804567}
   - {fileID: 13193389513577612}
   - {fileID: 8200310458785258812}
-  - {fileID: 5728689824733498621}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -502,8 +501,8 @@ MonoBehaviour:
   enemySpawnInfoList:
   - enemyPrefab: {fileID: 2411092050883332399, guid: e44870b68705c5a4c8352f73f8249dc1, type: 3}
     spawnProbability: 0.52
-  minNumberOfEnemiesToSpawn: 5
-  maxNumberOfEnemiesToSpawn: 15
+  minNumberOfEnemiesToSpawn: 20
+  maxNumberOfEnemiesToSpawn: 40
   civiParent: {fileID: 0}
   minSpawnPosition: {x: -8, y: -8}
   maxSpawnPosition: {x: 8, y: 8}
@@ -610,6 +609,7 @@ Transform:
   - {fileID: 2451623713670549913}
   - {fileID: 6567267287818327114}
   - {fileID: 3039749388144857939}
+  - {fileID: 5728689824733498621}
   m_Father: {fileID: 4921672051753458186}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1472,7 +1472,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4921672051753458186}
+    m_TransformParent: {fileID: 2936415064367804567}
     m_Modifications:
     - target: {fileID: 3100701252999757016, guid: db12b7c520edf6e4da14f39bf251f2f0, type: 3}
       propertyPath: m_Name
@@ -1480,7 +1480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3430485985884523873, guid: db12b7c520edf6e4da14f39bf251f2f0, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3430485985884523873, guid: db12b7c520edf6e4da14f39bf251f2f0, type: 3}
       propertyPath: m_LocalPosition.x
