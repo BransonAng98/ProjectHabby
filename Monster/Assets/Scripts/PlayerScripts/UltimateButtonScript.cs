@@ -9,7 +9,7 @@ public class UltimateButtonScript : MonoBehaviour
     public Transform player;
     public PlayerHandler playerHandler;
     public PlayerStatScriptableObject playerData;
-    public GameObject ultiRdyVFX;
+    public PlayerVFXManager vfxManager;
     public bool ultimateReady;
 
     bool isSlowed;
@@ -25,6 +25,7 @@ public class UltimateButtonScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        vfxManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerVFXManager>();
         button = GetComponent<Button>();
     }
 
@@ -35,14 +36,16 @@ public class UltimateButtonScript : MonoBehaviour
         {
             ultimateReady = true;
             button.interactable = true;
-            ultiRdyVFX.SetActive(true);
+            vfxManager.ultiRdyVFX.SetActive(true);
+            vfxManager.arrowIndicator.SetActive(true);
         }
 
         else
         {
             ultimateReady = false;
             button.interactable = false;
-            ultiRdyVFX.SetActive(false);
+            vfxManager.ultiRdyVFX.SetActive(false);
+            vfxManager.arrowIndicator.SetActive(false);
         }
     }
 

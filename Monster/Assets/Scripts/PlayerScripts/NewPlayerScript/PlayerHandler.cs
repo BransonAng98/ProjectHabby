@@ -42,7 +42,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public GameObject[] legLocations;
     public GameObject HitDetection;
     public GameObject Groundcrack;
-    public GameObject skillRdyText;
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
@@ -79,9 +78,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public AudioClip monsterRoarSFX;
     public AudioClip[] painRoarSFX;
 
-    //VFX
-    public GameObject aoeVFX;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -103,7 +99,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     // Update is called once per frame
     void Update()
     {
-        CheckUltiRdy();
         Cheats();
         IdleRoar();
         if (canMove)
@@ -245,23 +240,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "Smash")
         {
             TriggerAOE();
-            SpawnAoeVFX();
+            vfxManager.SpawnAoeVFX();
         }
-    }
-
-    public void CheckUltiRdy()
-    {
-
-        if (currentUltimateCharge == playerData.maxUltimateCharge)
-        {
-            skillRdyText.SetActive(true);
-        }
-
-        if (currentUltimateCharge == 0)
-        {
-            skillRdyText.SetActive(false);
-        }
-
     }
     private void PlayerAttack()
     {
@@ -390,11 +370,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    void SpawnAoeVFX()
-    {
-        Vector2 aoePos = new Vector2(transform.position.x, transform.position.y - 1f);
-        GameObject aoe = Instantiate(aoeVFX, aoePos, Quaternion.identity);
-    }
+    
 
     //In the animation, this will deal damage to the select unit
     public void TriggerDamage()

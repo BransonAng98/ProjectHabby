@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class CrabUltimateD : UltimateBase
 {
-    public GameObject ultimateVFX;
     private GameObject player;
+    private PlayerVFXManager vfxManager;
     public Transform detectionOrigin;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        vfxManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerVFXManager>();
     }
 
     public override void UseDamageUltimate(float ultimateRadius, float ultimateDamage)
     {
         base.UseDamageUltimate(ultimateRadius, ultimateDamage);
-        Vector2 ultiPos = new Vector2(player.transform.position.x, player.transform.position.y - 0.8f);
-        GameObject ultiVFX = Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
+        vfxManager.SpawnUltiVFX();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(detectionOrigin.position, ultimateRadius);
         foreach (Collider2D collider in hitColliders)
         {
