@@ -517,7 +517,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.move))
         {
-            Debug.Log(degreeAngle);
             //Moving Upwards
             if(degreeAngle > 45 && degreeAngle < 135)
             {

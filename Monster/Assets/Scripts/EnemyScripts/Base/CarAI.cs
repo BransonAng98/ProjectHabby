@@ -26,6 +26,11 @@ public class CarAI : MonoBehaviour
     public Sprite rightSprite;
     public Sprite destroyedSprite;
 
+    //Kick Variables
+    [SerializeField] private bool isKicking;
+    public float kickForce;
+    public float rotationSpeed = 180f;
+
     //VFX
     public GameObject explosionVFX;
     public GameObject smokeVFX;
@@ -77,9 +82,53 @@ public class CarAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerLeg")
         {
-            Death();
+            int random = Random.Range(0, 2);
+            switch (random)
+            {
+                case 0:
+                    KickLogic(collision);
+                    //Death();
+                        break;
+
+                case 1:
+                    KickLogic(collision);
+                    //Death();
+                    break;
+
+                case 2:
+                    KickLogic(collision);
+                    break;
+            }
+        }
+
+        if (collision.gameObject.CompareTag("BigBuilding"))
+        {
+            if (isKicking)
+            {
+                Debug.Log(collision.name);
+                BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
+                if (bigBuilding != null)
+                {
+                    bigBuilding.TakeDamage(1);
+                }
+                Destroy(gameObject);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Civilian"))
+        {
+            if (isKicking)
+            {
+                Debug.Log(collision.name);
+                Civilian civilian = collision.gameObject.GetComponent<Civilian>();
+                if (civilian != null)
+                {
+                    civilian.enemyState = Civilian.EnemyState.death;
+                }
+            }
         }
     }
+
 
     public void Death()
     {
@@ -108,6 +157,21 @@ public class CarAI : MonoBehaviour
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
         vehicleaudioSource.PlayOneShot(deathSFX);
+    }
+   
+    void KickLogic(Collider2D collision)
+    {
+        isKicking = true;
+        Death();
+        Vector2 kickDirection = transform.position - collision.transform.position;
+
+        // Normalize the direction vector to maintain consistent force regardless of distance
+        kickDirection.Normalize();
+
+        // Apply a force in the opposite direction
+        GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
+
+        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
 
     private void Update()
