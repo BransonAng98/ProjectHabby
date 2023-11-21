@@ -26,6 +26,7 @@ public class PlayerHealthScript : MonoBehaviour
     private ObjectShakeScript shakeScript;
     private float currentHealth;
     public HealthState healthState;
+    [SerializeField] HealthState currentState;
 
     private GameManagerScript gameManager;
     private PlayerHandler playerHandler;
@@ -57,6 +58,7 @@ public class PlayerHealthScript : MonoBehaviour
         UpdateHealthBar();
 
         healthState = HealthState.normal;
+        currentState = healthState;
 
         berserkVignette = GameObject.Find("Vignette").GetComponent<CanvasGroup>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
@@ -68,27 +70,44 @@ public class PlayerHealthScript : MonoBehaviour
         meshRenderer = GetComponent<SkeletonAnimation>();
     }
 
-    void TriggerVignette()
+    void CheckHealthState()
     {
-        if(healthState != HealthState.berserk)
+        if(healthState != currentState)
         {
-            if (berserkVignette.alpha >= 0)
+            if(healthState == HealthState.berserk)
             {
-                berserkVignette.alpha -= Time.deltaTime;
-            }
-        }
+                if (!isTriggered)
+                {
+                    playerHandler.DisableMovement(1);
+                    isTriggered = true;
+                }
 
-        else
-        {
-            if (!isTriggered)
-            {
-                playerHandler.DisableMovement(1);
-                isTriggered = true;
+                if (berserkVignette.alpha < 1)
+                {
+                    berserkVignette.alpha += Time.deltaTime;
+                }
+
+                meshRenderer.CustomMaterialOverride[originalMat] = rageMat;
+                playerHandler.animationSpeed = 2f;
+                playerHandler.attackAnimationSpeed = 2f;
+                playerHandler.aoeDmg = 20;
+                playerSO.speed = 5;
+                currentState = healthState;
             }
 
-            if (berserkVignette.alpha < 1)
+            if(healthState == HealthState.normal)
             {
-                berserkVignette.alpha += Time.deltaTime;
+                if (berserkVignette.alpha < 1)
+                {
+                    berserkVignette.alpha -= Time.deltaTime;
+                }
+
+                meshRenderer.CustomMaterialOverride[originalMat] = originalMat;
+                playerHandler.attackAnimationSpeed = ogAtkSpeed;
+                playerHandler.animationSpeed = ogValues;
+                playerHandler.aoeDmg = 10;
+                playerSO.speed = 3.5f;
+                currentState = healthState;
             }
         }
     }
@@ -102,7 +121,7 @@ public class PlayerHealthScript : MonoBehaviour
             UpdateHealthBar();
         }
 
-        TriggerVignette();
+        CheckHealthState();
         UpdateAbilityBar();
     }
 
@@ -115,11 +134,6 @@ public class PlayerHealthScript : MonoBehaviour
             if(healthState == HealthState.berserk)
             {
                 healthState = HealthState.normal;
-                meshRenderer.CustomMaterialOverride.Add(rageMat, originalMat);
-                playerHandler.attackAnimationSpeed = ogAtkSpeed;
-                playerHandler.animationSpeed = ogValues;
-                playerHandler.aoeDmg = 10;
-                playerSO.speed = 3.5f;
             }
         }
 
@@ -128,11 +142,6 @@ public class PlayerHealthScript : MonoBehaviour
             if(healthState != HealthState.berserk)
             {
                 healthState = HealthState.berserk;
-                meshRenderer.CustomMaterialOverride.Add(originalMat, rageMat);
-                playerHandler.animationSpeed = 2f;
-                playerHandler.attackAnimationSpeed = 2f;
-                playerHandler.aoeDmg = 20;
-                playerSO.speed = 5;
             }
             else
             {
