@@ -44,18 +44,13 @@ public class ArtilleryBullet : MonoBehaviour
         {
             storedData = data.GetComponent<CircularIndicator>();
         }
-
-        else
-        {
-
-        }
     }
 
     public void BlowUp()
     {
         Debug.Log("Blow Up");
         PlayExplodeSFX();
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 6f);
         foreach (Collider2D collider in hitColliders)
         {
             CollateralScript collateralTrigger = collider.GetComponent<CollateralScript>();

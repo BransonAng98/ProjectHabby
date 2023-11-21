@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5100072329494704836}
   - component: {fileID: 7660131136970645793}
   - component: {fileID: -3102504808858727679}
-  - component: {fileID: 8118165523563845415}
+  - component: {fileID: 4504265284625660612}
   m_Layer: 0
   m_Name: ArtilleryCircle
   m_TagString: Untagged
@@ -104,8 +104,8 @@ MonoBehaviour:
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColor: {r: 1, g: 1, b: 1, a: 0}
   isInRange: 0
---- !u!61 &8118165523563845415
-BoxCollider2D:
+--- !u!70 &4504265284625660612
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,15 +118,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.6}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.6, y: 5.95}
+  m_Direction: 1
