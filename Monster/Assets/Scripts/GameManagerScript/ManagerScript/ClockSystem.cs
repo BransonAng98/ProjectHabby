@@ -7,12 +7,17 @@ public class ClockSystem : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI countDownText;
+    public GameObject countDownBG;
     private GameManagerScript gameManager;
 
     private float timerValue;
     private float addOnTime;
-
+    
     public bool startTime;
+    private bool minuteMessageDisplayed = false;
+    private bool thirtySecondsMessageDisplayed = false;
+    private bool timeUpMessageDisplayed = false;
 
     public float timeSpeed;
     // Start is called before the first frame update
@@ -20,9 +25,10 @@ public class ClockSystem : MonoBehaviour
     {
         CalculateLevelTime();
         timerText = GetComponent<TextMeshProUGUI>();
+        countDownBG.gameObject.SetActive(false);
+
         DisplayTime(timerValue);
         startTime = false;
-
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
     }
 
@@ -34,6 +40,8 @@ public class ClockSystem : MonoBehaviour
             if (timerValue > 0)
             {
                 timerValue -= timeSpeed * Time.deltaTime;
+                DisplayTime(timerValue);
+                DisplayCountdownMessages(timerValue);
             }
             else
             {
@@ -41,8 +49,6 @@ public class ClockSystem : MonoBehaviour
                 gameManager.isVictory = false;
                 gameManager.TriggerEndScreen();
             }
-
-            DisplayTime(timerValue);
         }
 
         else { return; }
@@ -107,5 +113,52 @@ public class ClockSystem : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void DisplayCountdownMessages(float remainingTime)
+    {
+        // Display countdown numbers for the last 10 seconds
+        if (remainingTime <= 11 && remainingTime > 0)
+        {
+            float newTime = remainingTime - 1;
+            countDownText.text = Mathf.CeilToInt(newTime).ToString();
+            countDownBG.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            if (remainingTime <= 60 && remainingTime > 50 && !minuteMessageDisplayed)
+            {
+                countDownBG.gameObject.SetActive(true);
+                countDownText.text = "";
+                countDownText.text += "1 Minute Remaining!";
+                minuteMessageDisplayed = true;
+                Invoke("TurnOffText", 3f);
+
+            }
+            else if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
+            {
+                countDownBG.gameObject.SetActive(true);
+                countDownText.text = "";
+                countDownText.text += "30 Seconds Remaining!";
+                thirtySecondsMessageDisplayed = true;
+                Invoke("TurnOffText", 3f);
+            }
+
+            else if (remainingTime <= 0 && !timeUpMessageDisplayed)
+            {
+                countDownBG.gameObject.SetActive(true);
+                countDownText.text = "";
+                countDownText.text = "Time's up!";
+                timeUpMessageDisplayed = true;
+                Invoke("TurnOffText", 3f);
+            }
+            
+        }
+    }
+
+    void TurnOffText()
+    {
+        countDownBG.gameObject.SetActive(false);
     }
 }
