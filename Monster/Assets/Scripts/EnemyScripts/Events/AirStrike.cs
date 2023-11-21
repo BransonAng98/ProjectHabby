@@ -78,11 +78,11 @@ public class AirStrike : MonoBehaviour
             switch (leftOrRight)
             {
                 case 0:
-                    Vector3 spawnPointL = new Vector3(pos.position.x - 50f, pos.position.y, 0f);
+                    Vector3 spawnPointL = new Vector3(pos.position.x - 80f, pos.position.y, 0f);
                     SpawnObject(spawnPointL);
                     break;
                 case 1:
-                    Vector3 spawnPointR = new Vector3(pos.position.x + 50f, pos.position.y, 0f);
+                    Vector3 spawnPointR = new Vector3(pos.position.x + 80f, pos.position.y, 0f);
                     SpawnObject(spawnPointR);
                     break;
             }
@@ -91,7 +91,7 @@ public class AirStrike : MonoBehaviour
 
     void DestroyWarningZone(GameObject zone)
     {
-        Destroy(zone, 3f);
+        Destroy(zone, 4f);
     }
 
     public void SpawnObject(Vector3 spawnPoint)
