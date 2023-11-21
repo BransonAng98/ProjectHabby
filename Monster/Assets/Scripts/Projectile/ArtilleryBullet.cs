@@ -15,12 +15,14 @@ public class ArtilleryBullet : MonoBehaviour
     private void Start()
     {
         entityCollider = GetComponent<Collider2D>();
+        
     }
+    
 
     private void Update()
     {
         CheckTrigger();
-
+       
     }
 
     void CheckTrigger()
@@ -52,7 +54,7 @@ public class ArtilleryBullet : MonoBehaviour
     public void BlowUp()
     {
         Debug.Log("Blow Up");
-        //PlayExplodeSFX();
+        PlayExplodeSFX();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -87,7 +89,7 @@ public class ArtilleryBullet : MonoBehaviour
 
     public void PlayExplodeSFX()
     {
-        AudioClip soundtoPlay = artiSFX[Random.Range(1, artiSFX.Length)];
+        AudioClip soundtoPlay = artiSFX[Random.Range(0, artiSFX.Length)];
         artiAudioSource.PlayOneShot(soundtoPlay);
     }  
 }
