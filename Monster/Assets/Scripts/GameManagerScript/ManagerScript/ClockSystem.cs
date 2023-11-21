@@ -10,6 +10,7 @@ public class ClockSystem : MonoBehaviour
     public TextMeshProUGUI countDownText;
     public GameObject countDownBG;
     private GameManagerScript gameManager;
+    [SerializeField] private PlayerHandler playerHandler;
 
     private float timerValue;
     private float addOnTime;
@@ -30,6 +31,7 @@ public class ClockSystem : MonoBehaviour
         DisplayTime(timerValue);
         startTime = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
     }
 
     // Update is called once per frame
@@ -46,12 +48,19 @@ public class ClockSystem : MonoBehaviour
             else
             {
                 timerValue = 0;
-                gameManager.isVictory = false;
-                gameManager.TriggerEndScreen();
+                playerHandler.isEnd = true;
+                playerHandler.DisableMovement(3);
+                Invoke("DelayEndScreen", 0.9f);
             }
         }
 
         else { return; }
+    }
+
+    void DelayEndScreen()
+    {
+        gameManager.isVictory = false;
+        gameManager.TriggerEndScreen();
     }
 
     public void CalculateLevelTime()

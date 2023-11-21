@@ -25,11 +25,13 @@ public class CarAI : MonoBehaviour
     public Sprite leftSprite;
     public Sprite rightSprite;
     public Sprite destroyedSprite;
+    public Sprite verticaldestroyedSprite;
 
     //Kick Variables
     [SerializeField] private bool isKicking;
     public float kickForce;
     public float rotationSpeed = 180f;
+    public float stopDelay = 2f;
 
     //VFX
     public GameObject explosionVFX;
@@ -41,6 +43,7 @@ public class CarAI : MonoBehaviour
     public AudioClip[] vehicleSFX;
 
     Collider2D entityCollider;
+    public bool isVertical;
     bool hasDied;
 
     void Start()
@@ -54,6 +57,7 @@ public class CarAI : MonoBehaviour
 
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
+        CheckOrientation();
 
     }
 
@@ -142,7 +146,17 @@ public class CarAI : MonoBehaviour
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
-        spriteRenderer.sprite = destroyedSprite;
+
+        if(isVertical == true)
+        {
+            spriteRenderer.sprite = verticaldestroyedSprite;
+        }
+        if (isVertical == false)
+        {
+            spriteRenderer.sprite = destroyedSprite;
+        }
+
+        
         spriteRenderer.sortingOrder = 1;
         if (isKicking)
         {
@@ -174,32 +188,36 @@ public class CarAI : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
+
+        StartCoroutine(StopMovementAfterDelay());
+    }
+
+    IEnumerator StopMovementAfterDelay()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(stopDelay);
+
+        // Stop the movement by setting the velocity to zero
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        // Stop the rotation
+        GetComponent<Rigidbody2D>().angularVelocity = 0f;
+    }
+
+    public void CheckOrientation()
+    {
+        if(spriteRenderer.sprite == upSprite)
+        {
+            isVertical = true;
+        }
+        if (spriteRenderer.sprite != upSprite)
+        {
+            isVertical = false;
+        }
     }
 
     private void Update()
     {
-        // Vector3 currentPosition = transform.position;
-
-        // // Calculate the velocity or position change since the last frame.
-        // Vector3 positionChange = currentPosition - lastPosition;
-
-        // // Calculate the moving direction as a normalized vector.
-        //// movingDirection = positionChange.normalized;
-
-
-
-        // // Update the last position for the next frame.
-        // lastPosition = currentPosition;
-
-        // if(isDestroyed != true)
-        // {
-        //     FlipSprite(movingDirection);
-        // }
-
-        // if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
-        // {
-        //     ai.destination = PickRandomPoint();
-        //     ai.SearchPath();
-        // }
+       
     }
 }

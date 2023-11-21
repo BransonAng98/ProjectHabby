@@ -157,10 +157,12 @@ MonoBehaviour:
   downSprite: {fileID: 21300000, guid: 837dbd26465119043b9b858fcd1e0e27, type: 3}
   leftSprite: {fileID: 21300000, guid: 217b8465ce541104ca15c64a1629d32d, type: 3}
   rightSprite: {fileID: 21300000, guid: 4e88edcf7be52a84a86663c50b362ab9, type: 3}
-  destroyedSprite: {fileID: 21300000, guid: 3e8575508bdef8f428834e0c83a455a3, type: 3}
+  destroyedSprite: {fileID: 21300000, guid: cd90ea8f06e2a5a49abfaf9e20da71bf, type: 3}
+  verticaldestroyedSprite: {fileID: 21300000, guid: d345b7845cfc1904b9f9769a6d767555, type: 3}
   isKicking: 0
   kickForce: 5
   rotationSpeed: 1000
+  stopDelay: 4
   explosionVFX: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
   smokeVFX: {fileID: 8656522925564163052, guid: bdd520eac103dfc489c19335cd5c2417, type: 3}
   vehicleaudioSource: {fileID: 7803138123844752309}
@@ -169,6 +171,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 04a599ff6bd0cb5439d7aaedf61a923c, type: 3}
   - {fileID: 8300000, guid: 131935410dc63664399c38542cc3219c, type: 3}
   - {fileID: 8300000, guid: cf858d3a505c11a46b4f28472cb27ec5, type: 3}
+  isVertical: 0
 --- !u!114 &-5336387388298040235
 MonoBehaviour:
   m_ObjectHideFlags: 0
