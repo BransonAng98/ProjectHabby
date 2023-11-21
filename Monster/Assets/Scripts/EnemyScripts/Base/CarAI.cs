@@ -25,6 +25,7 @@ public class CarAI : MonoBehaviour
     public Sprite leftSprite;
     public Sprite rightSprite;
     public Sprite destroyedSprite;
+    public Sprite verticaldestroyedSprite;
 
     //Kick Variables
     [SerializeField] private bool isKicking;
@@ -41,6 +42,7 @@ public class CarAI : MonoBehaviour
     public AudioClip[] vehicleSFX;
 
     Collider2D entityCollider;
+    public bool isVertical;
     bool hasDied;
 
     void Start()
@@ -54,6 +56,7 @@ public class CarAI : MonoBehaviour
 
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
+        CheckOrientation();
 
     }
 
@@ -142,7 +145,17 @@ public class CarAI : MonoBehaviour
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
-        spriteRenderer.sprite = destroyedSprite;
+
+        if(isVertical == true)
+        {
+            spriteRenderer.sprite = verticaldestroyedSprite;
+        }
+        if (isVertical == false)
+        {
+            spriteRenderer.sprite = destroyedSprite;
+        }
+
+        
         spriteRenderer.sortingOrder = 1;
         if (isKicking)
         {
@@ -176,30 +189,20 @@ public class CarAI : MonoBehaviour
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
 
+    public void CheckOrientation()
+    {
+        if(spriteRenderer.sprite == upSprite)
+        {
+            isVertical = true;
+        }
+        if (spriteRenderer.sprite != upSprite)
+        {
+            isVertical = false;
+        }
+    }
+
     private void Update()
     {
-        // Vector3 currentPosition = transform.position;
-
-        // // Calculate the velocity or position change since the last frame.
-        // Vector3 positionChange = currentPosition - lastPosition;
-
-        // // Calculate the moving direction as a normalized vector.
-        //// movingDirection = positionChange.normalized;
-
-
-
-        // // Update the last position for the next frame.
-        // lastPosition = currentPosition;
-
-        // if(isDestroyed != true)
-        // {
-        //     FlipSprite(movingDirection);
-        // }
-
-        // if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
-        // {
-        //     ai.destination = PickRandomPoint();
-        //     ai.SearchPath();
-        // }
+       
     }
 }

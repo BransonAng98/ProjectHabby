@@ -54,6 +54,7 @@ public class CarSpawningScript : MonoBehaviour
                     {
                         carAI.SetSpriteRenderer(spawnedCar.GetComponent<SpriteRenderer>());
                         carAI.SetSpriteUp();
+                        
                     }
                 }
                 spawnedCar.transform.parent = carparent.transform;
