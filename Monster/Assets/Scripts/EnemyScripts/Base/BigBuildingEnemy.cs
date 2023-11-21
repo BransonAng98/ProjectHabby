@@ -50,6 +50,11 @@ public class BigBuildingEnemy : MonoBehaviour
     public AudioClip[] damageSFX;
     public AudioClip[] deathSFX;
 
+    private void Awake()
+    {
+        buildingType = GetComponent<Targetable>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +65,6 @@ public class BigBuildingEnemy : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         buildingAudioSource = GetComponent<AudioSource>();
-        buildingType = GetComponent<Targetable>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,8 +73,18 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             if (collision.CompareTag("PlayerLeg"))
             {
-                TakeDamage(100);
+                TakeDamage(10);
             }
+        }
+
+        if(buildingType.enemyType == Targetable.EnemyType.BigBuilding)
+        {
+            return;
+        }
+
+        else
+        {
+            return;
         }
     }
 

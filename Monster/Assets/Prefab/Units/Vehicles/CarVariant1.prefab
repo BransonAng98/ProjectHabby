@@ -137,7 +137,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &5864335005334085720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +158,9 @@ MonoBehaviour:
   leftSprite: {fileID: 21300000, guid: 0d1ae091c500dc349bb702b1dd685783, type: 3}
   rightSprite: {fileID: 21300000, guid: 1202af7efa9bf604790e1f1773828944, type: 3}
   destroyedSprite: {fileID: 21300000, guid: 8fcc7072d632e1e4aafdf747c640971e, type: 3}
+  isKicking: 0
+  kickForce: 5
+  rotationSpeed: 1000
   explosionVFX: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
   smokeVFX: {fileID: 8656522925564163052, guid: bdd520eac103dfc489c19335cd5c2417, type: 3}
   vehicleaudioSource: {fileID: 8043218805246455007}

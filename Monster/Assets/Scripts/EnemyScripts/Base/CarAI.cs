@@ -26,6 +26,11 @@ public class CarAI : MonoBehaviour
     public Sprite rightSprite;
     public Sprite destroyedSprite;
 
+    //Kick Variables
+    [SerializeField] private bool isKicking;
+    public float kickForce;
+    public float rotationSpeed = 180f;
+
     //VFX
     public GameObject explosionVFX;
     public GameObject smokeVFX;
@@ -77,7 +82,46 @@ public class CarAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerLeg")
         {
-            Death();
+            int random = Random.Range(0, 1 +1);
+            switch (random)
+            {
+                case 0:
+                    Death();
+                        break;
+
+                case 1:
+                    KickLogic(collision);
+                    break;
+            }
+        }
+
+        if (collision.gameObject.tag == "BigBuilding")
+        {
+            if (isKicking)
+            {
+                BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
+                if (bigBuilding != null)
+                {
+                    bigBuilding.TakeDamage(1);
+                }
+                Destroy(gameObject);
+            }
+            else { return; }
+            
+        }
+
+        if (collision.gameObject.tag == "Civilian")
+        {
+            if (isKicking)
+            {
+                Debug.Log(collision.gameObject.name);
+                Civilian civilian = collision.gameObject.GetComponent<Civilian>();
+                if (civilian != null)
+                {
+                    civilian.enemyState = Civilian.EnemyState.death;
+                }
+            }
+            else { return; }
         }
     }
 
@@ -100,7 +144,14 @@ public class CarAI : MonoBehaviour
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
         spriteRenderer.sprite = destroyedSprite;
         spriteRenderer.sortingOrder = 1;
-        entityCollider.enabled = false;
+        if (isKicking)
+        {
+            return;
+        }
+        else
+        {
+            entityCollider.enabled = false;
+        }
         objectFader.StartFading();
     }
 
@@ -108,6 +159,21 @@ public class CarAI : MonoBehaviour
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
         vehicleaudioSource.PlayOneShot(deathSFX);
+    }
+   
+    void KickLogic(Collider2D collision)
+    {
+        isKicking = true;
+        Death();
+        Vector2 kickDirection = transform.position - collision.transform.position;
+
+        // Normalize the direction vector to maintain consistent force regardless of distance
+        kickDirection.Normalize();
+
+        // Apply a force in the opposite direction
+        GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
+
+        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
 
     private void Update()
