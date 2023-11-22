@@ -10,7 +10,6 @@ public class AirStrike : MonoBehaviour
     private Animator anim;
     public Transform player;
     public Transform[] spawnPoints;
-    bool isBombing;
 
     public GameObject warningZone;
    
@@ -30,11 +29,6 @@ public class AirStrike : MonoBehaviour
             Debug.LogError("SpriteRenderer component not found.");
             return;
         }
-
-    }
-
-    private void Update()
-    {
 
     }
 
@@ -61,9 +55,7 @@ public class AirStrike : MonoBehaviour
     }
 
     public void RandomizeAndSpawn()
-    {
-        isBombing = true;
-        
+    { 
         spawnPoints[0].position = new Vector3(player.position.x, player.position.y + 20f, player.position.z);
         spawnPoints[1].position = new Vector3(player.position.x, player.position.y, player.position.z);
         spawnPoints[2].position = new Vector3(player.position.x, player.position.y - 20f, player.position.z);
