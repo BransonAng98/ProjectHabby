@@ -207,11 +207,12 @@ public class CarAI : MonoBehaviour
 
     public void CheckOrientation()
     {
-        if(spriteRenderer.sprite == upSprite)
+        if(spriteRenderer.sprite == upSprite || spriteRenderer.sprite == downSprite)
         {
             isVertical = true;
         }
-        if (spriteRenderer.sprite != upSprite)
+
+        if (spriteRenderer.sprite == leftSprite || spriteRenderer.sprite == rightSprite)
         {
             isVertical = false;
         }
