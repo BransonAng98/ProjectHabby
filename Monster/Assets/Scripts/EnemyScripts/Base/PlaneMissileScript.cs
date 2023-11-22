@@ -10,7 +10,7 @@ public class PlaneMissileScript : MonoBehaviour
     public float destroyTime; // Set the default destroy time in seconds
     private float currentTime = 0f;
     public GameObject explosionVFX;
-    public Transform jetPos;
+    //public Transform jetPos;
     private SpriteRenderer spriteRenderer;
 
     public bool isLeft;
@@ -18,9 +18,8 @@ public class PlaneMissileScript : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // Set initial velocity to move the missile forward
+        // Set initial velocity to move the missile forward;
         CheckAndFire();
-
     }
 
     private void Update()
@@ -35,7 +34,7 @@ public class PlaneMissileScript : MonoBehaviour
         }
     }
 
-    void CheckAndFire()
+    public void CheckAndFire()
     {
 
         if (isLeft == true)
@@ -61,23 +60,23 @@ public class PlaneMissileScript : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("BigBuilding"))
-        {
-            // Check if the collider has a BigBuildingEnemy component
-            BigBuildingEnemy bigBuilding = collision.GetComponent<BigBuildingEnemy>();
+        //else if (collision.CompareTag("BigBuilding"))
+        //{
+        //    // Check if the collider has a BigBuildingEnemy component
+        //    BigBuildingEnemy bigBuilding = collision.GetComponent<BigBuildingEnemy>();
 
-            if (bigBuilding != null)
-            {
-                SpawnExplosion();
-                bigBuilding.TakeDamage(enemyData.attackDamage);
-            }
-            else
-            {
-                Debug.LogWarning("BigBuildingEnemy component not found on the collided object.");
-            }
+        //    if (bigBuilding != null)
+        //    {
+        //        SpawnExplosion();
+        //        bigBuilding.TakeDamage(enemyData.attackDamage);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("BigBuildingEnemy component not found on the collided object.");
+        //    }
 
-            Destroy(gameObject);
-        }
+        //    Destroy(gameObject);
+        //}
     }
 
     void BlowUp()

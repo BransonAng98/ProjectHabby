@@ -434,13 +434,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlanes: 3
+  numberOfMissiles: 5
   enemyPlane: {fileID: 4778428930660515346, guid: ca0d55a0c9369df4ebb3c84bb463ba19, type: 3}
   player: {fileID: 61134888}
   spawnPoints:
   - {fileID: 1481106835}
   - {fileID: 178335864}
   - {fileID: 2078770697}
+  missileSpawnPos: {fileID: 0}
   warningZone: {fileID: 6559637454192533199, guid: 1acc573ca77de004eba4a9126e9d20ac, type: 3}
+  missilePrefab: {fileID: 6361675759393907122, guid: 1cc46c20725cb9e4a8ecb8ba020aad16, type: 3}
 --- !u!1 &50837852
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +543,14 @@ PrefabInstance:
       propertyPath: abilitySlider
       value: 
       objectReference: {fileID: 1356264708}
+    - target: {fileID: 1361178656, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361178656, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 2373316967094534049, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
