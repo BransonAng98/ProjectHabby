@@ -49,6 +49,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public AudioSource buildingAudioSource;
     public AudioClip[] damageSFX;
     public AudioClip[] deathSFX;
+    public float spawnheight;
     private void Awake()
     {
         buildingType = GetComponent<Targetable>();
@@ -182,10 +183,10 @@ public class BigBuildingEnemy : MonoBehaviour
 
             Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
 
-            Vector3 spawnPos = transform.position + new Vector3(0,3f,0) + randomDirection * Random.Range(0.0f, spawnRadius);
+            Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
             GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.identity);
             civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
-
+            civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
