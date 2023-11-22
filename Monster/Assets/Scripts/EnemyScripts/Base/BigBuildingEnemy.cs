@@ -36,7 +36,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public int maxEntities = 4; // Maximum number of entities to spawn
     public int minCoins = 1;
     public int maxCoins = 4;
-    public float spawnRadius = 3.0f; // Maximum distance from the current position
+    private float spawnRadius = 1.0f; // Maximum distance from the current position
 
     public ObjectShakeScript shakeScript;
 
@@ -49,7 +49,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public AudioSource buildingAudioSource;
     public AudioClip[] damageSFX;
     public AudioClip[] deathSFX;
-
+    public float spawnheight;
     private void Awake()
     {
         buildingType = GetComponent<Targetable>();
@@ -177,11 +177,16 @@ public class BigBuildingEnemy : MonoBehaviour
         int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
         for (int i = 0; i < numberOfEntities; i++)
         {
-            Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            Vector3 spawnPos = transform.position + randomDirection * Random.Range(0.0f, spawnRadius);
-            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.identity);
-            civilian.GetComponent<FakeHeightScript>().Initialize(Random.insideUnitCircle * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+            // Choose between two fixed directions
+            Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
+            Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
 
+            Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
+
+            Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
+            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.identity);
+            civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+            civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);

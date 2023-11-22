@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 public class FakeHeightScript : MonoBehaviour
 {
+    public GameObject spawnerReference;
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
-    public GameObject transShadow;
+   
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
@@ -16,6 +17,15 @@ public class FakeHeightScript : MonoBehaviour
 
     public bool isGrounded;
 
+
+    private void Start()
+    {
+        if (spawnerReference != null)
+        {
+            spawnerReference.GetComponent<BigBuildingEnemy>();
+        }
+        
+    }
     private void Update()
     {
         UpdatePosition();
@@ -41,13 +51,30 @@ public class FakeHeightScript : MonoBehaviour
 
     void checkGroundHit()
     {
-        if (transBody.position.y < transObject.position.y && !isGrounded)
+        /*float heightdistance = spawnerReference.GetComponent<BigBuildingEnemy>().spawnheight;
+        if (transBody.position.y  < transObject.position.y - heightdistance && !isGrounded)
         {
             isGrounded = true;
-            transBody.position = transObject.position;
+            //transBody.position = transObject.position;
             
             Groundhit();
-            Destroy(transShadow);
+        }*/
+        if (spawnerReference != null)
+        {
+            float heightdistance = spawnerReference.GetComponent<BigBuildingEnemy>().spawnheight;
+            if (transBody.position.y < transObject.position.y - heightdistance && !isGrounded)
+            {
+                isGrounded = true;
+                //transBody.position = transObject.position;
+
+                Groundhit();
+            }
+        }
+
+        else
+        {
+            isGrounded = true;
+            Groundhit();
         }
     }
 
