@@ -124,10 +124,9 @@ MonoBehaviour:
   maxEntities: 0
   minCoins: 0
   maxCoins: 0
-  spawnRadius: 0
   shakeScript: {fileID: 3469571163104835178, guid: 676ce5da3ad52be41841108b1e740d24, type: 3}
-  groundDispenseVelocity: {x: 5, y: 5}
-  verticalDispenseVelocity: {x: 15, y: 15}
+  groundDispenseVelocity: {x: 3, y: 4}
+  verticalDispenseVelocity: {x: 10, y: 13}
   buildingAudioSource: {fileID: 5570585393569400949, guid: 676ce5da3ad52be41841108b1e740d24, type: 3}
   damageSFX:
   - {fileID: 8300000, guid: 7b550e979b8d3d84ebd608008e18094b, type: 3}
@@ -137,6 +136,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 89d16d27121f3c64e800c4d9935e50a7, type: 3}
   - {fileID: 8300000, guid: 75b18fe3182ac4549a52185c7e8cc43c, type: 3}
   - {fileID: 8300000, guid: 21f942209af67e24e9ef90feaeffbde7, type: 3}
+  spawnHeight: 3
 --- !u!60 &1569463386181299303
 PolygonCollider2D:
   m_ObjectHideFlags: 0

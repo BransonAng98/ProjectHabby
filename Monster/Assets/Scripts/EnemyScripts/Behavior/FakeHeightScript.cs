@@ -8,7 +8,7 @@ public class FakeHeightScript : MonoBehaviour
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
-    public GameObject transShadow;
+   
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
@@ -41,13 +41,12 @@ public class FakeHeightScript : MonoBehaviour
 
     void checkGroundHit()
     {
-        if (transBody.position.y < transObject.position.y && !isGrounded)
+        if (transBody.position.y  < transObject.position.y - 3f && !isGrounded)
         {
             isGrounded = true;
-            transBody.position = transObject.position;
+            //transBody.position = transObject.position;
             
             Groundhit();
-            Destroy(transShadow);
         }
     }
 

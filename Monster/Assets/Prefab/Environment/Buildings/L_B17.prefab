@@ -72,10 +72,9 @@ MonoBehaviour:
   maxEntities: 4
   minCoins: 1
   maxCoins: 4
-  spawnRadius: 3
   shakeScript: {fileID: 1651446253633116851}
-  groundDispenseVelocity: {x: 5, y: 5}
-  verticalDispenseVelocity: {x: 15, y: 15}
+  groundDispenseVelocity: {x: 3, y: 4}
+  verticalDispenseVelocity: {x: 10, y: 13}
   buildingAudioSource: {fileID: 3539002505733151235}
   damageSFX:
   - {fileID: 8300000, guid: 7b550e979b8d3d84ebd608008e18094b, type: 3}
@@ -85,6 +84,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 89d16d27121f3c64e800c4d9935e50a7, type: 3}
   - {fileID: 8300000, guid: 75b18fe3182ac4549a52185c7e8cc43c, type: 3}
   - {fileID: 8300000, guid: 21f942209af67e24e9ef90feaeffbde7, type: 3}
+  spawnHeight: 3
 --- !u!61 &-8402224477386190382
 BoxCollider2D:
   m_ObjectHideFlags: 0
