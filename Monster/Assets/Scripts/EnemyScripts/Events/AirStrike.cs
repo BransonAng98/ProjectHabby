@@ -5,14 +5,18 @@ using UnityEngine;
 public class AirStrike : MonoBehaviour
 {
     public int numberOfPlanes;
+    public int numberOfMissiles;
     public GameObject enemyPlane;
 
     private Animator anim;
     public Transform player;
     public Transform[] spawnPoints;
+    [SerializeField] Transform missileSpawnPos;
 
     public GameObject warningZone;
-   
+    public GameObject missilePrefab;
+
+
     private void Start()
     {
         anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
@@ -41,7 +45,7 @@ public class AirStrike : MonoBehaviour
 
             anim.SetBool("Close", true);
 
-            Invoke("RandomizeAndSpawn", 6f);
+            Invoke("RandomizeAndSpawn", 2f);
 
             Invoke("ResetActivation", 15f);
 
@@ -72,10 +76,12 @@ public class AirStrike : MonoBehaviour
                 case 0:
                     Vector3 spawnPointL = new Vector3(pos.position.x - 80f, pos.position.y, 0f);
                     SpawnObject(spawnPointL);
+                    SpawnMissiles(false, spawnPointL);
                     break;
                 case 1:
                     Vector3 spawnPointR = new Vector3(pos.position.x + 80f, pos.position.y, 0f);
                     SpawnObject(spawnPointR);
+                    SpawnMissiles(true, spawnPointR);
                     break;
             }
         }
@@ -83,7 +89,36 @@ public class AirStrike : MonoBehaviour
 
     void DestroyWarningZone(GameObject zone)
     {
-        Destroy(zone, 4f);
+        Destroy(zone, 6f);
+    }
+
+    public void SpawnMissiles(bool movingLeft , Vector3 firingPoint)
+    {
+        // Define the stagger amount and initial offset
+        float staggerAmountX = 2.0f;  // Adjust this based on desired spacing along x-axis
+        float staggerAmountY = 2.0f;  // Adjust this based on desired spacing along y-axis
+        float initialOffsetX = -staggerAmountX * 1.5f;  // Adjust initial offsets based on the formation
+        float initialOffsetY = -staggerAmountY;  // Adjust initial offsets based on the formation
+
+        for (int i = 0; i < numberOfPlanes; i++)
+        {
+            // Calculate the staggered position for each fighter plane
+            float xOffset = initialOffsetX + i * staggerAmountX;
+            float yOffset = initialOffsetY + i * staggerAmountY;
+            Vector3 staggeredPosition = new Vector3(firingPoint.x + xOffset, firingPoint.y + yOffset, 0f);
+            // Instantiate the fighter jet at the staggered position
+            GameObject newMissile = Instantiate(missilePrefab, staggeredPosition, Quaternion.identity);
+
+            if (movingLeft == true)
+            {
+                newMissile.GetComponent<PlaneMissileScript>().isLeft = true;
+            }
+            else
+            {
+                newMissile.GetComponent<PlaneMissileScript>().isLeft = false;
+            }
+        }
+
     }
 
     public void SpawnObject(Vector3 spawnPoint)

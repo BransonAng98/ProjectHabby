@@ -10,7 +10,7 @@ public class JetEnemy : MonoBehaviour
 
     public Transform cameraTransform;
 
-    public GameObject missilePrefab;
+    //public GameObject missilePrefab;
     public Transform firingPoint;
     public float fireRate = 1f;
     private float nextFireTime = 0f;
@@ -33,18 +33,18 @@ public class JetEnemy : MonoBehaviour
         // Run the despawn timer
         DespawnTimer();
         //Check if can fire
-        CheckCanFire();
+        
     }
 
-    void CheckCanFire()
-    {
+    //void CheckCanFire()
+    //{
 
-        if (isPlayerWithinCollider && Time.time > nextFireTime)
-        {
-            MissilesAway();
-            nextFireTime = Time.time + 1.5f / fireRate;
-        }
-    }
+    //    if (isPlayerWithinCollider && Time.time > nextFireTime)
+    //    {
+    //        MissilesAway();
+    //        nextFireTime = Time.time + 1.5f / fireRate;
+    //    }
+    //}
 
     void DespawnTimer()
     {
@@ -86,19 +86,19 @@ public class JetEnemy : MonoBehaviour
         }
     }
 
-    void MissilesAway()
-    {
-        GameObject newMissile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
-        if (movingLeft == true)
-        {
-            newMissile.GetComponent<PlaneMissileScript>().isLeft = true;
-        }
-        else
-        {
-            newMissile.GetComponent<PlaneMissileScript>().isLeft = false;
-        }
+    //public void SpawnMissiles()
+    //{
+    //    GameObject newMissile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
+    //    if (movingLeft == true)
+    //    {
+    //        newMissile.GetComponent<PlaneMissileScript>().isLeft = true;
+    //    }
+    //    else
+    //    {
+    //        newMissile.GetComponent<PlaneMissileScript>().isLeft = false;
+    //    }
 
-    }
+    //}
 
     void MoveLeft()
     {
