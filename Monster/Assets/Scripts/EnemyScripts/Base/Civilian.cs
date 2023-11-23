@@ -35,8 +35,6 @@ public class Civilian : MonoBehaviour
     //Follower Variables
     [SerializeField] Transform leaderPos;
     [SerializeField] bool isFollowing;
-    public float separationDistance = 2f; // Distance to keep from other game objects
-    public float avoidanceForce = 5f; // Force to avoid collisions
 
     //Wandering Variables
     public float changeDirectionInterval = 1.0f; // Time interval to change direction
@@ -296,33 +294,7 @@ public class Civilian : MonoBehaviour
         
     }
 
-    void AvoidCollisions()
-    {
-        // Get all nearby game objects
-        GameObject[] allGameObjects = GameObject.FindGameObjectsWithTag("AI");
-
-        foreach (GameObject otherObject in allGameObjects)
-        {
-            if (otherObject != gameObject)
-            {
-                // Calculate the distance to the other game object
-                float distanceToOther = Vector2.Distance(transform.position, otherObject.transform.position);
-
-                // If too close, avoid collision
-                if (distanceToOther < separationDistance)
-                {
-                    // Calculate the avoidance force
-                    Vector2 avoidanceDirection = (transform.position - otherObject.transform.position).normalized;
-                    float avoidanceStrength = Mathf.Clamp01(1 - distanceToOther / separationDistance);
-                    Vector2 avoidanceForce = avoidanceDirection * avoidanceForce * avoidanceStrength;
-
-                    // Apply the avoidance force
-                    transform.Translate(avoidanceForce * Time.deltaTime);
-                }
-            }
-        }
-
-        public void Death()
+    public void Death()
     {
        
         if (!isTriggered)
