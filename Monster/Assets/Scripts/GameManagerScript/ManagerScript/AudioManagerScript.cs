@@ -9,6 +9,11 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource feedbackaudioSource;
     public AudioSource militaryAbilityWarningSource;
     public AudioSource militaryAbilitySource;
+    public AudioSource buildingAudioSource;
+    public AudioSource treeaudioSource;
+    public AudioSource civilianAudioSource;
+    
+    public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
     public AudioClip[] feedbackSFX;
     public AudioClip wooshSFX1;
@@ -18,6 +23,9 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip bgm;
     public AudioClip Victory;
     public AudioClip Defeat;
+    public AudioClip[] buildingdamageSFX;
+    public AudioClip[] buildingdeathSFX;
+    public AudioClip[] civillianDeathSFX;
     public GameManagerScript gamemanager;
     public EventManager eventmanagerScript;
     [SerializeField] float minTime;
@@ -80,6 +88,31 @@ public class AudioManagerScript : MonoBehaviour
     public void PlayWoosh2SFX()
     {
         militaryAbilityWarningSource.PlayOneShot(wooshSFX2);
+    }
+
+    public void playBuildingDamageFX()
+    {
+        AudioClip damagesoundtoPlay = buildingdamageSFX[Random.Range(0, buildingdamageSFX.Length)];
+        buildingAudioSource.PlayOneShot(damagesoundtoPlay);
+        Debug.Log("PlaySound");
+    }
+
+    public void playBuildingDeathSFX()
+    {
+        AudioClip deathsoundtoPlay = buildingdeathSFX[Random.Range(0, buildingdeathSFX.Length)];
+        buildingAudioSource.PlayOneShot(deathsoundtoPlay);
+    }
+
+    public void PlayTreeSFX()
+    {
+        AudioClip deathSFX = treeSFX[(Random.Range(0, treeSFX.Length))];
+        treeaudioSource.PlayOneShot(deathSFX);
+    }
+
+    public void PlaycivillianDeathSFX()
+    {
+        AudioClip deathsoundtoPlay = civillianDeathSFX[Random.Range(0, civillianDeathSFX.Length)];
+        civilianAudioSource.PlayOneShot(deathsoundtoPlay);
     }
 
     public void PlayIncomingAbility()

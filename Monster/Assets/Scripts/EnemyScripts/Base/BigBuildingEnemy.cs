@@ -51,6 +51,8 @@ public class BigBuildingEnemy : MonoBehaviour
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
 
+    public AudioManagerScript audiomanager;
+
     public AudioSource buildingAudioSource;
     public AudioClip[] damageSFX;
     public AudioClip[] deathSFX;
@@ -69,6 +71,7 @@ public class BigBuildingEnemy : MonoBehaviour
         civilianParent = GameObject.Find("---Civillian---");
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         buildingAudioSource = GetComponent<AudioSource>();
     }
 
@@ -102,7 +105,8 @@ public class BigBuildingEnemy : MonoBehaviour
         }
         SpawnCivilian();
         DamageEffect();
-        playDamageSFX();
+        audiomanager.playBuildingDamageFX();
+        //playDamageSFX();
 
         if (isOnFire != true)
         {
@@ -119,7 +123,8 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void Death()
     {
-        playDeathSFX();
+        audiomanager.playBuildingDeathSFX();
+       // playDeathSFX();
         TriggerLoot();
 
         foreach (var fireHandler in fireHandlers)
@@ -215,7 +220,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     }
 
-    void playDamageSFX()
+    /*void playDamageSFX()
     {
         AudioClip damagesoundtoPlay = damageSFX[Random.Range(0, damageSFX.Length)];
         buildingAudioSource.PlayOneShot(damagesoundtoPlay);
@@ -226,6 +231,6 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         AudioClip deathsoundtoPlay = deathSFX[Random.Range(0, deathSFX.Length)];
         buildingAudioSource.PlayOneShot(deathsoundtoPlay);
-    }
+    }*/
 
 }
