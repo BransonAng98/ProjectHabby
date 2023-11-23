@@ -6,6 +6,8 @@ public class Trees : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     public Sprite destroyedSprite;
+    public GameObject hitVFX;
+
     private ObjectShakeScript shakeScript;
     private bool isShake;
     private Collider2D entityCollider;
@@ -36,6 +38,7 @@ public class Trees : MonoBehaviour
 
         else
         {
+            SpawnVFX();
             PlaySFX();
             entityCollider.enabled = false;
             if (isShake != true)
@@ -54,6 +57,11 @@ public class Trees : MonoBehaviour
           
             Death();
         }
+    }
+
+    void SpawnVFX()
+    {
+        Instantiate(hitVFX, transform.position, Quaternion.identity);
     }
 
     public void PlaySFX()
