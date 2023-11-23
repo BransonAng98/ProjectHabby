@@ -39,7 +39,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private int attackCount;
     [SerializeField] private float degreeAngle;
 
-    public GameObject[] legLocations;
+    
     public GameObject HitDetection;
     public GameObject Groundcrack;
     public List<UltimateBase> utlimates = new List<UltimateBase>();
@@ -200,12 +200,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    public void SpawnFootprint()
-    {
-        vfxManager.SpawnImpactAtFoot(0);
-        vfxManager.SpawnImpactAtFoot(1);
-    }
-
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
     {
@@ -220,9 +214,24 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             PlaySFX();
         }
 
-        if(eventName == "step")
+        if(eventName == "right01")
         {
-            SpawnFootprint();
+            vfxManager.footImpact(0);
+            PlaySFX();
+        }
+        if (eventName == "right02")
+        {
+            vfxManager.footImpact(1);
+            PlaySFX();
+        }
+        if (eventName == "left01")
+        {
+            vfxManager.footImpact(2);
+            PlaySFX();
+        }
+        if (eventName == "left02")
+        {
+            vfxManager.footImpact(3);
             PlaySFX();
         }
 
