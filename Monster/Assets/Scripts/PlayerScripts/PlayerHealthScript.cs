@@ -85,6 +85,7 @@ public class PlayerHealthScript : MonoBehaviour
                 if (berserkVignette.alpha >= 0)
                 {
                     berserkVignette.alpha += Time.deltaTime;
+                    Debug.Log("Trigger Vig");
                 }
 
                 meshRenderer.CustomMaterialOverride[originalMat] = rageMat;
@@ -166,10 +167,7 @@ public class PlayerHealthScript : MonoBehaviour
 
                 if(playerSO.health < 1)
                 {
-                    playerHandler.isEnd = true;
-                    playerHandler.DisableMovement(3);
-                    gameManager.isVictory = false;
-                    cutsceneManager.TriggerEnd();
+                    TriggerDeath();
                 }
             }
 
@@ -179,10 +177,7 @@ public class PlayerHealthScript : MonoBehaviour
                 
                 if (playerSO.health < 1)
                 {
-                    playerHandler.isEnd = true;
-                    playerHandler.DisableMovement(3);
-                    gameManager.isVictory = false;
-                    cutsceneManager.TriggerEnd();
+                    TriggerDeath();
                 }
             }
 
@@ -197,11 +192,16 @@ public class PlayerHealthScript : MonoBehaviour
 
         else
         {
-            playerHandler.isEnd = true;
-            playerHandler.DisableMovement(3);
-            gameManager.isVictory = false;
-            cutsceneManager.TriggerEnd();
+            TriggerDeath();
         }
+    }
+
+    void TriggerDeath()
+    {
+        playerHandler.isEnd = true;
+        playerHandler.DisableMovement(3);
+        gameManager.isVictory = false;
+        cutsceneManager.TriggerEnd();
     }
 
     public void RecoverHealth(int recover)

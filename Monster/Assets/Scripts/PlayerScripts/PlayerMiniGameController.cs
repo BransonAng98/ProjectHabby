@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Spine.Unity;
+using Spine;
 
 public class PlayerMiniGameController : MonoBehaviour
 {
@@ -25,7 +26,19 @@ public class PlayerMiniGameController : MonoBehaviour
     private void Start()
     {
         landmark = GameObject.FindGameObjectWithTag("Landmark").GetComponent<MiniGameLandmark>();
+        skeletonAnimation.AnimationState.Event += OnSpineEvent;
         currentState = PlayerState.idle;
+    }
+
+    void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
+    {
+        string eventName = e.Data.Name;
+        if (eventName == "damage")
+        {
+            //Call the function that you want here
+            Attack();
+            //PlaySFX();
+        }
     }
 
     public void TriggerAttack()
@@ -35,7 +48,6 @@ public class PlayerMiniGameController : MonoBehaviour
             prevState = currentState;
         }
         isAttacking = true;
-        Invoke("Attack", 1f);
     }
 
     public void Attack()
@@ -57,7 +69,7 @@ public class PlayerMiniGameController : MonoBehaviour
 
         if (states.Equals(PlayerState.attack))
         {
-            SetAnimation(0, attack, true, 1f);
+            SetAnimation(0, attack, true, 1.4f);
         }
     }
 

@@ -273,11 +273,19 @@ public class Civilian : MonoBehaviour
 
     void MoveTowards(Vector2 targetPosition, float speed)
     {
-        // Calculate the direction to the target
-        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+        if(leaderPos != null)
+        {
+            // Calculate the direction to the target
+            Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
 
-        // Move towards the target using Translate
-        transform.Translate(direction * speed * Time.deltaTime);
+            // Move towards the target using Translate
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
+
+        else
+        {
+            Debug.LogError("Leader is dead, but I am still following orders");
+        }
     }
 
     void FallToRun()

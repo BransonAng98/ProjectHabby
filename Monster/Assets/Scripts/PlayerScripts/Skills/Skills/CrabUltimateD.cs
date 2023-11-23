@@ -42,7 +42,7 @@ public class CrabUltimateD : UltimateBase
                 else { return; }
             }
 
-            else if (collider.CompareTag("Civilians"))
+            else if (collider.CompareTag("Civilian"))
             {
                 Civilian civilian = collider.GetComponent<Civilian>();
                 if (civilian != null)
