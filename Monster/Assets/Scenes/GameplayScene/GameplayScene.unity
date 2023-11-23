@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6516790000295486548, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 124e0d08c57a23d4283e9252a34b82df, type: 2}
     - target: {fileID: 6516790000295486552, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -791,7 +795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123827350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.292843, y: 29.262306, z: -0.6721486}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1353,8 +1357,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254012708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55, y: 123.7, z: 0}
-  m_LocalScale: {x: 150, y: 15, z: 1}
+  m_LocalPosition: {x: 55, y: 132.9924, z: 0}
+  m_LocalScale: {x: 150, y: 33.58444, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1705190840}
@@ -2791,10 +2795,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5017625, y: 0.77335805}
+    - - {x: -0.49980932, y: 0.6940234}
+      - {x: -0.49982858, y: 0.57381696}
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
-      - {x: 0.50214684, y: 0.7743716}
+      - {x: 0.50150275, y: 0.69421667}
 --- !u!1 &578252691
 GameObject:
   m_ObjectHideFlags: 0
@@ -6854,7 +6859,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527096990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.760227, y: 70.697556, z: -0.568757}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

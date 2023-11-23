@@ -145,8 +145,7 @@ public class CarAI : MonoBehaviour
         PlaySFX();
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
-        GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
-        smoke.transform.SetParent(this.gameObject.transform);
+       
 
         if (isVertical == true)
         {
@@ -158,13 +157,15 @@ public class CarAI : MonoBehaviour
         }
 
         
-        spriteRenderer.sortingOrder = 1;
+        
         if (isKicking)
         {
             return;
         }
         else
         {
+            GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+            smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
         objectFader.StartFading();

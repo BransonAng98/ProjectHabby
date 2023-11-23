@@ -55,7 +55,7 @@ public class EventManager : MonoBehaviour
                 {
                     case 0:
                         airStrikeScript.ActivateAirStrike();
-                        Invoke("PlaySFX", 6f);
+                        Invoke("PlaySFX", 2f);
                         bannerText.text = "Incoming AirStrike!";
                         currentScore = 0;
                         break;

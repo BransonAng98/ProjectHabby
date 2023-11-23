@@ -155,13 +155,19 @@ MonoBehaviour:
   entityCollider: {fileID: 0}
   player: {fileID: 0}
   anim: {fileID: 2121271329903212248}
-  deathVFX: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
+  deathVFX: {fileID: 4553287630450876385, guid: 0e71b1edfc3b3364fbd6ae763e3801bb, type: 3}
   fadeEffect: {fileID: 0}
   levelManager: {fileID: 0}
+  minIdleTime: 5
+  maxIdleTime: 7
+  currentIdleTime: 0
+  leaderPos: {fileID: 0}
+  isFollowing: 0
   changeDirectionInterval: 2
   maxWanderDistance: 5
   isBlocked: 0
   fakeheight: {fileID: 5449514087185011786}
+  rotationSpeed: 100
   civilianAudioSource: {fileID: 7861294801107987526}
   DeathSFX:
   - {fileID: 8300000, guid: 045809794ba824c44b52c4a50eab1d04, type: 3}
@@ -201,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 4
   player: {fileID: 0}
+  leaderEnemy: {fileID: 0}
 --- !u!114 &8769461403395773943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5418014571ae04ca949c325eb46746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerReference: {fileID: 0}
   onGroundHitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -372,7 +380,6 @@ MonoBehaviour:
         m_CallState: 2
   transObject: {fileID: 2411092050883332401}
   transBody: {fileID: 3708077282136268596}
-  transShadow: {fileID: 0}
   groundVelocity: {x: 0, y: 0}
   verticalVelocity: 0
   gravity: -40

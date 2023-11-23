@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Civilian : MonoBehaviour
 {
-    public enum EnemyState { fall, run, death, walk, }
+    public enum EnemyState { fall, run, death, walk, idle, }
 
     public EnemyState enemyState;
     SpriteRenderer spriteRenderer;
@@ -17,16 +17,23 @@ public class Civilian : MonoBehaviour
     public Transform player;
     public Animator anim;
     public GameObject deathVFX;
-    public ObjectFadeEffect fadeEffect;
-
+   
     private float lastPosX;
     private float runSpeed;
 
     [SerializeField] private LevelManager levelManager;
-   
+
+    //Idle Time Variable
+    public float minIdleTime;
+    public float maxIdleTime;
+    [SerializeField] private float currentIdleTime;
 
     bool isTriggered;
     bool hasDied;
+
+    //Follower Variables
+    [SerializeField] Transform leaderPos;
+    [SerializeField] bool isFollowing;
 
     //Wandering Variables
     public float changeDirectionInterval = 1.0f; // Time interval to change direction
@@ -42,6 +49,7 @@ public class Civilian : MonoBehaviour
     private bool hasSpawned;
 
     public FakeHeightScript fakeheight;
+    public float rotationSpeed;
 
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
@@ -60,8 +68,6 @@ public class Civilian : MonoBehaviour
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
 
-        fadeEffect = GetComponent<ObjectFadeEffect>();
-        
     }
 
 
@@ -77,7 +83,7 @@ public class Civilian : MonoBehaviour
 
     private void RandomizeSpeed(float speed)
     {
-        runSpeed = Random.Range(enemyData.speed, enemyData.speed + 2f);
+        runSpeed = Random.Range(enemyData.speed, enemyData.speed + 1.5f);
     }
 
 
@@ -100,10 +106,21 @@ public class Civilian : MonoBehaviour
         }
     }
 
+    public void AddCivilian(Transform leaderGO)
+    {
+        leaderPos = leaderGO;
+        isFollowing = true;
+    }
+
+    public void RemoveCivilan()
+    {
+        isFollowing = false;
+        leaderPos = null;
+    }
 
     void Run(Vector2 dir)
     {
-        if(enemyState != EnemyState.death)
+        if(enemyState == EnemyState.run)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             float newDistance = detectionDistance + 5f;
@@ -134,10 +151,65 @@ public class Civilian : MonoBehaviour
 
             else if (distanceToPlayer > newDistance)
             {
-                ChangeWalkState();
+                enemyState = EnemyState.walk;
+                anim.SetBool("walk", true);
             }
         }
     }
+
+    void IdleOrMove()
+    {
+        float decision = Random.Range(0, 1 + 1);
+        switch (decision)
+        {
+            case 0:
+                enemyState = EnemyState.idle;
+                anim.SetBool("idle", true);
+                anim.SetBool("walk", false);
+                break;
+
+            case 1:
+                enemyState = EnemyState.walk;
+                anim.SetBool("walk", true);
+                anim.SetBool("idle", false);
+                break;
+        }
+    }
+
+    //void Idle()
+    //{
+    //    float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+    //    if (distanceToPlayer < detectionDistance)
+    //    {
+    //        anim.SetBool("idle", false);
+    //        anim.SetBool("run", true);
+    //        anim.SetBool("walk", false);
+    //        enemyState = EnemyState.run;
+    //    }
+
+    //    else
+    //    {
+    //        anim.SetBool("idle", true);
+    //        anim.SetBool("run", false);
+    //        anim.SetBool("walk", false);
+
+    //        float idleTime = Random.Range(minIdleTime, maxIdleTime + 1);
+
+    //        if (currentIdleTime <= idleTime)
+    //        {
+    //            currentIdleTime += Time.deltaTime;
+    //        }
+
+    //        else
+    //        {
+    //            currentIdleTime = 0f;
+    //            IdleOrMove();
+    //        }
+    //    }
+        
+    //}
+
 
     void Walk()
     {
@@ -146,6 +218,7 @@ public class Civilian : MonoBehaviour
         // Check if the player is within the detection distance
         if (distanceToPlayer < detectionDistance)
         {
+            anim.SetBool("idle", false);
             anim.SetBool("run", true);
             anim.SetBool("walk", false);
             enemyState = EnemyState.run;
@@ -153,55 +226,58 @@ public class Civilian : MonoBehaviour
 
         else
         {
+            anim.SetBool("idle", false);
             anim.SetBool("walk", true);
             anim.SetBool("run", false);
-            timeSinceLastDirectionChange += Time.deltaTime;
 
-            // Check if it's time to change direction
-            if (timeSinceLastDirectionChange >= changeDirectionInterval)
+            if (!isFollowing)
             {
-                if (isBlocked != true)
-                {
-                    // Generate a random direction vector
-                    Vector2 randomDirection = Random.insideUnitCircle.normalized;
+                timeSinceLastDirectionChange += Time.deltaTime;
 
-                    // Calculate a new target position within the wander range
-                    targetPosition = (Vector2)transform.position + randomDirection * Random.Range(0.0f, maxWanderDistance);
+                // Check if it's time to change direction
+                if (timeSinceLastDirectionChange >= changeDirectionInterval)
+                {
+                    if (isBlocked != true)
+                    {
+                        // Generate a random direction vector
+                        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+
+                        // Calculate a new target position within the wander range
+                        targetPosition = (Vector2)transform.position + randomDirection * Random.Range(0.0f, maxWanderDistance);
+                    }
+
+                    else
+                    {
+                        Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
+
+                        newRunDirection.Normalize();
+                        // Calculate a new target position within the wander range
+                        transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
+
+                        isBlocked = false;
+                    }
+
+                    // Reset the timer
+                    timeSinceLastDirectionChange = 0.0f;
                 }
 
-                else
-                {
-                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
-
-                    newRunDirection.Normalize();
-                    // Calculate a new target position within the wander range
-                    transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
-
-                    isBlocked = false;
-                }
-
-                // Reset the timer
-                timeSinceLastDirectionChange = 0.0f;
+                // Move towards the target position
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
             }
-
-            // Move towards the target position
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
+            else
+            {
+                MoveTowards(leaderPos.position, runSpeed);
+            }
         }
     }
 
-    void ChangeRunState()
+    void MoveTowards(Vector2 targetPosition, float speed)
     {
-        anim.SetBool("run", true);
-        anim.SetBool("walk", false);
-        enemyState = EnemyState.run;
-        fakeheight.isGrounded = true;
-    }
+        // Calculate the direction to the target
+        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
 
-    void ChangeWalkState()
-    {
-        anim.SetBool("walk", true);
-        anim.SetBool("run", false);
-        enemyState = EnemyState.walk;
+        // Move towards the target using Translate
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     void FallToRun()
@@ -282,6 +358,7 @@ public class Civilian : MonoBehaviour
             case EnemyState.fall:
                 anim.SetBool("fall", true);
                 spriteRenderer.sortingOrder = 4;
+                GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
                 FallToRun();
                 break;
 

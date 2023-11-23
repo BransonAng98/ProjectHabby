@@ -42,6 +42,11 @@ public class CollateralScript : MonoBehaviour
                 civilianStat.enemyState = Civilian.EnemyState.death;
                 break;
 
+            case Targetable.EnemyType.leader:
+                Leader leaderStat = entity.GetComponent<Leader>();
+                leaderStat.enemyState = Leader.EnemyState.death;
+                break;
+
             case Targetable.EnemyType.Soldier:
                 HumanSoldier soldierStat = entity.GetComponent<HumanSoldier>();
                 soldierStat.isBurnt = true;
