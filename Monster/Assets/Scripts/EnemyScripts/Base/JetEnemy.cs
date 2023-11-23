@@ -10,17 +10,11 @@ public class JetEnemy : MonoBehaviour
 
     public Transform cameraTransform;
 
-    //public GameObject missilePrefab;
-    public Transform firingPoint;
-    public float fireRate = 1f;
-    private float nextFireTime = 0f;
-
     public float destroyAfterSeconds = 12f;
     private float destroyTimer;
 
     private bool movingLeft;
-    private bool isPlayerWithinCollider = false; // Flag to check if the player is within the collider
-
+ 
     private void Start()
     {
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
@@ -36,16 +30,6 @@ public class JetEnemy : MonoBehaviour
         
     }
 
-    //void CheckCanFire()
-    //{
-
-    //    if (isPlayerWithinCollider && Time.time > nextFireTime)
-    //    {
-    //        MissilesAway();
-    //        nextFireTime = Time.time + 1.5f / fireRate;
-    //    }
-    //}
-
     void DespawnTimer()
     {
         destroyTimer += Time.deltaTime;
@@ -55,7 +39,6 @@ public class JetEnemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 
     void checkPosition()
     {
@@ -68,37 +51,6 @@ public class JetEnemy : MonoBehaviour
             MoveRight();
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            isPlayerWithinCollider = true; // Player is within the collider
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            isPlayerWithinCollider = false; // Player has exited the collider
-
-        }
-    }
-
-    //public void SpawnMissiles()
-    //{
-    //    GameObject newMissile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
-    //    if (movingLeft == true)
-    //    {
-    //        newMissile.GetComponent<PlaneMissileScript>().isLeft = true;
-    //    }
-    //    else
-    //    {
-    //        newMissile.GetComponent<PlaneMissileScript>().isLeft = false;
-    //    }
-
-    //}
 
     void MoveLeft()
     {
