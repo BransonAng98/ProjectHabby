@@ -97,7 +97,6 @@ public class MeteorScript : MonoBehaviour
         cameraShake.shakeFrequency = 3f;
     }
 
-
     public void PlayExplosion()
 
     {
@@ -113,8 +112,7 @@ public class MeteorScript : MonoBehaviour
 
     public void SpawnCrater()
     {
-        Vector2 spawnPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 3f);
-        Instantiate(crater, spawnPos, Quaternion.identity);
+        Instantiate(crater, playerHandler.transform.position, Quaternion.identity);
     }
 
     public void SpawnPlayer()

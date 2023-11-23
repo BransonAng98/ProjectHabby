@@ -160,7 +160,7 @@ public class BigBuildingEnemy : MonoBehaviour
             for (int i = 0; i < numberOfFires; i++)
             {
                 isTriggered = true;
-                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 1f);
+                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 0.5f);
                 Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
                 GameObject fireAnim = Instantiate(fireVFX, randomPosition, Quaternion.Euler(-90, 0, 0));
                 fireHandlers.Add(fireAnim);
