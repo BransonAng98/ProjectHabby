@@ -19,7 +19,8 @@ public class Civilian : MonoBehaviour
     public GameObject deathVFX;
    
     private float lastPosX;
-    private float runSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float runSpeed;
 
     [SerializeField] private LevelManager levelManager;
 
@@ -53,6 +54,7 @@ public class Civilian : MonoBehaviour
 
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
+    public AudioManagerScript audiomanager;
     private bool deathSFXPlayed = false;
 
 
@@ -67,7 +69,7 @@ public class Civilian : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
-
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
     }
 
 
@@ -81,9 +83,11 @@ public class Civilian : MonoBehaviour
         RandomizeSpeed(enemyData.speed);
     }
 
+
     private void RandomizeSpeed(float speed)
     {
-        runSpeed = Random.Range(enemyData.speed, enemyData.speed + 1.5f);
+        walkSpeed = Random.Range(enemyData.speed - 0.2f, enemyData.speed);
+        runSpeed = Random.Range(enemyData.speed + 1f, enemyData.speed + 1.5f);
     }
 
 
@@ -252,7 +256,7 @@ public class Civilian : MonoBehaviour
 
                         newRunDirection.Normalize();
                         // Calculate a new target position within the wander range
-                        transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
+                        transform.position += newRunDirection * walkSpeed * Time.deltaTime;
 
                         isBlocked = false;
                     }
@@ -262,11 +266,11 @@ public class Civilian : MonoBehaviour
                 }
 
                 // Move towards the target position
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, walkSpeed * Time.deltaTime);
             }
             else
             {
-                MoveTowards(leaderPos.position, runSpeed);
+                MoveTowards(leaderPos.position, walkSpeed);
             }
         }
     }
@@ -292,7 +296,8 @@ public class Civilian : MonoBehaviour
     {
         if(fakeheight.isGrounded == true)
         {
-            PlayDeathSFX();
+            audiomanager.PlaycivillianDeathSFX();
+            //PlayDeathSFX();
             entityCollider.enabled = true;
             enemyState = EnemyState.death;
         }
@@ -324,7 +329,8 @@ public class Civilian : MonoBehaviour
         // Check if the death sound effect has already been played
         if (!deathSFXPlayed)
         {
-            PlayDeathSFX();
+            audiomanager.PlaycivillianDeathSFX();
+            //PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
 
@@ -380,9 +386,9 @@ public class Civilian : MonoBehaviour
         }
     }
 
-    public void PlayDeathSFX()
+    /*public void PlayDeathSFX()
     {
         AudioClip deathsoundtoPlay = DeathSFX[Random.Range(0, DeathSFX.Length)];
         civilianAudioSource.PlayOneShot(deathsoundtoPlay);
-    }
+    }*/
 }

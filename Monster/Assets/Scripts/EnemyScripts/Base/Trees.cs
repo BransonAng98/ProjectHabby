@@ -12,6 +12,8 @@ public class Trees : MonoBehaviour
     private bool isShake;
     private Collider2D entityCollider;
 
+    public AudioManagerScript audiomanager;
+
     public AudioSource treeaudioSource;
     public AudioClip[] treeSFX;
 
@@ -21,6 +23,7 @@ public class Trees : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         entityCollider = GetComponent<Collider2D>();
         shakeScript = GetComponent<ObjectShakeScript>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
     }
 
     // Update is called once per frame
@@ -39,7 +42,7 @@ public class Trees : MonoBehaviour
         else
         {
             SpawnVFX();
-            PlaySFX();
+            audiomanager.PlayTreeSFX();
             entityCollider.enabled = false;
             if (isShake != true)
             {
@@ -64,9 +67,9 @@ public class Trees : MonoBehaviour
         Instantiate(hitVFX, transform.position, Quaternion.identity);
     }
 
-    public void PlaySFX()
+    /*public void PlaySFX()
     {
         AudioClip deathSFX = treeSFX[(Random.Range(0, treeSFX.Length))];
         treeaudioSource.PlayOneShot(deathSFX);
-    }
+    }*/
 }
