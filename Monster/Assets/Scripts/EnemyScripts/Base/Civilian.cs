@@ -17,8 +17,7 @@ public class Civilian : MonoBehaviour
     public Transform player;
     public Animator anim;
     public GameObject deathVFX;
-    public ObjectFadeEffect fadeEffect;
-
+   
     private float lastPosX;
     private float runSpeed;
 
@@ -69,8 +68,6 @@ public class Civilian : MonoBehaviour
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
 
-        fadeEffect = GetComponent<ObjectFadeEffect>();
-        
     }
 
 
