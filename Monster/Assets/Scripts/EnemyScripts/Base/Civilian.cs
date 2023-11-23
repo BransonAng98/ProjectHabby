@@ -19,7 +19,8 @@ public class Civilian : MonoBehaviour
     public GameObject deathVFX;
    
     private float lastPosX;
-    private float runSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float runSpeed;
 
     [SerializeField] private LevelManager levelManager;
 
@@ -82,9 +83,11 @@ public class Civilian : MonoBehaviour
         RandomizeSpeed(enemyData.speed);
     }
 
+
     private void RandomizeSpeed(float speed)
     {
-        runSpeed = Random.Range(enemyData.speed, enemyData.speed + 1.5f);
+        walkSpeed = Random.Range(enemyData.speed - 0.2f, enemyData.speed);
+        runSpeed = Random.Range(enemyData.speed + 1f, enemyData.speed + 1.5f);
     }
 
 
@@ -253,7 +256,7 @@ public class Civilian : MonoBehaviour
 
                         newRunDirection.Normalize();
                         // Calculate a new target position within the wander range
-                        transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
+                        transform.position += newRunDirection * walkSpeed * Time.deltaTime;
 
                         isBlocked = false;
                     }
@@ -263,11 +266,11 @@ public class Civilian : MonoBehaviour
                 }
 
                 // Move towards the target position
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, targetPosition, walkSpeed * Time.deltaTime);
             }
             else
             {
-                MoveTowards(leaderPos.position, runSpeed);
+                MoveTowards(leaderPos.position, walkSpeed);
             }
         }
     }
