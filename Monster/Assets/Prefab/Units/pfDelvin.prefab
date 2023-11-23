@@ -156,6 +156,8 @@ MonoBehaviour:
   player: {fileID: 0}
   anim: {fileID: 2121271329903212248}
   deathVFX: {fileID: 4553287630450876385, guid: 0e71b1edfc3b3364fbd6ae763e3801bb, type: 3}
+  walkSpeed: 0
+  runSpeed: 0
   levelManager: {fileID: 0}
   minIdleTime: 5
   maxIdleTime: 7
@@ -171,6 +173,8 @@ MonoBehaviour:
   DeathSFX:
   - {fileID: 8300000, guid: 045809794ba824c44b52c4a50eab1d04, type: 3}
   - {fileID: 8300000, guid: 12ff37c3a2dbb1b4b9c89523dc161733, type: 3}
+  audiomanager: {fileID: 0}
+  deadSprite: {fileID: 7197585282131594275, guid: 89be8231194da62459e402770caf3d4f, type: 3}
 --- !u!50 &8381522245099102583
 Rigidbody2D:
   serializedVersion: 4

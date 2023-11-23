@@ -56,7 +56,7 @@ public class Civilian : MonoBehaviour
     public AudioClip[] DeathSFX;
     public AudioManagerScript audiomanager;
     private bool deathSFXPlayed = false;
-
+    public GameObject deadSprite;
 
     private void Awake()
     {
@@ -294,7 +294,8 @@ public class Civilian : MonoBehaviour
 
     void FallToRun()
     {
-        if(fakeheight.isGrounded == true)
+        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        if (fakeheight.isGrounded == true)
         {
             audiomanager.PlaycivillianDeathSFX();
             //PlayDeathSFX();
@@ -306,7 +307,7 @@ public class Civilian : MonoBehaviour
 
     public void Death()
     {
-
+       
         if (!isTriggered)
         {
             levelManager.CalculateScore(0.1f);
@@ -334,7 +335,9 @@ public class Civilian : MonoBehaviour
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
 
-        Destroy(transform.parent.gameObject, 5f);
+        GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
+        deadbody.GetComponent<ObjectFadeEffect>().StartFading();
+        Destroy(transform.parent.gameObject);
     }
 
     void FlipSprite()
@@ -359,6 +362,7 @@ public class Civilian : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         FlipSprite();
 
         switch (enemyState)
