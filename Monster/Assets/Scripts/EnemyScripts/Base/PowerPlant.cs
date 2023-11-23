@@ -18,7 +18,6 @@ public class PowerPlant : MonoBehaviour
     private LevelManager levelManager;
     private ObjectShakeScript shakeScript;
     private Collider2D collider;
-    private GameObject fireHandler;
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private GameObject pfCoin;
@@ -30,6 +29,11 @@ public class PowerPlant : MonoBehaviour
     [SerializeField] private bool isTriggered;
     [SerializeField] private bool isOnFire;
 
+    private GameObject fireHandler;
+    public float deathVFXRadius;
+    public int minFires;
+    public int maxFires;
+    private List<GameObject> fireHandlers = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +54,7 @@ public class PowerPlant : MonoBehaviour
 
         if (!isOnFire)
         {
-            SpawnFire();
+            SpawnFireVFX();
         }
 
         if(tempHealth <= 0)
@@ -60,11 +64,23 @@ public class PowerPlant : MonoBehaviour
         }
     }
 
-    private void SpawnFire()
+    public void SpawnFireVFX()
     {
-        GameObject fireAnim = Instantiate(fireVFX, transform.position, Quaternion.identity);
-        fireHandler = fireAnim;
-        isOnFire = true;
+        if (!isTriggered)
+        {
+            // Randomize the number of fires within a range
+            int numberOfFires = Random.Range(minFires, maxFires + 1);
+
+            for (int i = 0; i < numberOfFires; i++)
+            {
+                isTriggered = true;
+                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 1f);
+                Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
+                GameObject fireAnim = Instantiate(fireVFX, randomPosition, Quaternion.Euler(-90, 0, 0));
+                fireHandlers.Add(fireAnim);
+                isOnFire = true;
+            }
+        }
     }
 
     void TriggerLoot()

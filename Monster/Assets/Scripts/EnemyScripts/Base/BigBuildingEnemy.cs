@@ -23,6 +23,11 @@ public class BigBuildingEnemy : MonoBehaviour
     public GameObject smokeVFX;
     public GameObject pointIndicatorVFX;
     private GameObject fireHandler;
+    public float deathVFXRadius;
+    public int minFires;
+    public int maxFires;
+    private bool isTriggered;
+    private List<GameObject> fireHandlers = new List<GameObject>();
 
     public Sprite destroyedBuilding;
     private LevelManager levelManager;
@@ -101,7 +106,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (isOnFire != true)
         {
-            SpawnFire();
+            SpawnFireVFX();
         }
 
         if (tempHealth <= 0)
@@ -112,19 +117,17 @@ public class BigBuildingEnemy : MonoBehaviour
         else return;
     }
 
-    void SpawnFire()
-    {
-        GameObject fireAnim = Instantiate(fireVFX, transform.position, Quaternion.identity);
-        fireHandler = fireAnim;
-        isOnFire = true;
-    }
-
     public void Death()
     {
         playDeathSFX();
-        Destroy(fireHandler);
         TriggerLoot();
-        
+
+        foreach (var fireHandler in fireHandlers)
+        {
+            Destroy(fireHandler);
+        }
+        fireHandlers.Clear();
+
         if(!hasDied)
         {
             eventManager.AddScore();
@@ -147,7 +150,24 @@ public class BigBuildingEnemy : MonoBehaviour
         GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0)); 
   
     }
+    public void SpawnFireVFX()
+    {
+        if (!isTriggered)
+        {
+            // Randomize the number of fires within a range
+            int numberOfFires = Random.Range(minFires, maxFires + 1);
 
+            for (int i = 0; i < numberOfFires; i++)
+            {
+                isTriggered = true;
+                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 1f);
+                Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
+                GameObject fireAnim = Instantiate(fireVFX, randomPosition, Quaternion.Euler(-90, 0, 0));
+                fireHandlers.Add(fireAnim);
+                isOnFire = true;
+            }
+        }
+    }
     void TriggerLoot()
     {
 
