@@ -49,6 +49,7 @@ public class Leader : MonoBehaviour
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
     private bool deathSFXPlayed = false;
+    public GameObject deadSprite;
 
 
     private void Awake()
@@ -263,8 +264,10 @@ public class Leader : MonoBehaviour
             PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
-
-        Destroy(transform.parent.gameObject, 5f);
+        GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
+        deadbody.GetComponent<ObjectFadeEffect>().StartFading();
+        Destroy(transform.parent.gameObject);
+        //Destroy(transform.parent.gameObject, 5f);
     }
 
     void FlipSprite()
