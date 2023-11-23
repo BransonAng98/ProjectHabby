@@ -301,7 +301,7 @@ public class Civilian : MonoBehaviour
 
     public void Death()
     {
-       
+
         if (!isTriggered)
         {
             levelManager.CalculateScore(0.1f);
@@ -366,7 +366,6 @@ public class Civilian : MonoBehaviour
             case EnemyState.fall:
                 anim.SetBool("fall", true);
                 spriteRenderer.sortingOrder = 4;
-                GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
                 FallToRun();
                 break;
 

@@ -9,22 +9,28 @@ public class FakeHeightScript : MonoBehaviour
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
-   
+
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    public float gravity = -10;
-
+    private float minGravity = -30f;
+    private float maxGravity = -50f;
+    [SerializeField] private float Gravity;
+    private float minlandheight = -2f;
+    private float maxlandheight = 2f;
+    private float landheight;
     public bool isGrounded;
 
 
     private void Start()
     {
+        Gravity = Random.Range(minGravity, maxGravity);
+        landheight = Random.Range(minlandheight, maxlandheight);
         if (spawnerReference != null)
         {
             spawnerReference.GetComponent<BigBuildingEnemy>();
         }
-        
+
     }
     private void Update()
     {
@@ -42,7 +48,7 @@ public class FakeHeightScript : MonoBehaviour
     {
         if (!isGrounded)
         {
-            verticalVelocity += gravity * Time.deltaTime;
+            verticalVelocity += Gravity * Time.deltaTime;
             transBody.position += new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
         }
         transObject.position += (Vector3)groundVelocity * Time.deltaTime;
@@ -62,7 +68,7 @@ public class FakeHeightScript : MonoBehaviour
         if (spawnerReference != null)
         {
             float heightdistance = spawnerReference.GetComponent<BigBuildingEnemy>().spawnheight;
-            if (transBody.position.y < transObject.position.y - heightdistance && !isGrounded)
+            if (transBody.position.y < transObject.position.y - heightdistance + landheight && !isGrounded)
             {
                 isGrounded = true;
                 //transBody.position = transObject.position;
@@ -93,3 +99,4 @@ public class FakeHeightScript : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
