@@ -232,6 +232,10 @@ public class Leader : MonoBehaviour
     }
     public void Death()
     {
+        foreach (Civilian civi in followerList)
+        {
+            civi.RemoveCivilan();
+        }
 
         if (!isTriggered)
         {
@@ -242,6 +246,7 @@ public class Leader : MonoBehaviour
 
         if (!hasSpawned)
         {
+            followerList.Clear();
             Instantiate(deathVFX, transform.position, Quaternion.identity);
             hasSpawned = true;
         }
