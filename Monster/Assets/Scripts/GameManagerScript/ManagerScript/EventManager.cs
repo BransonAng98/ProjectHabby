@@ -34,12 +34,12 @@ public class EventManager : MonoBehaviour
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
 
         Invoke("GetScore", 1.1f);
+        triggerThreshold = 80;
     }
 
 
     void Update()
     {
-
         GenerateEvents();
     }
 
@@ -86,7 +86,6 @@ public class EventManager : MonoBehaviour
     void GetScore()
     {
         totalScore = levelManagerScript.calculation1;
-        triggerThreshold = totalScore / numberOfEvents;
         gameStarted = true;
     }
 
