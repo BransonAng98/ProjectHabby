@@ -129,7 +129,6 @@ public class Leader : MonoBehaviour
     {
         if(followerList.Count <= maxFollowers)
         {
-            Debug.Log("Civilian Recruited");
             followerList.Add(follower);
             follower.AddCivilian(this.transform);
         }

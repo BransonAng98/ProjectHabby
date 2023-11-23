@@ -82,7 +82,7 @@ public class PlayerHealthScript : MonoBehaviour
                     isTriggered = true;
                 }
 
-                if (berserkVignette.alpha < 1)
+                if (berserkVignette.alpha >= 0)
                 {
                     berserkVignette.alpha += Time.deltaTime;
                 }
@@ -163,11 +163,27 @@ public class PlayerHealthScript : MonoBehaviour
             if (healthState == HealthState.normal)
             {
                 playerSO.health -= damage; // Adjust the damage amount as needed
+
+                if(playerSO.health < 1)
+                {
+                    playerHandler.isEnd = true;
+                    playerHandler.DisableMovement(3);
+                    gameManager.isVictory = false;
+                    cutsceneManager.TriggerEnd();
+                }
             }
 
             else
             {
                 playerSO.health -= damage * 2; // Player takes double damage when they are in berserk mode
+                
+                if (playerSO.health < 1)
+                {
+                    playerHandler.isEnd = true;
+                    playerHandler.DisableMovement(3);
+                    gameManager.isVictory = false;
+                    cutsceneManager.TriggerEnd();
+                }
             }
 
             CheckHealthStatus(playerSO.health);
