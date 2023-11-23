@@ -18,9 +18,9 @@ public class Targetable : MonoBehaviour
 
     private ItemBuilding itemBuilding;
 
-    public PlayerHandler player;
+    private Leader leaderEnemy;
 
-    public Leader leaderEnemy;
+    public PlayerHandler player;
 
     private void Start()
     {
