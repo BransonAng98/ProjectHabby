@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Targetable : MonoBehaviour
 {
-    public enum EnemyType {  Building, Tank, BigBuilding, Car, Civilian, Soldier, Tree, PowerPlant, ItemBuilding, }
+    public enum EnemyType {  Building, Tank, BigBuilding, Car, Civilian, Soldier, Tree, PowerPlant, ItemBuilding, leader, }
 
     public EnemyType enemyType;
 
@@ -19,6 +19,8 @@ public class Targetable : MonoBehaviour
     private ItemBuilding itemBuilding;
 
     public PlayerHandler player;
+
+    public Leader leaderEnemy;
 
     private void Start()
     {
@@ -48,6 +50,10 @@ public class Targetable : MonoBehaviour
 
             case EnemyType.ItemBuilding:
                 itemBuilding = GetComponent<ItemBuilding>();
+                break;
+
+            case EnemyType.leader:
+                leaderEnemy = GetComponent<Leader>();
                 break;
         }
     }

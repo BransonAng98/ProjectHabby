@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Civilian : MonoBehaviour
+public class Leader : MonoBehaviour
 {
-    public enum EnemyState { fall, run, death, walk, idle, }
+    public enum EnemyState { run, death, walk, }
 
     public EnemyState enemyState;
     SpriteRenderer spriteRenderer;
@@ -24,19 +24,12 @@ public class Civilian : MonoBehaviour
 
     [SerializeField] private LevelManager levelManager;
 
-    //Idle Time Variable
-    public float minIdleTime;
-    public float maxIdleTime;
-    [SerializeField] private float currentIdleTime;
+    //Leader Circle of Infulence
+    public List<Civilian> followerList = new List<Civilian>();
+    public int maxFollowers;
 
     bool isTriggered;
     bool hasDied;
-
-    //Follower Variables
-    [SerializeField] Transform leaderPos;
-    [SerializeField] bool isFollowing;
-    public float separationDistance = 2f; // Distance to keep from other game objects
-    public float avoidanceForce = 5f; // Force to avoid collisions
 
     //Wandering Variables
     public float changeDirectionInterval = 1.0f; // Time interval to change direction
@@ -52,7 +45,6 @@ public class Civilian : MonoBehaviour
     private bool hasSpawned;
 
     public FakeHeightScript fakeheight;
-    public float rotationSpeed;
 
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
@@ -72,7 +64,7 @@ public class Civilian : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
 
         fadeEffect = GetComponent<ObjectFadeEffect>();
-        
+
     }
 
 
@@ -100,6 +92,28 @@ public class Civilian : MonoBehaviour
             enemyState = EnemyState.death;
             Debug.Log("Hit");
         }
+
+        if (collision.CompareTag("Civilian"))
+        {
+            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
+            if(civiRecruited != null)
+            {
+                AddFollowers(civiRecruited);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Civilian"))
+        {
+            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
+            if (civiRecruited != null)
+            {
+                civiRecruited.RemoveCivilan();
+                followerList.Remove(civiRecruited);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -111,21 +125,24 @@ public class Civilian : MonoBehaviour
         }
     }
 
-    public void AddCivilian(Transform leaderGO)
+    void AddFollowers(Civilian follower)
     {
-        leaderPos = leaderGO;
-        isFollowing = true;
-    }
+        if(followerList.Count <= maxFollowers)
+        {
+            Debug.Log("Civilian Recruited");
+            followerList.Add(follower);
+            follower.AddCivilian(this.transform);
+        }
 
-    public void RemoveCivilan()
-    {
-        isFollowing = false;
-        leaderPos = null;
+        else
+        {
+            return;
+        }
     }
 
     void Run(Vector2 dir)
     {
-        if(enemyState == EnemyState.run)
+        if (enemyState == EnemyState.run)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             float newDistance = detectionDistance + 5f;
@@ -162,60 +179,6 @@ public class Civilian : MonoBehaviour
         }
     }
 
-    void IdleOrMove()
-    {
-        float decision = Random.Range(0, 1 + 1);
-        switch (decision)
-        {
-            case 0:
-                enemyState = EnemyState.idle;
-                anim.SetBool("idle", true);
-                anim.SetBool("walk", false);
-                break;
-
-            case 1:
-                enemyState = EnemyState.walk;
-                anim.SetBool("walk", true);
-                anim.SetBool("idle", false);
-                break;
-        }
-    }
-
-    //void Idle()
-    //{
-    //    float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-    //    if (distanceToPlayer < detectionDistance)
-    //    {
-    //        anim.SetBool("idle", false);
-    //        anim.SetBool("run", true);
-    //        anim.SetBool("walk", false);
-    //        enemyState = EnemyState.run;
-    //    }
-
-    //    else
-    //    {
-    //        anim.SetBool("idle", true);
-    //        anim.SetBool("run", false);
-    //        anim.SetBool("walk", false);
-
-    //        float idleTime = Random.Range(minIdleTime, maxIdleTime + 1);
-
-    //        if (currentIdleTime <= idleTime)
-    //        {
-    //            currentIdleTime += Time.deltaTime;
-    //        }
-
-    //        else
-    //        {
-    //            currentIdleTime = 0f;
-    //            IdleOrMove();
-    //        }
-    //    }
-        
-    //}
-
-
     void Walk()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -235,96 +198,42 @@ public class Civilian : MonoBehaviour
             anim.SetBool("walk", true);
             anim.SetBool("run", false);
 
-            if (!isFollowing)
+            timeSinceLastDirectionChange += Time.deltaTime;
+
+            // Check if it's time to change direction
+            if (timeSinceLastDirectionChange >= changeDirectionInterval)
             {
-                timeSinceLastDirectionChange += Time.deltaTime;
-
-                // Check if it's time to change direction
-                if (timeSinceLastDirectionChange >= changeDirectionInterval)
+                if (isBlocked != true)
                 {
-                    if (isBlocked != true)
-                    {
-                        // Generate a random direction vector
-                        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+                    // Generate a random direction vector
+                    Vector2 randomDirection = Random.insideUnitCircle.normalized;
 
-                        // Calculate a new target position within the wander range
-                        targetPosition = (Vector2)transform.position + randomDirection * Random.Range(0.0f, maxWanderDistance);
-                    }
-
-                    else
-                    {
-                        Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
-
-                        newRunDirection.Normalize();
-                        // Calculate a new target position within the wander range
-                        transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
-
-                        isBlocked = false;
-                    }
-
-                    // Reset the timer
-                    timeSinceLastDirectionChange = 0.0f;
+                    // Calculate a new target position within the wander range
+                    targetPosition = (Vector2)transform.position + randomDirection * Random.Range(0.0f, maxWanderDistance);
                 }
 
-                // Move towards the target position
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
-            }
-            else
-            {
-                MoveTowards(leaderPos.position, runSpeed);
-            }
-        }
-    }
-
-    void MoveTowards(Vector2 targetPosition, float speed)
-    {
-        // Calculate the direction to the target
-        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-
-        // Move towards the target using Translate
-        transform.Translate(direction * speed * Time.deltaTime);
-    }
-
-    void FallToRun()
-    {
-        if(fakeheight.isGrounded == true)
-        {
-            PlayDeathSFX();
-            entityCollider.enabled = true;
-            enemyState = EnemyState.death;
-        }
-        
-    }
-
-    void AvoidCollisions()
-    {
-        // Get all nearby game objects
-        GameObject[] allGameObjects = GameObject.FindGameObjectsWithTag("AI");
-
-        foreach (GameObject otherObject in allGameObjects)
-        {
-            if (otherObject != gameObject)
-            {
-                // Calculate the distance to the other game object
-                float distanceToOther = Vector2.Distance(transform.position, otherObject.transform.position);
-
-                // If too close, avoid collision
-                if (distanceToOther < separationDistance)
+                else
                 {
-                    // Calculate the avoidance force
-                    Vector2 avoidanceDirection = (transform.position - otherObject.transform.position).normalized;
-                    float avoidanceStrength = Mathf.Clamp01(1 - distanceToOther / separationDistance);
-                    Vector2 avoidanceForce = avoidanceDirection * avoidanceForce * avoidanceStrength;
+                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
 
-                    // Apply the avoidance force
-                    transform.Translate(avoidanceForce * Time.deltaTime);
+                    newRunDirection.Normalize();
+                    // Calculate a new target position within the wander range
+                    transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
+
+                    isBlocked = false;
                 }
-            }
-        }
 
-        public void Death()
+                // Reset the timer
+                timeSinceLastDirectionChange = 0.0f;
+            }
+
+            // Move towards the target position
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
+        }
+    }
+    public void Death()
     {
-       
+
         if (!isTriggered)
         {
             levelManager.CalculateScore(0.1f);
@@ -384,13 +293,6 @@ public class Civilian : MonoBehaviour
                 anim.SetBool("death", true);
                 spriteRenderer.sortingOrder = 2;
                 Death();
-                break;
-
-            case EnemyState.fall:
-                anim.SetBool("fall", true);
-                spriteRenderer.sortingOrder = 4;
-                GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
-                FallToRun();
                 break;
 
             case EnemyState.run:
