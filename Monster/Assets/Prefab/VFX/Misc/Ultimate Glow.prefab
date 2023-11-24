@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1545806602296978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 3.5, y: 2, z: 1}
+  m_LocalScale: {x: 3.97, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4824551249195714}
@@ -834,7 +834,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1238,14 +1238,14 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 0.99607843, g: 1, b: 0.74509805, a: 1}
         key1: {r: 1, g: 0.8862745, b: 0.19215687, a: 0.039215688}
-        key2: {r: 1, g: 0, b: 0, a: 0.039215688}
+        key2: {r: 1, g: 0.75444174, b: 0, a: 0.039215688}
         key3: {r: 1, g: 1, b: 1, a: 0.039215688}
         key4: {r: 1, g: 1, b: 1, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
+        ctime1: 25250
         ctime2: 65535
         ctime3: 65535
         ctime4: 65535
@@ -1261,7 +1261,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 3
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -4946,7 +4946,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.94509804, g: 0.9411765, b: 0.7764706, a: 0.43137255}
+      maxColor: {r: 1, g: 0.3915089, b: 0.08176094, a: 0.43137255}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9367,7 +9367,7 @@ Transform:
   m_GameObject: {fileID: 1624650820187412}
   m_LocalRotation: {x: -0.7071068, y: -0.7071068, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.89, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4464497929771776}
@@ -9456,7 +9456,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.8
+      scalar: 1
       minScalar: 0.4
       maxCurve:
         serializedVersion: 2
@@ -9588,9 +9588,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.1
-      minScalar: 1
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9623,7 +9623,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -9676,7 +9676,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -10135,7 +10135,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10538,15 +10538,15 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 0.9411765, a: 1}
-        key1: {r: 0.99215686, g: 0.94509804, b: 0.6666667, a: 0.039215688}
-        key2: {r: 1, g: 0, b: 0, a: 0.039215688}
+        key1: {r: 1, g: 0.8723308, b: 0.19496846, a: 0.039215688}
+        key2: {r: 1, g: 0.46855342, b: 0.6993779, a: 0.039215688}
         key3: {r: 1, g: 1, b: 1, a: 0.039215688}
         key4: {r: 1, g: 1, b: 1, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
+        ctime1: 24094
         ctime2: 65535
         ctime3: 65535
         ctime4: 65535
@@ -10554,7 +10554,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
+        atime1: 28334
         atime2: 65535
         atime3: 65535
         atime4: 65535
@@ -10562,7 +10562,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 3
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -11857,7 +11857,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.1
+    dampen: 0.5
     drag:
       serializedVersion: 2
       minMaxState: 0
