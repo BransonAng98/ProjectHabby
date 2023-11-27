@@ -71,13 +71,14 @@ MonoBehaviour:
   destroyedBuilding: {fileID: 21300000, guid: 767ead48715c7df45ab9eba2610cd374, type: 3}
   pfCoin: {fileID: 68998136515679623, guid: 97d85bc601e37404c8ddadc334626a85, type: 3}
   pfDelvin: {fileID: 2411092050883332399, guid: e44870b68705c5a4c8352f73f8249dc1, type: 3}
-  minEntities: 1
-  maxEntities: 4
+  minEntities: 0
+  maxEntities: 3
   minCoins: 1
   maxCoins: 4
   shakeScript: {fileID: 1660041224951827693}
   groundDispenseVelocity: {x: 1, y: 1}
   verticalDispenseVelocity: {x: 10, y: 13}
+  audiomanager: {fileID: 0}
   buildingAudioSource: {fileID: 1203094227974015547}
   damageSFX:
   - {fileID: 8300000, guid: 7b550e979b8d3d84ebd608008e18094b, type: 3}
@@ -87,7 +88,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 89d16d27121f3c64e800c4d9935e50a7, type: 3}
   - {fileID: 8300000, guid: 75b18fe3182ac4549a52185c7e8cc43c, type: 3}
   - {fileID: 8300000, guid: 21f942209af67e24e9ef90feaeffbde7, type: 3}
-  spawnheight: 3
+  spawnheight: 2.7
 --- !u!61 &3600813595333660863
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class MeteorScript : MonoBehaviour
     private CameraShake cameraShake;
     public PlayerHandler playerHandler;
 
-    float meteorRadius = 8f;
+    float meteorRadius = 4.8f;
     public PlayerStatScriptableObject playerSO;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
@@ -82,8 +82,21 @@ public class MeteorScript : MonoBehaviour
             {
                 collateralTrigger.CollateralDamage(100f);
             }
+            StartCoroutine(DestroyAfterDelay(collider.gameObject, 2f));
         }
+
+
         ResetShakeValues();
+    }
+
+    private IEnumerator DestroyAfterDelay(GameObject objToDestroy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (gameObject.tag == "BigBuilding")
+        {
+            Destroy(objToDestroy);
+        }
     }
 
     void SetShakeValues()
