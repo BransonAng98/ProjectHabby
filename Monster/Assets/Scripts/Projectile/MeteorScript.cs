@@ -82,7 +82,7 @@ public class MeteorScript : MonoBehaviour
             {
                 collateralTrigger.CollateralDamage(100f);
             }
-            StartCoroutine(DestroyAfterDelay(collider.gameObject, 2f));
+            StartCoroutine(DestroyAfterDelay(collider.gameObject, 0f));
         }
 
 
@@ -93,7 +93,7 @@ public class MeteorScript : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        if (gameObject.tag == "BigBuilding")
+        if (objToDestroy.tag != "Player")
         {
             Destroy(objToDestroy);
         }
