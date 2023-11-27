@@ -130,42 +130,50 @@ public class Civilian : MonoBehaviour
 
     void Run(Vector2 dir)
     {
-        if(enemyState == EnemyState.run)
+        if(dir!= null)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            float newDistance = detectionDistance + 5f;
-
-            if (distanceToPlayer < newDistance)
+            if (enemyState == EnemyState.run)
             {
-                if (isBlocked != true)
+                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+                float newDistance = detectionDistance + 5f;
+
+                if (distanceToPlayer < newDistance)
                 {
-                    // Calculate the direction away from the player
-                    Vector3 runDirection = transform.position - player.position;
+                    if (isBlocked != true)
+                    {
+                        // Calculate the direction away from the player
+                        Vector3 runDirection = transform.position - player.position;
 
-                    // Normalize the direction to get a unit vector
-                    runDirection.Normalize();
+                        // Normalize the direction to get a unit vector
+                        runDirection.Normalize();
 
-                    // Move the enemy in the runDirection
-                    transform.position += runDirection * runSpeed * Time.deltaTime;
+                        // Move the enemy in the runDirection
+                        transform.position += runDirection * runSpeed * Time.deltaTime;
+                    }
+
+                    else
+                    {
+                        Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
+
+                        newRunDirection.Normalize();
+                        // Calculate a new target position within the wander range
+                        transform.position += newRunDirection * runSpeed * Time.deltaTime;
+                    }
                 }
 
-                else
+                else if (distanceToPlayer > newDistance)
                 {
-                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
-
-                    newRunDirection.Normalize();
-                    // Calculate a new target position within the wander range
-                    transform.position += newRunDirection * runSpeed * Time.deltaTime;
+                    enemyState = EnemyState.walk;
+                    anim.SetBool("walk", true);
                 }
-            }
-
-            else if (distanceToPlayer > newDistance)
-            {
-                enemyState = EnemyState.walk;
-                anim.SetBool("walk", true);
             }
         }
+        else
+        {
+            return;
+        }
     }
+       
 
     void IdleOrMove()
     {
