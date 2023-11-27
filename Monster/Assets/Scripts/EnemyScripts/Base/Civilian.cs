@@ -116,15 +116,6 @@ public class Civilian : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "BigBuilding")
-        {
-            blockingEntity = null;
-            isBlocked = false;
-        }
-    }
-
     public void AddCivilian(Transform leaderGO)
     {
         leaderPos = leaderGO;
@@ -158,19 +149,11 @@ public class Civilian : MonoBehaviour
 
             else
             {
-                if(blockingEntity != null)
-                {
-                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
+                Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
 
-                    newRunDirection.Normalize();
-                    // Calculate a new target position within the wander range
-                    transform.position += newRunDirection * runSpeed * Time.deltaTime;
-                }
-
-                else
-                {
-                    isBlocked = false;
-                }
+                newRunDirection.Normalize();
+                // Calculate a new target position within the wander range
+                transform.position += newRunDirection * runSpeed * Time.deltaTime;
             }
         }
 
