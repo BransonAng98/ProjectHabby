@@ -16,6 +16,7 @@ public class MeteorScript : MonoBehaviour
     public GameObject crater;
     private CameraShake cameraShake;
     public PlayerHandler playerHandler;
+    public GameObject impactVFX;
 
     float meteorRadius = 4.8f;
     public PlayerStatScriptableObject playerSO;
@@ -123,10 +124,8 @@ public class MeteorScript : MonoBehaviour
     }
 
     public void PlayExplosion()
-
     {
-        Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y + 3.3f);
-        transform.position = explosionPos;
+        Instantiate(impactVFX, playerHandler.transform.position, Quaternion.identity);
         animator.SetBool("isMoving", false);
     }
 
