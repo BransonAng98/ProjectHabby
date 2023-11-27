@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class PointVFX : MonoBehaviour
 {
-    public float moveSpeed;
-    // Start is called before the first frame update
+    public float initialMoveSpeed;
+    public float decelerationRate;
 
-    private void Update()
+    private float currentMoveSpeed;
+
+    void Start()
+    {
+        currentMoveSpeed = initialMoveSpeed;
+    }
+
+    void Update()
     {
         Vector3 currentPosition = transform.position;
-
-        // Calculate the new position with an upward movement
-        Vector3 newPosition = currentPosition + Vector3.up * moveSpeed * Time.deltaTime;
-
-        // Apply the new position to the object's transform
+        Vector3 newPosition = currentPosition + Vector3.up * currentMoveSpeed * Time.deltaTime;
         transform.position = newPosition;
+
+        currentMoveSpeed -= decelerationRate * Time.deltaTime;
+        if (currentMoveSpeed <= 0f)
+        {
+            DestroyObj();
+        }
     }
 
     public void DestroyObj()

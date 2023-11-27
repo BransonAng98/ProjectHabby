@@ -9,6 +9,7 @@ public class MeteorScript : MonoBehaviour
     public Vector2 direction;
     public float speed = 2.0f; // Speed at which the object moves
 
+    [SerializeField] bool isTriggered;
     public bool isMoving;
     public bool isActive;
     private Animator animator;
@@ -16,6 +17,7 @@ public class MeteorScript : MonoBehaviour
     public GameObject crater;
     private CameraShake cameraShake;
     public PlayerHandler playerHandler;
+    public GameObject impactVFX;
 
     float meteorRadius = 4.8f;
     public PlayerStatScriptableObject playerSO;
@@ -60,14 +62,17 @@ public class MeteorScript : MonoBehaviour
             {
                 isMoving = false;
                 transform.rotation = Quaternion.Euler(Vector3.zero);
-                ImpactDamage();
-                
+                if (!isTriggered)
+                {
+                    ImpactDamage();
+                }
             }
         }
     }
 
     public void ImpactDamage()
     {
+        isTriggered = true;
         PlayExplosion();
         SetShakeValues();
         cameraShake.ShakeCamera();
@@ -81,8 +86,9 @@ public class MeteorScript : MonoBehaviour
             if (collateralTrigger != null)
             {
                 collateralTrigger.CollateralDamage(100f);
+                StartCoroutine(DestroyAfterDelay(collider.gameObject, 0f));
             }
-            StartCoroutine(DestroyAfterDelay(collider.gameObject, 0f));
+           
         }
 
 
@@ -97,11 +103,19 @@ public class MeteorScript : MonoBehaviour
         {
             if(objToDestroy.tag == "Civilian")
             {
-                Destroy(objToDestroy.transform.parent);
+               Destroy(objToDestroy.transform.parent);
             }
-            if(objToDestroy.name == "CamConfiner")
+            else if(objToDestroy.name == "CamConfiner")
             {
                 //do nothing
+            }
+            else if(objToDestroy.tag == "BigBuilding")
+            {
+                SpriteRenderer buildingRenderer = objToDestroy.GetComponentInChildren<SpriteRenderer>();
+                if (buildingRenderer != null)
+                {
+                    buildingRenderer.enabled = false;
+                }
             }
             else
             {
@@ -123,10 +137,8 @@ public class MeteorScript : MonoBehaviour
     }
 
     public void PlayExplosion()
-
     {
-        Vector2 explosionPos = new Vector2(transform.position.x, transform.position.y + 3.3f);
-        transform.position = explosionPos;
+        Instantiate(impactVFX, playerHandler.transform.position, Quaternion.identity);
         animator.SetBool("isMoving", false);
     }
 

@@ -563,6 +563,14 @@ PrefabInstance:
       propertyPath: legLocations.Array.data[3]
       value: 
       objectReference: {fileID: 771514820}
+    - target: {fileID: 800590474, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 800590474, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1361178656, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17
@@ -2024,7 +2032,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.4
   shakeStrength: 5
-  player: {fileID: 61134888}
 --- !u!1 &410422625
 GameObject:
   m_ObjectHideFlags: 0
@@ -6392,7 +6399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
   shakeStrength: 10
-  player: {fileID: 0}
 --- !u!114 &1356264708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7429,7 +7435,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
   shakeStrength: 10
-  player: {fileID: 0}
 --- !u!1 &1558389881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3364825843612987752, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
