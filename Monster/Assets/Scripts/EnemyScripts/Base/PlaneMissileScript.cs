@@ -11,7 +11,7 @@ public class PlaneMissileScript : MonoBehaviour
     private float currentTime = 0f;
     public GameObject explosionVFX;
     //public Transform jetPos;
-    private SpriteRenderer spriteRenderer;
+    private Transform missileObj;
     public AudioSource planemissileAudioSource;
     public AudioClip[] planemissileSFX;
 
@@ -19,7 +19,7 @@ public class PlaneMissileScript : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        missileObj = GetComponent<Transform>();
         // Set initial velocity to move the missile forward;
         CheckAndFire();
     }
@@ -40,12 +40,12 @@ public class PlaneMissileScript : MonoBehaviour
 
         if (isLeft == true)
         {
-            spriteRenderer.flipX = true;
+            missileObj.rotation = Quaternion.Euler(0, 180, 0);
             GetComponent<Rigidbody2D>().velocity = new Vector2(-missilespeed, 0f);
         }
         else
         {
-            spriteRenderer.flipX = false;
+            missileObj.rotation = Quaternion.Euler(0, 0, 0);
             GetComponent<Rigidbody2D>().velocity = new Vector2(missilespeed, 0f);
         }
 
