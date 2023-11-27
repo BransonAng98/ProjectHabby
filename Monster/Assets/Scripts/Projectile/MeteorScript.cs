@@ -109,6 +109,14 @@ public class MeteorScript : MonoBehaviour
             {
                 //do nothing
             }
+            else if(objToDestroy.tag == "BigBuilding")
+            {
+                SpriteRenderer buildingRenderer = objToDestroy.GetComponentInChildren<SpriteRenderer>();
+                if (buildingRenderer != null)
+                {
+                    buildingRenderer.enabled = false;
+                }
+            }
             else
             {
                 Destroy(objToDestroy);
