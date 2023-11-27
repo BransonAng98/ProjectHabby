@@ -29,8 +29,8 @@ public class CarAI : MonoBehaviour
 
     //Kick Variables
     [SerializeField] private bool isKicking;
-    public float kickForce;
-    public float rotationSpeed = 180f;
+    [SerializeField] int kickForce = 4;
+    [SerializeField] int rotationSpeed;
     public float stopDelay = 2f;
 
     //VFX
@@ -58,9 +58,15 @@ public class CarAI : MonoBehaviour
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
         CheckOrientation();
-
+        SetValue();
     }
 
+    void SetValue()
+    {
+        //Randomize car rotation speed
+        int setSpinValue = Random.Range(1500, 2000);
+        rotationSpeed = setSpinValue;
+    }
 
     public void SetSpriteRenderer(SpriteRenderer sr)
     {
@@ -86,12 +92,15 @@ public class CarAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerLeg")
         {
-            int random = Random.Range(0, 1 +1);
+            int random = Random.Range(0, 1 + 1);
             switch (random)
             {
                 case 0:
-                    Death();
-                        break;
+                    if (!isKicking)
+                    {
+                        Death();
+                    }
+                    break;
 
                 case 1:
                     KickLogic(collision);
@@ -103,6 +112,7 @@ public class CarAI : MonoBehaviour
         {
             if (isKicking)
             {
+                Death();
                 BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
                 if (bigBuilding != null)
                 {
@@ -111,7 +121,7 @@ public class CarAI : MonoBehaviour
                 Destroy(gameObject);
             }
             else { return; }
-            
+
         }
 
         if (collision.gameObject.tag == "Civilian")
@@ -145,7 +155,7 @@ public class CarAI : MonoBehaviour
         PlaySFX();
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
-       
+
 
         if (isVertical == true)
         {
@@ -156,8 +166,8 @@ public class CarAI : MonoBehaviour
             spriteRenderer.sprite = destroyedSprite;
         }
 
-        
-        
+
+
         if (isKicking)
         {
             return;
@@ -170,16 +180,16 @@ public class CarAI : MonoBehaviour
         }
         objectFader.StartFading();
     }
+
     public void PlaySFX()
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
         vehicleaudioSource.PlayOneShot(deathSFX);
     }
-   
+
     void KickLogic(Collider2D collision)
     {
         isKicking = true;
-        Death();
         Vector2 kickDirection = transform.position - collision.transform.position;
 
         // Normalize the direction vector to maintain consistent force regardless of distance
@@ -187,6 +197,8 @@ public class CarAI : MonoBehaviour
 
         // Apply a force in the opposite direction
         GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
+
+        GetComponent<Rigidbody2D>().gravityScale = 0.4f;
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
 
@@ -201,13 +213,14 @@ public class CarAI : MonoBehaviour
         // Stop the movement by setting the velocity to zero
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-        // Stop the rotation
+        // Stop the rotation & gravity
         GetComponent<Rigidbody2D>().angularVelocity = 0f;
+        GetComponent<Rigidbody2D>().gravityScale = 0f;
     }
 
     public void CheckOrientation()
     {
-        if(spriteRenderer.sprite == upSprite || spriteRenderer.sprite == downSprite)
+        if (spriteRenderer.sprite == upSprite || spriteRenderer.sprite == downSprite)
         {
             isVertical = true;
         }
@@ -216,10 +229,5 @@ public class CarAI : MonoBehaviour
         {
             isVertical = false;
         }
-    }
-
-    private void Update()
-    {
-       
     }
 }
