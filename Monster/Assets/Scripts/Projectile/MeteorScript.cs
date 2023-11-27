@@ -95,7 +95,15 @@ public class MeteorScript : MonoBehaviour
 
         if (objToDestroy.tag != "Player")
         {
-            Destroy(objToDestroy);
+            if(objToDestroy.tag == "Civilian")
+            {
+                Destroy(objToDestroy.transform.parent);
+            }
+            else
+            {
+                Destroy(objToDestroy);
+            }
+          
         }
     }
 
