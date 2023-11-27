@@ -27,6 +27,14 @@ public class CollateralScript : MonoBehaviour
                     buildingStats.Death();
                 }
                 break;
+            case Targetable.EnemyType.Building:
+                BigBuildingEnemy smallbuildingStats = entity.GetComponent<BigBuildingEnemy>();
+                smallbuildingStats.tempHealth -= damage;
+                if (smallbuildingStats.tempHealth <= 0)
+                {
+                    smallbuildingStats.Death();
+                }
+                break;
 
             case Targetable.EnemyType.Tank:
                 NewEnemyScript tankStats = entity.GetComponent<NewEnemyScript>();

@@ -170,7 +170,6 @@ public class CarAI : MonoBehaviour
         }
         objectFader.StartFading();
     }
-
     public void PlaySFX()
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];

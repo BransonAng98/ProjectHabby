@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Civilian : MonoBehaviour
 {
-    public enum EnemyState { fall, run, death, walk, idle, }
+    public enum EnemyState { fall, run, death, walk, idle}
 
     public EnemyState enemyState;
     SpriteRenderer spriteRenderer;
@@ -50,7 +50,9 @@ public class Civilian : MonoBehaviour
     private bool hasSpawned;
 
     public FakeHeightScript fakeheight;
-    public float rotationSpeed;
+    //public float rotationSpeed;
+    public float minRotationSpeed;
+    public float maxRotationSpeed;
 
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
@@ -294,17 +296,18 @@ public class Civilian : MonoBehaviour
 
     void FallToRun()
     {
-        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        // Randomize rotationSpeed within a specified range
+        float randomRotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
+
+        transform.Rotate(Vector3.forward, randomRotationSpeed * Time.deltaTime);  // spin him around
+
         if (fakeheight.isGrounded == true)
         {
             audiomanager.PlaycivillianDeathSFX();
-            //PlayDeathSFX();
             entityCollider.enabled = true;
             enemyState = EnemyState.death;
         }
-        
     }
-
     public void Death()
     {
        
@@ -340,6 +343,8 @@ public class Civilian : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
+
+
     void FlipSprite()
     {
         // Check if the sprite's horizontal position has changed since the last frame
@@ -372,7 +377,6 @@ public class Civilian : MonoBehaviour
                 spriteRenderer.sortingOrder = 2;
                 Death();
                 break;
-
             case EnemyState.fall:
                 anim.SetBool("fall", true);
                 spriteRenderer.sortingOrder = 4;
