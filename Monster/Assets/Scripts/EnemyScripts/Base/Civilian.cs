@@ -42,7 +42,7 @@ public class Civilian : MonoBehaviour
     private Vector2 targetPosition;
     private float timeSinceLastDirectionChange = 0.0f;
     private PlayerHandler inputHandler;
-    private Transform blockingEntity;
+    [SerializeField] private Transform blockingEntity;
     private EventManager eventManager;
 
     public bool isBlocked;
@@ -116,6 +116,15 @@ public class Civilian : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BigBuilding")
+        {
+            blockingEntity = null;
+            isBlocked = false;
+        }
+    }
+
     public void AddCivilian(Transform leaderGO)
     {
         leaderPos = leaderGO;
@@ -128,49 +137,47 @@ public class Civilian : MonoBehaviour
         leaderPos = null;
     }
 
-    void Run(Vector2 dir)
+    void Run()
     {
-        if(dir!= null)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float newDistance = detectionDistance + 5f;
+
+        if (distanceToPlayer < newDistance)
         {
-            if (enemyState == EnemyState.run)
+            if (!isBlocked)
             {
-                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-                float newDistance = detectionDistance + 5f;
+                // Calculate the direction away from the player
+                Vector3 runDirection = transform.position - player.position;
 
-                if (distanceToPlayer < newDistance)
+                // Normalize the direction to get a unit vector
+                runDirection.Normalize();
+
+                // Move the enemy in the runDirection
+                transform.position += runDirection * runSpeed * Time.deltaTime;
+            }
+
+            else
+            {
+                if(blockingEntity != null)
                 {
-                    if (isBlocked != true)
-                    {
-                        // Calculate the direction away from the player
-                        Vector3 runDirection = transform.position - player.position;
+                    Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
 
-                        // Normalize the direction to get a unit vector
-                        runDirection.Normalize();
-
-                        // Move the enemy in the runDirection
-                        transform.position += runDirection * runSpeed * Time.deltaTime;
-                    }
-
-                    else
-                    {
-                        Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
-
-                        newRunDirection.Normalize();
-                        // Calculate a new target position within the wander range
-                        transform.position += newRunDirection * runSpeed * Time.deltaTime;
-                    }
+                    newRunDirection.Normalize();
+                    // Calculate a new target position within the wander range
+                    transform.position += newRunDirection * runSpeed * Time.deltaTime;
                 }
 
-                else if (distanceToPlayer > newDistance)
+                else
                 {
-                    enemyState = EnemyState.walk;
-                    anim.SetBool("walk", true);
+                    isBlocked = false;
                 }
             }
         }
-        else
+
+        else if (distanceToPlayer > newDistance)
         {
-            return;
+            enemyState = EnemyState.walk;
+            anim.SetBool("walk", true);
         }
     }
        
@@ -403,7 +410,7 @@ public class Civilian : MonoBehaviour
                 break;
 
             case EnemyState.run:
-                Run(player.position);
+                Run();
                 break;
 
             case EnemyState.walk:
