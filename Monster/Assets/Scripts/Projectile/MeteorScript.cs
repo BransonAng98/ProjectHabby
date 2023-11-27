@@ -99,6 +99,10 @@ public class MeteorScript : MonoBehaviour
             {
                 Destroy(objToDestroy.transform.parent);
             }
+            if(objToDestroy.name == "CamConfiner")
+            {
+                //do nothing
+            }
             else
             {
                 Destroy(objToDestroy);
