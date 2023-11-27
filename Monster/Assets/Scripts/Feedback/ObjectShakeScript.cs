@@ -10,39 +10,16 @@ public class ObjectShakeScript : MonoBehaviour
 
     private Vector3 originalPosition;
     private Transform targetTransform;
-    private CinemachineVirtualCamera cine;
-    public Transform player;
 
     private void Awake()
     {
         targetTransform = transform;
         originalPosition = targetTransform.localPosition;
-        cine = GetComponent<CinemachineVirtualCamera>();
-        if (player != null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            player = cine.Follow;
-        }
-        else
-        {
-            return;
-        }
     }
 
     public void StartShake()
     {
         StartCoroutine(ShakeCoroutine());
-    }
-
-    public void CineShake()
-    {
-        cine.Follow = null;
-        StartCoroutine(ShakeCoroutine());
-    }
-
-    public void ReAssignCam()
-    {
-        cine.Follow = player;
     }
 
     private IEnumerator ShakeCoroutine()

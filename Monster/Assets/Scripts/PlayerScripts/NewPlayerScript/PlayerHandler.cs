@@ -46,6 +46,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
+    public float aoeTremor;
     public float animationSpeed;
     public float attackAnimationSpeed;
 
@@ -217,37 +218,44 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "right01")
         {
             vfxManager.footImpact(0);
+            TriggerTremor();
             PlaySFX();
         }
         if (eventName == "right02")
         {
             vfxManager.footImpact(1);
+            TriggerTremor();
             PlaySFX();
         }
         if (eventName == "left01")
         {
             vfxManager.footImpact(2);
+            TriggerTremor();
             PlaySFX();
         }
         if (eventName == "left02")
         {
             vfxManager.footImpact(3);
+            TriggerTremor();
             PlaySFX();
         }
 
         if(eventName == "jump")
         {
+            TriggerTremor();
             JumpSFX();
         }
 
         if(eventName == "land")
         {
             PlaySFX();
+            TriggerTremor();
             UseUltimate1();
         }
 
         if(eventName == "Smash")
         {
+            TriggerTremor();
             TriggerAOE();
             vfxManager.SpawnAoeVFX();
         }
@@ -329,6 +337,20 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         //{
         //    SetAnimation(0, attacking7, false, 1f);
         //}
+    }
+    
+    public void TriggerTremor()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, aoeTremor);
+
+        foreach (Collider2D colldier in hitColliders)
+        {
+            if (colldier.CompareTag("Tree"))
+            {
+                ObjectShakeScript tree = colldier.GetComponent<ObjectShakeScript>();
+                tree.StartShake();
+            }
+        }
     }
 
     public void TriggerAOE()
