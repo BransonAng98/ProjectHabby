@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 141433446842962274}
+  - component: {fileID: 1485505472562914433}
   m_Layer: 0
   m_Name: Hit Misc F Smoke
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485505472562914433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141433446842962269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdad0a82fc5361e40a2607436fe43f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  delayFadeDuration: 5
 --- !u!1 &596844116186520392
 GameObject:
   m_ObjectHideFlags: 0
@@ -14689,6 +14704,7 @@ GameObject:
   - component: {fileID: 1340124681698024882}
   - component: {fileID: 4007065156366408685}
   - component: {fileID: 3106083142423093281}
+  - component: {fileID: 8423543076710156227}
   m_Layer: 0
   m_Name: Ring
   m_TagString: Untagged
@@ -19493,3 +19509,17 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8423543076710156227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122789944495389005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7374a923e1b69e846ad26f61462d6f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  delayFadeDuration: 5
