@@ -28796,6 +28796,7 @@ GameObject:
   - component: {fileID: 19894158}
   - component: {fileID: 19946278}
   - component: {fileID: 8272118}
+  - component: {fileID: 6685808841836293870}
   m_Layer: 0
   m_Name: Meteor_impact
   m_TagString: Untagged
@@ -33697,6 +33698,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &6685808841836293870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdad0a82fc5361e40a2607436fe43f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  delayFadeDuration: 5
 --- !u!1 &154056
 GameObject:
   m_ObjectHideFlags: 0
