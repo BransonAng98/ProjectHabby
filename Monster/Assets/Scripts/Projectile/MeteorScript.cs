@@ -99,17 +99,29 @@ public class MeteorScript : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        if (objToDestroy.tag != "Player")
+        if (objToDestroy != null && objToDestroy.tag != "Player")
         {
-            if(objToDestroy.tag == "Civilian")
+            if (objToDestroy.tag == "Civilian")
             {
-               Destroy(objToDestroy.transform.parent);
+                Transform parentTransform = objToDestroy.transform.parent;
+                if (parentTransform != null)
+                {
+                    Destroy(parentTransform.gameObject);
+                }
             }
-            else if(objToDestroy.name == "CamConfiner")
+            else if (objToDestroy.tag == "Car")
             {
-                //do nothing
+                Transform parentTransform = objToDestroy.transform.parent;
+                if (parentTransform != null)
+                {
+                    Destroy(parentTransform.gameObject);
+                }
             }
-            else if(objToDestroy.tag == "BigBuilding")
+            else if (objToDestroy.name == "CamConfiner")
+            {
+                // do nothing
+            }
+            else if (objToDestroy.tag == "BigBuilding")
             {
                 SpriteRenderer buildingRenderer = objToDestroy.GetComponentInChildren<SpriteRenderer>();
                 if (buildingRenderer != null)
@@ -121,7 +133,6 @@ public class MeteorScript : MonoBehaviour
             {
                 Destroy(objToDestroy);
             }
-          
         }
     }
 

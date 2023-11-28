@@ -28,7 +28,7 @@ public class CarAI : MonoBehaviour
     public Sprite verticaldestroyedSprite;
 
     //Kick Variables
-    [SerializeField] private bool isKicking;
+    [SerializeField] public bool isKicking;
     [SerializeField] int kickForce = 4;
     [SerializeField] int rotationSpeed;
     public float stopDelay = 2f;
@@ -45,9 +45,13 @@ public class CarAI : MonoBehaviour
     Collider2D entityCollider;
     public bool isVertical;
     bool hasDied;
+    public vehicleFakeHeightScript fakeheight;
+    public Vector2 groundDispenseVelocity;
+    public Vector2 verticalDispenseVelocity;
 
     void Start()
     {
+        fakeheight = GetComponentInParent<vehicleFakeHeightScript>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -64,7 +68,7 @@ public class CarAI : MonoBehaviour
     void SetValue()
     {
         //Randomize car rotation speed
-        int setSpinValue = Random.Range(1500, 2000);
+        int setSpinValue = Random.Range(800, 1000);
         rotationSpeed = setSpinValue;
     }
 
@@ -118,7 +122,7 @@ public class CarAI : MonoBehaviour
                 {
                     bigBuilding.TakeDamage(1);
                 }
-                Destroy(gameObject);
+                Destroy(gameObject.transform.parent.gameObject);
             }
             else { return; }
 
@@ -178,7 +182,10 @@ public class CarAI : MonoBehaviour
             smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
-        objectFader.StartFading();
+        Invoke("DestroyObject", 5f);
+        //fakeheight.Delete();
+       // Destroy(gameObject.transform.parent.gameObject);
+        //objectFader.StartFading();
     }
 
     public void PlaySFX()
@@ -187,10 +194,19 @@ public class CarAI : MonoBehaviour
         vehicleaudioSource.PlayOneShot(deathSFX);
     }
 
+    public void DestroyObject()
+    {
+        fakeheight.Delete();
+    }
+
     void KickLogic(Collider2D collision)
     {
         isKicking = true;
-        Vector2 kickDirection = transform.position - collision.transform.position;
+        fakeheight.isGrounded = false;
+        GetComponentInParent<vehicleFakeHeightScript>().Initialize(Random.insideUnitCircle * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+
+        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
+        /*Vector2 kickDirection = transform.position - collision.transform.position;
 
         // Normalize the direction vector to maintain consistent force regardless of distance
         kickDirection.Normalize();
@@ -202,7 +218,7 @@ public class CarAI : MonoBehaviour
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
 
-        StartCoroutine(StopMovementAfterDelay());
+        StartCoroutine(StopMovementAfterDelay());*/
     }
 
     IEnumerator StopMovementAfterDelay()
