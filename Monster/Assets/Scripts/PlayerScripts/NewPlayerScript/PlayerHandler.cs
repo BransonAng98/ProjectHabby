@@ -262,20 +262,28 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("BigBuilding"))
         {
-            nearTarget = true;
-            selectedEnemy = collision;
-            if (!currentState.Equals(PlayerStates.attack))
+            if(selectedEnemy != null)
             {
-                prevState = currentState;
+                return;
             }
-            SetCharacterState(PlayerStates.attack);
-            if (!isAttacking)
+
+            else
             {
-                isAttacking = true;
+                nearTarget = true;
+                selectedEnemy = collision;
+                if (!currentState.Equals(PlayerStates.attack))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.attack);
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                }
             }
         }
     }
@@ -284,10 +292,23 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if (collision.CompareTag("BigBuilding"))
         {
-            nearTarget = true;
-            selectedEnemy = null;
-            SetCharacterState(prevState);
+            if (!isAttacking)
+            {
+                nearTarget = true;
+                selectedEnemy = null;
+                SetCharacterState(prevState);
+            }
+
+            else
+            {
+                return;
+            }
         }
+    }
+
+    private void AttackNearestEnemy()
+    {
+
     }
 
     private void PlayerAttack()

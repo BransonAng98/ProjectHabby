@@ -23,9 +23,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float targetScore;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        CalculateTotalDestruction();
+    }
     void Start()
     {   
-        Invoke("CalculateTotalDestruction", 1f);
+        //Invoke("CalculateTotalDestruction", 1f);
         gameManager = GetComponent<GameManagerScript>();
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
