@@ -143,7 +143,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
-            cameraShake.ShakeCamera();
+            //cameraShake.ShakeCamera();
             float angleRadians = Mathf.Atan2(movementInput.y, movementInput.x);
 
             // Convert the angle from radians to degrees
