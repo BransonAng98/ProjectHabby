@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerVFXManager : MonoBehaviour
 {
     public PlayerHandler inputHandler; 
-    public GameObject impactSprite;
-    public GameObject smokeVFX;
+    public GameObject impactVFX;
     public GameObject aoeVFX;
     public GameObject ultiRdyVFX;
     public GameObject ultimateVFX;
@@ -31,8 +30,7 @@ public class PlayerVFXManager : MonoBehaviour
     public void footImpact(int foot)
     {
         Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y - 1f);
-        Instantiate(impactSprite, correction, Quaternion.identity);
-        Instantiate(smokeVFX, correction, Quaternion.identity);
+        Instantiate(impactVFX, correction, Quaternion.identity);
     }
 
     public void SpawnDeathVFX()

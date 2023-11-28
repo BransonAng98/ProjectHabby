@@ -35,7 +35,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
     public bool canMove;
+    [SerializeField] float attackHitRange;
     [SerializeField] private bool isAttacking;
+    [SerializeField] bool nearTarget;
     [SerializeField] private int attackCount;
     [SerializeField] private float degreeAngle;
 
@@ -197,7 +199,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         else
         {
             isIdle = false;
-            
         }
     }
 
@@ -260,35 +261,90 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             vfxManager.SpawnAoeVFX();
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BigBuilding"))
+        {
+            if(selectedEnemy != null)
+            {
+                return;
+            }
+
+            else
+            {
+                nearTarget = true;
+                selectedEnemy = collision;
+                if (!currentState.Equals(PlayerStates.attack))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.attack);
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BigBuilding"))
+        {
+            nearTarget = true;
+            selectedEnemy = null;
+            SetCharacterState(prevState);
+        }
+    }
+
+    private void AttackNearestEnemy()
+    {
+
+    }
+
     private void PlayerAttack()
     {
-        skeletonAnim.timeScale = animationSpeed;
-        RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, playerData.attackRange, enemyLayer);
-        // Check if the raycast hits an object
-        if (hit.collider != null)
+        if (!nearTarget)
         {
-            //hit.collider.gameObject.GetComponent<Targetable>().TakeDamage();
-            Debug.Log(hit);
-            selectedEnemy = hit.collider;
-            if (!currentState.Equals(PlayerStates.attack))
+            skeletonAnim.timeScale = animationSpeed;
+            RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
+            // Check if the raycast hits an object
+            if (hit.collider != null)
             {
-                prevState = currentState;
+                selectedEnemy = hit.collider;
+                if (!currentState.Equals(PlayerStates.attack))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.attack);
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                }
             }
-            SetCharacterState(PlayerStates.attack);
-            if (!isAttacking)
+            else
             {
-                isAttacking = true;
+                selectedEnemy = null;
+                if (isAttacking)
+                {
+                    SetCharacterState(prevState);
+                    isAttacking = false;
+                }
             }
         }
+
         else
         {
-            selectedEnemy = null;
-            if (isAttacking)
-            {
-                SetCharacterState(prevState);
-                isAttacking = false;
-            }
+            Debug.Log("There's a closer target " + selectedEnemy);
         }
+    }
+
+    //All entities MUST call this script to disable the player from attacking if it detects them with the collider instead of the raycast
+    public void DisableAttack()
+    {
+        nearTarget = false;
+        SetCharacterState(prevState);
     }
 
     void TriggerAttackDirAnimation()
@@ -553,47 +609,30 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             //Moving Upwards
             if(degreeAngle > 45 && degreeAngle < 135)
             {
+                attackHitRange = playerData.attackRange;
                 SetAnimation(0, moving, true, animationSpeed);
             }
 
             //Moving Leftwards
             if (degreeAngle > 135 && degreeAngle < 225)
             {
+                attackHitRange = playerData.attackRange + 1f;
                 SetAnimation(0, moving3, true, animationSpeed);
             }
 
             //Moving Downwards
             if (degreeAngle > 225 && degreeAngle < 315)
             {
+                attackHitRange = playerData.attackRange;
                 SetAnimation(0, moving2, true, animationSpeed);
             }
 
             //Moving Rightward
             if (degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45)
             {
+                attackHitRange = playerData.attackRange + 1f;
                 SetAnimation(0, moving4, true, animationSpeed);
             }
-
-            ////Moving Upwards
-            //if(movementInput.x > -0.60 && movementInput.x < 0.60f && movementInput.y > 0f && movementInput.y < 1f)
-            //{
-            //    SetAnimation(0, moving, true, animationSpeed);
-            //}
-            ////Moving Downwards
-            //if (movementInput.x > -0.60f && movementInput.x < 0.60f && movementInput.y < 0f && movementInput.y > -1f)
-            //{
-            //    SetAnimation(0, moving2, true, animationSpeed);
-            //}
-            ////Moving Left
-            //if (movementInput.x < 0f && movementInput.x > -1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
-            //{
-            //    SetAnimation(0, moving3, true, animationSpeed);
-            //} 
-            ////Moving Right
-            //if (movementInput.x > 0f && movementInput.x < 1f && movementInput.y > -0.60f && movementInput.y < 0.60f)
-            //{
-            //    SetAnimation(0, moving4, true, animationSpeed);
-            //}
         }
 
         if (state.Equals(PlayerStates.attack))

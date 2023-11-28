@@ -15,7 +15,7 @@ public class GameManagerScript : MonoBehaviour
    
     public AudioManagerScript audiomanager;
     private GNAManager GNAManager;
-    private LevelManager levelManger;
+    private LevelManager levelManager;
     public GameObject endScreen;
     public GameObject winScreen;
     public GameObject loseScreen;
@@ -46,7 +46,7 @@ public class GameManagerScript : MonoBehaviour
         
 
         endScreen.SetActive(false);
-        levelManger = GetComponent<LevelManager>();
+        levelManager = GetComponent<LevelManager>();
         GNAManager = GetComponent<GNAManager>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         DeactivatePlayer();
@@ -65,7 +65,7 @@ public class GameManagerScript : MonoBehaviour
     {
         inputHandler.canMove = false;
         Time.timeScale = 0f;
-        levelText.text = "" + levelManger.levelData.cityLevel;
+        levelText.text = "" + levelManager.levelData.cityLevel;
         GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
         if (isVictory == false)

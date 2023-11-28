@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 800590475}
   - component: {fileID: 800590476}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collector
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &800590476
 BoxCollider2D:
@@ -87,7 +87,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1361178655
 GameObject:
@@ -113,12 +113,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361178655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.2, y: 22.7, z: 0}
+  m_LocalPosition: {x: 17, y: 35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &104104751883132043
 GameObject:
@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5777988602047907817}
   - component: {fileID: 3673247214315418865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone18
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -167,11 +167,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone18
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &215850405088629148
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2995555798401908447}
   - component: {fileID: 5820893971851702735}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone3
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -220,11 +220,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone3
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &218692694336029703
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5023796408804837812}
   - component: {fileID: 3954338634587256750}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone6
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -273,11 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone6
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &519630498525482206
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7760355414118254408}
   - component: {fileID: 4180704601404557261}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone12
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -327,11 +327,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone12
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &536690222523182770
@@ -344,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4928777414242123385}
   - component: {fileID: 6528405780674110824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone15
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -380,11 +380,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone15
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &816037512173997594
@@ -397,7 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601930891428162550}
   - component: {fileID: 1339815731229331865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone2
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -435,11 +435,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone2
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &922400315994874800
@@ -452,7 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2536361284006661578}
   - component: {fileID: 3412925939577460983}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone7
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -488,11 +488,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone7
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &956293581792933199
@@ -527,7 +527,7 @@ Transform:
   m_Children:
   - {fileID: 498017123741125951}
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &4335980813010767828
 SpriteRenderer:
@@ -611,7 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5404716483883030159}
   - component: {fileID: 515410663280802454}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone22
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -647,11 +647,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone22
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &1323524976303238876
@@ -664,7 +664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 348598439145640753}
   - component: {fileID: 1505115618593484128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone16
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -701,11 +701,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone16
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &1527381790000847820
@@ -718,7 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2346681063001401090}
   - component: {fileID: 6786118682195294734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone14
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -755,11 +755,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone14
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &1848006333960756778
@@ -772,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5446225176360719438}
   - component: {fileID: 8767778819528830768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone19
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -808,11 +808,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone19
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &2002494691656751644
@@ -825,7 +825,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7688430732731262285}
   - component: {fileID: 8787940300042646204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone21
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -862,11 +862,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone21
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &2217579840142194643
@@ -879,7 +879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5741705642417805371}
   - component: {fileID: 5235574231400569199}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -924,11 +924,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &2348323572415730835
@@ -941,7 +941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3489482057055292986}
   - component: {fileID: 5421953888437732141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone9
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -979,11 +979,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone9
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &3364825843612987752
@@ -996,7 +996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 110098824917650230}
   - component: {fileID: 8787464807978186376}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone26
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -1014,7 +1014,8 @@ Transform:
   m_LocalPosition: {x: -4.0932, y: 1.4367, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8655364687481331824}
   m_Father: {fileID: 2373316967094534049}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1032,11 +1033,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone26
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &3459035118320467245
@@ -1049,7 +1050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4697258449306958299}
   - component: {fileID: 2207629118682774224}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone27
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1086,11 +1087,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone27
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &3567615095840165482
@@ -1103,7 +1104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2373316967094534049}
   - component: {fileID: 3426407309386787918}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone8
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -1130,7 +1131,7 @@ Transform:
   - {fileID: 110098824917650230}
   - {fileID: 8166947320927213189}
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3426407309386787918
 MonoBehaviour:
@@ -1146,11 +1147,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone8
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &4235034838380403654
@@ -1163,7 +1164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7949864463305693325}
   - component: {fileID: 7451851468123857709}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone24
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1200,11 +1201,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone24
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &4382592784269679117
@@ -1217,7 +1218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8784269169981982914}
   - component: {fileID: 5514738447051716360}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone20
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -1235,7 +1236,8 @@ Transform:
   m_LocalPosition: {x: 4.5529, y: 0.9608, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7870866517068253391}
   m_Father: {fileID: 2373316967094534049}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1253,11 +1255,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone20
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &4383460511514908873
@@ -1270,7 +1272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5733420700079731887}
   - component: {fileID: 7291259070056814338}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone13
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1306,11 +1308,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone13
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &4728740087754836574
@@ -1323,7 +1325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2738826629863016834}
   - component: {fileID: 2962621897611867052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone33
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1359,11 +1361,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone33
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &4742782548708547342
@@ -1376,7 +1378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3121281600261894846}
   - component: {fileID: 5761203582264288121}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone10
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1413,13 +1415,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone10
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
+--- !u!1 &4758025427271071686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8315390002215838758}
+  - component: {fileID: 1091397401257345154}
+  m_Layer: 0
+  m_Name: RightBackLeg
+  m_TagString: PlayerLeg
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8315390002215838758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758025427271071686}
+  m_LocalRotation: {x: -0, y: -0, z: 0.8718984, w: 0.48968682}
+  m_LocalPosition: {x: 0.22, y: -0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1564405905991879659}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &1091397401257345154
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758025427271071686}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.1495252, y: 2.0466762}
+      - {x: -0.67561364, y: 1.2140374}
+      - {x: -0.30447316, y: -0.4942283}
+      - {x: 0.28086576, y: -0.47061792}
+      - {x: 0.57330894, y: 0.57659084}
 --- !u!1 &5078581294646112302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5676898474854805657}
   - component: {fileID: 5202327919515921093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone35
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1467,11 +1531,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone35
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &5442216774189711269
@@ -1483,9 +1547,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7870866517068253391}
-  - component: {fileID: 3908049863818947856}
+  - component: {fileID: 3685022188894744176}
   m_Layer: 0
-  m_Name: RightLeg
+  m_Name: RightFrontLeg
   m_TagString: PlayerLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1498,16 +1562,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5442216774189711269}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.2899857, y: 0.51999664, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.8736873, w: 0.48648795}
+  m_LocalPosition: {x: 0.24994569, y: -0.14690648, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6516790000295486552}
+  m_Father: {fileID: 8784269169981982914}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &3908049863818947856
-BoxCollider2D:
+--- !u!60 &3685022188894744176
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1519,7 +1583,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.73114586}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1529,9 +1593,13 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.4622917}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.1495252, y: 2.0466762}
+      - {x: -0.67561364, y: 1.2140374}
+      - {x: -0.30447316, y: -0.4942283}
+      - {x: 0.28086576, y: -0.47061792}
+      - {x: 0.57330894, y: 0.57659084}
 --- !u!1 &5684480022865276695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4230125452936124255}
   - component: {fileID: 2669559248769791647}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone25
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -1578,13 +1646,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone25
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
+--- !u!1 &6216457744287373720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4129055633607277843}
+  - component: {fileID: 2782938072633705340}
+  m_Layer: 0
+  m_Name: LeftBackLeg
+  m_TagString: PlayerLeg
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4129055633607277843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216457744287373720}
+  m_LocalRotation: {x: -0, y: -0, z: 0.5725752, w: 0.8198522}
+  m_LocalPosition: {x: 0.49, y: 0.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8166947320927213189}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &2782938072633705340
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216457744287373720}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.20013537, y: 2.09305}
+      - {x: -0.79710627, y: 0.7246827}
+      - {x: -0.46462494, y: -0.3317712}
+      - {x: 0.10283923, y: -0.43953624}
+      - {x: 0.44302058, y: 1.2943017}
 --- !u!1 &6516790000295486554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,10 +1757,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.273109, y: 1.3548735, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7870866517068253391}
-  - {fileID: 8655364687481331824}
   - {fileID: 1361178656}
   - {fileID: 6171141311357299160}
   - {fileID: 4464496277361138}
@@ -1705,7 +1833,9 @@ MonoBehaviour:
     m_Bits: 128
   selectedEnemy: {fileID: 0}
   canMove: 0
+  attackHitRange: 0
   isAttacking: 0
+  nearTarget: 0
   attackCount: 0
   degreeAngle: 0
   HitDetection: {fileID: 863734637}
@@ -1713,8 +1843,9 @@ MonoBehaviour:
   utlimates:
   - {fileID: 61134897}
   currentUltimateCharge: 0
-  ultimateRadius: 20
+  ultimateRadius: 15
   aoeDmg: 10
+  aoeTremor: 0
   animationSpeed: 1.5
   attackAnimationSpeed: 1.4
   isUltimate: 0
@@ -1900,7 +2031,11 @@ MonoBehaviour:
   deathVFX: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   deathVFXRadius: 2
   numberOfVFX: 3
-  legLocations: []
+  legLocations:
+  - {fileID: 3364825843612987752}
+  - {fileID: 7765560336895432590}
+  - {fileID: 4382592784269679117}
+  - {fileID: 8315679165864496018}
   isTriggered: 0
 --- !u!70 &8948020723646364850
 CapsuleCollider2D:
@@ -1912,11 +2047,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.5}
-  m_Size: {x: 5.5, y: 4}
+  m_Offset: {x: 0.3, y: 2.1}
+  m_Size: {x: 9, y: 7}
   m_Direction: 1
 --- !u!82 &61134904
 AudioSource:
@@ -2367,7 +2502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7633682356895959762}
   - component: {fileID: 1950738867237024384}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone31
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2404,11 +2539,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone31
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7226297432522993231
@@ -2421,7 +2556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2502852190379744267}
   - component: {fileID: 6320314488312701925}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone11
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2457,11 +2592,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone11
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7233704350349403203
@@ -2474,7 +2609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7784829622734560184}
   - component: {fileID: 3651047665222483627}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone32
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2511,11 +2646,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone32
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7414866181343764806
@@ -2528,7 +2663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6851285842665562097}
   - component: {fileID: 5414852643331056825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone34
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2565,11 +2700,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone34
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7424571853142747032
@@ -2582,7 +2717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7916533111614187578}
   - component: {fileID: 5639284972323155642}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone28
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2618,11 +2753,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone28
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7765560336895432590
@@ -2635,7 +2770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8166947320927213189}
   - component: {fileID: 2758304203816631278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone29
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -2653,7 +2788,8 @@ Transform:
   m_LocalPosition: {x: -3.9914, y: 2.5748, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4129055633607277843}
   m_Father: {fileID: 2373316967094534049}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2671,11 +2807,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone29
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7917005342609295734
@@ -2688,7 +2824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 408380946915413949}
   - component: {fileID: 2519983326364105003}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone4
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -2725,11 +2861,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone4
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &7926170116924837758
@@ -2742,7 +2878,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1584702388417809591}
   - component: {fileID: 1080658026998488801}
-  m_Layer: 0
+  - component: {fileID: 1673592618430334166}
+  m_Layer: 9
   m_Name: bone30
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2762,7 +2899,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1080658026998488801
 MonoBehaviour:
@@ -2778,13 +2915,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone30
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
+--- !u!58 &1673592618430334166
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926170116924837758}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: 1.7}
+  serializedVersion: 2
+  m_Radius: 2.75
 --- !u!1 &8231129756740048769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,7 +2948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1857569306859415886}
   - component: {fileID: 9070037895382331404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone36
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -2831,11 +2984,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone36
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &8315679165864496018
@@ -2848,7 +3001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564405905991879659}
   - component: {fileID: 5573177259724505555}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone23
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: de1a4f5ad4bdf1a4ea072c4d59ba87d8, type: 3}
@@ -2866,7 +3019,8 @@ Transform:
   m_LocalPosition: {x: 4.4189, y: 2.0725, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8315390002215838758}
   m_Father: {fileID: 2373316967094534049}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2884,11 +3038,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone23
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &8431965770355733574
@@ -2901,7 +3055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5937245822109356933}
   - component: {fileID: 2031733662964879492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone5
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d1de1604dfe4cb64c9d31246a8e43c78, type: 3}
@@ -2938,11 +3092,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone5
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &8584766228217194350
@@ -2954,9 +3108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8655364687481331824}
-  - component: {fileID: 5818220570735896870}
+  - component: {fileID: 7566452981880138370}
   m_Layer: 0
-  m_Name: LeftLeg
+  m_Name: LeftFrontLeg
   m_TagString: PlayerLeg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2969,16 +3123,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8584766228217194350}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.621, y: 0.814, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.5081397, w: 0.86127466}
+  m_LocalPosition: {x: 0.5089171, y: 0.26561528, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6516790000295486552}
-  m_RootOrder: 1
+  m_Father: {fileID: 110098824917650230}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5818220570735896870
-BoxCollider2D:
+--- !u!60 &7566452981880138370
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2990,7 +3144,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.9427929}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3000,9 +3154,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.8855858}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.20013537, y: 2.09305}
+      - {x: -0.20013629, y: 2.0930521}
+      - {x: -0.79710627, y: 0.7246827}
+      - {x: -0.46462494, y: -0.3317712}
+      - {x: 0.10283923, y: -0.43953624}
+      - {x: 0.44302058, y: 1.2943017}
 --- !u!1 &8613758823929064536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,7 +3172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5491854548164451158}
   - component: {fileID: 7753220381355001500}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bone17
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 97a43f11e00735147a9dc3dff6d68191, type: 3}
@@ -3049,11 +3208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneName: bone17
   parentReference: {fileID: 6516790000295486552}
-  mode: 1
-  position: 0
-  rotation: 0
+  mode: 0
+  position: 1
+  rotation: 1
   scale: 0
-  zPosition: 0
+  zPosition: 1
   overrideAlpha: 0
   hierarchy: {fileID: 1592051404207819794}
 --- !u!1 &8779459918678162843
@@ -3126,9 +3285,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 963744515
+  m_SortingLayer: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 447a716f0a60c5b4999a9848455e9e2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3153,7 +3312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4464497929771776, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4464497929771776, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -49,10 +49,10 @@ public class CarSpawningScript : MonoBehaviour
 
                 if (spawnVertically)
                 {
-                    CarAI carAI = randomPrefab.GetComponent<CarAI>();
+                    CarAI carAI = randomPrefab.GetComponentInChildren<CarAI>();
                     if (carAI != null)
                     {
-                        carAI.SetSpriteRenderer(spawnedCar.GetComponent<SpriteRenderer>());
+                        carAI.SetSpriteRenderer(spawnedCar.GetComponentInChildren<SpriteRenderer>());
                         carAI.SetSpriteUp();
                         
                     }

@@ -5,22 +5,23 @@ using UnityEngine.Events;
 
 public class vehicleFakeHeightScript : MonoBehaviour
 {
-    public GameObject spawnerReference;
+    public FadeObjectinParent fadescript;
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
-
+    public CarAI carscript;
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    public float gravity = -10;
+    private float gravity = -20;
 
     public bool isGrounded;
 
 
     private void Start()
     {
-
+        carscript = GetComponentInChildren<CarAI>();
+        fadescript = GetComponent<FadeObjectinParent>();
     }
     private void Update()
     {
@@ -47,11 +48,10 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     void checkGroundHit()
     {
-        float heightdistance = spawnerReference.GetComponent<BigBuildingEnemy>().spawnheight;
-        if (transBody.position.y  < transObject.position.y - heightdistance && !isGrounded)
+        if (transBody.position.y  < transObject.position.y && !isGrounded)
         {
             isGrounded = true;
-            //transBody.position = transObject.position;
+            transBody.position = transObject.position;
             
             Groundhit();
         }
@@ -65,7 +65,18 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public void Stick()
     {
-        groundVelocity = Vector2.zero;
+        if(carscript.isKicking)
+        {
+            groundVelocity = Vector2.zero;
+            GetComponentInChildren<Rigidbody2D>().angularVelocity = 0f;
+            carscript.entityCollider.enabled = false;
+            carscript.Death();
+            fadescript.StartFading();
+        }
+        else
+        {
+            groundVelocity = Vector2.zero;
+        }
     }
 
     public void Delete()
