@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4411149530234238778}
   - component: {fileID: 3300969994220612008}
+  - component: {fileID: -953112245114195876}
   m_Layer: 13
   m_Name: CarVariant6
   m_TagString: Car
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331182e0ac1dcab4e8acab0432c786d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadescript: {fileID: 0}
   onGroundHitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -66,6 +68,20 @@ MonoBehaviour:
   groundVelocity: {x: 0, y: 0}
   verticalVelocity: 0
   isGrounded: 0
+--- !u!114 &-953112245114195876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411149530234238777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c05cfd879fc3e40918d5d756b2abea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 2
+  delayFadeDuration: 5
 --- !u!1 &5103258363165171321
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,10 +253,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 04a599ff6bd0cb5439d7aaedf61a923c, type: 3}
   - {fileID: 8300000, guid: 131935410dc63664399c38542cc3219c, type: 3}
   - {fileID: 8300000, guid: cf858d3a505c11a46b4f28472cb27ec5, type: 3}
+  entityCollider: {fileID: 0}
   isVertical: 0
   fakeheight: {fileID: 0}
-  groundDispenseVelocity: {x: 15, y: 15}
-  verticalDispenseVelocity: {x: 15, y: 15}
+  fadescript: {fileID: 0}
+  groundDispenseVelocity: {x: 15, y: 20}
+  verticalDispenseVelocity: {x: 6, y: 8}
 --- !u!114 &723102526004898221
 MonoBehaviour:
   m_ObjectHideFlags: 0

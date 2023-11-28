@@ -13,6 +13,7 @@ public class CarAI : MonoBehaviour
     public float roamRadius = 20.0f;
     public float roamInterval = 5.0f;
     private Transform player;
+    private PlayerHandler playerscript;
     private Vector3 lastPosition;
     private Vector2 movingDirection;
 
@@ -42,15 +43,18 @@ public class CarAI : MonoBehaviour
     public AudioSource vehicleaudioSource;
     public AudioClip[] vehicleSFX;
 
-    Collider2D entityCollider;
+    public Collider2D entityCollider;
     public bool isVertical;
     bool hasDied;
     public vehicleFakeHeightScript fakeheight;
+    public FadeObjectinParent fadescript;
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
 
     void Start()
     {
+        playerscript = GetComponent<PlayerHandler>();
+        fadescript = GetComponentInParent<FadeObjectinParent>();
         fakeheight = GetComponentInParent<vehicleFakeHeightScript>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
@@ -68,7 +72,7 @@ public class CarAI : MonoBehaviour
     void SetValue()
     {
         //Randomize car rotation speed
-        int setSpinValue = Random.Range(800, 1000);
+        int setSpinValue = Random.Range(500, 700);
         rotationSpeed = setSpinValue;
     }
 
@@ -182,7 +186,8 @@ public class CarAI : MonoBehaviour
             smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
-        Invoke("DestroyObject", 5f);
+        fadescript.StartFading();
+        //Invoke("DestroyObject", 5f);
         //fakeheight.Delete();
        // Destroy(gameObject.transform.parent.gameObject);
         //objectFader.StartFading();
@@ -201,9 +206,11 @@ public class CarAI : MonoBehaviour
 
     void KickLogic(Collider2D collision)
     {
+        Vector2 kickDirection = transform.position - collision.transform.position;
+        Vector2 newDir =  kickDirection.normalized;
         isKicking = true;
         fakeheight.isGrounded = false;
-        GetComponentInParent<vehicleFakeHeightScript>().Initialize(Random.insideUnitCircle * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+        GetComponentInParent<vehicleFakeHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
         /*Vector2 kickDirection = transform.position - collision.transform.position;

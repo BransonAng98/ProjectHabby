@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class vehicleFakeHeightScript : MonoBehaviour
 {
+    public FadeObjectinParent fadescript;
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
@@ -12,7 +13,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    private float gravity = -40;
+    private float gravity = -20;
 
     public bool isGrounded;
 
@@ -20,6 +21,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
     private void Start()
     {
         carscript = GetComponentInChildren<CarAI>();
+        fadescript = GetComponent<FadeObjectinParent>();
     }
     private void Update()
     {
@@ -63,14 +65,13 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public void Stick()
     {
-        //groundVelocity = Vector2.zero;
-        //carscript.Death();
         if(carscript.isKicking)
         {
             groundVelocity = Vector2.zero;
             GetComponentInChildren<Rigidbody2D>().angularVelocity = 0f;
+            carscript.entityCollider.enabled = false;
             carscript.Death();
-            Invoke("Delete", 2f);
+            fadescript.StartFading();
         }
         else
         {
