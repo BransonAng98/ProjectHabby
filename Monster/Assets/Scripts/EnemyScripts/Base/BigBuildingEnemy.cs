@@ -117,6 +117,7 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             inputHandler.ChargeUltimate(10);
             Death();
+            inputHandler.DisableAttack();
         }
         else return;
     }
