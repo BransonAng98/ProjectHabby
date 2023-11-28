@@ -292,17 +292,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if (collision.CompareTag("BigBuilding"))
         {
-            if (!isAttacking)
-            {
-                nearTarget = true;
-                selectedEnemy = null;
-                SetCharacterState(prevState);
-            }
-
-            else
-            {
-                return;
-            }
+            nearTarget = true;
+            selectedEnemy = null;
+            SetCharacterState(prevState);
         }
     }
 
