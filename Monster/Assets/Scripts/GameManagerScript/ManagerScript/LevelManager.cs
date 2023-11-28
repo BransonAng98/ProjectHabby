@@ -9,12 +9,18 @@ public class LevelManager : MonoBehaviour
     public LevelManagerScriptableObject levelData;
     private int calculateCityDestruction;
     public int calculation1;
-    public Slider slider;
+
+    public Slider objSlider;
+    public Image frontSlider;
+
+    public float lerpSpeed = 1f;
+
     private GameManagerScript gameManager;
     public CutSceneManager cutsceneManager;
     public PlayerHandler playerHandler;
 
     [SerializeField] private bool isTriggered;
+    [SerializeField] private float targetScore;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,12 @@ public class LevelManager : MonoBehaviour
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         isTriggered = false;
+
+    }
+
+    private void Update()
+    {
+        LerpDestructionBar();
     }
 
     public void CalculateTotalDestruction()
@@ -72,15 +84,16 @@ public class LevelManager : MonoBehaviour
         }
 
         calculation1 = levelData.baseScore * calculateCityDestruction;
-        slider.maxValue = calculation1;
+        objSlider.maxValue = calculation1;
+        Debug.Log(calculation1);
     }
 
     public void CalculateScore(float score)
     {
-        slider.value += score;
-        levelData.currentDestruction = slider.value;
+        objSlider.value += score;
+        levelData.currentDestruction = objSlider.value;
         CalculateProgress();
-        if(slider.value == slider.maxValue)
+        if(objSlider.value == objSlider.maxValue)
         {
             if (!isTriggered)
             {
@@ -93,6 +106,12 @@ public class LevelManager : MonoBehaviour
                 isTriggered = true;
             }
         }
+    }
+
+    void LerpDestructionBar()
+    {
+        float normalizedDestruction = objSlider.value / objSlider.maxValue;
+        frontSlider.fillAmount = Mathf.Lerp(frontSlider.fillAmount, normalizedDestruction, lerpSpeed * Time.deltaTime);
     }
 
     public void TapToLeave()
