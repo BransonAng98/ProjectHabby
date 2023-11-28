@@ -48,18 +48,20 @@ public class CrabUltimateD : UltimateBase
                 if (civilian != null)
                 {
                     civilian.enemyState = Civilian.EnemyState.death;
-                }
-
-                else
-                {
-                    Leader leader = collider.GetComponent<Leader>();
-                    if(leader != null)
-                    {
-                        leader.enemyState = Leader.EnemyState.death;
-                    }
+                    civilian.causeOfDeath = "Ulted by crab";
                 }
             }
 
+
+            else if (collider.CompareTag("Leader"))
+            {
+                Leader leader = collider.GetComponent<Leader>();
+                if (leader != null)
+                {
+                    leader.enemyState = Leader.EnemyState.death;
+                    leader.causeOfDeath = "Ulted by crab";
+                }
+            }
 
             else if (collider.CompareTag("Tree"))
             {

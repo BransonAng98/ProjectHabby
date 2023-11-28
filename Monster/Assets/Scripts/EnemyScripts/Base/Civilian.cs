@@ -59,6 +59,9 @@ public class Civilian : MonoBehaviour
     private bool deathSFXPlayed = false;
     public GameObject deadSprite;
 
+    //Troubleshoot
+    public string causeOfDeath;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -102,6 +105,7 @@ public class Civilian : MonoBehaviour
         if (collision.CompareTag("PlayerLeg"))
         {
             inputHandler.ChargeUltimate(1);
+            causeOfDeath = "Stepped to death";
             enemyState = EnemyState.death;
             Debug.Log("Hit");
         }
@@ -217,7 +221,6 @@ public class Civilian : MonoBehaviour
       
     }
 
-
     void Walk()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -319,7 +322,6 @@ public class Civilian : MonoBehaviour
     }
     public void Death()
     {
-       
         if (!isTriggered)
         {
             levelManager.CalculateScore(0.1f);
@@ -349,10 +351,9 @@ public class Civilian : MonoBehaviour
 
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
+        deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
         Destroy(transform.parent.gameObject);
     }
-
-
 
     void FlipSprite()
     {

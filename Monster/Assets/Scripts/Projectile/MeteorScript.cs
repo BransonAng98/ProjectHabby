@@ -106,6 +106,7 @@ public class MeteorScript : MonoBehaviour
                 Transform parentTransform = objToDestroy.transform.parent;
                 if (parentTransform != null)
                 {
+                    objToDestroy.GetComponent<Civilian>().causeOfDeath = "Meteor shower";
                     Destroy(parentTransform.gameObject);
                 }
             }
@@ -127,6 +128,15 @@ public class MeteorScript : MonoBehaviour
                 if (buildingRenderer != null)
                 {
                     buildingRenderer.enabled = false;
+                }
+            }
+            else if (objToDestroy.tag == "Leader")
+            {
+                Transform parentTransform = objToDestroy.transform.parent;
+                if (parentTransform != null)
+                {
+                    objToDestroy.GetComponent<Leader>().causeOfDeath = "Meteor shower";
+                    Destroy(parentTransform.gameObject);
                 }
             }
             else

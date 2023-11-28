@@ -2244,7 +2244,7 @@ GameObject:
   - component: {fileID: 410422627}
   m_Layer: 0
   m_Name: MapBound(Left)
-  m_TagString: BigBuilding
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5055,7 +5055,7 @@ GameObject:
   - component: {fileID: 929563184}
   m_Layer: 0
   m_Name: MapBound(Right)
-  m_TagString: BigBuilding
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5868,11 +5868,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063633784}
   m_CullTransparentMesh: 1
---- !u!60 &1086694536 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7566452981880138370, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1114643669
 GameObject:
   m_ObjectHideFlags: 0
@@ -6308,7 +6303,7 @@ MonoBehaviour:
   hitIndicator: {fileID: 635596423}
   playerLegs:
   - {fileID: 1250580602}
-  - {fileID: 1086694536}
+  - {fileID: 1538809851}
   joystick: {fileID: 2026836919}
   clock: {fileID: 221350691}
 --- !u!114 &1267804332
@@ -7677,6 +7672,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
   shakeStrength: 10
+--- !u!60 &1538809851 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7566452981880138370, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1558389881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3364825843612987752, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
@@ -8225,7 +8225,7 @@ GameObject:
   - component: {fileID: 1808873701}
   m_Layer: 0
   m_Name: MapBound(Up)
-  m_TagString: BigBuilding
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9487,7 +9487,7 @@ GameObject:
   - component: {fileID: 2088884672}
   m_Layer: 0
   m_Name: MapBound(Down)
-  m_TagString: BigBuilding
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

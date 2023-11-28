@@ -159,13 +159,13 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   levelManager: {fileID: 0}
-  minIdleTime: 5
-  maxIdleTime: 7
+  idleTime: 0
   currentIdleTime: 0
   leaderPos: {fileID: 0}
   isFollowing: 0
   changeDirectionInterval: 2
   maxWanderDistance: 5
+  blockingEntity: {fileID: 0}
   isBlocked: 0
   fakeheight: {fileID: 5449514087185011786}
   minRotationSpeed: 200
@@ -176,6 +176,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 12ff37c3a2dbb1b4b9c89523dc161733, type: 3}
   audiomanager: {fileID: 0}
   deadSprite: {fileID: 7197585282131594275, guid: 89be8231194da62459e402770caf3d4f, type: 3}
+  causeOfDeath: 
 --- !u!50 &8381522245099102583
 Rigidbody2D:
   serializedVersion: 4

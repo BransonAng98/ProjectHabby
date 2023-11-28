@@ -47,14 +47,14 @@ public class CarAI : MonoBehaviour
     public bool isVertical;
     bool hasDied;
     public vehicleFakeHeightScript fakeheight;
-    public FadeObjectinParent fadescript;
+    //public FadeObjectinParent fadescript;
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
 
     void Start()
     {
         playerscript = GetComponent<PlayerHandler>();
-        fadescript = GetComponentInParent<FadeObjectinParent>();
+        //fadescript = GetComponentInParent<FadeObjectinParent>();
         fakeheight = GetComponentInParent<vehicleFakeHeightScript>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
@@ -116,9 +116,9 @@ public class CarAI : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "BigBuilding")
+        if (isKicking)
         {
-            if (isKicking)
+            if (collision.gameObject.tag == "BigBuilding")
             {
                 Death();
                 BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
@@ -128,23 +128,37 @@ public class CarAI : MonoBehaviour
                 }
                 Destroy(gameObject.transform.parent.gameObject);
             }
-            else { return; }
 
-        }
-
-        if (collision.gameObject.tag == "Civilian")
-        {
-            if (isKicking)
+            if (collision.gameObject.tag == "Leader")
             {
-                Debug.Log(collision.gameObject.name);
+                Leader leader = collision.gameObject.GetComponent<Leader>();
+                if (leader != null)
+                {
+                    leader.enemyState = Leader.EnemyState.death;
+                    leader.causeOfDeath = "Crushed by car";
+                }
+            }
+
+            if (collision.gameObject.tag == "Civilian")
+            {
                 Civilian civilian = collision.gameObject.GetComponent<Civilian>();
                 if (civilian != null)
                 {
                     civilian.enemyState = Civilian.EnemyState.death;
+                    civilian.causeOfDeath = "Crushed by car";
                 }
             }
-            else { return; }
+
+            if (collision.gameObject.tag == "Tree")
+            {
+                Trees tree = collision.gameObject.GetComponent<Trees>();
+                if (tree != null)
+                {
+                    tree.Death();
+                }
+            }
         }
+
     }
 
     public void Death()
@@ -186,7 +200,9 @@ public class CarAI : MonoBehaviour
             smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
-        fadescript.StartFading();
+        //fadescript.StartFading();
+
+
         //Invoke("DestroyObject", 5f);
         //fakeheight.Delete();
        // Destroy(gameObject.transform.parent.gameObject);

@@ -257,7 +257,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(eventName == "Smash")
         {
             TriggerTremor();
-            TriggerAOE();
+            //TriggerAOE();
             vfxManager.SpawnAoeVFX();
         }
     }
@@ -296,11 +296,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             selectedEnemy = null;
             SetCharacterState(prevState);
         }
-    }
-
-    private void AttackNearestEnemy()
-    {
-
     }
 
     private void PlayerAttack()
@@ -409,55 +404,55 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    public void TriggerAOE()
-    {
-        attackCount = 0;
-        Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y + 2f);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, 10f);
-        foreach (Collider2D collider in hitColliders)
-        {
-            if (collider.CompareTag("BigBuilding"))
-            {
-                BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
-                if (bigBuilding != null)
-                {
-                    bigBuilding.TakeDamage(aoeDmg);
-                }
-                else { return; }
-            }
+    //public void TriggerAOE()
+    //{
+    //    attackCount = 0;
+    //    Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y + 2f);
+    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, 10f);
+    //    foreach (Collider2D collider in hitColliders)
+    //    {
+    //        if (collider.CompareTag("BigBuilding"))
+    //        {
+    //            BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
+    //            if (bigBuilding != null)
+    //            {
+    //                bigBuilding.TakeDamage(aoeDmg);
+    //            }
+    //            else { return; }
+    //        }
 
-            else if (collider.CompareTag("Civilian"))
-            {
-                Civilian civilian = collider.GetComponent<Civilian>();
-                if (civilian != null)
-                {
-                    civilian.enemyState = Civilian.EnemyState.death;
-                }
-                else { return; }
-            }
+    //        else if (collider.CompareTag("Civilian"))
+    //        {
+    //            Civilian civilian = collider.GetComponent<Civilian>();
+    //            if (civilian != null)
+    //            {
+    //                civilian.enemyState = Civilian.EnemyState.death;
+    //            }
+    //            else { return; }
+    //        }
 
 
-            else if (collider.CompareTag("Tree"))
-            {
-                Trees tree = collider.GetComponent<Trees>();
-                if (tree != null)
-                {
-                    tree.Death();
-                }
-                else { return; }
-            }
+    //        else if (collider.CompareTag("Tree"))
+    //        {
+    //            Trees tree = collider.GetComponent<Trees>();
+    //            if (tree != null)
+    //            {
+    //                tree.Death();
+    //            }
+    //            else { return; }
+    //        }
 
-            else if (collider.CompareTag("Car"))
-            {
-                CarAI car = collider.GetComponent<CarAI>();
-                if (car != null)
-                {
-                    car.Death();
-                }
-                else { return; }
-            }
-        }
-    }
+    //        else if (collider.CompareTag("Car"))
+    //        {
+    //            CarAI car = collider.GetComponent<CarAI>();
+    //            if (car != null)
+    //            {
+    //                car.Death();
+    //            }
+    //            else { return; }
+    //        }
+    //    }
+    //}
 
     
 

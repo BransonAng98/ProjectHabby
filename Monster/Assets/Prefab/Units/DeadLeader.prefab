@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1.29, y: 0.83}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7197585282131594275
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1277852501118902569}
   - component: {fileID: 2320120752266891321}
   - component: {fileID: 6148908869231502243}
+  - component: {fileID: 8310022481169301209}
   m_Layer: 0
   m_Name: DeadLeader
   m_TagString: Untagged
@@ -184,3 +185,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeDuration: 2
   delayFadeDuration: 5
+--- !u!114 &8310022481169301209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7197585282131594275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 063f5c123fe625548ab22a210f154fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  causeOfDeath: 

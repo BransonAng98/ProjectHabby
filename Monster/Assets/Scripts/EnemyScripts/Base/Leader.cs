@@ -51,7 +51,8 @@ public class Leader : MonoBehaviour
     private bool deathSFXPlayed = false;
     public GameObject deadSprite;
 
-
+    //Troubleshoot
+    public string causeOfDeath;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -91,29 +92,8 @@ public class Leader : MonoBehaviour
         {
             inputHandler.ChargeUltimate(1);
             enemyState = EnemyState.death;
+            causeOfDeath = "Stepped to death";
             Debug.Log("Hit");
-        }
-
-        if (collision.CompareTag("Civilian"))
-        {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
-            if(civiRecruited != null)
-            {
-                AddFollowers(civiRecruited);
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Civilian"))
-        {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
-            if (civiRecruited != null)
-            {
-                civiRecruited.RemoveCivilan();
-                followerList.Remove(civiRecruited);
-            }
         }
     }
 
@@ -126,7 +106,7 @@ public class Leader : MonoBehaviour
         }
     }
 
-    void AddFollowers(Civilian follower)
+    public void AddFollowers(Civilian follower)
     {
         if(followerList.Count <= maxFollowers)
         {
@@ -266,8 +246,8 @@ public class Leader : MonoBehaviour
         }
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
-        Destroy(transform.parent.gameObject);
-        //Destroy(transform.parent.gameObject, 5f);
+        deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
+        Destroy(transform.parent.gameObject);     
     }
 
     void FlipSprite()
