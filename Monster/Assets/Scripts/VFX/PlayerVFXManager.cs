@@ -29,7 +29,7 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void footImpact(int foot)
     {
-        Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y - 1f);
+        Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y);
         Instantiate(impactVFX, correction, Quaternion.identity);
     }
 

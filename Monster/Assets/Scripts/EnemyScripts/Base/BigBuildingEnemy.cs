@@ -187,7 +187,8 @@ public class BigBuildingEnemy : MonoBehaviour
         }
         //Add points
         levelManager.CalculateScore(destructionScore);
-        GameObject pointVFX = Instantiate(pointIndicatorVFX, transform.position, Quaternion.Euler(0f, 0f, 0f));
+        Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 1f);
+        GameObject pointVFX = Instantiate(pointIndicatorVFX, pointPos, Quaternion.Euler(0f, 0f, 0f));
     }
 
     void DamageEffect()
