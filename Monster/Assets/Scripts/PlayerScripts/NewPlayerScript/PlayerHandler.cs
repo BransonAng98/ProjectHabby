@@ -37,11 +37,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public bool canMove;
     [SerializeField] float attackHitRange;
     [SerializeField] private bool isAttacking;
-    [SerializeField] bool nearTarget;
     [SerializeField] private int attackCount;
     [SerializeField] private float degreeAngle;
 
-    
+    //Variables for attacking 
+    public List<Collider2D> listOfEnemies = new List<Collider2D>();
+
     public GameObject HitDetection;
     public GameObject Groundcrack;
     public List<UltimateBase> utlimates = new List<UltimateBase>();
@@ -262,29 +263,38 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BigBuilding"))
         {
-            if(selectedEnemy != null)
+            if (!listOfEnemies.Contains(collision))
             {
-                return;
+                listOfEnemies.Add(collision);
             }
 
             else
             {
-                nearTarget = true;
-                selectedEnemy = collision;
-                if (!currentState.Equals(PlayerStates.attack))
-                {
-                    prevState = currentState;
-                }
-                SetCharacterState(PlayerStates.attack);
-                if (!isAttacking)
-                {
-                    isAttacking = true;
-                }
+                return;
             }
+            //if(selectedEnemy != null)
+            //{
+            //    return;
+            //}
+
+            //else
+            //{
+            //    nearTarget = true;
+            //    selectedEnemy = collision;
+            //    if (!currentState.Equals(PlayerStates.attack))
+            //    {
+            //        prevState = currentState;
+            //    }
+            //    SetCharacterState(PlayerStates.attack);
+            //    if (!isAttacking)
+            //    {
+            //        isAttacking = true;
+            //    }
+            //}
         }
     }
 
@@ -292,15 +302,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         if (collision.CompareTag("BigBuilding"))
         {
-            nearTarget = true;
-            selectedEnemy = null;
-            SetCharacterState(prevState);
+            listOfEnemies.Remove(collision);
         }
     }
 
     private void PlayerAttack()
     {
-        if (!nearTarget)
+        //Using the RAYCAST to detect and hit enemies
+        if (listOfEnemies.Count == 0)
         {
             skeletonAnim.timeScale = animationSpeed;
             RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
@@ -329,16 +338,46 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
         }
 
+        //Using the CYLINDER COLLIDER to detect and hit enemies
         else
         {
-            Debug.Log("There's a closer target " + selectedEnemy);
+            // Find the closest enemy
+            float closestDistance = float.MaxValue;
+            Collider2D closestCollider = null;
+
+            foreach (var enemy in listOfEnemies)
+            {
+                Debug.Log(enemy);
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestCollider = enemy;
+                    Debug.Log(closestCollider);
+                }
+            }
+
+            // Perform the attack on the closest enemy
+            if (closestCollider != null)
+            {
+                selectedEnemy = closestCollider;
+                if (!currentState.Equals(PlayerStates.attack))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.attack);
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                }
+            }
         }
     }
 
     //All entities MUST call this script to disable the player from attacking if it detects them with the collider instead of the raycast
     public void DisableAttack()
     {
-        nearTarget = false;
         SetCharacterState(prevState);
     }
 
@@ -378,16 +417,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 SetAnimation(0, attacking4, true, attackAnimationSpeed);
             }
         }
-
-        //if (attackCount <= 5)
-        //{
-            
-        //}
-
-        //else
-        //{
-        //    SetAnimation(0, attacking7, false, 1f);
-        //}
     }
     
     public void TriggerTremor()
