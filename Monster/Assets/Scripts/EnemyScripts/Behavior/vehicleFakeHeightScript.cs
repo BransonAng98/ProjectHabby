@@ -13,13 +13,16 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    private float gravity = -20f;
+    private float minGravity = -20f;
+    private float maxGravity = -30f;
+    [SerializeField] private float Gravity;
 
     public bool isGrounded;
 
 
     private void Start()
     {
+        Gravity = Random.Range(minGravity, maxGravity);
         carscript = GetComponentInChildren<CarAI>();
         fadescript = GetComponent<FadeObjectinParent>();
     }
@@ -39,7 +42,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
     {
         if (!isGrounded)
         {
-            verticalVelocity += gravity * Time.deltaTime;
+            verticalVelocity += Gravity * Time.deltaTime;
             transBody.position += new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
         }
         transObject.position += (Vector3)groundVelocity * Time.deltaTime;
