@@ -168,14 +168,14 @@ public class BigBuildingEnemy : MonoBehaviour
     void TriggerLoot()
     {
 
-        int numberOfEntities = Random.Range(minCoins, maxCoins + 1);
-        for (int i = 0; i < numberOfEntities; i++)
-        {
-            //Spawn GNA
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            GameObject coin = Instantiate(pfCoin, transform.position, Quaternion.identity);
-            coin.transform.Rotate(0, 0, 90);
-        }
+        //int numberOfEntities = Random.Range(minCoins, maxCoins + 1);
+        //for (int i = 0; i < numberOfEntities; i++)
+        //{
+        //    //Spawn GNA
+        //    Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        //    GameObject coin = Instantiate(pfCoin, transform.position, Quaternion.identity);
+        //    coin.transform.Rotate(0, 0, 90);
+        //}
         //Add points
         levelManager.CalculateScore(destructionScore);
         Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 2f);
