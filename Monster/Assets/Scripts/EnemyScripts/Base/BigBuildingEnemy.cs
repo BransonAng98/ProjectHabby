@@ -98,11 +98,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        tempHealth -= damage;
-        if(shakeScript != null)
-        {
-            shakeScript.StartShake();
-        }
+        tempHealth -= damage;   
         SpawnCivilian();
         DamageEffect();
         audiomanager.playBuildingDamageFX();
@@ -187,12 +183,16 @@ public class BigBuildingEnemy : MonoBehaviour
         }
         //Add points
         levelManager.CalculateScore(destructionScore);
-        Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 1f);
+        Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 2f);
         GameObject pointVFX = Instantiate(pointIndicatorVFX, pointPos, Quaternion.Euler(0f, 0f, 0f));
     }
 
     void DamageEffect()
     {
+        if (shakeScript != null)
+        {
+            shakeScript.StartShake();
+        }
         GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
         GameObject hitEffect = Instantiate(hitVFX, transform.position, Quaternion.identity);
         spriteRenderer.sprite = damagedSprite;
