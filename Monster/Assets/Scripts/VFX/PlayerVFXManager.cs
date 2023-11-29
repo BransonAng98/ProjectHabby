@@ -14,8 +14,10 @@ public class PlayerVFXManager : MonoBehaviour
 
     public GameObject deathVFX; // The VFX prefab you want to spawn
     public float deathVFXRadius; // The radius in which VFX will be spawned
+    public float footTremorRadius;
+    public float aoeTremorRadius;
     public int numberOfVFX = 3; // Number of VFX to spawn
-
+    
     public GameObject[] legLocations;
 
     [SerializeField] private bool isTriggered;
@@ -27,10 +29,34 @@ public class PlayerVFXManager : MonoBehaviour
 
     }
 
+   
+
     public void footImpact(int foot)
     {
         Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y);
         Instantiate(impactVFX, correction, Quaternion.identity);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(correction, footTremorRadius);
+        foreach (Collider2D colldier in hitColliders)
+        {
+            if (colldier.CompareTag("Tree"))
+            {
+                ObjectShakeScript tree = colldier.GetComponent<ObjectShakeScript>();
+                tree.StartShake();
+            }
+        }
+    }
+
+    public void TriggerAoeTremor()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, aoeTremorRadius);
+        foreach (Collider2D colldier in hitColliders)
+        {
+            if (colldier.CompareTag("Tree"))
+            {
+                ObjectShakeScript tree = colldier.GetComponent<ObjectShakeScript>();
+                tree.StartShake();
+            }
+        }
     }
 
     public void SpawnDeathVFX()
