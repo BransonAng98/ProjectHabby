@@ -263,7 +263,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("BigBuilding"))
         {
@@ -376,8 +376,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     }
 
     //All entities MUST call this script to disable the player from attacking if it detects them with the collider instead of the raycast
-    public void DisableAttack()
+    public void DisableAttack(Collider2D collider)
     {
+        listOfEnemies.Remove(collider);
+        selectedEnemy = null;
         SetCharacterState(prevState);
     }
 

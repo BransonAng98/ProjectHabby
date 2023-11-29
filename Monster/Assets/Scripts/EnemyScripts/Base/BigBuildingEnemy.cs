@@ -96,7 +96,7 @@ public class BigBuildingEnemy : MonoBehaviour
         tempHealth -= damage;   
         SpawnCivilian();
         DamageEffect();
-        audiomanager.playBuildingDamageFX();
+        //audiomanager.playBuildingDamageFX();
         //playDamageSFX();
 
         if (isOnFire != true)
@@ -108,7 +108,7 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             inputHandler.ChargeUltimate(10);
             Death();
-            inputHandler.DisableAttack();
+            inputHandler.DisableAttack(buildingCollider);
         }
         else return;
     }
