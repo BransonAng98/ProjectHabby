@@ -43,7 +43,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
             transBody.position += new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
         }
         transObject.position += (Vector3)groundVelocity * Time.deltaTime;
-
+        
     }
 
     void checkGroundHit()
@@ -72,6 +72,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
             carscript.entityCollider.enabled = false;
             carscript.Death();
             fadescript.StartFading();
+            carscript.smokeTrailVFX.SetActive(false);
         }
         else
         {
