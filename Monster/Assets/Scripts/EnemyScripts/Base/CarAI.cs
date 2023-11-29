@@ -49,6 +49,7 @@ public class CarAI : MonoBehaviour
     public bool isVertical;
     bool hasDied;
     public vehicleFakeHeightScript fakeheight;
+    public FadeObjectinParent fadescript;
     //public FadeObjectinParent fadescript;
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
@@ -64,6 +65,7 @@ public class CarAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         entityCollider = GetComponent<Collider2D>();
         objectFader = GetComponent<ObjectFadeEffect>();
+        fadescript = GetComponentInParent<FadeObjectinParent>();
 
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
@@ -194,8 +196,7 @@ public class CarAI : MonoBehaviour
 
 
         if (isKicking)
-        {
-            smokeTrailVFX.SetActive(true);
+        { 
             return;
         }
         else
@@ -206,12 +207,8 @@ public class CarAI : MonoBehaviour
             entityCollider.enabled = false;
         }
 
-
-        //fadescript.StartFading();
-        //Invoke("DestroyObject", 5f);
-        //fakeheight.Delete();
-       // Destroy(gameObject.transform.parent.gameObject);
-        //objectFader.StartFading();
+        fadescript.StartFading();
+        
     }
 
     public void PlaySFX()
@@ -229,40 +226,15 @@ public class CarAI : MonoBehaviour
     {
         Instantiate(kickedVFX, transform.position, Quaternion.identity);
         smokeTrailVFX.SetActive(true);
-        Vector2 kickDirection = transform.position - collision.transform.position;
+        Vector2 kickDirection = transform.position - player.transform.position;
         Vector2 newDir =  kickDirection.normalized;
         isKicking = true;
         fakeheight.isGrounded = false;
         GetComponentInParent<vehicleFakeHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
-        /*Vector2 kickDirection = transform.position - collision.transform.position;
-
-        // Normalize the direction vector to maintain consistent force regardless of distance
-        kickDirection.Normalize();
-
-        // Apply a force in the opposite direction
-        GetComponent<Rigidbody2D>().AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
-
-        GetComponent<Rigidbody2D>().gravityScale = 0.4f;
-
-        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
-
-        StartCoroutine(StopMovementAfterDelay());*/
     }
 
-    IEnumerator StopMovementAfterDelay()
-    {
-        // Wait for the specified delay
-        yield return new WaitForSeconds(stopDelay);
-
-        // Stop the movement by setting the velocity to zero
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-        // Stop the rotation & gravity
-        GetComponent<Rigidbody2D>().angularVelocity = 0f;
-        GetComponent<Rigidbody2D>().gravityScale = 0f;
-    }
 
     public void CheckOrientation()
     {

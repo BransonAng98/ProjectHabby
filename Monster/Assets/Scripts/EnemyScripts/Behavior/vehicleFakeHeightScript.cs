@@ -13,7 +13,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    private float gravity = -50;
+    private float gravity = -20f;
 
     public bool isGrounded;
 
@@ -72,7 +72,6 @@ public class vehicleFakeHeightScript : MonoBehaviour
             carscript.entityCollider.enabled = false;
             carscript.Death();
             fadescript.StartFading();
-            carscript.smokeTrailVFX.SetActive(false);
         }
         else
         {

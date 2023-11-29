@@ -81,7 +81,7 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SpawnUltiVFX()
     {
-        Vector2 ultiPos = new Vector2(player.transform.position.x, player.transform.position.y - 0.8f);
+        Vector2 ultiPos = new Vector2(player.transform.position.x, player.transform.position.y -2.5f);
         GameObject ultiVFX = Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
     }
 }

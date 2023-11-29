@@ -259,7 +259,7 @@ MonoBehaviour:
   entityCollider: {fileID: 0}
   isVertical: 0
   fakeheight: {fileID: 0}
-  groundDispenseVelocity: {x: 15, y: 20}
+  groundDispenseVelocity: {x: 4, y: 8}
   verticalDispenseVelocity: {x: 6, y: 8}
 --- !u!114 &7524875918537491130
 MonoBehaviour:
@@ -453,7 +453,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4182238848431880623, guid: 2663ce69e244b24418868ed437eadb23, type: 3}
+    - {fileID: 2391635355699643576, guid: 2663ce69e244b24418868ed437eadb23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2663ce69e244b24418868ed437eadb23, type: 3}
 --- !u!1 &3123520278796707397 stripped
 GameObject:
