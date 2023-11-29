@@ -37,6 +37,8 @@ public class CarAI : MonoBehaviour
     //VFX
     public GameObject explosionVFX;
     public GameObject smokeVFX;
+    public GameObject smokeTrailVFX;
+    public GameObject kickedVFX;
 
     private Sprite intitialSprite;
 
@@ -65,6 +67,7 @@ public class CarAI : MonoBehaviour
 
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
+        smokeTrailVFX.SetActive(false);
         CheckOrientation();
         SetValue();
     }
@@ -192,17 +195,19 @@ public class CarAI : MonoBehaviour
 
         if (isKicking)
         {
+            smokeTrailVFX.SetActive(true);
             return;
         }
         else
         {
+            smokeTrailVFX.SetActive(false);
             GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
             smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
+
+
         //fadescript.StartFading();
-
-
         //Invoke("DestroyObject", 5f);
         //fakeheight.Delete();
        // Destroy(gameObject.transform.parent.gameObject);
@@ -222,6 +227,8 @@ public class CarAI : MonoBehaviour
 
     void KickLogic(Collider2D collision)
     {
+        Instantiate(kickedVFX, transform.position, Quaternion.identity);
+        smokeTrailVFX.SetActive(true);
         Vector2 kickDirection = transform.position - collision.transform.position;
         Vector2 newDir =  kickDirection.normalized;
         isKicking = true;

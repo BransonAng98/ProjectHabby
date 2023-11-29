@@ -52,10 +52,6 @@ public class BigBuildingEnemy : MonoBehaviour
     public Vector2 verticalDispenseVelocity;
 
     public AudioManagerScript audiomanager;
-
-    public AudioSource buildingAudioSource;
-    public AudioClip[] damageSFX;
-    public AudioClip[] deathSFX;
     public float spawnheight;
     private void Awake()
     {
@@ -72,7 +68,6 @@ public class BigBuildingEnemy : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        buildingAudioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

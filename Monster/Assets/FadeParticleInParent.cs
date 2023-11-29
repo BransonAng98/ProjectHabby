@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FadeParticleInParent : MonoBehaviour
 {
-    public float fadeDuration = 2.0f;
-    public float delayFadeDuration = 5f;
+    public float fadeDuration = 1f;
+    public float delayFadeDuration = 2f;
 
     private ParticleSystem particles;
     private float initialAlpha;
