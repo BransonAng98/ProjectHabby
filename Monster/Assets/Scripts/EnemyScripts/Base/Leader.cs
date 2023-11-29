@@ -53,6 +53,7 @@ public class Leader : MonoBehaviour
 
     //Troubleshoot
     public string causeOfDeath;
+    public string murderer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -93,6 +94,7 @@ public class Leader : MonoBehaviour
             inputHandler.ChargeUltimate(1);
             enemyState = EnemyState.death;
             causeOfDeath = "Stepped to death";
+            murderer = collision.name;
             Debug.Log("Hit");
         }
     }
@@ -247,6 +249,7 @@ public class Leader : MonoBehaviour
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
+        deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;
         Destroy(transform.parent.gameObject);     
     }
 

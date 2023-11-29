@@ -61,6 +61,7 @@ public class Civilian : MonoBehaviour
 
     //Troubleshoot
     public string causeOfDeath;
+    public string murderer;
 
     private void Awake()
     {
@@ -106,6 +107,7 @@ public class Civilian : MonoBehaviour
         {
             inputHandler.ChargeUltimate(1);
             causeOfDeath = "Stepped to death";
+            murderer = collision.name;
             enemyState = EnemyState.death;
             Debug.Log("Hit");
         }
@@ -352,6 +354,7 @@ public class Civilian : MonoBehaviour
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
+        deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;
         Destroy(transform.parent.gameObject);
     }
 
