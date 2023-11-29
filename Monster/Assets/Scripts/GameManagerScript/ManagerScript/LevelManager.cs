@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     public Slider objSlider;
     public Image frontSlider;
 
-    public float lerpSpeed = 1f;
+    public float lerpSpeed = 1.5f;
 
     private GameManagerScript gameManager;
     public CutSceneManager cutsceneManager;
