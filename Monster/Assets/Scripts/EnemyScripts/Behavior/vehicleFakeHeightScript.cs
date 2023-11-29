@@ -13,7 +13,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
 
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    private float gravity = -20;
+    private float gravity = -50;
 
     public bool isGrounded;
 
