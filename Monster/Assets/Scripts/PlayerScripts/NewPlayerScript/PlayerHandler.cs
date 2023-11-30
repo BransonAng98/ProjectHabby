@@ -151,6 +151,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         else
         {
             canMove = true;
+            selectedEnemy = null;
         }
     }
 
