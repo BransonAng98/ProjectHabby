@@ -65,7 +65,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float impactTimer;
     public float currentImpactTimer;
     public float idleTimer;
-    public Collider2D entitycollider;
+    public Collider2D[] entitycollider;
 
    [SerializeField] private float idleRoarTimer = 0f;
     private float minRoarThreshold = 10f;
@@ -89,13 +89,17 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         SetCharacterState(currentState);
         skeletonAnim = GetComponent<SkeletonAnimation>();
         skeletonAnim.AnimationState.Event += OnSpineEvent;
-        entitycollider = GetComponent<Collider2D>();
+        entitycollider = GetComponentsInChildren<Collider2D>();
 
         vfxManager = GetComponent<PlayerVFXManager>();
         rb = GetComponent<Rigidbody2D>();
         footstepAudioSource = GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
-        entitycollider.enabled = false;
+        
+        foreach (Collider2D collider in entitycollider)
+        {
+            collider.enabled = false;
+        }
 
         varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
@@ -129,6 +133,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(playerData.health == 0)
         {
             vfxManager.SpawnDeathVFX();
+        }
+    }
+
+    public void EnableColliders()
+    {
+        foreach (Collider2D collider in entitycollider)
+        {
+            collider.enabled = true;
         }
     }
 

@@ -114,13 +114,14 @@ public class GameManagerScript : MonoBehaviour
     {
         inputHandler.canMove = true;
         clock.startTime = true;
-        inputHandler.entitycollider.enabled = true;
+        //inputHandler.entitycollider.enabled = true;
+        inputHandler.EnableColliders();
         joystick.SetActive(true);
 
-        foreach (Collider2D collider in playerLegs)
-        {
-            collider.gameObject.SetActive(true);
-        }
+        //foreach (Collider2D collider in playerLegs)
+        //{
+        //    collider.gameObject.SetActive(true);
+        //}
     }
 
     public void SpawnPlayer()
