@@ -38,7 +38,7 @@ public class GameManagerScript : MonoBehaviour
 
         player.GetComponent<MeshRenderer>().enabled = false;
         barAnim.SetBool("RevealGame", false);
-        AstarPath.active.Scan(); //scan the grid
+        //AstarPath.active.Scan(); //scan the grid
         ScanAndInsert();
         DisableObstacles();
      
