@@ -51,7 +51,7 @@ public class UltimateButtonScript : MonoBehaviour
 
     public void ActivateUltimate()
     {
-        playerHandler.canMove = false;
+        playerHandler.enableInput = false;
         if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
         {
             playerHandler.DisableMovement(0);

@@ -35,10 +35,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
     public bool canMove;
+    public bool enableInput;
+    [SerializeField] bool canAttack;
     [SerializeField] float attackHitRange;
     [SerializeField] private bool isAttacking;
-    [SerializeField] private int attackCount;
     [SerializeField] private float degreeAngle;
+    [SerializeField] int moveSector;
+    [SerializeField] int attackSector;
 
     //Variables for attacking 
     public List<Collider2D> listOfEnemies = new List<Collider2D>();
@@ -109,10 +112,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         Cheats();
         IdleRoar();
-        if (canMove)
+        if (enableInput)
         {
             if (!isEnd)
             {
+                CheckJoyStickInput();
+                MoveAndAttack();
                 PlayerIdle();
                 PlayerMove();
                 PlayerAttack();
@@ -136,6 +141,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
+    void MoveAndAttack()
+    {
+        if(attackSector == moveSector)
+        {
+            canMove = false;
+        }
+
+        else
+        {
+            canMove = true;
+        }
+    }
+
     public void EnableColliders()
     {
         foreach (Collider2D collider in entitycollider)
@@ -150,21 +168,17 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         float moveY = joystick.Vertical;
 
         movementInput = new Vector2(moveX, moveY).normalized;
-        rb.velocity = new Vector2(movementInput.x * playerData.speed, movementInput.y * playerData.speed);
-        skeletonAnim.timeScale = animationSpeed;
 
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
             //cameraShake.ShakeCamera();
             float angleRadians = Mathf.Atan2(movementInput.y, movementInput.x);
-
             // Convert the angle from radians to degrees
             degreeAngle = angleRadians * Mathf.Rad2Deg;
 
             // Ensure the angle is positive (0 to 360 degrees)
             degreeAngle = (degreeAngle + 360) % 360;
-
 
             if (!currentState.Equals(PlayerStates.attack))
             {
@@ -187,6 +201,18 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 rb.velocity = Vector2.zero;
                 SetCharacterState(PlayerStates.idle);
             }
+        }
+
+        if (canMove)
+        {
+            //Code to move the player
+            rb.velocity = new Vector2(movementInput.x * playerData.speed, movementInput.y * playerData.speed);
+            skeletonAnim.timeScale = animationSpeed;
+        }
+
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 
@@ -284,25 +310,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             {
                 return;
             }
-            //if(selectedEnemy != null)
-            //{
-            //    return;
-            //}
-
-            //else
-            //{
-            //    nearTarget = true;
-            //    selectedEnemy = collision;
-            //    if (!currentState.Equals(PlayerStates.attack))
-            //    {
-            //        prevState = currentState;
-            //    }
-            //    SetCharacterState(PlayerStates.attack);
-            //    if (!isAttacking)
-            //    {
-            //        isAttacking = true;
-            //    }
-            //}
         }
     }
 
@@ -311,6 +318,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (collision.CompareTag("BigBuilding"))
         {
             listOfEnemies.Remove(collision);
+            attackSector = 0;
         }
     }
 
@@ -337,11 +345,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
             else
             {
-                selectedEnemy = null;
-                if (isAttacking)
+                if (!listOfEnemies.Contains(selectedEnemy))
                 {
-                    SetCharacterState(prevState);
-                    isAttacking = false;
+                    selectedEnemy = null;
+                    if (isAttacking)
+                    {
+                        SetCharacterState(prevState);
+                        isAttacking = false;
+                    }
+                }
+
+                else
+                {
+                    return;
                 }
             }
         }
@@ -393,40 +409,55 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        float playerX = this.transform.position.x;
-        float objectX = selectedEnemy.gameObject.transform.position.x;
-        Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
-        float angle = Vector3.Angle(dir, Vector3.down);
-        if (objectX > playerX)
+        if(selectedEnemy != null)
         {
-            if (angle >= 135f)
+            float playerX = this.transform.position.x;
+            float objectX = selectedEnemy.gameObject.transform.position.x;
+            Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
+            float angle = Vector3.Angle(dir, Vector3.down);
+            if (objectX > playerX)
             {
-                SetAnimation(0, attacking3, true, attackAnimationSpeed);
+                if (angle >= 135f)
+                {
+                    attackSector = 1;
+                    SetAnimation(0, attacking3, true, attackAnimationSpeed);
+                }
+                if (angle >= 45f && angle < 135f)
+                {
+                    attackSector = 2;
+                    SetAnimation(0, attacking2, true, attackAnimationSpeed);
+                }
+                if (angle >= 0f && angle < 45f)
+                {
+                    attackSector = 3;
+                    SetAnimation(0, attacking, true, attackAnimationSpeed);
+                }
             }
-            if (angle >= 45f && angle < 135f)
+            else if (objectX < playerX)
             {
-                SetAnimation(0, attacking2, true, attackAnimationSpeed);
-            }
-            if (angle >= 0f && angle < 45f)
-            {
-                SetAnimation(0, attacking, true, attackAnimationSpeed);
+                if (angle >= 135f)
+                {
+                    attackSector = 1;
+                    SetAnimation(0, attacking6, true, attackAnimationSpeed);
+                }
+                if (angle >= 45f && angle < 135f)
+                {
+                    attackSector = 4;
+                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
+                }
+                if (angle >= 0f && angle < 45f)
+                {
+                    attackSector = 3;
+                    SetAnimation(0, attacking4, true, attackAnimationSpeed);
+                }
             }
         }
-        else if (objectX < playerX)
+
+        else
         {
-            if (angle >= 135f)
-            {
-                SetAnimation(0, attacking6, true, attackAnimationSpeed);
-            }
-            if (angle >= 45f && angle < 135f)
-            {
-                SetAnimation(0, attacking5, true, attackAnimationSpeed);
-            }
-            if (angle >= 0f && angle < 45f)
-            {
-                SetAnimation(0, attacking4, true, attackAnimationSpeed);
-            }
+            SetCharacterState(prevState);
         }
+        
     }
    
     //public void TriggerAOE()
@@ -517,7 +548,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     //Trigger ultimate, rage, victory and defeat state here
     public void DisableMovement(int state)
     {
-        canMove = false;
+        enableInput = false;
         switch (state)
         {
             case 0:
@@ -546,17 +577,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
             case 2:
                 SetCharacterState(PlayerStates.victory);
+                Debug.Log("Player won");
                 break;
             case 3:
                 SetCharacterState(PlayerStates.defeat);
                 vfxManager.SpawnDeathVFX();
+                Debug.Log("Player lost");
                 break;
         }
     }
 
     public void EnableMovement()
     {
-        canMove = true;
+        enableInput = true;
     }
 
     public void SetAnimation(int track, AnimationReferenceAsset animation, bool loop, float timeScale)
@@ -574,18 +607,40 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     //Triggers after the animation has played
     private void AnimationEntry_Complete(Spine.TrackEntry trackEntry)
     {
-        if (isAttacking || isUltimate || isRaging)
+        if (isAttacking)
         {
+            attackSector = 0;
             isAttacking = false;
-            isUltimate = false;
-            isRaging = false;
 
-            if (!canMove)
+            if (!enableInput)
             {
-                canMove = true;
+                enableInput = true;
             }
 
             else { return;  }
+        }
+
+        if (isUltimate || isRaging)
+        {
+            isUltimate = false;
+            if (!enableInput)
+            {
+                enableInput = true;
+            }
+
+            else { return; }
+        }
+
+        if (isRaging)
+        {
+            isRaging = false;
+
+            if (!enableInput)
+            {
+                enableInput = true;
+            }
+
+            else { return; }
         }
 
         if (extendedIdle)
@@ -610,6 +665,32 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
+    void CheckJoyStickInput()
+    {//Moving Upwards
+        if (degreeAngle > 45 && degreeAngle < 135)
+        {
+            moveSector = 1;
+        }
+
+        //Moving Leftwards
+        if (degreeAngle > 135 && degreeAngle < 225)
+        {
+            moveSector = 4;
+        }
+
+        //Moving Downwards
+        if (degreeAngle > 225 && degreeAngle < 315)
+        {
+            moveSector = 3;
+        }
+
+        //Moving Rightward
+        if (degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45)
+        {
+            moveSector = 2;
+        }
+    }
+
     public void SetCharacterState(PlayerStates state)
     {
         if (state.Equals(PlayerStates.idle))
@@ -626,29 +707,29 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.move))
         {
-            //Moving Upwards
-            if(degreeAngle > 45 && degreeAngle < 135)
+            //Moving Upwards, degreeAngle > 45 && degreeAngle < 135
+            if (moveSector == 1)
             {
                 attackHitRange = playerData.attackRange;
                 SetAnimation(0, moving, true, animationSpeed);
             }
 
-            //Moving Leftwards
-            if (degreeAngle > 135 && degreeAngle < 225)
+            //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
+            if (moveSector == 4)
             {
                 attackHitRange = playerData.attackRange + 1f;
                 SetAnimation(0, moving3, true, animationSpeed);
             }
 
-            //Moving Downwards
-            if (degreeAngle > 225 && degreeAngle < 315)
+            //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
+            if (moveSector == 3)
             {
                 attackHitRange = playerData.attackRange;
                 SetAnimation(0, moving2, true, animationSpeed);
             }
 
-            //Moving Rightward
-            if (degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45)
+            //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
+            if (moveSector == 2)
             {
                 attackHitRange = playerData.attackRange + 1f;
                 SetAnimation(0, moving4, true, animationSpeed);
@@ -667,12 +748,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.victory))
         {
-            SetAnimation(0, victorying, true, 1f);
+            SetAnimation(1, victorying, true, 1f);
         }
 
         if (state.Equals(PlayerStates.defeat))
         {
-            SetAnimation(0, defeating, false, 1f);
+            SetAnimation(1, defeating, false, 1f);
         }
 
         if (state.Equals(PlayerStates.rage))
@@ -682,7 +763,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         currentState = state;
     }
-
 
     private void Cheats()
     {

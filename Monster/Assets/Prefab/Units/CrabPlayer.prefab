@@ -1929,10 +1929,13 @@ MonoBehaviour:
     m_Bits: 128
   selectedEnemy: {fileID: 0}
   canMove: 0
+  enableInput: 0
+  canAttack: 0
   attackHitRange: 0
   isAttacking: 0
-  attackCount: 0
   degreeAngle: 0
+  moveSector: 0
+  attackSector: 0
   listOfEnemies: []
   HitDetection: {fileID: 863734637}
   Groundcrack: {fileID: 1204656243811750240, guid: 389bf6f1b37889c47b16c80ef1d92716, type: 3}
@@ -2152,7 +2155,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2, y: 3}
+  m_Offset: {x: 0.20000005, y: 2.2713246}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2163,8 +2166,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.5, y: 3}
-  m_EdgeRadius: 0
+  m_Size: {x: 6, y: 3.6353436}
+  m_EdgeRadius: 0.8
 --- !u!70 &8948020723646364850
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2179,7 +2182,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.25, y: 2.3}
-  m_Size: {x: 11.2, y: 7.5}
+  m_Size: {x: 11.4, y: 7.4}
   m_Direction: 1
 --- !u!82 &61134904
 AudioSource:

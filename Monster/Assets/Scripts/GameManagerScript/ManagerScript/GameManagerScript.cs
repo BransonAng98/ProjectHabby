@@ -63,7 +63,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void TriggerEndScreen()
     {
-        inputHandler.canMove = false;
+        inputHandler.enableInput = false;
         Time.timeScale = 0f;
         levelText.text = "" + levelManager.levelData.cityLevel;
         GNAText.text = "" + GNAManager.gnaData.inGameGNA;
@@ -112,7 +112,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
-        inputHandler.canMove = true;
+        inputHandler.enableInput = true;
         clock.startTime = true;
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();

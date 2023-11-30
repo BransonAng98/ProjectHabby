@@ -93,9 +93,8 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        tempHealth -= damage;   
+        tempHealth -= damage;
         SpawnCivilian();
-        DamageEffect();
         //audiomanager.playBuildingDamageFX();
         //playDamageSFX();
 
@@ -110,7 +109,11 @@ public class BigBuildingEnemy : MonoBehaviour
             Death();
             inputHandler.DisableAttack(buildingCollider);
         }
-        else return;
+        else
+        {
+            DamageEffect();
+        }
+
     }
 
     public void Death()

@@ -43,7 +43,7 @@ public class CutSceneManager : MonoBehaviour
     public void TriggerEnd()
     {
         audiomanager.StopBGM();
-        inputHandler.canMove = false;
+        inputHandler.enableInput = false;
         TriggerDialogue();
         anim.SetBool("isTriggered", true);
     }
