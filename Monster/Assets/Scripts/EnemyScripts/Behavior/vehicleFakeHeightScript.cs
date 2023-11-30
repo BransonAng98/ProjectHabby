@@ -14,7 +14,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
     public Vector2 groundVelocity;
     public float verticalVelocity;
     private float minGravity = -20f;
-    private float maxGravity = -30f;
+    private float maxGravity = -40f;
     [SerializeField] private float Gravity;
 
     public bool isGrounded;

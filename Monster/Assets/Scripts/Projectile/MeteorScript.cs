@@ -19,7 +19,7 @@ public class MeteorScript : MonoBehaviour
     public PlayerHandler playerHandler;
     public GameObject impactVFX;
 
-    float meteorRadius = 2;
+    float meteorRadius = 3.4f;
     public PlayerStatScriptableObject playerSO;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;

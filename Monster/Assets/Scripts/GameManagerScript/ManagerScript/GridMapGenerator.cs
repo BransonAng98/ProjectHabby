@@ -36,7 +36,7 @@ public class GridMapGenerator : MonoBehaviour
     public void Start()
     {
         generateMap();
-        AstarPath.active.Scan(); //scan the grid
+        //AstarPath.active.Scan(); //scan the grid
         ScanAndInsert();
         DisableObstacles();
       
