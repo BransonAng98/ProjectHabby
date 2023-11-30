@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1378034087766976143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 659453399178946266}
@@ -52,7 +52,7 @@ MonoBehaviour:
   SO_enemy: {fileID: 11400000, guid: b51200baf09f3cd4cb74f309afc3e9d5, type: 2}
   tempHealth: 0
   spriteRenderer: {fileID: 8089574064853708639}
-  damagedSprite: {fileID: 21300000, guid: fe8e863d50ad8bf4f965f70cf4145edf, type: 3}
+  damagedSprite: {fileID: 21300000, guid: c8f28d3fa19ff6e4cbd4324e55f3fa5a, type: 3}
   buildingType: {fileID: 0}
   inputHandler: {fileID: 0}
   civilianParent: {fileID: 0}
@@ -67,7 +67,7 @@ MonoBehaviour:
   deathVFXRadius: 1
   minFires: 1
   maxFires: 3
-  destroyedBuilding: {fileID: 21300000, guid: 919308f988483034c8c65bc9ea1eab3b, type: 3}
+  destroyedBuilding: {fileID: 21300000, guid: 78d8e4f752dc2bb4ea5633afa9c94184, type: 3}
   pfCoin: {fileID: 68998136515679623, guid: 97d85bc601e37404c8ddadc334626a85, type: 3}
   pfDelvin: {fileID: 2411092050883332399, guid: e44870b68705c5a4c8352f73f8249dc1, type: 3}
   minEntities: 0
@@ -78,15 +78,6 @@ MonoBehaviour:
   groundDispenseVelocity: {x: 1, y: 1}
   verticalDispenseVelocity: {x: 10, y: 13}
   audiomanager: {fileID: 0}
-  buildingAudioSource: {fileID: 0}
-  damageSFX:
-  - {fileID: 8300000, guid: 7b550e979b8d3d84ebd608008e18094b, type: 3}
-  - {fileID: 8300000, guid: b635d34238aaf2047beecd88673213e7, type: 3}
-  - {fileID: 8300000, guid: fa74cb07f2e209a40ab6dd8bb682784a, type: 3}
-  deathSFX:
-  - {fileID: 8300000, guid: 89d16d27121f3c64e800c4d9935e50a7, type: 3}
-  - {fileID: 8300000, guid: 75b18fe3182ac4549a52185c7e8cc43c, type: 3}
-  - {fileID: 8300000, guid: 21f942209af67e24e9ef90feaeffbde7, type: 3}
   spawnheight: 2
 --- !u!61 &4254556894527920713
 BoxCollider2D:
@@ -101,7 +92,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000059604645, y: 0.67315876}
+  m_Offset: {x: -0.0021594167, y: 0.5105401}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.03}
@@ -112,7 +103,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4968752, y: 1.2677138}
+  m_Size: {x: 1.9925274, y: 1.0088027}
   m_EdgeRadius: 0
 --- !u!114 &-8808693801138939284
 MonoBehaviour:
@@ -229,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 963744515
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: b58437c04701eed4da86bd29294b667f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4cb6bf45fdf8d641af376aafb11406b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
