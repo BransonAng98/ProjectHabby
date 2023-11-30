@@ -134,7 +134,7 @@ public class Artillery : MonoBehaviour
 
                 // Destroy the artillery prefab instance
                 Destroy(artilleryBullet);
-                Vector2 spawnPos = new Vector2(targetPosition.x, targetPosition.y + 1.5f);
+                Vector2 spawnPos = new Vector2(targetPosition.x, targetPosition.y);
 
                 // Create and play the explosion VFX
                 GameObject explosion = Instantiate(explosionVFX, spawnPos, Quaternion.identity);
