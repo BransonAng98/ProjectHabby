@@ -543,26 +543,6 @@ PrefabInstance:
       propertyPath: abilitySlider
       value: 
       objectReference: {fileID: 1356264708}
-    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: footTremorRadius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: legLocations.Array.data[0]
-      value: 
-      objectReference: {fileID: 61134893}
-    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: legLocations.Array.data[1]
-      value: 
-      objectReference: {fileID: 61134892}
-    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: legLocations.Array.data[2]
-      value: 
-      objectReference: {fileID: 61134891}
-    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: legLocations.Array.data[3]
-      value: 
-      objectReference: {fileID: 61134890}
     - target: {fileID: 2346681063001401090, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.8382665
@@ -725,26 +705,6 @@ Transform:
 --- !u!1 &61134889 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6516790000295486554, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &61134890 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5883512054228401086, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &61134891 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3247530590351416191, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &61134892 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9173137633997902772, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &61134893 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5507663565289665753, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
   m_PrefabInstance: {fileID: 61134887}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &61134894 stripped
@@ -6222,11 +6182,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!60 &1250580602 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 3685022188894744176, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1267804328
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,9 +6266,6 @@ MonoBehaviour:
   isVictory: 0
   playerStatusBars: {fileID: 17487342}
   hitIndicator: {fileID: 635596423}
-  playerLegs:
-  - {fileID: 1250580602}
-  - {fileID: 1538809851}
   joystick: {fileID: 2026836919}
   clock: {fileID: 221350691}
 --- !u!114 &1267804332
@@ -7682,11 +7634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
   shakeStrength: 10
---- !u!60 &1538809851 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7566452981880138370, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-  m_PrefabInstance: {fileID: 61134887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1571935859
 GameObject:
   m_ObjectHideFlags: 0
