@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6171141311357299160
 Transform:
   m_ObjectHideFlags: 0
@@ -2015,13 +2015,14 @@ MonoBehaviour:
   rageMat: {fileID: 2100000, guid: a6e95d544c54d6245891d491bc5b4d49, type: 2}
   abilityBarPercentage: 0
   abilityPhase: 0
-  abilityRetainThreshold: 1
-  timeRetainThreshold: 3
+  abilityRetainThreshold: 2
+  timeRetainThreshold: 8
   previousBarValue: 0
   barDecrease: 20
   canDecrease: 0
   buffed1: 0
   buffed2: 0
+  buffed3: 0
 --- !u!114 &61134910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3468,6 +3469,10 @@ PrefabInstance:
     - target: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_Name
       value: CFX_Magical_Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545806602296978, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4464497929771776, guid: 9e4577abe56a95f4a91d29a0473cd30c, type: 3}
       propertyPath: m_RootOrder
