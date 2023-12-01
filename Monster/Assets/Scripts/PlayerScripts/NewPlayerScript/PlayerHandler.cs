@@ -146,6 +146,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             vfxManager.SpawnDeathVFX();
         }
+
+        if(selectedEnemy == null)
+        {
+            attackSector = 0;
+            enableInput = true;
+        }
     }
 
     void AssignStats()
@@ -477,6 +483,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     //All entities MUST call this script to disable the player from attacking if it detects them with the collider instead of the raycast
     public void DisableAttack(Collider2D collider)
     {
+        attackSector = 0;
         listOfEnemies.Remove(collider);
         selectedEnemy = null;
         SetCharacterState(prevState);
@@ -686,13 +693,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             attackSector = 0;
             isAttacking = false;
-
-            if (!enableInput)
-            {
-                enableInput = true;
-            }
-
-            else { return;  }
         }
 
         if (isUltimate || isRaging)

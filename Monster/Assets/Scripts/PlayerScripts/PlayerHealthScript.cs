@@ -59,6 +59,7 @@ public class PlayerHealthScript : MonoBehaviour
     float lastChangeTime;
     [SerializeField] bool buffed1;
     [SerializeField] bool buffed2;
+    [SerializeField] bool buffed3;
 
     private void Start()
     {
@@ -235,8 +236,8 @@ public class PlayerHealthScript : MonoBehaviour
 
     private void UpdateAbilityBar()
     {
-        abilitySlider.value = playerHandler.currentUltimateCharge; // Update the slider's value
-        abilityFill.fillAmount = playerHandler.currentUltimateCharge; // Update the fill amount of the health bar
+        abilitySlider.value = abilityBarPercentage; // Update the slider's value
+        abilityFill.fillAmount = abilityBarPercentage; // Update the fill amount of the health bar
 
         if (HasValueChanged())
         {
@@ -259,9 +260,9 @@ public class PlayerHealthScript : MonoBehaviour
         //Use ultimate
         if (abilityBarPercentage > 95)
         {
-            playerHandler.enableInput = false;
             if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
             {
+                Debug.Log("Ultimating");
                 playerHandler.DisableMovement(0);
             }
         }
@@ -301,7 +302,7 @@ public class PlayerHealthScript : MonoBehaviour
     void BuffPlayer()
     {
         //Update Abilites accordingly
-        if (abilityBarPercentage > 50)
+        if (abilityBarPercentage > 25)
         {
             if (!buffed1)
             {
@@ -311,13 +312,24 @@ public class PlayerHealthScript : MonoBehaviour
             }
         }
 
-        if (abilityBarPercentage > 75)
+        //Update Abilites accordingly
+        if (abilityBarPercentage > 50)
         {
             if (!buffed2)
             {
                 Debug.Log("attack damage buffed");
                 TriggerAbilities(2);
                 buffed2 = true;
+            }
+        }
+
+        if (abilityBarPercentage > 75)
+        {
+            if (!buffed3)
+            {
+                Debug.Log("attack speed buffed");
+                TriggerAbilities(3);
+                buffed3 = true;
             }
 
             else
@@ -337,9 +349,21 @@ public class PlayerHealthScript : MonoBehaviour
         //Idk why need to offset by 1 points
         if (abilityBarPercentage <= 76)
         {
-            if (buffed2)
+            if (buffed3)
             {
                 Debug.Log("attack damage reduced");
+                RemoveAbilities(3);
+                abilityPhase -= 1;
+                buffed3 = false;
+            }
+        }
+
+        //Update Abilites accordingly
+        if (abilityBarPercentage <= 51)
+        {
+            if (buffed2)
+            {
+                Debug.Log("attack speed reduced");
                 RemoveAbilities(2);
                 abilityPhase -= 1;
                 buffed2 = false;
@@ -347,7 +371,7 @@ public class PlayerHealthScript : MonoBehaviour
         }
 
         //Update Abilites accordingly
-        if (abilityBarPercentage <= 51)
+        if (abilityBarPercentage <= 26)
         {
             if (buffed1)
             {
@@ -369,11 +393,15 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(true, 2, 1f);
+                playerHandler.AlterStats(true, 2, 0.5f);
                 break;
 
             case 2:
                 playerHandler.AlterStats(true, 1, 5f);
+                break;
+
+            case 3:
+                playerHandler.AlterStats(true, 2, 0.5f);
                 break;
         }
     }
@@ -383,11 +411,15 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(false, 2, 1f);
+                playerHandler.AlterStats(false, 2, 0.5f);
                 break;
 
             case 2:
                 playerHandler.AlterStats(false, 1, 5f);
+                break;
+
+            case 3:
+                playerHandler.AlterStats(false, 2, 0.5f);
                 break;
         }
     }
