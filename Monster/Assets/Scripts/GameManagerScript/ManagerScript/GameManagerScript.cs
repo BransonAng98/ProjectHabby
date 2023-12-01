@@ -27,7 +27,7 @@ public class GameManagerScript : MonoBehaviour
     //Meteor
     public GameObject playerStatusBars;
     public GameObject hitIndicator;
-    public List<Collider2D> playerLegs = new List<Collider2D>();
+    //public List<Collider2D> playerLegs = new List<Collider2D>();
     public GameObject joystick;
     public ClockSystem clock;
 
@@ -104,10 +104,10 @@ public class GameManagerScript : MonoBehaviour
         playerStatusBars.SetActive(false);
         hitIndicator.SetActive(false);
         joystick.SetActive(false);
-        foreach (Collider2D collider in playerLegs)
-        {
-            collider.gameObject.SetActive(false);
-        }
+        //foreach (Collider2D collider in playerLegs)
+        //{
+        //    collider.gameObject.SetActive(false);
+        //}
     }
 
     public void ActivatePlayer()
