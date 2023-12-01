@@ -12,7 +12,8 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource buildingAudioSource;
     public AudioSource treeaudioSource;
     public AudioSource civilianAudioSource;
-    
+    public AudioSource carAudioSource;
+
     public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
     public AudioClip[] feedbackSFX;
@@ -26,10 +27,19 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip[] buildingdamageSFX;
     public AudioClip[] buildingdeathSFX;
     public AudioClip[] civillianDeathSFX;
+    public AudioClip[] carDeathSFX;
     public GameManagerScript gamemanager;
     public EventManager eventmanagerScript;
     [SerializeField] float minTime;
     [SerializeField] float maxTime;
+    private bool isCivillianDeathSFXPlaying = false;
+    private float civillianDeathCooldown = 0.3f; // Set the cooldown time (adjust as needed)
+    private bool isBuildingDeathSFXPlaying = false;
+    private float buildingDeathCooldown = 0.3f; // Set the cooldown time (adjust as needed)
+    private bool isTreeSFXPlaying = false;
+    private float treeSFXCooldown = 0.3f; // Set the cooldown time (adjust as needed)
+    private bool isCarSFXPlaying = false;
+    private float carSFXCooldown = 0.3f; // Set the cooldown time (adjust as needed)
     // Start is called before the first frame update
     void Start()
     {
@@ -99,23 +109,87 @@ public class AudioManagerScript : MonoBehaviour
 
     public void playBuildingDeathSFX()
     {
+        if (!isBuildingDeathSFXPlaying)
+        {
+            StartCoroutine(PlayBuildingDeathWithCooldown());
+        }
+    }
+
+    private IEnumerator PlayBuildingDeathWithCooldown()
+    {
+        isBuildingDeathSFXPlaying = true;
+
         AudioClip deathsoundtoPlay = buildingdeathSFX[Random.Range(0, buildingdeathSFX.Length)];
         buildingAudioSource.PlayOneShot(deathsoundtoPlay);
+
+        yield return new WaitForSeconds(buildingDeathCooldown);
+
+        isBuildingDeathSFXPlaying = false;
     }
 
     public void PlayTreeSFX()
     {
+        if (!isTreeSFXPlaying)
+        {
+            StartCoroutine(PlayTreeSFXWithCooldown());
+        }
+    }
+
+    private IEnumerator PlayTreeSFXWithCooldown()
+    {
+        isTreeSFXPlaying = true;
+
         AudioClip deathSFX = treeSFX[(Random.Range(0, treeSFX.Length))];
         treeaudioSource.PlayOneShot(deathSFX);
+
+        yield return new WaitForSeconds(treeSFXCooldown);
+
+        isTreeSFXPlaying = false;
     }
 
     public void PlaycivillianDeathSFX()
     {
-        AudioClip deathsoundtoPlay = civillianDeathSFX[Random.Range(0, civillianDeathSFX.Length)];
-        civilianAudioSource.PlayOneShot(deathsoundtoPlay);
+        if (!isCivillianDeathSFXPlaying)
+        {
+            StartCoroutine(PlayCivillianDeathWithCooldown());
+        }
     }
 
-    public void PlayIncomingAbility()
+    private IEnumerator PlayCivillianDeathWithCooldown()
+    {
+        isCivillianDeathSFXPlaying = true;
+
+        AudioClip deathsoundtoPlay = civillianDeathSFX[Random.Range(0, civillianDeathSFX.Length)];
+        civilianAudioSource.PlayOneShot(deathsoundtoPlay);
+
+        yield return new WaitForSeconds(civillianDeathCooldown);
+
+        isCivillianDeathSFXPlaying = false;
+    }
+
+    public void PlayCarSFX()
+    {
+        if (!isCarSFXPlaying)
+        {
+            StartCoroutine(PlayCarSFXWithCooldown());
+        }
+    }
+
+    private IEnumerator PlayCarSFXWithCooldown()
+    {
+        isCarSFXPlaying = true;
+
+        // Assuming you have a carSFX array similar to treeSFX and others
+        AudioClip carSound = carDeathSFX[(Random.Range(0, carDeathSFX.Length))];
+        carAudioSource.PlayOneShot(carSound);
+
+        yield return new WaitForSeconds(carSFXCooldown);
+
+        isCarSFXPlaying = false;
+    }
+
+
+        public void PlayIncomingAbility()
     {
         //float randomPitch = Random.Range(0.8f, 1.2f);
         //militaryAbilitySource.pitch = randomPitch;

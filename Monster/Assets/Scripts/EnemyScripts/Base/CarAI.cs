@@ -42,6 +42,7 @@ public class CarAI : MonoBehaviour
 
     private Sprite intitialSprite;
 
+    public AudioManagerScript audiomanager;
     public AudioSource vehicleaudioSource;
     public AudioClip[] vehicleSFX;
 
@@ -56,6 +57,7 @@ public class CarAI : MonoBehaviour
 
     void Start()
     {
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerscript = GetComponent<PlayerHandler>();
         //fadescript = GetComponentInParent<FadeObjectinParent>();
         fakeheight = GetComponentInParent<vehicleFakeHeightScript>();
@@ -179,7 +181,8 @@ public class CarAI : MonoBehaviour
             eventManager.AddScore();
             hasDied = true;
         }
-        PlaySFX();
+        audiomanager.PlayCarSFX();
+        //PlaySFX();
 
         GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
 
@@ -211,11 +214,11 @@ public class CarAI : MonoBehaviour
         
     }
 
-    public void PlaySFX()
+    /*public void PlaySFX()
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
         vehicleaudioSource.PlayOneShot(deathSFX);
-    }
+    }*/
 
     public void DestroyObject()
     {
