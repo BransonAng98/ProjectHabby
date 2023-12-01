@@ -48,7 +48,7 @@ public class HitCircle : MonoBehaviour
         currentAngle += (angleDifference + 180f) % 360f + speed * Time.deltaTime;
 
         // Calculate the new position of the object in orbit around the player character.
-        float x = player.position.x + 4.5f * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
+        float x = player.position.x + 6.5f * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
         float y = player.position.y + 4.5f * Mathf.Sin(currentAngle * Mathf.Deg2Rad);
         transform.position = new Vector3(x, y, transform.position.z);
 
