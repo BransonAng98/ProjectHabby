@@ -12,7 +12,7 @@ public class BigBuildingEnemy : MonoBehaviour
     private Collider2D buildingCollider;
     public PlayerHandler inputHandler;
     public GameObject civilianParent;
-    public int destructionScore = 5;
+    public int destructionScore;
 
     //VFX
     public GameObject fireVFX;
@@ -105,7 +105,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (tempHealth <= 0)
         {
-            inputHandler.ChargeUltimate(10);
+            inputHandler.ChargeUltimate(destructionScore);
             Death();
             inputHandler.DisableAttack(buildingCollider);
         }
