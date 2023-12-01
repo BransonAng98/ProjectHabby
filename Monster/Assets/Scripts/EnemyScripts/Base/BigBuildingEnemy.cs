@@ -95,7 +95,7 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         tempHealth -= damage;
         SpawnCivilian();
-        //audiomanager.playBuildingDamageFX();
+        audiomanager.playBuildingDamageFX();
         //playDamageSFX();
 
         if (isOnFire != true)
