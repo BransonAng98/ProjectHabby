@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        HardResetLevel();
         CalculateTotalDestruction();
     }
     void Start()
@@ -34,12 +35,19 @@ public class LevelManager : MonoBehaviour
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         isTriggered = false;
-
     }
 
     private void Update()
     {
         LerpDestructionBar();
+    }
+
+    void HardResetLevel()
+    {
+        if(levelData.cityLevel > 10)
+        {
+            levelData.cityLevel = 5;
+        }
     }
 
     public void CalculateTotalDestruction()
