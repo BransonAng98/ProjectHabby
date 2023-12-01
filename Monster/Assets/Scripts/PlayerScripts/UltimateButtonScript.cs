@@ -60,17 +60,17 @@ public class UltimateButtonScript : MonoBehaviour
 
     public void TriggerDoubleTap()
     {
-        if (tapOccured && (Time.time - lastTapTime) < doubleTapThreshold)
-        {
-            ActivateUltimate();
-            tapOccured = false;
-        }
-        else
-        {
-            tapOccured = true;
-            lastTapTime = Time.time;
-            Invoke(nameof(ResetTap), doubleTapThreshold);
-        }
+        //if (tapOccured && (Time.time - lastTapTime) < doubleTapThreshold)
+        //{
+        //    ActivateUltimate();
+        //    tapOccured = false;
+        //}
+        //else
+        //{
+        //    tapOccured = true;
+        //    lastTapTime = Time.time;
+        //    Invoke(nameof(ResetTap), doubleTapThreshold);
+        //}
     }
 
     private void ResetTap()
