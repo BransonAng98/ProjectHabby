@@ -47,6 +47,19 @@ public class PlayerHealthScript : MonoBehaviour
     public Material originalMat;
     public Material rageMat;
 
+    //AbilityBar Variables
+    [SerializeField] float abilityBarPercentage;
+    [SerializeField] int abilityPhase;
+    public float abilityRetainThreshold;
+    public float timeRetainThreshold;
+    private float stagnateTimer;
+    [SerializeField] float previousBarValue;
+    public float barDecrease;
+    [SerializeField] bool canDecrease;
+    float lastChangeTime;
+    [SerializeField] bool buffed1;
+    [SerializeField] bool buffed2;
+
     private void Start()
     {
         shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
@@ -68,6 +81,9 @@ public class PlayerHealthScript : MonoBehaviour
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
 
         meshRenderer = GetComponent<SkeletonAnimation>();
+
+        lastChangeTime = Time.time;
+        previousBarValue = playerHandler.currentUltimateCharge;
     }
 
     void CheckHealthState()
@@ -92,7 +108,7 @@ public class PlayerHealthScript : MonoBehaviour
                 playerHandler.animationSpeed = 2f;
                 playerHandler.attackAnimationSpeed = 2f;
                 playerHandler.aoeDmg = 20;
-                playerSO.speed = 5;
+                playerHandler.AlterStats(true, 3, 1.5f);
                 currentState = healthState;
             }
 
@@ -107,7 +123,7 @@ public class PlayerHealthScript : MonoBehaviour
                 playerHandler.attackAnimationSpeed = ogAtkSpeed;
                 playerHandler.animationSpeed = ogValues;
                 playerHandler.aoeDmg = 10;
-                playerSO.speed = 3.5f;
+                playerHandler.AlterStats(false, 3, 1.5f);
                 currentState = healthState;
             }
         }
@@ -122,6 +138,7 @@ public class PlayerHealthScript : MonoBehaviour
             UpdateHealthBar();
         }
 
+        CheckAbilityBarPercentage();
         CheckHealthState();
         UpdateAbilityBar();
     }
@@ -220,6 +237,51 @@ public class PlayerHealthScript : MonoBehaviour
     {
         abilitySlider.value = playerHandler.currentUltimateCharge; // Update the slider's value
         abilityFill.fillAmount = playerHandler.currentUltimateCharge; // Update the fill amount of the health bar
+
+        if (HasValueChanged())
+        {
+            // Value has changed, update lastChangeTime
+            previousBarValue = playerHandler.currentUltimateCharge;
+            lastChangeTime = Time.time;
+            BuffPlayer();
+            canDecrease = false;
+        }
+        else
+        {
+            // Value hasn't changed for a certain amount of time
+            if (Time.time - lastChangeTime > timeRetainThreshold)
+            {
+                DecreaseBarValue();
+                canDecrease = true;
+            }
+        }
+
+        //Use ultimate
+        if (abilityBarPercentage > 95)
+        {
+            playerHandler.enableInput = false;
+            if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
+            {
+                playerHandler.DisableMovement(0);
+            }
+        }
+    }
+
+    bool HasValueChanged()
+    {
+        // Replace this condition with your actual condition to check for value change
+        return Mathf.Abs(playerHandler.currentUltimateCharge - previousBarValue) > abilityRetainThreshold;
+    }
+
+    void DecreaseBarValue()
+    {
+        if (playerHandler.currentUltimateCharge >= 0)
+        {
+            //Start to decrease the ultimate bar
+            playerHandler.currentUltimateCharge -= barDecrease * Time.deltaTime;
+            previousBarValue -= barDecrease * Time.deltaTime;
+            DebuffPlayer();
+        }
     }
 
     private void UpdateHealthBar()
@@ -228,5 +290,105 @@ public class PlayerHealthScript : MonoBehaviour
         healthFill.fillAmount = currentHealth; // Update the fill amount of the health bar
     }
 
+    //Adaptive Ultimate Bar
+    void CheckAbilityBarPercentage()
+    {
+        float tempPercentage = (playerHandler.currentUltimateCharge / playerSO.maxUltimateCharge) * 100f;
+        abilityBarPercentage = tempPercentage;
+        float prevPercentage = tempPercentage;
+    }
 
+    void BuffPlayer()
+    {
+        //Update Abilites accordingly
+        if (abilityBarPercentage > 50)
+        {
+            if (!buffed1)
+            {
+                Debug.Log("attack speed buffed");
+                TriggerAbilities(1);
+                buffed1 = true;
+            }
+        }
+
+        if (abilityBarPercentage > 75)
+        {
+            if (!buffed2)
+            {
+                Debug.Log("attack damage buffed");
+                TriggerAbilities(2);
+                buffed2 = true;
+            }
+
+            else
+            {
+                return;
+            }
+        }
+
+        else
+        {
+            abilityPhase = 0;
+        }
+    }
+
+    void DebuffPlayer()
+    {
+        //Idk why need to offset by 1 points
+        if (abilityBarPercentage <= 76)
+        {
+            if (buffed2)
+            {
+                Debug.Log("attack damage reduced");
+                RemoveAbilities(2);
+                abilityPhase -= 1;
+                buffed2 = false;
+            }
+        }
+
+        //Update Abilites accordingly
+        if (abilityBarPercentage <= 51)
+        {
+            if (buffed1)
+            {
+                Debug.Log("attack speed reduced");
+                RemoveAbilities(1);
+                abilityPhase -= 1;
+                buffed1 = false;
+            }
+        }
+
+        else
+        {
+            abilityPhase = 0;
+        }
+    }
+
+    void TriggerAbilities(int ability)
+    {
+        switch (ability)
+        {
+            case 1:
+                playerHandler.AlterStats(true, 2, 1f);
+                break;
+
+            case 2:
+                playerHandler.AlterStats(true, 1, 5f);
+                break;
+        }
+    }
+
+    void RemoveAbilities(int ability)
+    {
+        switch (ability)
+        {
+            case 1:
+                playerHandler.AlterStats(false, 2, 1f);
+                break;
+
+            case 2:
+                playerHandler.AlterStats(false, 1, 5f);
+                break;
+        }
+    }
 }

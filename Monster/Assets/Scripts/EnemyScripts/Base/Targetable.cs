@@ -58,28 +58,28 @@ public class Targetable : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage)
     {
         switch (enemyType)
         {
             case EnemyType.Building:
-                buildingEnemy.TakeDamage(player.playerData.attackDamage);
+                buildingEnemy.TakeDamage(damage);
                 break;
 
             case EnemyType.Tank:
-                tankEnemy.TakeDamage(player.playerData.attackDamage);
+                tankEnemy.TakeDamage(damage);
                 break;
 
             case EnemyType.BigBuilding:
-                bigBEnemy.TakeDamage(player.playerData.attackDamage);
+                bigBEnemy.TakeDamage(damage);
                 break;
 
             case EnemyType.PowerPlant:
-                powerPlant.TakeDamage(player.playerData.attackDamage);
+                powerPlant.TakeDamage(damage);
                 break;
 
             case EnemyType.ItemBuilding:
-                itemBuilding.TakeDamage(player.playerData.attackDamage);
+                itemBuilding.TakeDamage(damage);
                 break;
         }
     }

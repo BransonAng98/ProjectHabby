@@ -24,6 +24,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
 
+    //Variable for stat
+    PlayerHealthScript playerHealth;
+    [SerializeField] float damageHolder;
+    [SerializeField] float movementSpeedHolder;
+    [SerializeField] float attackRangeHolder;
+
     //Variable for player input
     public PlayerStatScriptableObject playerData;
     public Joystick joystick;
@@ -98,7 +104,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         rb = GetComponent<Rigidbody2D>();
         footstepAudioSource = GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
-        
+        playerHealth = GetComponent<PlayerHealthScript>();
+        AssignStats();
         foreach (Collider2D collider in entitycollider)
         {
             collider.enabled = false;
@@ -138,6 +145,73 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(playerData.health == 0)
         {
             vfxManager.SpawnDeathVFX();
+        }
+    }
+
+    void AssignStats()
+    {
+        damageHolder = playerData.attackDamage;
+        movementSpeedHolder = playerData.speed;
+        attackRangeHolder = playerData.attackRange;
+    }
+
+    public void AlterStats(bool isBuff, int statID, float statChange)
+    {
+        //Increase stat here
+        if (isBuff)
+        {
+            //Which stat to increase 
+            switch (statID)
+            {
+                //Health
+                case 0:
+                    playerHealth.playerSO.maxhealth += (int)statChange; 
+                    break;
+
+                //Attack Damage
+                case 1:
+                    damageHolder += statChange;
+                    break;
+
+                //Attack Speed
+                case 2:
+                    attackAnimationSpeed += statChange;
+                    break;
+
+                //Movement Speed
+                case 3:
+                    movementSpeedHolder += statChange;
+                    break;
+            }
+        }
+
+        //Decrease stat
+        else
+        {
+            //Which stat to decrease 
+            switch (statID)
+            {
+                //Health
+                case 0:
+                    playerHealth.playerSO.maxhealth -= (int)statChange;
+                    break;
+
+                //Attack Damage
+                case 1:
+                    damageHolder -= statChange;
+                    break;
+
+                //Attack Speed
+                case 2:
+                    attackAnimationSpeed -= statChange;
+                    break;
+
+                //Movement Speed
+                case 3:
+                    movementSpeedHolder -= statChange;
+                    break;
+            }
+
         }
     }
 
@@ -207,7 +281,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (canMove)
         {
             //Code to move the player
-            rb.velocity = new Vector2(movementInput.x * playerData.speed, movementInput.y * playerData.speed);
+            rb.velocity = new Vector2(movementInput.x * movementSpeedHolder, movementInput.y * movementSpeedHolder);
             skeletonAnim.timeScale = animationSpeed;
         }
 
@@ -519,7 +593,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (selectedEnemy != null)
         {
             skeletonAnim.timeScale = animationSpeed;
-            selectedEnemy.GetComponent<Targetable>().TakeDamage();
+            selectedEnemy.GetComponent<Targetable>().TakeDamage(damageHolder);
             //attackCount += 1;
         }
 
@@ -711,28 +785,28 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             //Moving Upwards, degreeAngle > 45 && degreeAngle < 135
             if (moveSector == 1)
             {
-                attackHitRange = playerData.attackRange;
+                attackHitRange = attackRangeHolder;
                 SetAnimation(0, moving, true, animationSpeed);
             }
 
             //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
             if (moveSector == 4)
             {
-                attackHitRange = playerData.attackRange + 1f;
+                attackHitRange = attackRangeHolder + 1f;
                 SetAnimation(0, moving3, true, animationSpeed);
             }
 
             //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
             if (moveSector == 3)
             {
-                attackHitRange = playerData.attackRange;
+                attackHitRange = attackRangeHolder;
                 SetAnimation(0, moving2, true, animationSpeed);
             }
 
             //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
             if (moveSector == 2)
             {
-                attackHitRange = playerData.attackRange + 1f;
+                attackHitRange = attackRangeHolder + 1f;
                 SetAnimation(0, moving4, true, animationSpeed);
             }
         }
