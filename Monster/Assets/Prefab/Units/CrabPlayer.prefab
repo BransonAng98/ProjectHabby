@@ -1977,6 +1977,7 @@ MonoBehaviour:
   attacking6: {fileID: 11400000, guid: ce5033e904e7cc24e90f7184d6fe122c, type: 2}
   attacking7: {fileID: 11400000, guid: 14b41aeec1cd5b14daddcb5bda26d9dd, type: 2}
   ultimating: {fileID: 11400000, guid: 362a66c7ca95dd3468f17e8bd3fffa9e, type: 2}
+  ultimating2: {fileID: 11400000, guid: b12853dc9f8e847409793dd2bf878cdc, type: 2}
   victorying: {fileID: 11400000, guid: feeae0df86244a048a503bfbdc1480b5, type: 2}
   defeating: {fileID: 11400000, guid: d1a39648f16834d4e80e1c9245bdccd5, type: 2}
   raging: {fileID: 11400000, guid: 0cf5775af95645644821c881f2c0ecb5, type: 2}
@@ -1986,6 +1987,7 @@ MonoBehaviour:
   damageHolder: 5
   movementSpeedHolder: 0
   attackRangeHolder: 0
+  stepDamageHolder: 0
   playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
   joystick: {fileID: 0}
   rb: {fileID: 0}
@@ -1996,8 +1998,8 @@ MonoBehaviour:
     m_Bits: 128
   selectedEnemy: {fileID: 0}
   canMove: 0
-  enableInput: 0
   canAttack: 0
+  enableInput: 0
   attackHitRange: 0
   isAttacking: 0
   degreeAngle: 0
@@ -2010,9 +2012,11 @@ MonoBehaviour:
   - {fileID: 61134897}
   - {fileID: 6437343458785009124}
   selectedUltimateHolder: 0
+  canEarnUlt: 1
   currentUltimateCharge: 0
   ultimateRadius: 15
   aoeDmg: 10
+  isDashing: 0
   animationSpeed: 1.5
   attackAnimationSpeed: 1.4
   isUltimate: 0
@@ -2119,6 +2123,7 @@ MonoBehaviour:
   ultimateDuration: 10
   timeReduction: 1
   currentDuration: 0
+  isTriggered: 0
 --- !u!114 &61134910
 MonoBehaviour:
   m_ObjectHideFlags: 0

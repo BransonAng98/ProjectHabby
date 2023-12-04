@@ -13,7 +13,7 @@ public class CrabUltimateU : UltimateBase
     [SerializeField] bool isActivated;
     public float ultimateDuration;
     public float timeReduction;
-    [SerializeField] float currentDuration;
+    public float currentDuration;
     [SerializeField] bool isTriggered;
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class CrabUltimateU : UltimateBase
             {
                 //Make the timer follow the player and have it be at the top right corner of the player
                 dashTimer.transform.position = Camera.main.WorldToScreenPoint(playerHandler.transform.position);
-                dashTimer.text = currentDuration.ToString();
+                dashTimer.text = Mathf.CeilToInt(currentDuration).ToString();
             }
 
             else
@@ -49,7 +49,7 @@ public class CrabUltimateU : UltimateBase
         //Trigger ultimate countdown when its activated
         if (isActivated)
         {
-            if(currentDuration <= 0)
+            if(currentDuration > 0)
             {
                 currentDuration -= timeReduction * Time.deltaTime;
             }
@@ -67,17 +67,13 @@ public class CrabUltimateU : UltimateBase
         if (!isTriggered)
         {
             base.UseUtilityUltimate();
-            Debug.Log("Dashing");
-
+            playerHandler.currentUltimateCharge = 0f;
             //Put all the variables & effects that would happen during the dash
             isTriggered = true;
             currentDuration = ultimateDuration;
             dashTimer.gameObject.SetActive(true);
-            playerHandler.canAttack = false;
-            playerHandler.AlterStats(true, 3, 1f);
+            playerHandler.AlterStats(true, 3, 4f);
             playerHandler.AlterStats(true, 4, 10f);
-            playerHandler.enableInput = true;
-            playerHandler.canMove = true;
             isActivated = true;
         }
 
@@ -91,11 +87,14 @@ public class CrabUltimateU : UltimateBase
     {
         //Revert the player's stats & all changes back to normal state
         currentDuration = 0f;
-        playerHandler.AlterStats(false, 3, 1f);
+        playerHandler.isDashing = false;
+        playerHandler.AlterStats(false, 3, 4f);
         playerHandler.AlterStats(false, 4, 10f);
         playerHandler.RevertState();
         isActivated = false;
         playerHandler.canAttack = true;
+        playerHandler.canEarnUlt = true;
+        dashTimer.gameObject.SetActive(false);
         isTriggered = false;
     }
 }

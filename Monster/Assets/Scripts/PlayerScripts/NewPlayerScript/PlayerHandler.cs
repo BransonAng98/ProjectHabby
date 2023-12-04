@@ -19,7 +19,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, victorying, defeating, raging;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -57,9 +57,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public GameObject Groundcrack;
     public List<UltimateBase> utlimates = new List<UltimateBase>();
     [SerializeField] private int selectedUltimateHolder;
+    public bool canEarnUlt = true;
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
+    public bool isDashing;
 
     public float animationSpeed;
     public float attackAnimationSpeed;
@@ -634,34 +636,46 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     }
     public void ChargeUltimate(int amount)
     {
-        if (currentUltimateCharge != playerData.maxUltimateCharge)
+        if (canEarnUlt)
         {
-            currentUltimateCharge += amount;
+            if (currentUltimateCharge != playerData.maxUltimateCharge)
+            {
+                currentUltimateCharge += amount;
+            }
+
+            if (currentUltimateCharge >= playerData.maxUltimateCharge)
+            {
+                currentUltimateCharge = playerData.maxUltimateCharge;
+            }
         }
 
-        if (currentUltimateCharge >= playerData.maxUltimateCharge)
+        else
         {
-            currentUltimateCharge = playerData.maxUltimateCharge;
+            return;
         }
     }
 
     void UseUltimate(int whichUlt)
     {
+        canEarnUlt = false;
         switch (whichUlt)
         {
             case 0:
                 if (utlimates[0] != null)
                 {
+                    joystick.gameObject.SetActive(false);
                     SetAnimation(0, ultimating, false, 1f);
-                    TriggerUltimate1();
                 }
                 break;
 
             case 1:
                 if (utlimates[1] != null)
                 {
-                    SetAnimation(0, raging, false, 1f);
-                    TriggerUltimate2();
+                    SetAnimation(0, ultimating2, false, 1f);
+                    enableInput = false;
+                    canMove = false;
+                    canAttack = false;
+                    Invoke("TriggerUltimate2", 1.2f);
                 }
                 break;
         }
@@ -677,6 +691,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
+        enableInput = true;
+        canMove = true;
+        canAttack = false;
+        isDashing = true;
+        SetCharacterState(PlayerStates.move);
         utlimates[1].UseUtilityUltimate();
     }
 
@@ -761,6 +780,22 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 enableInput = true;
             }
 
+            else { return; }
+
+            if (!joystick.gameObject.activeSelf)
+            {
+                joystick.gameObject.SetActive(true);
+            }
+
+            else
+            {
+                return;
+            }
+
+            if (!canEarnUlt)
+            {
+                canEarnUlt = true;
+            }
             else { return; }
         }
 
