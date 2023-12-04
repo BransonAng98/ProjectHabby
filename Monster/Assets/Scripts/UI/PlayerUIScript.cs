@@ -14,7 +14,7 @@ public class PlayerUIScript : MonoBehaviour
 
     void PositionUI()
     {
-        Vector2 uiPos = new Vector2(player.transform.position.x, player.transform.position.y + 5f);
+        Vector2 uiPos = new Vector2(player.transform.position.x, player.transform.position.y + 5.5f);
         // Get the player's position in world space and convert it to screen space
         Vector3 playerPositionScreenSpace = Camera.main.WorldToScreenPoint(uiPos);
 
