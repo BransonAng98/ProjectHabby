@@ -118,6 +118,14 @@ public class MeteorScript : MonoBehaviour
                     Destroy(parentTransform.gameObject);
                 }
             }
+            else if (objToDestroy.tag == "Tree")
+            {
+                Transform parentTransform = objToDestroy.transform.parent;
+                if (parentTransform != null)
+                {
+                    Destroy(parentTransform.gameObject);
+                }
+            }
             else if (objToDestroy.name == "CamConfiner")
             {
                 // do nothing

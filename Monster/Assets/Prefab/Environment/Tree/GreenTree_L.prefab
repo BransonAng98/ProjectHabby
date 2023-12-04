@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4455493864755885643
+--- !u!1 &4304702730856359486
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9085308943246743592}
-  - component: {fileID: 1866271716243996645}
-  - component: {fileID: -3848057608572775365}
-  - component: {fileID: -36339932299523796}
-  - component: {fileID: -5501931167820461178}
-  - component: {fileID: 7813374004366539686}
-  - component: {fileID: -888713423635630138}
+  - component: {fileID: 6336475772826467589}
+  - component: {fileID: 9214346457973362587}
+  - component: {fileID: 170436588741844727}
+  - component: {fileID: 2885330738707898056}
+  - component: {fileID: 7068883957354826323}
+  - component: {fileID: 5362510820200343030}
+  - component: {fileID: 8162935954857085544}
+  - component: {fileID: 1748153369195854780}
   m_Layer: 8
-  m_Name: GreenTree_L
+  m_Name: Body
   m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9085308943246743592
+--- !u!4 &6336475772826467589
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 4304702730856359486}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 9085308943246743592}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1866271716243996645
+--- !u!212 &9214346457973362587
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
+  m_GameObject: {fileID: 4304702730856359486}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -89,13 +90,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3848057608572775365
+--- !u!114 &170436588741844727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
+  m_GameObject: {fileID: 4304702730856359486}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 011fcd2ef368d1444bd918c084aef698, type: 3}
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedSprite: {fileID: 21300000, guid: 065720f573630cd44860bcf73648d91b, type: 3}
   hitVFX: {fileID: 1372241149341006, guid: 237ac442f9ce6134f972d2f09143a7ab, type: 3}
+  entityCollider: {fileID: 0}
   audiomanager: {fileID: 0}
   treeaudioSource: {fileID: 0}
   treeSFX:
@@ -110,13 +112,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 474fee062a9a6ff4da14885f5c3502dd, type: 3}
   - {fileID: 8300000, guid: f2a40856d4905524eb6b74e5d0dc34fe, type: 3}
   - {fileID: 8300000, guid: 6096ec7e040481d4eab1ef4ffc1299b2, type: 3}
---- !u!61 &-36339932299523796
+  isKicking: 0
+  fakeheight: {fileID: 0}
+  groundDispenseVelocity: {x: 6, y: 8}
+  verticalDispenseVelocity: {x: 10, y: 15}
+  rotationSpeed: 0
+--- !u!61 &2885330738707898056
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
+  m_GameObject: {fileID: 4304702730856359486}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -136,13 +143,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.81, y: 1.52}
   m_EdgeRadius: 0
---- !u!114 &-5501931167820461178
+--- !u!114 &7068883957354826323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
+  m_GameObject: {fileID: 4304702730856359486}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1d1dee8165ad3646b74c4ac32988a25, type: 3}
@@ -150,13 +157,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.1
   shakeStrength: 0.1
---- !u!114 &7813374004366539686
+--- !u!114 &5362510820200343030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455493864755885643}
+  m_GameObject: {fileID: 4304702730856359486}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 878e4f7d41bfa10459c56ee713c48c7d, type: 3}
@@ -164,7 +171,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 6
   player: {fileID: 0}
---- !u!114 &-888713423635630138
+--- !u!114 &8162935954857085544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4304702730856359486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ced4ffe095fc047acbc0abe4a6ed8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: {fileID: 0}
+--- !u!50 &1748153369195854780
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4304702730856359486}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &4455493864755885643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9085308943246743592}
+  - component: {fileID: 4126091144386385161}
+  - component: {fileID: 3955956337786073476}
+  m_Layer: 8
+  m_Name: GreenTree_L
+  m_TagString: Tree
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9085308943246743592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455493864755885643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6336475772826467589}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4126091144386385161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +248,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 4455493864755885643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ced4ffe095fc047acbc0abe4a6ed8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 307c949c62918d34bbf023705198a679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetType: {fileID: 0}
+  fadescript: {fileID: 0}
+  onGroundHitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4126091144386385161}
+        m_TargetAssemblyTypeName: treeFakeHeightScript, Assembly-CSharp
+        m_MethodName: Stick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  transObject: {fileID: 9085308943246743592}
+  transBody: {fileID: 6336475772826467589}
+  treescript: {fileID: 0}
+  groundVelocity: {x: 0, y: 0}
+  verticalVelocity: 0
+  Gravity: 0
+  isGrounded: 0
+--- !u!114 &3955956337786073476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455493864755885643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c05cfd879fc3e40918d5d756b2abea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 3
+  delayFadeDuration: 2
