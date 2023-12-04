@@ -73,19 +73,15 @@ public class Trees : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(0, 2);
-            switch (random)
+            int random = Random.Range(0, 6);
+            
+            if(random == 0)
             {
-                case 0:
-                    if (!isKicking)
-                    {
-                        Death();
-                    }
-                    break;
-
-                case 1:
-                    KickLogic(collision);
-                    break;
+                KickLogic(collision);
+            }
+            else if (!isKicking)
+            {
+                Death();
             }
         }
         if (isKicking)
