@@ -63,9 +63,14 @@ public class MiniGameLandmark : MonoBehaviour
         {
             Destroy(gameObject);
             // Send back to the level select
-            SceneManager.LoadScene("LevelSelectScene");
+            Invoke("ReturnToLevelSelect", 2f);
         }
         else return;
+    }
+
+    void ReturnToLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelectScene");
     }
 
     void DamageEffect()
