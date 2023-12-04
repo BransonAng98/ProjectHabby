@@ -61,6 +61,14 @@ public class PlayerHealthScript : MonoBehaviour
     [SerializeField] bool buffed2;
     [SerializeField] bool buffed3;
 
+    //AbilityBar Feedback
+    [SerializeField] Color flashColor = Color.white;  // Color to flash to
+    [SerializeField] Color originalColor = Color.yellow;
+    [SerializeField] float flashSpeed;  // Speed of the color flash
+    [SerializeField] bool isFlashing;
+
+
+
     private void Start()
     {
         shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
@@ -85,6 +93,9 @@ public class PlayerHealthScript : MonoBehaviour
 
         lastChangeTime = Time.time;
         previousBarValue = playerHandler.currentUltimateCharge;
+
+        abilityFill.color = originalColor;
+        isFlashing = false;
     }
 
     void CheckHealthState()
@@ -257,6 +268,26 @@ public class PlayerHealthScript : MonoBehaviour
             }
         }
 
+        if (abilityBarPercentage >= 75)
+        {
+            if (!isFlashing)
+            {
+                StartCoroutine(FlashColor(flashColor, originalColor));
+                Debug.Log("Start flashing");
+            }
+        }
+
+        else
+        {
+            if (isFlashing)
+            {
+                Debug.Log("I STOPPED U");
+                StopCoroutine("FlashColor");
+                abilityFill.color = originalColor;  
+                isFlashing = false;
+            }
+        }
+
         //Use ultimate
         if (abilityBarPercentage > 95)
         {
@@ -265,6 +296,18 @@ public class PlayerHealthScript : MonoBehaviour
                 Debug.Log("Ultimating");
                 playerHandler.DisableMovement(0);
             }
+        }
+    }
+
+    private IEnumerator FlashColor(Color fromColor, Color toColor)
+    {
+        isFlashing = true;
+
+        while (isFlashing == true)
+        {
+            abilityFill.color = Color.Lerp(fromColor, toColor, Mathf.PingPong(Time.time * flashSpeed, 1f));
+
+            yield return null;
         }
     }
 

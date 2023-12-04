@@ -170,7 +170,8 @@ public class MeteorScript : MonoBehaviour
 
     public void SpawnCrater()
     {
-        Instantiate(crater, playerHandler.transform.position, Quaternion.identity);
+        Vector2 craterPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 1.8f); 
+        Instantiate(crater, craterPos, Quaternion.identity);
     }
 
     public void SpawnPlayer()
