@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     public Slider objSlider;
     public Image frontSlider;
 
-    public float lerpSpeed = 1.5f;
+    private float lerpSpeed = 0.1f;
 
     private GameManagerScript gameManager;
     public CutSceneManager cutsceneManager;
@@ -123,7 +123,7 @@ public class LevelManager : MonoBehaviour
     void LerpDestructionBar()
     {
         float normalizedDestruction = objSlider.value / objSlider.maxValue;
-        frontSlider.fillAmount = Mathf.Lerp(frontSlider.fillAmount, normalizedDestruction, lerpSpeed * Time.deltaTime);
+        frontSlider.fillAmount = Mathf.MoveTowards(frontSlider.fillAmount, normalizedDestruction, lerpSpeed * Time.deltaTime);
     }
 
     public void TapToLeave()

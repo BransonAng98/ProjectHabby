@@ -20,6 +20,11 @@ public class ClockSystem : MonoBehaviour
     private bool thirtySecondsMessageDisplayed = false;
     private bool timeUpMessageDisplayed = false;
 
+    private float normalFontSize = 54f;
+    private Color normalColor = Color.white;
+    private float enlargedFontSize = 60f;
+    private Color enlargedColor = Color.red;
+
     public float timeSpeed;
     // Start is called before the first frame update
     void Start()
@@ -50,7 +55,7 @@ public class ClockSystem : MonoBehaviour
                 timerValue = 0;
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(3);
-                Invoke("DelayEndScreen", 0.9f);
+                Invoke("DelayEndScreen", 1.5f);
             }
         }
 
@@ -129,9 +134,11 @@ public class ClockSystem : MonoBehaviour
         // Display countdown numbers for the last 10 seconds
         if (remainingTime <= 11 && remainingTime > 0)
         {
-            float newTime = remainingTime - 1;
-            countDownText.text = Mathf.CeilToInt(newTime).ToString();
-            countDownBG.gameObject.SetActive(true);
+            //countDownBG.gameObject.SetActive(true);
+            //float newTime = remainingTime - 1;
+            //countDownText.text = Mathf.CeilToInt(newTime).ToString();
+            timerText.fontSize = enlargedFontSize;
+            timerText.color = enlargedColor;
         }
 
         else
@@ -145,6 +152,7 @@ public class ClockSystem : MonoBehaviour
                 Invoke("TurnOffText", 3f);
 
             }
+
             else if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
             {
                 countDownBG.gameObject.SetActive(true);
@@ -153,6 +161,7 @@ public class ClockSystem : MonoBehaviour
                 thirtySecondsMessageDisplayed = true;
                 Invoke("TurnOffText", 3f);
             }
+           
 
             else if (remainingTime <= 0 && !timeUpMessageDisplayed)
             {
@@ -164,6 +173,12 @@ public class ClockSystem : MonoBehaviour
             }
             
         }
+    }
+
+    void DelayChange()
+    {
+        timerText.fontSize = normalFontSize;
+        timerText.color = normalColor;
     }
 
     void TurnOffText()
