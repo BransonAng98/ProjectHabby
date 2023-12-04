@@ -11,6 +11,7 @@ public class CrabUltimateU : UltimateBase
     public TextMeshProUGUI dashTimer;
 
     [SerializeField] bool isActivated;
+    public PlayerHealthScript healthScript;
     public float ultimateDuration;
     public float timeReduction;
     public float currentDuration;
@@ -21,6 +22,7 @@ public class CrabUltimateU : UltimateBase
         playerHandler = GetComponent<PlayerHandler>();
         dashTimer = GameObject.Find("DashTimer").GetComponent<TextMeshProUGUI>();
         dashTimer.gameObject.SetActive(false);
+        healthScript = GetComponent<PlayerHealthScript>();
     }
 
     // Update is called once per frame
@@ -88,6 +90,7 @@ public class CrabUltimateU : UltimateBase
         //Revert the player's stats & all changes back to normal state
         currentDuration = 0f;
         playerHandler.isDashing = false;
+        healthScript.healthState = PlayerHealthScript.HealthState.normal;
         playerHandler.AlterStats(false, 3, 4f);
         playerHandler.AlterStats(false, 4, 10f);
         playerHandler.RevertState();

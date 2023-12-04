@@ -131,10 +131,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 MoveAndAttack();
                 PlayerIdle();
                 PlayerMove();
-                if (canAttack && movementInput != Vector2.zero)
-                {
-                    PlayerAttack();
-                }
+                PlayerAttack();
             }
             else
             {
@@ -433,77 +430,92 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     private void PlayerAttack()
     {
-        //Using the RAYCAST to detect and hit enemies
-        if (listOfEnemies.Count == 0)
-        {
-            skeletonAnim.timeScale = animationSpeed;
-            RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
-            // Check if the raycast hits an object
-            if (hit.collider != null)
+        if(canAttack && movementInput != Vector2.zero)
+        { //Using the RAYCAST to detect and hit enemies
+            if (listOfEnemies.Count == 0)
             {
-                selectedEnemy = hit.collider;
-                if (!currentState.Equals(PlayerStates.attack))
+                skeletonAnim.timeScale = animationSpeed;
+                RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
+                // Check if the raycast hits an object
+                if (hit.collider != null)
                 {
-                    prevState = currentState;
+                    selectedEnemy = hit.collider;
+                    if (!currentState.Equals(PlayerStates.attack))
+                    {
+                        prevState = currentState;
+                    }
+                    SetCharacterState(PlayerStates.attack);
+                    if (!isAttacking)
+                    {
+                        isAttacking = true;
+                    }
                 }
-                SetCharacterState(PlayerStates.attack);
-                if (!isAttacking)
+                else
                 {
-                    isAttacking = true;
+                    if (!listOfEnemies.Contains(selectedEnemy))
+                    {
+                        selectedEnemy = null;
+                        if (isAttacking)
+                        {
+                            SetCharacterState(prevState);
+                            isAttacking = false;
+                        }
+                    }
+
+                    else
+                    {
+                        return;
+                    }
                 }
             }
+
+            //Using the CYLINDER COLLIDER to detect and hit enemies
             else
             {
-                if (!listOfEnemies.Contains(selectedEnemy))
+                // Find the closest enemy
+                float closestDistance = float.MaxValue;
+                Collider2D closestCollider = null;
+
+                foreach (var enemy in listOfEnemies)
                 {
-                    selectedEnemy = null;
-                    if (isAttacking)
+                    Debug.Log(enemy);
+                    float distance = Vector2.Distance(transform.position, enemy.transform.position);
+
+                    if (distance < closestDistance)
                     {
-                        SetCharacterState(prevState);
-                        isAttacking = false;
+                        closestDistance = distance;
+                        closestCollider = enemy;
+                        Debug.Log(closestCollider);
                     }
                 }
 
-                else
+                // Perform the attack on the closest enemy
+                if (closestCollider != null)
                 {
-                    return;
+                    selectedEnemy = closestCollider;
+                    if (!currentState.Equals(PlayerStates.attack))
+                    {
+                        prevState = currentState;
+                    }
+                    SetCharacterState(PlayerStates.attack);
+                    if (!isAttacking)
+                    {
+                        isAttacking = true;
+                    }
                 }
             }
         }
 
-        //Using the CYLINDER COLLIDER to detect and hit enemies
         else
         {
-            // Find the closest enemy
-            float closestDistance = float.MaxValue;
-            Collider2D closestCollider = null;
-
-            foreach (var enemy in listOfEnemies)
+            if (!isDashing)
             {
-                Debug.Log(enemy);
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestCollider = enemy;
-                    Debug.Log(closestCollider);
-                }
+                SetCharacterState(PlayerStates.idle);
             }
 
-            // Perform the attack on the closest enemy
-            if (closestCollider != null)
+            else
             {
-                selectedEnemy = closestCollider;
-                if (!currentState.Equals(PlayerStates.attack))
-                {
-                    prevState = currentState;
-                }
-                SetCharacterState(PlayerStates.attack);
-                if (!isAttacking)
-                {
-                    isAttacking = true;
-                }
+                SetCharacterState(prevState);
             }
         }
     }
@@ -671,11 +683,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             case 1:
                 if (utlimates[1] != null)
                 {
-                    SetAnimation(0, ultimating2, false, 1f);
+                    SetAnimation(0, raging, false, 1f);
                     enableInput = false;
                     canMove = false;
                     canAttack = false;
-                    Invoke("TriggerUltimate2", 1.2f);
+                    playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
+                    Invoke("TriggerUltimate2", 2.2f);
                 }
                 break;
         }
@@ -691,11 +704,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
+        SetCharacterState(PlayerStates.move);
         enableInput = true;
         canMove = true;
         canAttack = false;
         isDashing = true;
-        SetCharacterState(PlayerStates.move);
         utlimates[1].UseUtilityUltimate();
     }
 

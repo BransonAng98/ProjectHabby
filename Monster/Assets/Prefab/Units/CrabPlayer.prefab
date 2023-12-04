@@ -2013,7 +2013,7 @@ MonoBehaviour:
   - {fileID: 6437343458785009124}
   selectedUltimateHolder: 0
   canEarnUlt: 1
-  currentUltimateCharge: 0
+  currentUltimateCharge: 180
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
@@ -2093,6 +2093,10 @@ MonoBehaviour:
   buffed1: 0
   buffed2: 0
   buffed3: 0
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  originalColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  flashSpeed: 0
+  isFlashing: 0
 --- !u!114 &61134897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2120,6 +2124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashTimer: {fileID: 0}
   isActivated: 0
+  healthScript: {fileID: 0}
   ultimateDuration: 10
   timeReduction: 1
   currentDuration: 0
