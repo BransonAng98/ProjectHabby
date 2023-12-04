@@ -7,8 +7,10 @@ public class ClockSystem : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI timerWarningText;
     public TextMeshProUGUI countDownText;
     public GameObject countDownBG;
+    public GameObject timerIcon;
     private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
 
@@ -37,6 +39,7 @@ public class ClockSystem : MonoBehaviour
         startTime = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        timerIcon.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -134,9 +137,9 @@ public class ClockSystem : MonoBehaviour
         // Display countdown numbers for the last 10 seconds
         if (remainingTime <= 11 && remainingTime > 0)
         {
-            //countDownBG.gameObject.SetActive(true);
-            //float newTime = remainingTime - 1;
-            //countDownText.text = Mathf.CeilToInt(newTime).ToString();
+            timerIcon.gameObject.SetActive(true);
+            float newTime = remainingTime - 1;
+            countDownText.text = Mathf.CeilToInt(newTime).ToString();
             timerText.fontSize = enlargedFontSize;
             timerText.color = enlargedColor;
         }
@@ -146,8 +149,8 @@ public class ClockSystem : MonoBehaviour
             if (remainingTime <= 60 && remainingTime > 50 && !minuteMessageDisplayed)
             {
                 countDownBG.gameObject.SetActive(true);
-                countDownText.text = "";
-                countDownText.text += "1 Minute Remaining!";
+                timerWarningText.text = "";
+                timerWarningText.text += "1 Minute Remaining!";
                 minuteMessageDisplayed = true;
                 Invoke("TurnOffText", 3f);
 
@@ -156,8 +159,8 @@ public class ClockSystem : MonoBehaviour
             else if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
             {
                 countDownBG.gameObject.SetActive(true);
-                countDownText.text = "";
-                countDownText.text += "30 Seconds Remaining!";
+                timerWarningText.text = "";
+                timerWarningText.text += "30 Seconds Remaining!";
                 thirtySecondsMessageDisplayed = true;
                 Invoke("TurnOffText", 3f);
             }
@@ -165,9 +168,10 @@ public class ClockSystem : MonoBehaviour
 
             else if (remainingTime <= 0 && !timeUpMessageDisplayed)
             {
+                timerIcon.gameObject.SetActive(false);
                 countDownBG.gameObject.SetActive(true);
-                countDownText.text = "";
-                countDownText.text = "Time's up!";
+                timerWarningText.text = "";
+                timerWarningText.text = "Time's up!";
                 timeUpMessageDisplayed = true;
                 Invoke("TurnOffText", 3f);
             }
@@ -175,11 +179,11 @@ public class ClockSystem : MonoBehaviour
         }
     }
 
-    void DelayChange()
-    {
-        timerText.fontSize = normalFontSize;
-        timerText.color = normalColor;
-    }
+    //void DelayChange()
+    //{
+    //    timerText.fontSize = normalFontSize;
+    //    timerText.color = normalColor;
+    //}
 
     void TurnOffText()
     {
