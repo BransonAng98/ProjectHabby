@@ -105,7 +105,7 @@ public class ComicManager : MonoBehaviour
     {
         if (levelData.cityLevel < 10)
         {
-            SceneManager.LoadScene("GameplayScene");
+            SceneManager.LoadScene("France_Easy_Level");
         }
         else if(levelData.cityLevel == 10)
         {

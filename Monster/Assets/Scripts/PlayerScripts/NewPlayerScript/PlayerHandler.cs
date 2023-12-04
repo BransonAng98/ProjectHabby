@@ -29,6 +29,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] float damageHolder;
     [SerializeField] float movementSpeedHolder;
     [SerializeField] float attackRangeHolder;
+    public float stepDamageHolder;
 
     //Variable for player input
     public PlayerStatScriptableObject playerData;
@@ -41,8 +42,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
     public bool canMove;
+    public bool canAttack;
     public bool enableInput;
-    [SerializeField] bool canAttack;
     [SerializeField] float attackHitRange;
     [SerializeField] private bool isAttacking;
     [SerializeField] private float degreeAngle;
@@ -55,6 +56,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public GameObject HitDetection;
     public GameObject Groundcrack;
     public List<UltimateBase> utlimates = new List<UltimateBase>();
+    [SerializeField] private int selectedUltimateHolder;
     public float currentUltimateCharge;
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
@@ -127,7 +129,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 MoveAndAttack();
                 PlayerIdle();
                 PlayerMove();
-                PlayerAttack();
+                if (canAttack)
+                {
+                    PlayerAttack();
+                }
             }
             else
             {
@@ -159,6 +164,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         damageHolder = playerData.attackDamage;
         movementSpeedHolder = playerData.speed;
         attackRangeHolder = playerData.attackRange;
+        stepDamageHolder = playerData.stepDamage;
+        selectedUltimateHolder = playerData.setUltimate;
+
+        switch (selectedUltimateHolder)
+        {
+            case 0:
+                GetComponent<CrabUltimateU>().enabled = false;
+                break;
+
+            case 1:
+                GetComponent<CrabUltimateD>().enabled = false;
+                break;
+        }
     }
 
     public void AlterStats(bool isBuff, int statID, float statChange)
@@ -188,6 +206,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 case 3:
                     movementSpeedHolder += statChange;
                     break;
+
+                case 4:
+                    stepDamageHolder += statChange;
+                    break;
             }
         }
 
@@ -215,6 +237,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder -= statChange;
+                    break;
+
+                case 4:
+                    stepDamageHolder -= statChange;
                     break;
             }
 
@@ -367,7 +393,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             PlaySFX();
             vfxManager.TriggerAoeTremor();
-            UseUltimate1();
+            TriggerUltimate1();
         }
 
         if(eventName == "Smash")
@@ -619,12 +645,39 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    public void UseUltimate1()
+    void UseUltimate(int whichUlt)
+    {
+        switch (whichUlt)
+        {
+            case 0:
+                if (utlimates[0] != null)
+                {
+                    SetAnimation(0, ultimating, false, 1f);
+                    TriggerUltimate1();
+                }
+                break;
+
+            case 1:
+                if (utlimates[1] != null)
+                {
+                    SetAnimation(0, raging, false, 1f);
+                    TriggerUltimate2();
+                }
+                break;
+        }
+    }
+
+    public void TriggerUltimate1()
     {
         utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
         currentUltimateCharge = 0;
+    }
+
+    void TriggerUltimate2()
+    {
+        utlimates[1].UseUtilityUltimate();
     }
 
     //Trigger ultimate, rage, victory and defeat state here
@@ -672,6 +725,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public void EnableMovement()
     {
         enableInput = true;
+    }
+
+    public void RevertState()
+    {
+        SetCharacterState(prevState);
     }
 
     public void SetAnimation(int track, AnimationReferenceAsset animation, bool loop, float timeScale)
@@ -818,7 +876,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (state.Equals(PlayerStates.ultimate))
         {
-            SetAnimation(0, ultimating, false, 1f);
+            //Trigger the different ultimates here
+            UseUltimate(selectedUltimateHolder);
         }
 
         if (state.Equals(PlayerStates.victory))

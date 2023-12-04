@@ -76,7 +76,7 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             if (collision.CompareTag("PlayerLeg"))
             {
-                TakeDamage(10);
+                TakeDamage(inputHandler.stepDamageHolder);
             }
         }
 

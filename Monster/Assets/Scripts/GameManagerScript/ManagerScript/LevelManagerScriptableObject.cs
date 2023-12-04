@@ -9,6 +9,7 @@ public class LevelManagerScriptableObject : ScriptableObject
     public int cityLevel;
     public float currentDestruction;
     public bool cutscenePlayed;
+    public bool loopGame;
     public float baseTime;
 
     private void OnEnable()

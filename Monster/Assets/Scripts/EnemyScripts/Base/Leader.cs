@@ -110,10 +110,18 @@ public class Leader : MonoBehaviour
 
     public void AddFollowers(Civilian follower)
     {
-        if(followerList.Count <= maxFollowers)
+        if(follower != null)
         {
-            followerList.Add(follower);
-            follower.AddCivilian(this.transform);
+            if (followerList.Count <= maxFollowers)
+            {
+                followerList.Add(follower);
+                follower.AddCivilian(this.transform);
+            }
+
+            else
+            {
+                return;
+            }
         }
 
         else
