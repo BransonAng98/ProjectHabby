@@ -114,10 +114,15 @@ public class LevelManager : MonoBehaviour
                 levelData.cityLevel += 1;
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
-                cutsceneManager.TriggerEnd();
                 isTriggered = true;
+                Invoke("TriggerVictoryScreen", 1.5f);
             }
         }
+    }
+
+    void TriggerVictoryScreen()
+    {
+        cutsceneManager.TriggerEnd();
     }
 
     void LerpDestructionBar()

@@ -8,6 +8,7 @@ public class PlayerStatScriptableObject : ScriptableObject
     public float speed = 1f;
 
     public float attackDamage = 10f;
+    public float stepDamage = 10f;
     public float attackRange = 5f;
     public float attackSpeed = 0.8f;
     public int ultimateDamage = 0;
@@ -16,7 +17,8 @@ public class PlayerStatScriptableObject : ScriptableObject
     public int incomePerSecond = 1;
     public int incomeEarned = 0;
     public int Storedincome = 0;
-    
+
+    public int setUltimate;
 
     private void OnEnable()
     {

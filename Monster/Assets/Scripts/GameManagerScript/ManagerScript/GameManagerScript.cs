@@ -113,6 +113,8 @@ public class GameManagerScript : MonoBehaviour
     public void ActivatePlayer()
     {
         inputHandler.enableInput = true;
+        inputHandler.canAttack = true;
+        inputHandler.canMove = true;
         clock.startTime = true;
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();

@@ -76,13 +76,27 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             if (collision.CompareTag("PlayerLeg"))
             {
-                TakeDamage(10);
+                TakeDamage(inputHandler.stepDamageHolder);
             }
         }
 
         if(buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
-            return;
+            if (collision.CompareTag("Player"))
+            {
+                PlayerHandler playerHandler = collision.GetComponent<PlayerHandler>();
+                if(playerHandler != null)
+                {
+                    if (playerHandler.isDashing)
+                    {
+                        Debug.Log("Trampled");
+                        TakeDamage(inputHandler.stepDamageHolder);
+                    }
+                    else { return; }
+                }
+                else { return; }
+            }
+            else { return; }
         }
 
         else
