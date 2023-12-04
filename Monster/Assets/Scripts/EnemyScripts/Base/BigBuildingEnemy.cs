@@ -35,7 +35,7 @@ public class BigBuildingEnemy : MonoBehaviour
     private Vector3 targetScale = new Vector3(2f, 0, 0);
 
     [SerializeField] private GameObject pfCoin;
-    [SerializeField] private GameObject pfDelvin;
+    [SerializeField] private GameObject pfFallingDelvin;
 
     public int minEntities = 0; // Minimum number of entities to spawn
     public int maxEntities = 3; // Maximum number of entities to spawn
@@ -224,13 +224,13 @@ public class BigBuildingEnemy : MonoBehaviour
 
             Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
             float randomRotation = Random.Range(0f, 360f);
-            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
+            GameObject civilian = Instantiate(pfFallingDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
             civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
             civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
             //Sets the civilian state upon initialization
-            civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
+            civilian.GetComponentInChildren<FallingCivilian>().enemyState = FallingCivilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
-            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
+            civilian.GetComponentInChildren<FallingCivilian>().entityCollider.enabled = false;
         }
 
     }

@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class treeFakeHeightScript : MonoBehaviour
+public class KickHeightScript : MonoBehaviour
 {
-    public FadeObjectinParent fadescript;
     public UnityEvent onGroundHitEvent;
     public Transform transObject;
     public Transform transBody;
-    public Trees treescript;
-
     public Vector2 groundVelocity;
     public float verticalVelocity;
     private float minGravity = -20f;
-    private float maxGravity = -40f;
+    private float maxGravity = -30f;
     [SerializeField] private float Gravity;
-
+    public Civilian civilianscript;
     public bool isGrounded;
 
 
     private void Start()
     {
         Gravity = Random.Range(minGravity, maxGravity);
-        treescript = GetComponentInChildren<Trees>();
-        fadescript = GetComponent<FadeObjectinParent>();
+        civilianscript = GetComponentInChildren<Civilian>();
+
     }
     private void Update()
     {
@@ -54,11 +51,10 @@ public class treeFakeHeightScript : MonoBehaviour
         if (transBody.position.y < transObject.position.y && !isGrounded)
         {
             isGrounded = true;
-            transBody.position = transObject.position;
-
+            
             Groundhit();
         }
-
+      
     }
 
     void Groundhit()
@@ -68,19 +64,16 @@ public class treeFakeHeightScript : MonoBehaviour
 
     public void Stick()
     {
-        if (treescript.isKicking)
+        if(civilianscript.isKicking)
         {
             groundVelocity = Vector2.zero;
-            GetComponentInChildren<Rigidbody2D>().angularVelocity = 0f;
-            treescript.entityCollider.enabled = false;
-            treescript.Death();
-            enabled = false;
-            //fadescript.StartFading();
+            civilianscript.Death();
         }
         else
         {
             groundVelocity = Vector2.zero;
         }
+        
     }
 
     public void Delete()

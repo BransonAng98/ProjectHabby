@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Civilian : MonoBehaviour
+public class FallingCivilian : MonoBehaviour
 {
-    public enum EnemyState { fall, run, death, walk, idle}
+
+    public enum EnemyState { fall, run, death, walk, idle }
 
     public EnemyState enemyState;
     SpriteRenderer spriteRenderer;
@@ -17,7 +18,7 @@ public class Civilian : MonoBehaviour
     public Transform player;
     public Animator anim;
     public GameObject deathVFX;
-   
+
     private float lastPosX;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
@@ -62,14 +63,9 @@ public class Civilian : MonoBehaviour
     //Troubleshoot
     public string causeOfDeath;
     public string murderer;
-    public KickHeightScript fakekickheight;
-    public Vector2 groundDispenseVelocity;
-    public Vector2 verticalDispenseVelocity;
-    public bool isKicking;
-    public float rotationSpeed;
+
     private void Awake()
     {
-        fakekickheight = GetComponentInParent<KickHeightScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
@@ -80,7 +76,6 @@ public class Civilian : MonoBehaviour
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        SetValue();
     }
 
 
@@ -94,15 +89,6 @@ public class Civilian : MonoBehaviour
         RandomizeSpeed(enemyData.speed);
         RandomizeIdle();
     }
-
-    void SetValue()
-    {
-        int setSpinValue = Random.Range(500, 700);
-        {
-            rotationSpeed = setSpinValue;
-        }
-    }
-
 
     void RandomizeIdle()
     {
@@ -120,28 +106,11 @@ public class Civilian : MonoBehaviour
     {
         if (collision.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(1, 2);
-            switch(random)
-            {
-                case 0:
-                    if(!isKicking)
-                    {
-                        inputHandler.ChargeUltimate(1);
-                        causeOfDeath = "Stepped to death";
-                        murderer = collision.name;
-                        enemyState = EnemyState.death;
-                        Debug.Log("Hit");
-                    }
-                    break;
-                case 1:
-                    entityCollider.enabled = false;
-                   
-                    KickLogic(collision);
-                    break;
-            }
-
-            
-           
+            inputHandler.ChargeUltimate(1);
+            causeOfDeath = "Stepped to death";
+            murderer = collision.name;
+            enemyState = EnemyState.death;
+            Debug.Log("Hit");
         }
     }
 
@@ -201,7 +170,7 @@ public class Civilian : MonoBehaviour
             anim.SetBool("walk", true);
         }
     }
-       
+
 
     void IdleOrMove()
     {
@@ -252,7 +221,7 @@ public class Civilian : MonoBehaviour
                 currentIdleTime = 0f;
             }
         }
-      
+
     }
 
     void Walk()
@@ -292,7 +261,7 @@ public class Civilian : MonoBehaviour
 
                     else
                     {
-                        if(blockingEntity != null)
+                        if (blockingEntity != null)
                         {
                             Vector3 newRunDirection = transform.position - blockingEntity.transform.position;
 
@@ -325,7 +294,7 @@ public class Civilian : MonoBehaviour
 
     void MoveTowards(Vector2 targetPosition, float speed)
     {
-        if(leaderPos != null)
+        if (leaderPos != null)
         {
             // Calculate the direction to the target
             Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
@@ -409,23 +378,10 @@ public class Civilian : MonoBehaviour
         lastPosX = currentPositionX;
     }
 
-    void KickLogic(Collider2D collision)
-    {
-        walkSpeed = 0;
-        runSpeed = 0;
-        Vector2 kickDirection = transform.position - player.transform.position;
-        Vector2 newDir = kickDirection.normalized;
-        isKicking = true;
-        fakekickheight.isGrounded = false;
-        GetComponentInParent<KickHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
-        Debug.Log("kicked");
-        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
-    }
-
     // Update is called once per frame
     void Update()
     {
-      
+
         FlipSprite();
 
         switch (enemyState)
@@ -455,10 +411,4 @@ public class Civilian : MonoBehaviour
 
         }
     }
-
-    /*public void PlayDeathSFX()
-    {
-        AudioClip deathsoundtoPlay = DeathSFX[Random.Range(0, DeathSFX.Length)];
-        civilianAudioSource.PlayOneShot(deathsoundtoPlay);
-    }*/
 }

@@ -131,7 +131,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 MoveAndAttack();
                 PlayerIdle();
                 PlayerMove();
-                if (canAttack)
+                if (canAttack && movementInput != Vector2.zero)
                 {
                     PlayerAttack();
                 }

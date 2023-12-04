@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20cd97a308df38a46b8a095d7a92ec82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leader: {fileID: 0}
 --- !u!1 &4068828363733697589
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +415,7 @@ AudioSource:
   m_Volume: 0.07
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -527,3 +528,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 045809794ba824c44b52c4a50eab1d04, type: 3}
   deadSprite: {fileID: 7197585282131594275, guid: d794a76e836965b40a878cf8673456b1, type: 3}
   causeOfDeath: 
+  murderer: 
