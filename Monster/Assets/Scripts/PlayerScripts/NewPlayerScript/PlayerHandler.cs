@@ -205,7 +205,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder += statChange;
-                    animationSpeed += statChange;
                     break;
 
                 case 4:
@@ -238,7 +237,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder -= statChange;
-                    animationSpeed -= statChange;
                     break;
 
                 case 4:
@@ -708,7 +706,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
-        SetCharacterState(PlayerStates.move);
         enableInput = true;
         vfxManager.isDashing = true;
         canMove = true;

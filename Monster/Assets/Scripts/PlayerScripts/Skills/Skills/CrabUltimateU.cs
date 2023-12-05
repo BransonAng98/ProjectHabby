@@ -102,6 +102,7 @@ public class CrabUltimateU : UltimateBase
         playerHandler.canEarnUlt = true;
         dashTimer.gameObject.SetActive(false);
         vfxManager.dashBodyVFX.SetActive(false);
+        playerHandler.RevertState();
         isTriggered = false;
     }
 }
