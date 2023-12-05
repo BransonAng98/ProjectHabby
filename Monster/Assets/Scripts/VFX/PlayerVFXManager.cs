@@ -14,7 +14,6 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject upgradeVFX;
     public GameObject dashBodyVFX;
     
-    public GameObject arrowIndicator;
     private GameObject player;
     
     public float deathVFXRadius; 

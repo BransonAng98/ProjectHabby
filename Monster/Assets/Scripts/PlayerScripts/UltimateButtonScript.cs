@@ -37,7 +37,6 @@ public class UltimateButtonScript : MonoBehaviour
             ultimateReady = true;
             button.interactable = true;
             vfxManager.ultiRdyVFX.SetActive(true);
-            vfxManager.arrowIndicator.SetActive(true);
         }
 
         else
@@ -45,7 +44,6 @@ public class UltimateButtonScript : MonoBehaviour
             ultimateReady = false;
             button.interactable = false;
             vfxManager.ultiRdyVFX.SetActive(false);
-            vfxManager.arrowIndicator.SetActive(false);
         }
     }
 

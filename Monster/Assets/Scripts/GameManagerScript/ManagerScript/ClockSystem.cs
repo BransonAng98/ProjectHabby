@@ -8,9 +8,7 @@ public class ClockSystem : MonoBehaviour
     public LevelManagerScriptableObject levelData;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI timerWarningText;
-    public TextMeshProUGUI countDownText;
     public GameObject countDownBG;
-    public GameObject timerIcon;
     private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
 
@@ -38,8 +36,7 @@ public class ClockSystem : MonoBehaviour
         DisplayTime(timerValue);
         startTime = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
-        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        timerIcon.gameObject.SetActive(false);
+        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();;
     }
 
     // Update is called once per frame
@@ -137,26 +134,15 @@ public class ClockSystem : MonoBehaviour
         // Display countdown numbers for the last 10 seconds
         if (remainingTime <= 11 && remainingTime > 0)
         {
-            timerIcon.gameObject.SetActive(true);
             float newTime = remainingTime - 1;
-            countDownText.text = Mathf.CeilToInt(newTime).ToString();
+            timerWarningText.text = Mathf.CeilToInt(newTime).ToString();
             timerText.fontSize = enlargedFontSize;
             timerText.color = enlargedColor;
         }
 
         else
         {
-            if (remainingTime <= 60 && remainingTime > 50 && !minuteMessageDisplayed)
-            {
-                countDownBG.gameObject.SetActive(true);
-                timerWarningText.text = "";
-                timerWarningText.text += "1 Minute Remaining!";
-                minuteMessageDisplayed = true;
-                Invoke("TurnOffText", 3f);
-
-            }
-
-            else if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
+            if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
             {
                 countDownBG.gameObject.SetActive(true);
                 timerWarningText.text = "";
@@ -168,7 +154,6 @@ public class ClockSystem : MonoBehaviour
 
             else if (remainingTime <= 0 && !timeUpMessageDisplayed)
             {
-                timerIcon.gameObject.SetActive(false);
                 countDownBG.gameObject.SetActive(true);
                 timerWarningText.text = "";
                 timerWarningText.text = "Time's up!";
