@@ -38,7 +38,6 @@ public class PlayerHealthScript : MonoBehaviour
     public int triggerNumber;
 
     //Berserk mode Feedback
-    private CanvasGroup berserkVignette;
     public CutSceneManager cutsceneManager;
     [SerializeField] private float ogValues;
     [SerializeField] private float ogAtkSpeed;
@@ -82,7 +81,6 @@ public class PlayerHealthScript : MonoBehaviour
         healthState = HealthState.normal;
         currentState = healthState;
 
-        berserkVignette = GameObject.Find("Vignette").GetComponent<CanvasGroup>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GetComponent<PlayerHandler>();
         ogValues = playerHandler.animationSpeed;
@@ -110,12 +108,6 @@ public class PlayerHealthScript : MonoBehaviour
                     isTriggered = true;
                 }
 
-                if (berserkVignette.alpha >= 0)
-                {
-                    berserkVignette.alpha += Time.deltaTime;
-                    Debug.Log("Trigger Vig");
-                }
-
                 meshRenderer.CustomMaterialOverride[originalMat] = rageMat;
                 playerHandler.animationSpeed = 2f;
                 playerHandler.attackAnimationSpeed = 2f;
@@ -126,11 +118,6 @@ public class PlayerHealthScript : MonoBehaviour
 
             if(healthState == HealthState.normal)
             {
-                if (berserkVignette.alpha < 1)
-                {
-                    berserkVignette.alpha -= Time.deltaTime;
-                }
-
                 meshRenderer.CustomMaterialOverride[originalMat] = originalMat;
                 playerHandler.attackAnimationSpeed = ogAtkSpeed;
                 playerHandler.animationSpeed = ogValues;
