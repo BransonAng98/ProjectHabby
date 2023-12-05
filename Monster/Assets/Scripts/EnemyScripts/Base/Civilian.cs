@@ -69,7 +69,7 @@ public class Civilian : MonoBehaviour
     public float rotationSpeed;
     private void Awake()
     {
-        fakekickheight = GetComponentInParent<KickHeightScript>();
+        fakeheight = GetComponentInParent<FakeHeightScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
@@ -120,28 +120,11 @@ public class Civilian : MonoBehaviour
     {
         if (collision.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(1, 2);
-            switch(random)
-            {
-                case 0:
-                    if(!isKicking)
-                    {
-                        inputHandler.ChargeUltimate(1);
-                        causeOfDeath = "Stepped to death";
-                        murderer = collision.name;
-                        enemyState = EnemyState.death;
-                        Debug.Log("Hit");
-                    }
-                    break;
-                case 1:
-                    entityCollider.enabled = false;
-                   
-                    KickLogic(collision);
-                    break;
-            }
-
-            
-           
+            inputHandler.ChargeUltimate(1);
+            causeOfDeath = "Stepped to death";
+            murderer = collision.name;
+            enemyState = EnemyState.death;
+            Debug.Log("Hit");
         }
     }
 
@@ -407,19 +390,6 @@ public class Civilian : MonoBehaviour
 
         // Update the last position for the next frame
         lastPosX = currentPositionX;
-    }
-
-    void KickLogic(Collider2D collision)
-    {
-        walkSpeed = 0;
-        runSpeed = 0;
-        Vector2 kickDirection = transform.position - player.transform.position;
-        Vector2 newDir = kickDirection.normalized;
-        isKicking = true;
-        fakekickheight.isGrounded = false;
-        GetComponentInParent<KickHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
-        Debug.Log("kicked");
-        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
 
     // Update is called once per frame
