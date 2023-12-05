@@ -49,7 +49,7 @@ public class EventManager : MonoBehaviour
         {
             if (currentScore >= triggerThreshold)
             {
-                eventNumber = Random.Range(0, 2);
+                eventNumber = Random.Range(0, 0);
 
                 switch (eventNumber)
                 {

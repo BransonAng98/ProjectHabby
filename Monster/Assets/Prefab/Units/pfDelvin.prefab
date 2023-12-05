@@ -181,6 +181,7 @@ MonoBehaviour:
   groundDispenseVelocity: {x: 4, y: 8}
   verticalDispenseVelocity: {x: 4, y: 6}
   isKicking: 0
+  rotationSpeed: 0
 --- !u!50 &8381522245099102583
 Rigidbody2D:
   serializedVersion: 4
@@ -238,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2411092050883332401}
-  - component: {fileID: 5851782466681913899}
+  - component: {fileID: 2848723899676888585}
   m_Layer: 9
   m_Name: pfDelvin
   m_TagString: Civilian
@@ -262,7 +263,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5851782466681913899
+--- !u!114 &2848723899676888585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,14 +272,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2411092050883332399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e695d0c5dac41d147bf49a8d35591320, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a5418014571ae04ca949c325eb46746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerReference: {fileID: 0}
   onGroundHitEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5851782466681913899}
-        m_TargetAssemblyTypeName: KickHeightScript, Assembly-CSharp
+      - m_Target: {fileID: 2848723899676888585}
+        m_TargetAssemblyTypeName: FakeHeightScript, Assembly-CSharp
         m_MethodName: Stick
         m_Mode: 1
         m_Arguments:
@@ -294,5 +296,4 @@ MonoBehaviour:
   groundVelocity: {x: 0, y: 0}
   verticalVelocity: 0
   Gravity: 0
-  civilianscript: {fileID: 0}
   isGrounded: 0

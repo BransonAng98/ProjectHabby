@@ -228,9 +228,9 @@ public class BigBuildingEnemy : MonoBehaviour
             civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
             civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
             //Sets the civilian state upon initialization
-            civilian.GetComponentInChildren<FallingCivilian>().enemyState = FallingCivilian.EnemyState.fall;
+            civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
-            civilian.GetComponentInChildren<FallingCivilian>().entityCollider.enabled = false;
+            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
         }
 
     }
