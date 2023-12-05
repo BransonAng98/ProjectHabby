@@ -18,11 +18,13 @@ public class Trees : MonoBehaviour
     public AudioClip[] treeSFX;
 
     public bool isKicking;
+    public bool hasDied;
     public treeFakeHeightScript fakeheight;
     private Transform player;
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
     [SerializeField] int rotationSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,15 @@ public class Trees : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(hasDied != true)
+        {
+            Checkfall();
+        }
+        else
+        {
+
+        }
+
     }
 
     void SetValue()
@@ -49,6 +59,7 @@ public class Trees : MonoBehaviour
 
     public void Death()
     {
+        hasDied = true;
         spriteRenderer.sortingOrder = 2;
         rotationSpeed = 0;
         if(entityCollider == null)
@@ -73,62 +84,44 @@ public class Trees : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(0, 6);
-            
-            if(random == 0)
+            int random = Random.Range(0, 0);
+            switch (random)
             {
-                KickLogic(collision);
-            }
-            else if (!isKicking)
-            {
-                Death();
+                case 0:
+                    if (!isKicking)
+                    {
+                        Death();
+                    }
+                    break;
+
+                case 1:
+                    KickLogic(collision);
+                    break;
             }
         }
-        if (isKicking)
-        {
-            if (collision.gameObject.tag == "BigBuilding")
-            {
-                Death();
-                BigBuildingEnemy bigBuilding = collision.gameObject.GetComponent<BigBuildingEnemy>();
-                if (bigBuilding != null)
-                {
-                    bigBuilding.TakeDamage(1);
-                }
-                Destroy(gameObject.transform.parent.gameObject);
-            }
-
-            if (collision.gameObject.tag == "Leader")
-            {
-                Death();
-                Leader leader = collision.gameObject.GetComponent<Leader>();
-                if (leader != null)
-                {
-                    leader.enemyState = Leader.EnemyState.death;
-                    leader.causeOfDeath = "Crushed by Tree";
-                }
-            }
-
-            if (collision.gameObject.tag == "Civilian")
-            {
-                Death();
-                Civilian civilian = collision.gameObject.GetComponent<Civilian>();
-                if (civilian != null)
-                {
-                    civilian.enemyState = Civilian.EnemyState.death;
-                    civilian.causeOfDeath = "Crushed by Tree";
-                }
-            }
-        }
+     
     }
 
+
+    public void Checkfall()
+    {
+        float targetRotation = 90f;
+        float currentRotation = transform.rotation.eulerAngles.z % 360; // Get rotation within [0, 360) range
+        float rotationDifference = Mathf.Abs(currentRotation - targetRotation);
+
+        // Check if the current rotation is close to the target within a specific range
+        if (rotationDifference < 1f || rotationDifference > 359f)
+        {
+            // Tree has rotated close to 180 degrees (or completed a full rotation), stop rotating
+            GetComponent<Rigidbody2D>().angularVelocity = 0f;
+            Death();
+            Debug.Log("Tree has rotated 180 degrees!");
+        }
+    }
     void KickLogic(Collider2D collision)
     {
-        spriteRenderer.sortingOrder = 4;
-        Vector2 kickDirection = transform.position - player.transform.position;
-        Vector2 newDir = kickDirection.normalized;
-        isKicking = true;
-        fakeheight.isGrounded = false;
-        GetComponentInParent<treeFakeHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+        Debug.Log("Kicked");
+        entityCollider.enabled = false;
 
         GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
@@ -138,9 +131,5 @@ public class Trees : MonoBehaviour
         Instantiate(hitVFX, transform.position, Quaternion.identity);
     }
 
-    /*public void PlaySFX()
-    {
-        AudioClip deathSFX = treeSFX[(Random.Range(0, treeSFX.Length))];
-        treeaudioSource.PlayOneShot(deathSFX);
-    }*/
+  
 }
