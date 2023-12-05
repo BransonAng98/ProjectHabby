@@ -5504,7 +5504,6 @@ MonoBehaviour:
   - {fileID: 8765843850186578843, guid: 8936068a21360bd4c895f7b79340a45c, type: 3}
   - {fileID: 1596909546565700212, guid: 62bac595180a51d48ab143c493283d92, type: 3}
   - {fileID: 7209707194317485303, guid: 212687844c1a28948ba4ebab68b47797, type: 3}
-  - {fileID: 8765843850186578843, guid: abf9ddc45e7d6504692371661f30222c, type: 3}
   numberOfColumns: 5
   numberOfRows: 5
   spacingX: 25.6
@@ -5526,7 +5525,7 @@ MonoBehaviour:
   prefab13Count: 1
   prefab14Count: 1
   prefab15Count: 1
-  prefab16Count: 1
+  prefab16Count: 0
 --- !u!4 &1951116852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4921672051753458186, guid: 317ea2cd456e79e4d9311d1a7389b5fd, type: 3}
@@ -5601,6 +5600,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 585b10ff32ef74048ad3ed294b6fecaa, type: 3}
+    - target: {fileID: 1575588598935782553, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2695255127844746695, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
