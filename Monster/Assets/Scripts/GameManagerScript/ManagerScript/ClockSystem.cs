@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ClockSystem : MonoBehaviour
@@ -9,6 +10,7 @@ public class ClockSystem : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI timerWarningText;
     public GameObject countDownBG;
+    public Image vignette;
     private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
 
@@ -19,12 +21,15 @@ public class ClockSystem : MonoBehaviour
     private bool minuteMessageDisplayed = false;
     private bool thirtySecondsMessageDisplayed = false;
     private bool timeUpMessageDisplayed = false;
+    private bool isfinalSecondsLeft = false;
+
 
     private float normalFontSize = 54f;
     private Color normalColor = Color.white;
     private float enlargedFontSize = 60f;
     private Color enlargedColor = Color.red;
 
+    public float flashSpeed = 2f;
     public float timeSpeed;
     // Start is called before the first frame update
     void Start()
@@ -35,6 +40,7 @@ public class ClockSystem : MonoBehaviour
 
         DisplayTime(timerValue);
         startTime = false;
+        vignette.enabled = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();;
     }
@@ -60,7 +66,23 @@ public class ClockSystem : MonoBehaviour
         }
 
         else { return; }
+
+        if (isfinalSecondsLeft)
+        {
+            timerText.color = Color.Lerp(normalColor, enlargedColor, Mathf.PingPong(Time.time * flashSpeed, 1f));
+            vignette.enabled = true;
+
+            float alpha = Mathf.PingPong(Time.time * flashSpeed, 1f);
+
+            alpha = Mathf.Lerp(0f, 1f, alpha);
+
+            Color vignetteColor = vignette.color;
+            vignetteColor.a = alpha;
+            vignette.color = vignetteColor;
+        }
+        
     }
+        
 
     void DelayEndScreen()
     {
@@ -134,10 +156,10 @@ public class ClockSystem : MonoBehaviour
         // Display countdown numbers for the last 10 seconds
         if (remainingTime <= 11 && remainingTime > 0)
         {
+            isfinalSecondsLeft = true;
             float newTime = remainingTime - 1;
             timerWarningText.text = Mathf.CeilToInt(newTime).ToString();
             timerText.fontSize = enlargedFontSize;
-            timerText.color = enlargedColor;
         }
 
         else
@@ -146,7 +168,7 @@ public class ClockSystem : MonoBehaviour
             {
                 countDownBG.gameObject.SetActive(true);
                 timerWarningText.text = "";
-                timerWarningText.text += "30 Seconds Remaining!";
+                timerWarningText.text += "30 Seconds!";
                 thirtySecondsMessageDisplayed = true;
                 Invoke("TurnOffText", 3f);
             }
