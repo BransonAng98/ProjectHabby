@@ -15,9 +15,13 @@ public class HitCircle : MonoBehaviour
     [SerializeField] private float currentAngle;
     [SerializeField] private float angleDifference;
 
+    public GameObject rageDirVFX;
+    private PlayerHandler playerHandler;
     private void Start()
     {
+
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
     }
 
     private void Update()
@@ -56,6 +60,22 @@ public class HitCircle : MonoBehaviour
         float lookAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, lookAngle);
 
+        if (playerHandler.isDashing)
+        {
+            rageDirVFX.SetActive(true);
+            rageDirVFX.transform.rotation = Quaternion.Euler(lookAngle, -90, 0);
+
+            float dashVFXDirRadius = 4.5f; // Adjust this value to control the distance of rageDirVFX from the player
+            rageDirVFX.transform.position = new Vector3(
+                player.position.x + dashVFXDirRadius * Mathf.Cos(currentAngle * Mathf.Deg2Rad),
+                player.position.y + dashVFXDirRadius * Mathf.Sin(currentAngle * Mathf.Deg2Rad),
+                rageDirVFX.transform.position.z);
+        }
+        else
+        {
+            rageDirVFX.SetActive(false);
+        }
+       
     }
 
 }
