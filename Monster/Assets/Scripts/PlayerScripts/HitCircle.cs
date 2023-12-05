@@ -15,7 +15,6 @@ public class HitCircle : MonoBehaviour
     [SerializeField] private float currentAngle;
     [SerializeField] private float angleDifference;
 
-
     private void Start()
     {
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
@@ -56,5 +55,10 @@ public class HitCircle : MonoBehaviour
         Vector3 direction = player.position - transform.position;
         float lookAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, lookAngle);
+
     }
+
 }
+
+
+

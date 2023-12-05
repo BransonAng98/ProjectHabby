@@ -16,6 +16,7 @@ public class CrabUltimateU : UltimateBase
     public float timeReduction;
     public float currentDuration;
     [SerializeField] bool isTriggered;
+    private PlayerVFXManager vfxManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class CrabUltimateU : UltimateBase
         dashTimer = GameObject.Find("DashTimer").GetComponent<TextMeshProUGUI>();
         dashTimer.gameObject.SetActive(false);
         healthScript = GetComponent<PlayerHealthScript>();
+        vfxManager = GetComponent<PlayerVFXManager>();
     }
 
     // Update is called once per frame
@@ -88,6 +90,7 @@ public class CrabUltimateU : UltimateBase
     void EndOfUltimate()
     {
         //Revert the player's stats & all changes back to normal state
+        vfxManager.isDashing = false;
         currentDuration = 0f;
         playerHandler.isDashing = false;
         healthScript.healthState = PlayerHealthScript.HealthState.normal;
@@ -98,6 +101,7 @@ public class CrabUltimateU : UltimateBase
         playerHandler.canAttack = true;
         playerHandler.canEarnUlt = true;
         dashTimer.gameObject.SetActive(false);
+        vfxManager.dashBodyVFX.SetActive(false);
         isTriggered = false;
     }
 }

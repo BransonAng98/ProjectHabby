@@ -62,6 +62,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
     public bool isDashing;
+    
 
     public float animationSpeed;
     public float attackAnimationSpeed;
@@ -685,6 +686,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 {
                     SetAnimation(0, raging, false, 1f);
                     enableInput = false;
+                    
                     canMove = false;
                     canAttack = false;
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
@@ -706,10 +708,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         SetCharacterState(PlayerStates.move);
         enableInput = true;
+        vfxManager.isDashing = true;
         canMove = true;
         canAttack = false;
         isDashing = true;
         utlimates[1].UseUtilityUltimate();
+        vfxManager.dashBodyVFX.SetActive(true);
     }
 
     //Trigger ultimate, rage, victory and defeat state here

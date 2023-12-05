@@ -30,6 +30,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     private GameManagerScript gameManager;
     private PlayerHandler playerHandler;
+    private PlayerVFXManager vfxManager;
 
     //Flash Effect
     private PlayerFlash flashEffect;
@@ -68,7 +69,6 @@ public class PlayerHealthScript : MonoBehaviour
     [SerializeField] bool isFlashing;
 
 
-
     private void Start()
     {
         shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
@@ -88,8 +88,8 @@ public class PlayerHealthScript : MonoBehaviour
         ogValues = playerHandler.animationSpeed;
         ogAtkSpeed = playerHandler.attackAnimationSpeed;
         cutsceneManager = GameObject.FindGameObjectWithTag("VictoryScreen").GetComponent<CutSceneManager>();
-
         meshRenderer = GetComponent<SkeletonAnimation>();
+        vfxManager = GetComponent<PlayerVFXManager>();
 
         lastChangeTime = Time.time;
         previousBarValue = playerHandler.currentUltimateCharge;
@@ -273,7 +273,6 @@ public class PlayerHealthScript : MonoBehaviour
             if (!isFlashing)
             {
                 StartCoroutine(FlashColor(flashColor, originalColor));
-                Debug.Log("Start flashing");
             }
         }
 
@@ -281,7 +280,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (isFlashing)
             {
-                Debug.Log("I STOPPED U");
                 StopCoroutine("FlashColor");
                 abilityFill.color = originalColor;  
                 isFlashing = false;
@@ -351,6 +349,7 @@ public class PlayerHealthScript : MonoBehaviour
             {
                 Debug.Log("attack speed buffed");
                 TriggerAbilities(1);
+                vfxManager.SpawnUpgradeVFX();
                 buffed1 = true;
             }
         }
@@ -362,6 +361,7 @@ public class PlayerHealthScript : MonoBehaviour
             {
                 Debug.Log("attack damage buffed");
                 TriggerAbilities(2);
+                vfxManager.SpawnUpgradeVFX();
                 buffed2 = true;
             }
         }
@@ -372,6 +372,7 @@ public class PlayerHealthScript : MonoBehaviour
             {
                 Debug.Log("attack speed buffed");
                 TriggerAbilities(3);
+                vfxManager.SpawnUpgradeVFX();
                 buffed3 = true;
             }
 

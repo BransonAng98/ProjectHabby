@@ -9,32 +9,45 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject aoeVFX;
     public GameObject ultiRdyVFX;
     public GameObject ultimateVFX;
+    public GameObject deathVFX;
+    public GameObject dashFootVFX;
+    public GameObject upgradeVFX;
+    public GameObject dashBodyVFX;
+    
     public GameObject arrowIndicator;
     private GameObject player;
-
-    public GameObject deathVFX; // The VFX prefab you want to spawn
-    public float deathVFXRadius; // The radius in which VFX will be spawned
+    
+    public float deathVFXRadius; 
     public float footTremorRadius;
     public float aoeTremorRadius;
-    public int numberOfVFX = 3; // Number of VFX to spawn
+    public int numberOfVFX = 3; 
     
     public GameObject[] legLocations;
 
     [SerializeField] private bool isTriggered;
+    public bool isDashing;
+
+    private PlayerHandler playerHandler;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerHandler = GetComponent<PlayerHandler>();
         isTriggered = false;
-
     }
-
-   
 
     public void footImpact(int foot)
     {
         Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y);
-        Instantiate(impactVFX, correction, Quaternion.identity);
+      
+        if (!isDashing)
+        {
+            Instantiate(impactVFX, correction, Quaternion.identity);
+        }
+        else 
+        {
+            Instantiate(dashFootVFX, correction, Quaternion.identity);
+        }
+       
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(correction, footTremorRadius);
         foreach (Collider2D colldier in hitColliders)
         {
@@ -81,8 +94,15 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SpawnUltiVFX()
     {
-        Vector2 ultiPos = new Vector2(player.transform.position.x, player.transform.position.y -2.5f);
+        Vector2 ultiPos = new Vector2(this.transform.position.x, this.transform.position.y -2.5f);
         GameObject ultiVFX = Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
     }
+
+    public void SpawnUpgradeVFX()
+    {
+        Vector2 upgradePos = new Vector2(this.transform.position.x, this.transform.position.y + 2f);
+        Instantiate(upgradeVFX, upgradePos, Quaternion.identity);
+    }
+
 }
 
