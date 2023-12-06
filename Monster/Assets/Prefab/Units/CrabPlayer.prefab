@@ -1857,24 +1857,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonAnim: {fileID: 6516790000295486551}
-  idling: {fileID: 11400000, guid: f73033774fb13544b8dde0ec1f26bf6a, type: 2}
-  idling2: {fileID: 11400000, guid: 448ed1f1cf8eb5b4984ed30de6233740, type: 2}
-  moving: {fileID: 11400000, guid: 58a574b46d5971c4f9466122332fe903, type: 2}
-  moving2: {fileID: 11400000, guid: f68f155405ab50d46940faa227bfa349, type: 2}
-  moving3: {fileID: 11400000, guid: 256c07b3eddfd69478c05528bc7b84f0, type: 2}
-  moving4: {fileID: 11400000, guid: 64938012e513ff0409b5e957520b3519, type: 2}
-  attacking: {fileID: 11400000, guid: 0cf374722ea02ae41b338723d560516a, type: 2}
-  attacking2: {fileID: 11400000, guid: 5254985117a4b8745a8c4e9090a9f5c3, type: 2}
-  attacking3: {fileID: 11400000, guid: 240ef04dcb79ff341a89eb4409d23428, type: 2}
-  attacking4: {fileID: 11400000, guid: 5ced74f918e8aca418473f8ceff258e8, type: 2}
-  attacking5: {fileID: 11400000, guid: 763b093fdfd1c0e428b452a61bc21cfc, type: 2}
-  attacking6: {fileID: 11400000, guid: ce5033e904e7cc24e90f7184d6fe122c, type: 2}
-  attacking7: {fileID: 11400000, guid: 14b41aeec1cd5b14daddcb5bda26d9dd, type: 2}
-  ultimating: {fileID: 11400000, guid: 362a66c7ca95dd3468f17e8bd3fffa9e, type: 2}
-  ultimating2: {fileID: 11400000, guid: b12853dc9f8e847409793dd2bf878cdc, type: 2}
-  victorying: {fileID: 11400000, guid: feeae0df86244a048a503bfbdc1480b5, type: 2}
-  defeating: {fileID: 11400000, guid: d1a39648f16834d4e80e1c9245bdccd5, type: 2}
-  raging: {fileID: 11400000, guid: 0cf5775af95645644821c881f2c0ecb5, type: 2}
+  idling: {fileID: 11400000, guid: 267a4cf229ed18541b6c282b75ce68f0, type: 2}
+  idling2: {fileID: 11400000, guid: 5dc6d212682c0cf4c927c4724b7d3692, type: 2}
+  moving: {fileID: 11400000, guid: d353896b16421544db970e39844cd921, type: 2}
+  moving2: {fileID: 11400000, guid: b67dfe3a5c0f9374f9221a0b91699721, type: 2}
+  moving3: {fileID: 11400000, guid: 5d3c130a6a685644c9ef42663249856c, type: 2}
+  moving4: {fileID: 11400000, guid: bd2ba11c1a3a55140a45417f7edd60eb, type: 2}
+  attacking: {fileID: 11400000, guid: 614e8bf97fe3c8e47919f591c9d730bd, type: 2}
+  attacking2: {fileID: 11400000, guid: 417f9637d9a31a4408f125f915294a04, type: 2}
+  attacking3: {fileID: 11400000, guid: 971e0b45edfb65447a1a68c09d4a5536, type: 2}
+  attacking4: {fileID: 11400000, guid: bad79122ce98a2443a44eabde27c8aca, type: 2}
+  attacking5: {fileID: 11400000, guid: 0e3d86bf05bf8d24c9978b731b9ae6ce, type: 2}
+  attacking6: {fileID: 11400000, guid: 1e7f6409953f75a4aa31409f777230c0, type: 2}
+  attacking7: {fileID: 11400000, guid: 9a3d2d7426d97924bb7481f8c5e9af99, type: 2}
+  ultimating: {fileID: 11400000, guid: 5bbde86104e377f4c8cd1c97b0e919e2, type: 2}
+  ultimating2: {fileID: 11400000, guid: 297aaf51229125e4e8d884438e15bc98, type: 2}
+  victorying: {fileID: 11400000, guid: e05bf712d5d3ed64395ec6f15b29b44b, type: 2}
+  defeating: {fileID: 11400000, guid: a268c8f32a38b554db1f70bfa77d6992, type: 2}
+  raging: {fileID: 11400000, guid: 3b5484955b5a98b4198318fcf1ad9d21, type: 2}
+  landing: {fileID: 11400000, guid: 9be72093b4d5bae4280ee4fbe3fe7d6b, type: 2}
+  exhausting: {fileID: 11400000, guid: 741c08de812f7fd4dbf47a17c683401b, type: 2}
   currentState: 0
   prevState: 0
   currentAnimation: 
@@ -1919,6 +1921,8 @@ MonoBehaviour:
   isMoving: 0
   isIdle: 0
   isTriggered: 0
+  isLanding: 0
+  isExhausting: 0
   isEnd: 0
   impactTimer: 0.4
   currentImpactTimer: 0
@@ -1975,8 +1979,8 @@ MonoBehaviour:
   ogAtkSpeed: 0
   isTriggered: 0
   meshRenderer: {fileID: 0}
-  originalMat: {fileID: 2100000, guid: 124e0d08c57a23d4283e9252a34b82df, type: 2}
-  rageMat: {fileID: 2100000, guid: a6e95d544c54d6245891d491bc5b4d49, type: 2}
+  originalMat: {fileID: 2100000, guid: fc2ed34b0b70fbb488c63297b4fd1fac, type: 2}
+  rageMat: {fileID: 2100000, guid: 8f3f7f1999f95b541be03e1caac33e42, type: 2}
   abilityBarPercentage: 0
   abilityPhase: 0
   abilityRetainThreshold: 2
@@ -2019,7 +2023,7 @@ MonoBehaviour:
   dashTimer: {fileID: 0}
   isActivated: 0
   healthScript: {fileID: 0}
-  ultimateDuration: 5
+  ultimateDuration: 10
   timeReduction: 1
   currentDuration: 0
   isTriggered: 0
@@ -2075,7 +2079,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 124e0d08c57a23d4283e9252a34b82df, type: 2}
+  - {fileID: 2100000, guid: fc2ed34b0b70fbb488c63297b4fd1fac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2109,7 +2113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: c3510d98d3843d740ac04ffd217258ce, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: a1461f25c11031b4ea98263575caee96, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0

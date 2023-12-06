@@ -112,6 +112,15 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
+        Invoke("ActivateInput", 4f);
+        //foreach (Collider2D collider in playerLegs)
+        //{
+        //    collider.gameObject.SetActive(true);
+        //}
+    }
+
+    void ActivateInput()
+    {
         inputHandler.enableInput = true;
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
@@ -119,11 +128,6 @@ public class GameManagerScript : MonoBehaviour
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();
         joystick.SetActive(true);
-
-        //foreach (Collider2D collider in playerLegs)
-        //{
-        //    collider.gameObject.SetActive(true);
-        //}
     }
 
     public void SpawnPlayer()
