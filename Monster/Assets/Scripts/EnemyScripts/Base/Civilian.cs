@@ -135,6 +135,11 @@ public class Civilian : MonoBehaviour
             blockingEntity = collision.gameObject.transform;
             isBlocked = true;
         }
+        if (collision.gameObject.tag == "Blocker")
+        {
+            blockingEntity = collision.gameObject.transform;
+            isBlocked = true;
+        }
     }
 
     public void AddCivilian(Transform leaderGO)

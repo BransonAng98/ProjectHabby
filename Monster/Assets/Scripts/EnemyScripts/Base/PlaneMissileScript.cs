@@ -70,7 +70,6 @@ public class PlaneMissileScript : MonoBehaviour
 
     void BlowUp()
     {
-        
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 3f);
         foreach (Collider2D collider in hitColliders)
         {
