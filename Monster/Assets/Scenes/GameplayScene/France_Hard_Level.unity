@@ -3884,19 +3884,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcad79fd07cf1d64aba8377648cbe4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalScore: 0
-  triggerThreshold: 0
-  currentScore: 0
   numberOfEvents: 4
   eventNumber: 0
   bannerText: {fileID: 1478291478}
   levelManagerScript: {fileID: 1267804330}
   playerHandler: {fileID: 0}
+  gameManager: {fileID: 0}
   airStrikeScript: {fileID: 34761370}
   artilleryScript: {fileID: 2001666953}
   missileScript: {fileID: 0}
-  gameStarted: 0
   audiomanager: {fileID: 0}
+  clock: {fileID: 1294789420}
+  timer: 0
 --- !u!1001 &1090540995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4663,6 +4662,7 @@ MonoBehaviour:
   levelText: {fileID: 1131911178}
   GNAText: {fileID: 466924862}
   isVictory: 0
+  hasActivated: 0
   playerStatusBars: {fileID: 246436639}
   hitIndicator: {fileID: 635596423}
   joystick: {fileID: 2090532567}
@@ -5423,14 +5423,14 @@ MonoBehaviour:
   - {fileID: 1310076751194191448, guid: 7a412dd268e68fe49996513d1ce895e4, type: 3}
   - {fileID: 1310076751194191448, guid: ad4886dbd4923af46b278cbc98f7dfcc, type: 3}
   - {fileID: 1310076751194191448, guid: dcd95cf4f3149c6409aa7e4066c352a9, type: 3}
-  - {fileID: 1382596275936686184, guid: ebe498be326368247aa9180ea29476ba, type: 3}
   - {fileID: 4829518981124354365, guid: 3f2b26913d6ef11408885d245172949a, type: 3}
-  - {fileID: 8765843850186578843, guid: 7105e554eb725684680d36b80dd0acb3, type: 3}
-  - {fileID: 1382596275936686184, guid: cfb0b3c17cd82714d9d090241e456cce, type: 3}
-  - {fileID: 5701827066488964064, guid: e8d41b46ede742a4b8e3dba69de75492, type: 3}
-  - {fileID: 4829518981124354365, guid: 9238735cb9af0934890bcd820694553c, type: 3}
-  - {fileID: 7209707194317485303, guid: 3646ce03af0d91d42a517ec25c6e7db4, type: 3}
   - {fileID: 5701827066488964064, guid: a856e0c12cb4d454e9d3cf428fad794c, type: 3}
+  - {fileID: 1382596275936686184, guid: cfb0b3c17cd82714d9d090241e456cce, type: 3}
+  - {fileID: 7209707194317485303, guid: 3646ce03af0d91d42a517ec25c6e7db4, type: 3}
+  - {fileID: 4829518981124354365, guid: 9238735cb9af0934890bcd820694553c, type: 3}
+  - {fileID: 4829518981124354365, guid: 80b5cb09ac97b7d40876babc9b72e895, type: 3}
+  - {fileID: 1382596275936686184, guid: ebe498be326368247aa9180ea29476ba, type: 3}
+  - {fileID: 8765843850186578843, guid: 92420fc86bea3544083bef04c17ebc8a, type: 3}
   - {fileID: 8765843850186578843, guid: 8936068a21360bd4c895f7b79340a45c, type: 3}
   - {fileID: 1596909546565700212, guid: 62bac595180a51d48ab143c493283d92, type: 3}
   - {fileID: 7209707194317485303, guid: 212687844c1a28948ba4ebab68b47797, type: 3}
@@ -5642,6 +5642,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2695255128511029150, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_TagString
+      value: Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695255128511029154, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: eventManager
+      value: 
+      objectReference: {fileID: 1049721075}
     - target: {fileID: 2695255128601051122, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

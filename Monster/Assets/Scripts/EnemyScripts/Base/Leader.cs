@@ -244,7 +244,6 @@ public class Leader : MonoBehaviour
 
         if (!hasDied)
         {
-            eventManager.AddScore();
             hasDied = true;
         }
 

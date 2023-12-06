@@ -23,6 +23,7 @@ public class GameManagerScript : MonoBehaviour
     public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
+    public bool hasActivated;
 
     //Meteor
     public GameObject playerStatusBars;
@@ -125,6 +126,7 @@ public class GameManagerScript : MonoBehaviour
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
         clock.startTime = true;
+        hasActivated = true;
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();
         joystick.SetActive(true);

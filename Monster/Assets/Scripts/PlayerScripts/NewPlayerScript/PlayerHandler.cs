@@ -966,7 +966,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (Input.GetKeyUp(KeyCode.Space)) // Triggers event randomly
         {
             EventManager eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
-            eventManager.currentScore = eventManager.triggerThreshold;
+            ClockSystem clockSystem = GameObject.FindGameObjectWithTag("Timer").GetComponent<ClockSystem>();
+            eventManager.timer = clockSystem.eventInterval ;
            
         }
 

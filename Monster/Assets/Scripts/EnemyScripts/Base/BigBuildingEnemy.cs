@@ -151,7 +151,6 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if(!hasDied)
         {
-            eventManager.AddScore();
             hasDied = true;
         }
 

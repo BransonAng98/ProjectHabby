@@ -354,7 +354,6 @@ public class Civilian : MonoBehaviour
 
         if (!hasDied)
         {
-            eventManager.AddScore();
             hasDied = true;
         }
 
