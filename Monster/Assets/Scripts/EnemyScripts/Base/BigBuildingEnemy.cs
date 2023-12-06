@@ -80,16 +80,23 @@ public class BigBuildingEnemy : MonoBehaviour
             }
         }
 
-        if(buildingType.enemyType == Targetable.EnemyType.BigBuilding)
+        else
+        {
+            return;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
             if (collision.CompareTag("Player"))
             {
                 PlayerHandler playerHandler = collision.GetComponent<PlayerHandler>();
-                if(playerHandler != null)
+                if (playerHandler != null)
                 {
                     if (playerHandler.isDashing)
                     {
-                        Debug.Log("Trampled");
                         TakeDamage(inputHandler.stepDamageHolder);
                     }
                     else { return; }
