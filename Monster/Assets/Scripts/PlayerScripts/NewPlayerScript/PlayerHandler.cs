@@ -17,11 +17,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         ultimate,
         land,
         exhaust,
+        damage,
     }
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging, landing, exhausting;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging, landing, exhausting, damaging;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -81,6 +82,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private bool isTriggered;
     public bool isLanding;
     [SerializeField] private bool isExhausting;
+    [SerializeField] private bool isDamaging;
 
     public bool isEnd;
 
@@ -681,7 +683,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     SetCharacterState(PlayerStates.rage);
                     isDashing = true;
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
-                    Invoke("TriggerUltimate2", 2.4f);
+                    Invoke("TriggerUltimate2", 2.2f);
                 }
                 break;
         }
@@ -774,13 +776,21 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     isLanding = true;
                 }
                 break;
+
+            case 6:
+                SetCharacterState(PlayerStates.damage);
+                if (!currentState.Equals(PlayerStates.damage))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.damage);
+                if (!isDamaging)
+                {
+                    isDamaging = true;
+                }
+                break;
         }
     }
-
-    //public void EnableMovement()
-    //{
-    //    enableInput = true;
-    //}
 
     public void RevertState()
     {
@@ -825,6 +835,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             {
                 joystick.gameObject.SetActive(true);
             }
+        }
+
+        if (isDamaging)
+        {
+            isDamaging = false;
+            enableInput = true;
         }
 
         if (isExhausting)
@@ -1005,6 +1021,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 
             case PlayerStates.exhaust:
                 SetAnimation(0, exhausting, false, 1f);
+                playFull = true;
+                break;
+
+            case PlayerStates.damage:
+                SetAnimation(0, damaging, false, 1f);
                 playFull = true;
                 break;
         }

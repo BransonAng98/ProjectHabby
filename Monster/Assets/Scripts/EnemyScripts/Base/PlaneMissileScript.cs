@@ -61,7 +61,7 @@ public class PlaneMissileScript : MonoBehaviour
             PlaySFX(); //Sound can't play cuz missile is destroyed too fast, find a faster sound or invoke missile
             SpawnExplosion();
             collision.GetComponent<PlayerHealthScript>().TakeDamage(damageAmount);
-
+            collision.GetComponent<PlayerHandler>().DisableMovement(6);
             Destroy(gameObject);
         }
 
