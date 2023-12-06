@@ -113,7 +113,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
-        Invoke("ActivateInput", 2.8f);
+        Invoke("ActivateInput", 3.1f);
         //foreach (Collider2D collider in playerLegs)
         //{
         //    collider.gameObject.SetActive(true);
@@ -135,6 +135,7 @@ public class GameManagerScript : MonoBehaviour
     public void SpawnPlayer()
     {
         player.GetComponent<MeshRenderer>().enabled = true;
+        inputHandler.DisableMovement(5);
         playerStatusBars.SetActive(true);
         hitIndicator.SetActive(true);
     }

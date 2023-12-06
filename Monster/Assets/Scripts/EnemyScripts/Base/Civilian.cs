@@ -401,7 +401,7 @@ public class Civilian : MonoBehaviour
         {
             case EnemyState.death:
                 anim.SetBool("death", true);
-                spriteRenderer.sortingOrder = 2;
+                spriteRenderer.sortingOrder = 3;
                 Death();
                 break;
             case EnemyState.fall:
