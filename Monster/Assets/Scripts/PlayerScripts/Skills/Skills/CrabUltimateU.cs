@@ -109,7 +109,7 @@ public class CrabUltimateU : UltimateBase
             dashTimer.gameObject.SetActive(false);
             vfxManager.dashBodyVFX.SetActive(false);
             isTriggered = false;
-            Invoke("EnableMovement", 2.1f);
+            Invoke("EnableMovement", 2f);
         }
         else
         {
