@@ -44,10 +44,10 @@ public class MenuController : MonoBehaviour
 		SceneManager.LoadScene("LabScene");
 	}
 
-	public void LoadGame()
+	public void TempRestartGame()
 	{
 		menuaudiomanager.PlayTap();
-		SceneManager.LoadScene("ComicScene");	
+		SceneManager.LoadScene("France_Hard_Level");	
 	}
 
 	public void LeaveGame()
