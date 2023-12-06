@@ -50,7 +50,7 @@ public class EventManager : MonoBehaviour
             
             if (timer >= clock.eventInterval)
             {
-                eventNumber = Random.Range(1, 1);
+                eventNumber = Random.Range(0, 0);
 
                 switch (eventNumber)
                 {
