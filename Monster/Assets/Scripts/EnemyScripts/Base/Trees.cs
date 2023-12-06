@@ -25,6 +25,9 @@ public class Trees : MonoBehaviour
     public Vector2 verticalDispenseVelocity;
     [SerializeField] int rotationSpeed;
 
+    // New flag to track whether death has been triggered
+    private bool deathTriggered = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,27 +37,32 @@ public class Trees : MonoBehaviour
         shakeScript = GetComponent<ObjectShakeScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         fakeheight = GetComponentInParent<treeFakeHeightScript>();
-        SetValue();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(hasDied != true)
+        if (isKicking == true)
         {
-            Checkfall();
+            Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);
+            rotationSpeed = 5;
+            // Smoothly interpolate towards the target rotation
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-        else
+
+        // Check if the tree rotation angle is greater than or equal to 90 and death has not been triggered
+        if (Mathf.Abs(transform.rotation.eulerAngles.z) >= 90f && !deathTriggered)
         {
+            entityCollider.enabled = false;
+            // If so, set isKicking to false or perform any other desired actions
+            rotationSpeed = 0;
+            isKicking = false;
+            // Set the flag to true to prevent repeated triggering
+            deathTriggered = true;
 
+            // Call the Death function
+            Death();
         }
-
-    }
-
-    void SetValue()
-    {
-        int setSpinValue = Random.Range(800, 100);
-        rotationSpeed = setSpinValue;
     }
 
     public void Death()
@@ -62,7 +70,7 @@ public class Trees : MonoBehaviour
         hasDied = true;
         spriteRenderer.sortingOrder = 2;
         rotationSpeed = 0;
-        if(entityCollider == null)
+        if (entityCollider == null)
         {
             return;
         }
@@ -80,11 +88,12 @@ public class Trees : MonoBehaviour
             spriteRenderer.sprite = destroyedSprite;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(0, 0);
+            int random = Random.Range(0, 2);
             switch (random)
             {
                 case 0:
@@ -95,41 +104,16 @@ public class Trees : MonoBehaviour
                     break;
 
                 case 1:
-                    KickLogic(collision);
+                    isKicking = true;
+                    //KickLogic(collision);
                     break;
             }
         }
-     
-    }
 
-
-    public void Checkfall()
-    {
-        float targetRotation = 90f;
-        float currentRotation = transform.rotation.eulerAngles.z % 360; // Get rotation within [0, 360) range
-        float rotationDifference = Mathf.Abs(currentRotation - targetRotation);
-
-        // Check if the current rotation is close to the target within a specific range
-        if (rotationDifference < 1f || rotationDifference > 359f)
-        {
-            // Tree has rotated close to 180 degrees (or completed a full rotation), stop rotating
-            GetComponent<Rigidbody2D>().angularVelocity = 0f;
-            Death();
-            Debug.Log("Tree has rotated 180 degrees!");
-        }
-    }
-    void KickLogic(Collider2D collision)
-    {
-        Debug.Log("Kicked");
-        entityCollider.enabled = false;
-
-        GetComponent<Rigidbody2D>().angularVelocity = rotationSpeed;
     }
 
     void SpawnVFX()
     {
         Instantiate(hitVFX, transform.position, Quaternion.identity);
     }
-
-  
 }
