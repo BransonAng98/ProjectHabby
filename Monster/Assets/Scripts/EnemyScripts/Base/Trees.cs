@@ -24,6 +24,8 @@ public class Trees : MonoBehaviour
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
     [SerializeField] int rotationSpeed;
+    public bool fallleft;
+    public bool fallright;
 
     // New flag to track whether death has been triggered
     private bool deathTriggered = false;
@@ -42,31 +44,55 @@ public class Trees : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isKicking == true)
+        if(fallleft == true)
         {
             Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);
-            rotationSpeed = 5;
+            rotationSpeed = 10;
             // Smoothly interpolate towards the target rotation
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
+            if (normalizedAngle >= 90f && !deathTriggered)
+            {
+
+                // If so, set isKicking to false or perform any other desired actions
+                rotationSpeed = 0;
+                isKicking = false;
+                fallleft = false;
+                // Set the flag to true to prevent repeated triggering
+                deathTriggered = true;
+
+                // Call the Death function
+                Death();
+            }
         }
 
-        // Check if the tree rotation angle is greater than or equal to 90 and death has not been triggered
-        if (Mathf.Abs(transform.rotation.eulerAngles.z) >= 90f && !deathTriggered)
+        if(fallright == true)
         {
-            entityCollider.enabled = false;
-            // If so, set isKicking to false or perform any other desired actions
-            rotationSpeed = 0;
-            isKicking = false;
-            // Set the flag to true to prevent repeated triggering
-            deathTriggered = true;
+            
+            Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, -90f);
+            rotationSpeed = 10;
+            // Smoothly interpolate towards the target rotation
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
+            if (normalizedAngle <= 270f && !deathTriggered)
+            {
+                Debug.Log("FallenRight");
+                
+                // If so, set isKicking to false or perform any other desired actions
+                rotationSpeed = 0;
+                isKicking = false;
+                fallright = false;
+                // Set the flag to true to prevent repeated triggering
+                deathTriggered = true;
 
-            // Call the Death function
-            Death();
+                Death();
+            }
         }
     }
 
     public void Death()
     {
+        entityCollider.enabled = false;
         hasDied = true;
         spriteRenderer.sortingOrder = 2;
         rotationSpeed = 0;
@@ -85,6 +111,9 @@ public class Trees : MonoBehaviour
                 shakeScript.StartShake();
                 isShake = true;
             }
+             hasDied = true;
+        spriteRenderer.sortingOrder = 2;
+        rotationSpeed = 0;
             spriteRenderer.sprite = destroyedSprite;
         }
     }
@@ -93,7 +122,8 @@ public class Trees : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
-            int random = Random.Range(0, 2);
+            entityCollider.enabled = false;
+            int random = Random.Range(0, 3);
             switch (random)
             {
                 case 0:
@@ -104,8 +134,11 @@ public class Trees : MonoBehaviour
                     break;
 
                 case 1:
-                    isKicking = true;
-                    //KickLogic(collision);
+                    fallleft = true;
+                   
+                    break;
+                case 2:
+                    fallright = true;
                     break;
             }
         }
