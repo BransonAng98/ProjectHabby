@@ -51,7 +51,7 @@ public class ClockSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startTime)
+        if (startTime && playerHandler.enableInput == true)
         {
             if (timerValue > 0)
             {

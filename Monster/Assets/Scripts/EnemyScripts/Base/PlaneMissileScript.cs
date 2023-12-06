@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlaneMissileScript : MonoBehaviour
 {
     public float missilespeed = 20f;     // Speed at which the missile moves
-    public int damageAmount = 10;    // Amount of damage the missile does to the player
-    public EnemyScriptableObject enemyData;
+    public int damageAmount;    // Amount of damage the missile does to the player
+    
     public float destroyTime; // Set the default destroy time in seconds
     private float currentTime = 0f;
     public GameObject explosionVFX;
+    public Transform explosionPos;
     //public Transform jetPos;
+
     private Transform missileObj;
     public AudioSource planemissileAudioSource;
     public AudioClip[] planemissileSFX;
@@ -20,14 +22,14 @@ public class PlaneMissileScript : MonoBehaviour
     private void Start()
     {
         missileObj = GetComponent<Transform>();
-        // Set initial velocity to move the missile forward;
+       
         CheckAndFire();
     }
 
     private void Update()
     {
         currentTime += Time.deltaTime;
-        // Check if the current time exceeds the specified destroy time
+        
         if (currentTime >= destroyTime)
         {
             SpawnExplosion();
@@ -53,34 +55,17 @@ public class PlaneMissileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the bomb collided with the player
+     
         if (collision.CompareTag("Player"))
         {
             PlaySFX(); //Sound can't play cuz missile is destroyed too fast, find a faster sound or invoke missile
             SpawnExplosion();
-            collision.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            collision.GetComponent<PlayerHealthScript>().TakeDamage(damageAmount);
 
             Destroy(gameObject);
         }
-        //else if (collision.CompareTag("BigBuilding"))
-        //{
-        //    // Check if the collider has a BigBuildingEnemy component
-        //    BigBuildingEnemy bigBuilding = collision.GetComponent<BigBuildingEnemy>();
 
-        //    if (bigBuilding != null)
-        //    {
-        //        SpawnExplosion();
-        //        bigBuilding.TakeDamage(enemyData.attackDamage);
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning("BigBuildingEnemy component not found on the collided object.");
-        //    }
-
-        //    Destroy(gameObject);
-        //}
     }
-
 
 
     void BlowUp()
@@ -99,14 +84,14 @@ public class PlaneMissileScript : MonoBehaviour
 
     void SpawnExplosion()
     {
-        GameObject bomb = Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        Instantiate(explosionVFX, explosionPos.position, Quaternion.identity);
     }
 
     void PlaySFX()
     {       
         AudioClip deathsoundtoPlay = planemissileSFX[Random.Range(0, planemissileSFX.Length)];
         planemissileAudioSource.PlayOneShot(deathsoundtoPlay);
-        Debug.Log("Boom");
+      
     }
 
 }
