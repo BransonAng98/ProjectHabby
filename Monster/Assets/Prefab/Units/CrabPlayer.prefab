@@ -1900,6 +1900,7 @@ MonoBehaviour:
   isAttacking: 0
   degreeAngle: 0
   moveSector: 0
+  prevMoveSector: 0
   attackSector: 0
   listOfEnemies: []
   HitDetection: {fileID: 863734637}
@@ -1913,6 +1914,9 @@ MonoBehaviour:
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
+  maxFrictionValue: 15
+  delayTime: 1
+  lerpTime: 5
   animationSpeed: 1.5
   attackAnimationSpeed: 1.4
   isUltimate: 0
@@ -2028,9 +2032,6 @@ MonoBehaviour:
   currentDuration: 0
   isTriggered: 0
   joystick: {fileID: 0}
-  friction: 15
-  ogVelocity: {x: 0, y: 0}
-  rb: {fileID: 0}
 --- !u!114 &61134910
 MonoBehaviour:
   m_ObjectHideFlags: 0
