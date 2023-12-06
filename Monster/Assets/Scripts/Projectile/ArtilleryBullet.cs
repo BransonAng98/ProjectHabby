@@ -61,26 +61,26 @@ public class ArtilleryBullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayExplodeSFX();
-        if (collision.gameObject != null && collision.gameObject.CompareTag("Player"))
-        {
-            if (gameObject != null)
-            {
-                GameObject bomb = Instantiate(explosionVFX, collision.transform.position, Quaternion.identity);
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    PlayExplodeSFX();
+    //    if (collision.gameObject != null && collision.gameObject.CompareTag("Player"))
+    //    {
+    //        if (gameObject != null)
+    //        {
+    //            GameObject bomb = Instantiate(explosionVFX, collision.transform.position, Quaternion.identity);
 
-                PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(enemyData.attackDamage);
-                    //Destroy(gameObject);
-                }
+    //            PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
+    //            if (playerHealth != null)
+    //            {
+    //                playerHealth.TakeDamage(enemyData.attackDamage);
+    //                //Destroy(gameObject);
+    //            }
 
                 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     public void PlayExplodeSFX()
     {

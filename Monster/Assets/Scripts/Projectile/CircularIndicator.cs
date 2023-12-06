@@ -54,7 +54,7 @@ public class CircularIndicator : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        Destroy(gameObject,5f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

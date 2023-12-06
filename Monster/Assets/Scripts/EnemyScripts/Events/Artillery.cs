@@ -121,7 +121,19 @@ public class Artillery : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
                 yield return null;
+                if (Vector3.Distance(transform.position, targetPosition) < 1f)
+                {
+                    ArtiDamageColliderScript artillerycollider = artilleryBullet.GetComponentInChildren<ArtiDamageColliderScript>();
+                    Debug.Log("OpenCollider");
+                    artillerycollider.turnonCollider();
+
+                    // Do something when the artillery bullet is 0.1f away from its position
+                    // For example, play a sound effect or trigger a visual effect
+                    Debug.Log("Artillery bullet is very close to the target position!");
+                }
             }
+
+
 
             if (artilleryBullet != null)
             {
@@ -133,7 +145,7 @@ public class Artillery : MonoBehaviour
                 }
 
                 // Destroy the artillery prefab instance
-                Destroy(artilleryBullet);
+               Destroy(artilleryBullet);
                 Vector2 spawnPos = new Vector2(targetPosition.x, targetPosition.y + 1.5f);
 
                 // Create and play the explosion VFX
