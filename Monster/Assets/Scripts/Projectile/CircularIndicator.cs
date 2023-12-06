@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class CircularIndicator : MonoBehaviour
 {
+    public EnemyScriptableObject enemyData;
     public float flashDuration = 0.5f; // Time in seconds for each flash
     public Vector3 maxScale = new Vector3(2.0f, 2.0f, 2.0f);
     public Vector3 minScale = new Vector3(1.0f, 1.0f, 1.0f);
     public Color startColor = Color.white; // Initial color of the object
     public Color endColor = new Color(1.0f, 1.0f, 1.0f, 0.0f); // Color with alpha set to 0 for fully transparent
+    public ArtilleryBullet artibulletscript;
 
     private bool scalingUp = true;
     public bool isInRange;
 
     private void Start()
     {
+        artibulletscript = GetComponent<ArtilleryBullet>();
         StartCoroutine(FlashScale());
-        StartCoroutine(DestroyAfterDelay(10f)); // Destroy the object after 5 seconds
+        StartCoroutine(DestroyAfterDelay(10f));
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            // Freeze the position constraints
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
     }
 
     private IEnumerator FlashScale()
@@ -57,18 +66,22 @@ public class CircularIndicator : MonoBehaviour
         Destroy(gameObject,5f);
     }
 
+    public void DamagePlayer()
+    {
+        PlayerHealthScript playerHealth = GetComponent<PlayerHealthScript>();
+        if (playerHealth != null)
+            if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(enemyData.attackDamage);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            isInRange = true;
+            //DamagePlayer();
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isInRange = false;
-        }
-    }
+
 }

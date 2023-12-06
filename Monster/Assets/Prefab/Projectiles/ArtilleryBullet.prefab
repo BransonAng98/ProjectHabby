@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2939362524460145714}
   - component: {fileID: -5579850666329510723}
   - component: {fileID: 6672776000641274943}
+  - component: {fileID: 4722211722916697971}
   m_Layer: 0
   m_Name: ArtilleryBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,11 +103,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 08d669bf5a66e6f45b35b79c6cb0c199, type: 2}
   explosionVFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  circlePos: {fileID: 0}
+  bulletSpeed: 0
   artiAudioSource: {fileID: 6672776000641274943}
   artiSFX:
   - {fileID: 8300000, guid: 43bd45c1377e9344c834571bfff20ea7, type: 3}
   - {fileID: 8300000, guid: 8fd3ef887a9be7b4296badb1b29283d6, type: 3}
   - {fileID: 8300000, guid: 2c8eaaaabe5d3bd4cb7b64d815edbcfe, type: 3}
+  damageradius: 0
 --- !u!70 &2939362524460145714
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -327,3 +331,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &4722211722916697971
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536600276555916971}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

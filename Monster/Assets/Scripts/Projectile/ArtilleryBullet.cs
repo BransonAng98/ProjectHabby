@@ -6,45 +6,49 @@ public class ArtilleryBullet : MonoBehaviour
 {
     public EnemyScriptableObject enemyData;
     public GameObject explosionVFX;
-    private CircularIndicator storedData;
     private Collider2D entityCollider;
-
+    public Transform circlePos;
+    [SerializeField]private float bulletSpeed;
     public AudioSource artiAudioSource;
     public AudioClip[] artiSFX;
-
+    public float damageradius;
+    public bool reachedDestination;
     private void Start()
     {
         entityCollider = GetComponent<Collider2D>();
+        circlePos = GameObject.FindGameObjectWithTag("IndicatorCircle").GetComponent<Transform>();
+        float randomOffsetX = Random.Range(-3f, 3f); // Adjust the range as needed
+        float randomOffsetY = Random.Range(-3f, 3f); // Adjust the range as needed
+
+        circlePos.position += new Vector3(randomOffsetX, randomOffsetY, 0f);
+        bulletSpeed = 10f;
+        damageradius = 5;
+        entityCollider.enabled = false;
         
     }
     
 
     private void Update()
     {
-        CheckTrigger();
-       
-    }
+        Vector3 moveDirection = (circlePos.position - transform.position).normalized;
+        transform.position += moveDirection * bulletSpeed * Time.deltaTime;
+        float distanceToCirclePos = Vector3.Distance(transform.position, circlePos.position);
+        float enableColliderDistance = 0.3f;
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x);
+        float rotationAngle = Mathf.Rad2Deg * angle - 90f;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
 
-    void CheckTrigger()
-    {
-        if (storedData.isInRange == true)
+        if (distanceToCirclePos <= enableColliderDistance)
         {
             entityCollider.enabled = true;
         }
 
-        else
+        if (circlePos == null)
         {
-            entityCollider.enabled = false;
+            Destroy(gameObject);
         }
     }
 
-    public void GetData(GameObject data)
-    {
-        if (data)
-        {
-            storedData = data.GetComponent<CircularIndicator>();
-        }
-    }
 
     public void BlowUp()
     {
@@ -64,23 +68,24 @@ public class ArtilleryBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayExplodeSFX();
-        if (collision.gameObject != null && collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("IndicatorCircle"))
         {
-            if (gameObject != null)
-            {
-                GameObject bomb = Instantiate(explosionVFX, collision.transform.position, Quaternion.identity);
+            Debug.Log("ReachedDestination");
+            reachedDestination = true;
+            Instantiate(explosionVFX, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+          
+        }
 
-                PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(enemyData.attackDamage);
-                    //Destroy(gameObject);
-                }
-
-                
-            }
+        if(collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            Debug.Log("ArtilleryDamage");
+           
         }
     }
+
+
 
     public void PlayExplodeSFX()
     {
