@@ -64,7 +64,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
     public bool isDashing;
-    
+    public float counterForce;
 
     public float animationSpeed;
     public float attackAnimationSpeed;
@@ -159,7 +159,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if(selectedEnemy == null)
         {
             attackSector = 0;
-            enableInput = true;
         }
     }
 
@@ -272,7 +271,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             collider.enabled = true;
         }
     }
-
+    
     private void PlayerMove()
     {
         float moveX = joystick.Horizontal;
@@ -511,6 +510,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
         }
 
+        else
+        {
+            if (currentState.Equals(PlayerStates.attack))
+            {
+                SetCharacterState(PlayerStates.idle);
+            }
+        }
+
         //else
         //{
         //    if (!isDashing)
@@ -586,58 +593,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
         
     }
-   
-    //public void TriggerAOE()
-    //{
-    //    attackCount = 0;
-    //    Vector2 ultiPos = new Vector2(transform.position.x, transform.position.y + 2f);
-    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(ultiPos, 10f);
-    //    foreach (Collider2D collider in hitColliders)
-    //    {
-    //        if (collider.CompareTag("BigBuilding"))
-    //        {
-    //            BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
-    //            if (bigBuilding != null)
-    //            {
-    //                bigBuilding.TakeDamage(aoeDmg);
-    //            }
-    //            else { return; }
-    //        }
-
-    //        else if (collider.CompareTag("Civilian"))
-    //        {
-    //            Civilian civilian = collider.GetComponent<Civilian>();
-    //            if (civilian != null)
-    //            {
-    //                civilian.enemyState = Civilian.EnemyState.death;
-    //            }
-    //            else { return; }
-    //        }
-
-
-    //        else if (collider.CompareTag("Tree"))
-    //        {
-    //            Trees tree = collider.GetComponent<Trees>();
-    //            if (tree != null)
-    //            {
-    //                tree.Death();
-    //            }
-    //            else { return; }
-    //        }
-
-    //        else if (collider.CompareTag("Car"))
-    //        {
-    //            CarAI car = collider.GetComponent<CarAI>();
-    //            if (car != null)
-    //            {
-    //                car.Death();
-    //            }
-    //            else { return; }
-    //        }
-    //    }
-    //}
-
-    
 
     //In the animation, this will deal damage to the select unit
     public void TriggerDamage()
@@ -688,13 +643,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             case 1:
                 if (utlimates[1] != null)
                 {
-                    SetAnimation(0, raging, false, 1f);
+                    SetAnimation(0, raging, false, 1.5f);
                     enableInput = false;
-                    
+                    isDashing = true;
                     canMove = false;
                     canAttack = false;
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
-                    Invoke("TriggerUltimate2", 2.2f);
+                    Invoke("TriggerUltimate2", 1.4f);
                 }
                 break;
         }
@@ -710,11 +665,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
-        enableInput = true;
-        vfxManager.isDashing = true;
         canMove = true;
         canAttack = false;
-        isDashing = true;
+        canEarnUlt = false;
+        enableInput = true;
+        vfxManager.isDashing = true;
         utlimates[1].UseUtilityUltimate();
         vfxManager.dashBodyVFX.SetActive(true);
     }
@@ -773,10 +728,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    public void EnableMovement()
-    {
-        enableInput = true;
-    }
+    //public void EnableMovement()
+    //{
+    //    enableInput = true;
+    //}
 
     public void RevertState()
     {
@@ -801,6 +756,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (isLanding)
         {
             isLanding = false;
+            if (!joystick.gameObject.activeSelf)
+            {
+                joystick.gameObject.SetActive(true);
+            }
         }
 
         if (isExhausting)
@@ -821,7 +780,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             isAttacking = false;
         }
 
-        if (isUltimate || isRaging)
+        if (isUltimate)
         {
             isUltimate = false;
             if (!enableInput)
@@ -910,83 +869,76 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void SetCharacterState(PlayerStates state)
     {
-        if (state.Equals(PlayerStates.idle))
+        switch (state)
         {
-            if (!extendedIdle)
-            {
-                SetAnimation(0, idling, true, 1f);
-            }
-            else
-            {
-                SetAnimation(0, idling2, true, 1f);
-            }
-        }
+            case PlayerStates.idle:
+                if (!extendedIdle)
+                {
+                    SetAnimation(0, idling, true, 1f);
+                }
+                else
+                {
+                    SetAnimation(0, idling2, true, 1f);
+                }
+                break;
 
-        if (state.Equals(PlayerStates.move))
-        {
-            //Moving Upwards, degreeAngle > 45 && degreeAngle < 135
-            if (moveSector == 1)
-            {
-                attackHitRange = attackRangeHolder;
-                SetAnimation(0, moving, true, animationSpeed);
-            }
+            case PlayerStates.attack:
+                TriggerAttackDirAnimation();
+                break;
 
-            //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
-            if (moveSector == 4)
-            {
-                attackHitRange = attackRangeHolder + 1f;
-                SetAnimation(0, moving3, true, animationSpeed);
-            }
+            case PlayerStates.move:
+                if (moveSector == 1)
+                {
+                    attackHitRange = attackRangeHolder;
+                    SetAnimation(0, moving, true, animationSpeed);
+                }
 
-            //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
-            if (moveSector == 3)
-            {
-                attackHitRange = attackRangeHolder;
-                SetAnimation(0, moving2, true, animationSpeed);
-            }
+                //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
+                if (moveSector == 4)
+                {
+                    attackHitRange = attackRangeHolder + 1f;
+                    SetAnimation(0, moving3, true, animationSpeed);
+                }
 
-            //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
-            if (moveSector == 2)
-            {
-                attackHitRange = attackRangeHolder + 1f;
-                SetAnimation(0, moving4, true, animationSpeed);
-            }
-        }
+                //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
+                if (moveSector == 3)
+                {
+                    attackHitRange = attackRangeHolder;
+                    SetAnimation(0, moving2, true, animationSpeed);
+                }
 
-        if (state.Equals(PlayerStates.attack))
-        {
-            TriggerAttackDirAnimation();
-        }
+                //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
+                if (moveSector == 2)
+                {
+                    attackHitRange = attackRangeHolder + 1f;
+                    SetAnimation(0, moving4, true, animationSpeed);
+                }
+                break;
 
-        if (state.Equals(PlayerStates.ultimate))
-        {
-            //Trigger the different ultimates here
-            UseUltimate(selectedUltimateHolder);
-        }
-
-        if (state.Equals(PlayerStates.victory))
-        {
-            SetAnimation(1, victorying, true, 1f);
-        }
-
-        if (state.Equals(PlayerStates.defeat))
-        {
-            SetAnimation(1, defeating, false, 1f);
-        }
-
-        if (state.Equals(PlayerStates.rage))
-        {
-            SetAnimation(0, raging, false, 1f);
-        }
-
-        if (state.Equals(PlayerStates.land))
-        {
-            SetAnimation(0, landing, false, 1f);
-        }
-
-        if (state.Equals(PlayerStates.exhaust))
-        {
-            SetAnimation(0, exhausting, false, 1f);
+            case PlayerStates.victory:
+                SetAnimation(1, victorying, true, 1f);
+                break;
+                
+            case PlayerStates.defeat:
+                SetAnimation(1, defeating, false, 1f);
+                break;
+                
+            case PlayerStates.ultimate:
+                //Trigger the different ultimates here
+                UseUltimate(selectedUltimateHolder);
+                break;
+                
+            case PlayerStates.land:
+                SetAnimation(0, landing, false, 1f);
+                break;
+                
+            case PlayerStates.rage:
+                SetAnimation(0, raging, false, 1f);
+                break;
+                
+            case PlayerStates.exhaust:
+                SetAnimation(0, exhausting, false, 1f);
+                break;
         }
 
         currentState = state;
