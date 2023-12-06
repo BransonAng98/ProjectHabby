@@ -12,7 +12,7 @@ public class MeteorScript : MonoBehaviour
     [SerializeField] bool isTriggered;
     public bool isMoving;
     public bool isActive;
-    private Animator animator;
+    private bool isPlayed;
     public GameManagerScript gameManager;
     public GameObject crater;
     private CameraShake cameraShake;
@@ -28,14 +28,17 @@ public class MeteorScript : MonoBehaviour
     public void Start()
     {
         isMoving = true;
-        
+
+        if (!isPlayed)
+        {
+            MeteorMovingSFX();
+            isPlayed = true;
+        }
+
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         cameraShake = FindObjectOfType<CameraShake>();
 
-
-        animator = GetComponent<Animator>();
-        animator.SetBool("isMoving", true);
        
         Vector2 landingPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 5f);
         targetPosition = landingPos;
@@ -60,11 +63,16 @@ public class MeteorScript : MonoBehaviour
             // Check if the object has reached the target position
             if (Vector2.Distance(transform.position, targetPosition) <= 0f)
             {
+                SetShakeValues();
                 isMoving = false;
                 transform.rotation = Quaternion.Euler(Vector3.zero);
                 if (!isTriggered)
                 {
                     ImpactDamage();
+                    SpawnPlayer();
+                    ActivatePlayer();
+                    Invoke("DelayStopShake", 2f);
+                    Invoke("DestroyMeteor", 4f);
                 }
             }
         }
@@ -74,7 +82,6 @@ public class MeteorScript : MonoBehaviour
     {
         isTriggered = true;
         PlayExplosion();
-        SetShakeValues();
         cameraShake.ShakeCamera();
         MeteorCrashingSFX();
         SpawnCrater();
@@ -91,8 +98,6 @@ public class MeteorScript : MonoBehaviour
            
         }
 
-
-        ResetShakeValues();
     }
 
     private IEnumerator DestroyAfterDelay(GameObject objToDestroy, float delay)
@@ -159,16 +164,14 @@ public class MeteorScript : MonoBehaviour
         cameraShake.shakeStrength = 5f;
         cameraShake.shakeFrequency = 4f;
     }
-    void ResetShakeValues()
+    void DelayStopShake()
     {
-        cameraShake.shakeStrength = 1.3f;
-        cameraShake.shakeFrequency = 3f;
+        cameraShake.StopShaking();
     }
 
     public void PlayExplosion()
     {
         Instantiate(impactVFX, playerHandler.transform.position, Quaternion.identity);
-        animator.SetBool("isMoving", false);
     }
 
     public void DestroyMeteor()
@@ -180,6 +183,7 @@ public class MeteorScript : MonoBehaviour
     {
         Vector2 craterPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 1.8f); 
         Instantiate(crater, craterPos, Quaternion.identity);
+
     }
 
     public void SpawnPlayer()
