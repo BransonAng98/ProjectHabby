@@ -16,15 +16,29 @@ public class HitCircle : MonoBehaviour
     [SerializeField] private float angleDifference;
 
     public GameObject rageDirVFX;
+    public SpriteRenderer currentArrowSprite;
+    public Sprite defaultArrowSprite;
+    public Sprite dashArrowSprite;
+
     private PlayerHandler playerHandler;
+
+
     private void Start()
     {
-
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+       
+        currentArrowSprite.sprite = defaultArrowSprite;
+        currentArrowSprite.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
 
     private void Update()
+    {
+        PositionAndOrientateArrow();
+    }
+
+
+    void PositionAndOrientateArrow()
     {
         float horizontalInput = joystick.Horizontal;
         float verticalInput = joystick.Vertical;
@@ -35,7 +49,7 @@ public class HitCircle : MonoBehaviour
         // Calculate the angle between the sprite and the player character.
         float angleToPlayer = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x) * Mathf.Rad2Deg;
 
-        if(playerRb.velocity != Vector2.zero)
+        if (playerRb.velocity != Vector2.zero)
         {
             // Calculate the difference between the input angle and angle to the player.
             angleDifference = inputAngle - angleToPlayer;
@@ -62,6 +76,8 @@ public class HitCircle : MonoBehaviour
 
         if (playerHandler.isDashing)
         {
+            currentArrowSprite.sprite = dashArrowSprite;
+            currentArrowSprite.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
             rageDirVFX.SetActive(true);
             rageDirVFX.transform.rotation = Quaternion.Euler(lookAngle, -90, 0);
 
@@ -73,9 +89,11 @@ public class HitCircle : MonoBehaviour
         }
         else
         {
+            currentArrowSprite.sprite = defaultArrowSprite;
+            currentArrowSprite.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             rageDirVFX.SetActive(false);
         }
-       
+
     }
 
 }

@@ -178,7 +178,6 @@ public class CarAI : MonoBehaviour
 
         if (!hasDied)
         {
-            eventManager.AddScore();
             hasDied = true;
         }
         audiomanager.PlayCarSFX();

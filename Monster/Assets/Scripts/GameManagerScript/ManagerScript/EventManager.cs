@@ -6,22 +6,21 @@ using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    [SerializeField] private int totalScore;
-    public int triggerThreshold;
-    public int currentScore;
     public int numberOfEvents;
     public int eventNumber;
 
     public TextMeshProUGUI bannerText;
     public LevelManager levelManagerScript;
     public PlayerHandler playerHandler;
-
+    public GameManagerScript gameManager;
     public AirStrike airStrikeScript;
     public Artillery artilleryScript;
     public MissileManager missileScript;
-    [SerializeField] private bool gameStarted;
 
     public AudioManagerScript audiomanager;
+    public ClockSystem clock;
+
+    public float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +31,9 @@ public class EventManager : MonoBehaviour
         missileScript = GameObject.Find("MissileManager").GetComponent<MissileManager>();
         levelManagerScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
-        Invoke("GetScore", 1.1f);
-        triggerThreshold = 80;
+        timer = 0f;
     }
 
 
@@ -45,25 +44,28 @@ public class EventManager : MonoBehaviour
 
     public void GenerateEvents()
     {
-        if (gameStarted && playerHandler.isEnd != true)
+        if (gameManager.hasActivated == true)
         {
-            if (currentScore >= triggerThreshold)
+            timer += Time.deltaTime;
+            
+            if (timer >= clock.eventInterval)
             {
                 eventNumber = Random.Range(1, 1);
 
                 switch (eventNumber)
                 {
                     case 0:
+                        Debug.Log("boom");
                         airStrikeScript.ActivateAirStrike();
                         Invoke("PlaySFX", 2f);
                         bannerText.text = "Incoming AirStrike!";
-                        currentScore = 0;
+                        timer = 0f;
                         break;
                     case 1:
                         artilleryScript.ActivateArtillery();
                         Invoke("PlaySFX", 6f);
                         bannerText.text = "Incoming Barrage!";
-                        currentScore = 0;
+                        timer = 0f;
                         break;
                     /*case 2:
                         missileScript.StartEvent();
@@ -73,7 +75,9 @@ public class EventManager : MonoBehaviour
                     default:
                         break;
                 }
+
             }
+
         }
 
     }
@@ -83,14 +87,4 @@ public class EventManager : MonoBehaviour
         audiomanager.PlayIncomingAbility();
     }
 
-    void GetScore()
-    {
-        totalScore = levelManagerScript.calculation1;
-        gameStarted = true;
-    }
-
-    public void AddScore()
-    {
-        currentScore += 1;
-    }
 }

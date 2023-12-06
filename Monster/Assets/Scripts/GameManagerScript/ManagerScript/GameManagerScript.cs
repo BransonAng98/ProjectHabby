@@ -23,6 +23,7 @@ public class GameManagerScript : MonoBehaviour
     public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
+    public bool hasActivated;
 
     //Meteor
     public GameObject playerStatusBars;
@@ -112,7 +113,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
-        Invoke("ActivateInput", 2.8f);
+        Invoke("ActivateInput", 3.4f);
         //foreach (Collider2D collider in playerLegs)
         //{
         //    collider.gameObject.SetActive(true);
@@ -125,6 +126,7 @@ public class GameManagerScript : MonoBehaviour
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
         clock.startTime = true;
+        hasActivated = true;
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();
         joystick.SetActive(true);
@@ -133,6 +135,7 @@ public class GameManagerScript : MonoBehaviour
     public void SpawnPlayer()
     {
         player.GetComponent<MeshRenderer>().enabled = true;
+        inputHandler.DisableMovement(5);
         playerStatusBars.SetActive(true);
         hitIndicator.SetActive(true);
     }

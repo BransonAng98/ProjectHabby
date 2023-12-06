@@ -13,28 +13,30 @@ public class ClockSystem : MonoBehaviour
     public Image vignette;
     private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
-
+    [SerializeField] private EventManager eventManager;
     private float timerValue;
     private float addOnTime;
     
     public bool startTime;
-    private bool minuteMessageDisplayed = false;
     private bool thirtySecondsMessageDisplayed = false;
     private bool timeUpMessageDisplayed = false;
     private bool isfinalSecondsLeft = false;
 
-
-    private float normalFontSize = 54f;
     private Color normalColor = Color.white;
     private float enlargedFontSize = 60f;
     private Color enlargedColor = Color.red;
 
     public float flashSpeed = 2f;
     public float timeSpeed;
+
+    public float eventInterval;
+
     // Start is called before the first frame update
     void Start()
     {
         CalculateLevelTime();
+        CalculateEventInterval();
+
         timerText = GetComponent<TextMeshProUGUI>();
         countDownBG.gameObject.SetActive(false);
 
@@ -42,13 +44,14 @@ public class ClockSystem : MonoBehaviour
         startTime = false;
         vignette.enabled = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
-        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();;
+        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (startTime)
+        if (startTime && playerHandler.enableInput == true)
         {
             if (timerValue > 0)
             {
@@ -185,12 +188,11 @@ public class ClockSystem : MonoBehaviour
             
         }
     }
-
-    //void DelayChange()
-    //{
-    //    timerText.fontSize = normalFontSize;
-    //    timerText.color = normalColor;
-    //}
+    void CalculateEventInterval()
+    {
+        // Calculate the event interval based on the level duration and number of events
+        eventInterval = timerValue / eventManager.numberOfEvents;
+    }
 
     void TurnOffText()
     {

@@ -340,7 +340,6 @@ public class FallingCivilian : MonoBehaviour
 
         if (!hasDied)
         {
-            eventManager.AddScore();
             hasDied = true;
         }
 

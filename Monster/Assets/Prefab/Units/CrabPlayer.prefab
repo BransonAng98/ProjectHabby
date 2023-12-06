@@ -1877,6 +1877,7 @@ MonoBehaviour:
   raging: {fileID: 11400000, guid: 3b5484955b5a98b4198318fcf1ad9d21, type: 2}
   landing: {fileID: 11400000, guid: 9be72093b4d5bae4280ee4fbe3fe7d6b, type: 2}
   exhausting: {fileID: 11400000, guid: 741c08de812f7fd4dbf47a17c683401b, type: 2}
+  damaging: {fileID: 11400000, guid: 224bcc8850392964296a2ef62104384d, type: 2}
   currentState: 0
   prevState: 0
   currentAnimation: 
@@ -1899,7 +1900,9 @@ MonoBehaviour:
   attackHitRange: 0
   isAttacking: 0
   degreeAngle: 0
+  attackAngle: 0
   moveSector: 0
+  prevMoveSector: 0
   attackSector: 0
   listOfEnemies: []
   HitDetection: {fileID: 863734637}
@@ -1913,6 +1916,8 @@ MonoBehaviour:
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
+  maxFrictionValue: 15
+  lerpTime: 5
   animationSpeed: 1.5
   attackAnimationSpeed: 1.4
   isUltimate: 0
@@ -1923,6 +1928,7 @@ MonoBehaviour:
   isTriggered: 0
   isLanding: 0
   isExhausting: 0
+  isDamaging: 0
   isEnd: 0
   impactTimer: 0.4
   currentImpactTimer: 0
@@ -2028,9 +2034,6 @@ MonoBehaviour:
   currentDuration: 0
   isTriggered: 0
   joystick: {fileID: 0}
-  friction: 15
-  ogVelocity: {x: 0, y: 0}
-  rb: {fileID: 0}
 --- !u!114 &61134910
 MonoBehaviour:
   m_ObjectHideFlags: 0
