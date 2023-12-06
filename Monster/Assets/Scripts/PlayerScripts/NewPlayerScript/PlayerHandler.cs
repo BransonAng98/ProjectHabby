@@ -15,11 +15,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         defeat,
         rage,
         ultimate,
+        land,
+        exhaust,
     }
 
     //Variable for State
     public SkeletonAnimation skeletonAnim;
-    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging;
+    public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging, landing, exhausting;
     [SerializeField] private PlayerStates currentState;
     [SerializeField] private PlayerStates prevState;
     public string currentAnimation;
@@ -73,6 +75,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isIdle;
     [SerializeField] private bool isTriggered;
+    [SerializeField] private bool isLanding;
+    [SerializeField] private bool isExhausting;
 
     public bool isEnd;
 
@@ -99,7 +103,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     // Start is called before the first frame update
     void Start()
     {
-        currentState = PlayerStates.idle;
+        currentState = PlayerStates.land;
         SetCharacterState(currentState);
         skeletonAnim = GetComponent<SkeletonAnimation>();
         skeletonAnim.AnimationState.Event += OnSpineEvent;
@@ -507,18 +511,18 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
         }
 
-        else
-        {
-            if (!isDashing)
-            {
-                SetCharacterState(PlayerStates.idle);
-            }
+        //else
+        //{
+        //    if (!isDashing)
+        //    {
+        //        SetCharacterState(PlayerStates.idle);
+        //    }
 
-            else
-            {
-                SetCharacterState(prevState);
-            }
-        }
+        //    else
+        //    {
+        //        SetCharacterState(prevState);
+        //    }
+        //}
     }
 
     //All entities MUST call this script to disable the player from attacking if it detects them with the collider instead of the raycast
@@ -754,6 +758,18 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 vfxManager.SpawnDeathVFX();
                 Debug.Log("Player lost");
                 break;
+            case 4:
+                SetCharacterState(PlayerStates.exhaust);
+                if (!currentState.Equals(PlayerStates.exhaust))
+                {
+                    prevState = currentState;
+                }
+                SetCharacterState(PlayerStates.exhaust);
+                if (!isExhausting)
+                {
+                    isExhausting = true;
+                }
+                break;
         }
     }
 
@@ -782,6 +798,23 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     //Triggers after the animation has played
     private void AnimationEntry_Complete(Spine.TrackEntry trackEntry)
     {
+        if (isLanding)
+        {
+            isLanding = false;
+        }
+
+        if (isExhausting)
+        {
+            isExhausting = false;
+            if (!joystick.gameObject.activeSelf)
+            {
+                joystick.gameObject.SetActive(true);
+                canAttack = true;
+            }
+
+            else { return; }
+        }
+
         if (isAttacking)
         {
             attackSector = 0;
@@ -944,6 +977,16 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (state.Equals(PlayerStates.rage))
         {
             SetAnimation(0, raging, false, 1f);
+        }
+
+        if (state.Equals(PlayerStates.land))
+        {
+            SetAnimation(0, landing, false, 1f);
+        }
+
+        if (state.Equals(PlayerStates.exhaust))
+        {
+            SetAnimation(0, exhausting, false, 1f);
         }
 
         currentState = state;

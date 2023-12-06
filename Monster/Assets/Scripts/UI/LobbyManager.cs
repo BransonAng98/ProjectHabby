@@ -26,7 +26,6 @@ public class LobbyManager : MonoBehaviour
     void UpdateLevelName()
     {
         levelName.text = "Europe: France " + levelData.cityLevel;
-        gnaText.text = "" + resourceData.currentGNA;
     }
 
     public void LoadLevel()

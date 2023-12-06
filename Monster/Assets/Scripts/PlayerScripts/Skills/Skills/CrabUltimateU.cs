@@ -17,6 +17,8 @@ public class CrabUltimateU : UltimateBase
     public float currentDuration;
     [SerializeField] bool isTriggered;
     private PlayerVFXManager vfxManager;
+    [SerializeField] GameObject joystick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class CrabUltimateU : UltimateBase
         dashTimer.gameObject.SetActive(false);
         healthScript = GetComponent<PlayerHealthScript>();
         vfxManager = GetComponent<PlayerVFXManager>();
+        joystick = GameObject.Find("Floating Joystick");
     }
 
     // Update is called once per frame
@@ -61,6 +64,8 @@ public class CrabUltimateU : UltimateBase
             else
             {
                 currentDuration = 0f;
+                joystick.SetActive(false);
+                playerHandler.DisableMovement(4);
                 EndOfUltimate();
             }
         }
@@ -89,20 +94,24 @@ public class CrabUltimateU : UltimateBase
 
     void EndOfUltimate()
     {
-        //Revert the player's stats & all changes back to normal state
-        vfxManager.isDashing = false;
-        currentDuration = 0f;
-        playerHandler.isDashing = false;
-        healthScript.healthState = PlayerHealthScript.HealthState.normal;
-        playerHandler.AlterStats(false, 3, 4f);
-        playerHandler.AlterStats(false, 4, 10f);
-        playerHandler.RevertState();
-        isActivated = false;
-        playerHandler.canAttack = true;
-        playerHandler.canEarnUlt = true;
-        dashTimer.gameObject.SetActive(false);
-        vfxManager.dashBodyVFX.SetActive(false);
-        playerHandler.RevertState();
-        isTriggered = false;
+        if (isTriggered)
+        {
+            //Revert the player's stats & all changes back to normal state
+            vfxManager.isDashing = false;
+            currentDuration = 0f;
+            playerHandler.isDashing = false;
+            healthScript.healthState = PlayerHealthScript.HealthState.normal;
+            playerHandler.AlterStats(false, 3, 4f);
+            playerHandler.AlterStats(false, 4, 10f);
+            isActivated = false;
+            playerHandler.canEarnUlt = true;
+            dashTimer.gameObject.SetActive(false);
+            vfxManager.dashBodyVFX.SetActive(false);
+            isTriggered = false;
+        }
+        else
+        {
+            return;
+        }
     }
 }

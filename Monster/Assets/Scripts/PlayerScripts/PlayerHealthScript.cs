@@ -424,15 +424,16 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(true, 2, 0.5f);
+                playerHandler.AlterStats(true, 2, 0.3f);
                 break;
 
             case 2:
                 playerHandler.AlterStats(true, 1, 5f);
+                playerHandler.AlterStats(true, 2, 0.3f);
                 break;
 
             case 3:
-                playerHandler.AlterStats(true, 2, 0.5f);
+                playerHandler.AlterStats(true, 2, 0.3f);
                 break;
         }
     }
@@ -442,15 +443,16 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(false, 2, 0.5f);
+                playerHandler.AlterStats(false, 2, 0.3f);
                 break;
 
             case 2:
                 playerHandler.AlterStats(false, 1, 5f);
+                playerHandler.AlterStats(false, 2, 0.3f);
                 break;
 
             case 3:
-                playerHandler.AlterStats(false, 2, 0.5f);
+                playerHandler.AlterStats(false, 2, 0.3f);
                 break;
         }
     }
