@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerVFXManager : MonoBehaviour
 {
-    public PlayerHandler inputHandler; 
+    public PlayerHandler inputHandler;
     public GameObject impactVFX;
     public GameObject aoeVFX;
     public GameObject ultiRdyVFX;
@@ -13,23 +13,35 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject dashFootVFX;
     public GameObject upgradeVFX;
     public GameObject dashBodyVFX;
-    
+    public GameObject blackSquare;
+
     private GameObject player;
-    
-    public float deathVFXRadius; 
+
+    public float deathVFXRadius;
     public float footTremorRadius;
     public float aoeTremorRadius;
-    public int numberOfVFX = 3; 
-    
+    public int numberOfVFX = 3;
+
+    public float fadeDuration;
+    private float fadeElapsedTime = 0f;
+
+    public SpriteRenderer objectRenderer;
+    private Color targetColor;
+    private Color initialColor;
+
     public GameObject[] legLocations;
 
     [SerializeField] private bool isTriggered;
     public bool isDashing;
+    public bool hasAppeared;
 
     private PlayerHandler playerHandler;
 
     private void Start()
     {
+        objectRenderer = GameObject.Find("BlackSquare").GetComponent<SpriteRenderer>();
+
+        initialColor = objectRenderer.color;
         playerHandler = GetComponent<PlayerHandler>();
         isTriggered = false;
     }
@@ -37,16 +49,16 @@ public class PlayerVFXManager : MonoBehaviour
     public void footImpact(int foot)
     {
         Vector2 correction = new Vector2(legLocations[foot].transform.position.x, legLocations[foot].transform.position.y);
-      
+
         if (!isDashing)
         {
             Instantiate(impactVFX, correction, Quaternion.identity);
         }
-        else 
+        else
         {
             Instantiate(dashFootVFX, correction, Quaternion.identity);
         }
-       
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(correction, footTremorRadius);
         foreach (Collider2D colldier in hitColliders)
         {
@@ -93,7 +105,7 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SpawnUltiVFX()
     {
-        Vector2 ultiPos = new Vector2(this.transform.position.x, this.transform.position.y -2.5f);
+        Vector2 ultiPos = new Vector2(this.transform.position.x, this.transform.position.y - 2.5f);
         GameObject ultiVFX = Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
     }
 
@@ -101,6 +113,52 @@ public class PlayerVFXManager : MonoBehaviour
     {
         Vector2 upgradePos = new Vector2(this.transform.position.x, this.transform.position.y + 2f);
         Instantiate(upgradeVFX, upgradePos, Quaternion.identity);
+    }
+
+
+    public void StartAppearing()
+    {
+        while (fadeElapsedTime < fadeDuration)
+        {
+            fadeElapsedTime += Time.deltaTime;
+            float progress = fadeElapsedTime / fadeDuration;
+            targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
+            objectRenderer.color = Color.Lerp(initialColor, targetColor, progress);
+        }
+
+        if (fadeElapsedTime >= fadeDuration)
+        {
+            objectRenderer.color = targetColor; // Ensure it reaches the target color exactly
+        }
+
+        if(objectRenderer.color == targetColor)
+        {
+            hasAppeared = true;
+            fadeElapsedTime = 0;
+        }
+    }
+        
+
+    public void StartFading()
+    {
+        while (fadeElapsedTime < fadeDuration)
+        {
+            fadeElapsedTime += Time.deltaTime;
+            float progress = fadeElapsedTime / fadeDuration;
+            targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
+            objectRenderer.color = Color.Lerp(initialColor, targetColor, progress);
+        }
+
+        if (fadeElapsedTime >= fadeDuration)
+        {
+            objectRenderer.color = targetColor; // Ensure it reaches the target color exactly
+            
+        }
+        if(objectRenderer.color == targetColor)
+        {
+            hasAppeared = false;
+            fadeElapsedTime = 0;
+        }
     }
 
 }

@@ -132,6 +132,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     // Update is called once per frame
     void Update()
     {
+
         Cheats();
         IdleRoar();
         if (enableInput)
@@ -166,6 +167,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             attackSector = 0;
         }
+
     }
 
     void AssignStats()
@@ -1033,6 +1035,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
                 
             case PlayerStates.rage:
+                
                 SetAnimation(0, raging, false, 1f);
                 playFull = true;
                 break;

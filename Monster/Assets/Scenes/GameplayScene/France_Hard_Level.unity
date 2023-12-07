@@ -181,6 +181,16 @@ MonoBehaviour:
   missileSpawnPos: {fileID: 0}
   warningZone: {fileID: 6559637454192533199, guid: 1acc573ca77de004eba4a9126e9d20ac, type: 3}
   missilePrefab: {fileID: 6361675759393907122, guid: 1cc46c20725cb9e4a8ecb8ba020aad16, type: 3}
+--- !u!1 &45854392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 45854392, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &45854394 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 45854394, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+  m_PrefabInstance: {fileID: 61134887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &61134887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,6 +198,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1452367982}
     m_Modifications:
+    - target: {fileID: 45854394, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 61134896, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: healthFill
       value: 
@@ -204,6 +218,18 @@ PrefabInstance:
       propertyPath: abilitySlider
       value: 
       objectReference: {fileID: 1421018537}
+    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: blackSquare
+      value: 
+      objectReference: {fileID: 45854392}
+    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: fadeDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: objectRenderer
+      value: 
+      objectReference: {fileID: 45854394}
     - target: {fileID: 2346681063001401090, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.8382665
@@ -276,26 +302,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.58482146
       objectReference: {fileID: 0}
-    - target: {fileID: 6437343458785009124, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: dashTimer
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: joystick
       value: 
       objectReference: {fileID: 2090532569}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: lerpTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: delayTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516790000295486545, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
-      propertyPath: maxFrictionValue
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6516790000295486547, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1126,7 +1136,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 9
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.764151, g: 0.20545568, b: 0.20901434, a: 0.70980394}
@@ -1247,7 +1257,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2731,7 +2741,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5660,6 +5670,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2695255128085327544, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695255128303924842, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2695255128408456882, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
