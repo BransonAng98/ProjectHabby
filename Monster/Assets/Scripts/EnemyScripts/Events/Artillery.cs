@@ -22,6 +22,7 @@ public class Artillery : MonoBehaviour
     private GameObject storedData;
     private Animator anim;
 
+
     [SerializeField]
     private List<Vector3> objectPositions = new List<Vector3>();
 
@@ -31,6 +32,7 @@ public class Artillery : MonoBehaviour
         anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
     }
 
+   
 
     public void ActivateArtillery()
     {
@@ -83,6 +85,7 @@ public class Artillery : MonoBehaviour
             StartCoroutine(MoveToPosition(artillery, artillery.transform, randomPosition));
             yield return new WaitForSeconds(0.3f);
         }
+
     }
 
     private Vector3 GetRandomPosition(Vector3 minBoundary, Vector3 maxBoundary, List<Vector3> usedPositions)
@@ -121,7 +124,20 @@ public class Artillery : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
                 yield return null;
+                if (Vector3.Distance(transform.position, targetPosition) < 1f)
+                {
+                    artidamagecolliderScript artillerycollider = artilleryBullet.GetComponentInChildren<artidamagecolliderScript>();
+                    Debug.Log("OpenCollider");
+                    artillerycollider.turnonCollider();
+
+                    // Do something when the artillery bullet is 0.1f away from its position
+                    // For example, play a sound effect or trigger a visual effect
+                    Debug.Log("Artillery bullet is very close to the target position!");
+                    
+                }
             }
+
+
 
             if (artilleryBullet != null)
             {
@@ -153,6 +169,8 @@ public class Artillery : MonoBehaviour
     }
 
 }
+
+
 
 
 

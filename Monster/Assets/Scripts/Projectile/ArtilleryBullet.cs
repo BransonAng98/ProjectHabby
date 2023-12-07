@@ -21,22 +21,10 @@ public class ArtilleryBullet : MonoBehaviour
 
     private void Update()
     {
-        CheckTrigger();
        
     }
 
-    void CheckTrigger()
-    {
-        if (storedData.isInRange == true)
-        {
-            entityCollider.enabled = true;
-        }
 
-        else
-        {
-            entityCollider.enabled = false;
-        }
-    }
 
     public void GetData(GameObject data)
     {
@@ -57,27 +45,6 @@ public class ArtilleryBullet : MonoBehaviour
             if (collateralTrigger != null)
             {
                 collateralTrigger.CollateralDamage(100f);
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayExplodeSFX();
-        if (collision.gameObject != null && collision.gameObject.CompareTag("Player"))
-        {
-            if (gameObject != null)
-            {
-                GameObject bomb = Instantiate(explosionVFX, collision.transform.position, Quaternion.identity);
-
-                PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(enemyData.attackDamage);
-                    //Destroy(gameObject);
-                }
-
-                
             }
         }
     }
