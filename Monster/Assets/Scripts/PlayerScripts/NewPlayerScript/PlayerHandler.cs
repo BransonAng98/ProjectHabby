@@ -40,7 +40,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerVFXManager vfxManager;
     [SerializeField] private CameraShake cameraShake;
-    private Vector2 movementInput;
+    Vector2 movementInput;
     private Vector2 lastKnownVector;
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
@@ -267,6 +267,24 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             canMove = true;
             selectedEnemy = null;
+        }
+    }
+
+    //To allow other scripts to reset the player's state to idle or moving based on the input
+    public void IdleOrMove()
+    {
+        enableInput = true;
+
+        //If there is movement input
+        if(movementInput != Vector2.zero)
+        {
+            SetCharacterState(PlayerStates.move);
+        }
+
+        else
+        {
+            movementInput = Vector2.zero;
+            SetCharacterState(PlayerStates.idle);
         }
     }
 

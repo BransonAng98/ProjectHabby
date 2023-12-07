@@ -8,9 +8,8 @@ public class CrabUltimateU : UltimateBase
 {
     PlayerHandler playerHandler;
 
-    public TextMeshProUGUI dashTimer;
-
     [SerializeField] bool isActivated;
+    [SerializeField] bool ultEnd;
     public PlayerHealthScript healthScript;
     public float ultimateDuration;
     public float timeReduction;
@@ -23,8 +22,6 @@ public class CrabUltimateU : UltimateBase
     void Start()
     {
         playerHandler = GetComponent<PlayerHandler>();
-        dashTimer = GameObject.Find("DashTimer").GetComponent<TextMeshProUGUI>();
-        dashTimer.gameObject.SetActive(false);
         healthScript = GetComponent<PlayerHealthScript>();
         vfxManager = GetComponent<PlayerVFXManager>();
         joystick = GameObject.Find("Floating Joystick");
@@ -33,26 +30,6 @@ public class CrabUltimateU : UltimateBase
     // Update is called once per frame
     void Update()
     {
-        if(dashTimer != null)
-        {
-            if (dashTimer.gameObject.activeSelf)
-            {
-                //Make the timer follow the player and have it be at the top right corner of the player
-                dashTimer.transform.position = Camera.main.WorldToScreenPoint(playerHandler.transform.position);
-                dashTimer.text = Mathf.CeilToInt(currentDuration).ToString();
-            }
-
-            else
-            {
-                return;
-            }
-        }
-
-        else
-        {
-            return;
-        }
-
         //Trigger ultimate countdown when its activated
         if (isActivated)
         {
@@ -65,6 +42,7 @@ public class CrabUltimateU : UltimateBase
             {
                 currentDuration = 0f;
                 joystick.SetActive(false);
+                ultEnd = true;
                 EndOfUltimate();
             }
         }
@@ -75,11 +53,10 @@ public class CrabUltimateU : UltimateBase
         if (!isTriggered)
         {
             base.UseUtilityUltimate();
-            playerHandler.currentUltimateCharge = 0f;
             //Put all the variables & effects that would happen during the dash
             isTriggered = true;
             currentDuration = ultimateDuration;
-            dashTimer.gameObject.SetActive(true);
+            playerHandler.currentUltimateCharge = 0;
             playerHandler.AlterStats(true, 3, 4f);
             playerHandler.AlterStats(true, 4, 10f);
             isActivated = true;
@@ -93,9 +70,10 @@ public class CrabUltimateU : UltimateBase
 
     void EndOfUltimate()
     {
-        if (isTriggered)
+        if (ultEnd)
         {
             //Revert the player's stats & all changes back to normal state
+            ultEnd = false;
             playerHandler.DisableMovement(4);
             playerHandler.listOfEnemies.Clear();
             vfxManager.isDashing = false;
@@ -106,7 +84,6 @@ public class CrabUltimateU : UltimateBase
             playerHandler.AlterStats(false, 4, 10f);
             isActivated = false;
             playerHandler.canEarnUlt = true;
-            dashTimer.gameObject.SetActive(false);
             vfxManager.dashBodyVFX.SetActive(false);
             isTriggered = false;
             Invoke("EnableMovement", 2f);
@@ -119,7 +96,6 @@ public class CrabUltimateU : UltimateBase
 
     void EnableMovement()
     {
-        playerHandler.enableInput = true;
-        playerHandler.RevertState();
+        playerHandler.IdleOrMove();
     }
 }

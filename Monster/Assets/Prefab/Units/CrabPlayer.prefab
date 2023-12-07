@@ -1900,7 +1900,6 @@ MonoBehaviour:
   attackHitRange: 0
   isAttacking: 0
   degreeAngle: 0
-  attackAngle: 0
   moveSector: 0
   prevMoveSector: 0
   attackSector: 0
@@ -1913,6 +1912,7 @@ MonoBehaviour:
   selectedUltimateHolder: 0
   canEarnUlt: 1
   currentUltimateCharge: 0
+  decreaseAmount: 30
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
@@ -2026,8 +2026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00ad9ec2652669468e5ee7c224ced1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashTimer: {fileID: 0}
   isActivated: 0
+  ultEnd: 0
   healthScript: {fileID: 0}
   ultimateDuration: 10
   timeReduction: 1
