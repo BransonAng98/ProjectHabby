@@ -20,7 +20,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
     public TextMeshProUGUI levelText;
-    public TextMeshProUGUI GNAText;
+    //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
     public bool hasActivated;
@@ -67,7 +67,7 @@ public class GameManagerScript : MonoBehaviour
         inputHandler.enableInput = false;
         Time.timeScale = 0f;
         levelText.text = "" + levelManager.levelData.cityLevel;
-        GNAText.text = "" + GNAManager.gnaData.inGameGNA;
+        //GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
         if (isVictory == false)
         {
