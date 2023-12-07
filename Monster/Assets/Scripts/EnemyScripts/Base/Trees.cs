@@ -92,6 +92,8 @@ public class Trees : MonoBehaviour
 
     public void Death()
     {
+        fallright = false;
+        fallleft = false;
         entityCollider.enabled = false;
         hasDied = true;
         spriteRenderer.sortingOrder = 2;
