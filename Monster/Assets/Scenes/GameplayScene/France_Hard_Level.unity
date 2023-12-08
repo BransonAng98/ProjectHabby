@@ -4692,7 +4692,6 @@ MonoBehaviour:
   player: {fileID: 61134889}
   meteorObject: {fileID: 5820943973999638618, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
   deployScreen: {fileID: 854719959}
-  barAnim: {fileID: 2036437077}
   gameStarted: 0
   obstacleList: []
   audiomanager: {fileID: 0}
@@ -5664,6 +5663,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2695255127125659838, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2695255127844746695, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6352,11 +6355,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcd95cf4f3149c6409aa7e4066c352a9, type: 3}
---- !u!95 &2036437077 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2695255127125659840, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-  m_PrefabInstance: {fileID: 2003536924}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2044451536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2695255127844746694, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}

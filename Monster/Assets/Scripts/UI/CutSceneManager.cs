@@ -36,7 +36,6 @@ public class CutSceneManager : MonoBehaviour
 
     public void CallEndScreen()
     {
-        ;
         gameManager.TriggerEndScreen();
     }
 

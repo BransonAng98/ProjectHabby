@@ -9,12 +9,11 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player; // Prefab of the player
     public GameObject meteorObject;
     public GameObject deployScreen;
-    public Animator barAnim;
     public bool gameStarted = false;
     public List<GameObject> obstacleList = new List<GameObject>();
    
     public AudioManagerScript audiomanager;
-    private GNAManager GNAManager;
+    //private GNAManager GNAManager;
     private LevelManager levelManager;
     public GameObject endScreen;
     public GameObject winScreen;
@@ -35,21 +34,18 @@ public class GameManagerScript : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
-        deployScreen.SetActive(true);
-
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        levelManager = GetComponent<LevelManager>();
+        //GNAManager = GetComponent<GNAManager>();
         player.GetComponent<MeshRenderer>().enabled = false;
-        barAnim.SetBool("RevealGame", false);
+
+        deployScreen.SetActive(true);
+        endScreen.SetActive(false);
+
         //AstarPath.active.Scan(); //scan the grid
         ScanAndInsert();
         DisableObstacles();
-     
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        
-
-        endScreen.SetActive(false);
-        levelManager = GetComponent<LevelManager>();
-        GNAManager = GetComponent<GNAManager>();
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         DeactivatePlayer();
     }
 
@@ -88,16 +84,6 @@ public class GameManagerScript : MonoBehaviour
     public void LoadNextScene()
     {
         SceneManager.LoadScene("LevelSelectScene");
-    }
-
-    public void CloseBar()
-    {
-        barAnim.SetBool("GameRevealed", true);
-    }
-
-    public void OpenBar()
-    {
-        barAnim.SetBool("RevealGame", true);
     }
 
     void DeactivatePlayer()
@@ -156,7 +142,6 @@ public class GameManagerScript : MonoBehaviour
 
         // Set the game as started
         gameStarted = true;
-        OpenBar();
         SpawnMeteor();
 
     }

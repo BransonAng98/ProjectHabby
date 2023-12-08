@@ -115,7 +115,7 @@ public class LevelManager : MonoBehaviour
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
                 isTriggered = true;
-                Invoke("TriggerVictoryScreen", 1.5f);
+                Invoke("TriggerVictoryScreen", 5f);
             }
         }
     }

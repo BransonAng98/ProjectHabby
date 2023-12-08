@@ -23,8 +23,7 @@ public class PlayerVFXManager : MonoBehaviour
     public int numberOfVFX = 3;
 
     public float fadeDuration;
-    private float fadeElapsedTime = 0f;
-
+   
     public SpriteRenderer objectRenderer;
     private Color targetColor;
     private Color initialColor;
