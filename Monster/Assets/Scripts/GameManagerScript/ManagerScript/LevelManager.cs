@@ -111,7 +111,16 @@ public class LevelManager : MonoBehaviour
             {
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(2);
-                levelData.cityLevel += 1;
+                if(levelData.cityLevel == 5)
+                {
+                    levelData.cityLevel = 1;
+                }
+
+                else
+                {
+                    levelData.cityLevel += 1;
+                }
+
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
                 isTriggered = true;
