@@ -99,7 +99,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
-        Invoke("ActivateInput", 3.4f);
+        Invoke("ActivateInput", 4f);
         //foreach (Collider2D collider in playerLegs)
         //{
         //    collider.gameObject.SetActive(true);
