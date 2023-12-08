@@ -42,7 +42,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private PlayerVFXManager vfxManager;
     [SerializeField] private CameraShake cameraShake;
     Vector2 movementInput;
-    private Vector2 lastKnownVector;
+    [SerializeField] Vector2 lastKnownVector;
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
     public bool canMove;
@@ -148,12 +148,17 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 PlayerIdle();
                 PlayerMove();
                 PlayerAttack();
+
+                if (isDashing)
+                {
+                    MoveWithoutInput();
+                }
             }
-            else
-            {
-                rb.velocity = Vector2.zero;
-                return;
-            }
+            //else
+            //{
+            //    rb.velocity = Vector2.zero;
+            //    return;
+            //}
         }
 
         else
@@ -303,6 +308,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
     
+    void MoveWithoutInput()
+    {
+        if (!currentState.Equals(PlayerStates.attack))
+        {
+            SetCharacterState(PlayerStates.move);
+        }
+
+        rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+        skeletonAnim.timeScale = animationSpeed;
+        Debug.Log("Moving without inputs");
+        CreateDrag();
+    }
+
     private void PlayerMove()
     {
         float moveX = joystick.Horizontal;
@@ -334,13 +352,21 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            isMoving = false;
-            cameraShake.StopShaking();
-
-            if (!currentState.Equals(PlayerStates.attack))
+            if (!isDashing)
             {
-                rb.velocity = Vector2.zero;
-                SetCharacterState(PlayerStates.idle);
+                isMoving = false;
+                cameraShake.StopShaking();
+
+                if (!currentState.Equals(PlayerStates.attack))
+                {
+                    rb.velocity = Vector2.zero;
+                    SetCharacterState(PlayerStates.idle);
+                }
+            }
+
+            else
+            {
+                return;
             }
         }
 
@@ -384,7 +410,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            rb.drag = 0f;
+            return;
+            //rb.drag = 0f;
         }
     }
 

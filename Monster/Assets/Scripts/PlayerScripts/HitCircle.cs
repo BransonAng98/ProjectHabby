@@ -14,6 +14,9 @@ public class HitCircle : MonoBehaviour
     [SerializeField] private float prevInput;
     [SerializeField] private float currentAngle;
     [SerializeField] private float angleDifference;
+    [SerializeField] private float inputAngle;
+    [SerializeField] private float prevInputX;
+    [SerializeField] private float prevInputY;
 
     public GameObject rageDirVFX;
     public SpriteRenderer currentArrowSprite;
@@ -37,14 +40,23 @@ public class HitCircle : MonoBehaviour
         PositionAndOrientateArrow();
     }
 
-
     void PositionAndOrientateArrow()
     {
         float horizontalInput = joystick.Horizontal;
         float verticalInput = joystick.Vertical;
 
-        // Calculate the input angle based on player's input.
-        float inputAngle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
+        if(horizontalInput != 0 && verticalInput != 0)
+        {
+            // Calculate the input angle based on player's input.
+            inputAngle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
+            prevInputX = horizontalInput;
+            prevInputY = verticalInput;
+        }
+
+        else
+        {
+            inputAngle = Mathf.Atan2(prevInputY, prevInputX) * Mathf.Rad2Deg;
+        }
 
         // Calculate the angle between the sprite and the player character.
         float angleToPlayer = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x) * Mathf.Rad2Deg;

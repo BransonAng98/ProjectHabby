@@ -75,11 +75,11 @@ public class CrabUltimateU : UltimateBase
         {
             //Revert the player's stats & all changes back to normal state
             ultEnd = false;
+            playerHandler.isDashing = false;
             playerHandler.DisableMovement(4);
             playerHandler.listOfEnemies.Clear();
             vfxManager.isDashing = false;
             currentDuration = 0f;
-            playerHandler.isDashing = false;
             healthScript.healthState = PlayerHealthScript.HealthState.normal;
             playerHandler.AlterStats(false, 3, 4f);
             playerHandler.AlterStats(false, 4, 10f);
