@@ -13,7 +13,8 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource treeaudioSource;
     public AudioSource civilianAudioSource;
     public AudioSource carAudioSource;
-  
+    public AudioSource propAudioSource;
+
     public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
     public AudioClip[] feedbackSFX;
@@ -188,8 +189,30 @@ public class AudioManagerScript : MonoBehaviour
         isCarSFXPlaying = false;
     }
 
+    // For Props use car sounds since they are basically the same
+    public void PlayPropSFX()
+    {
+        if (!isCarSFXPlaying)
+        {
+            StartCoroutine(PlaypropSFXWithCooldown());
+        }
+    }
 
-        public void PlayIncomingAbility()
+    private IEnumerator PlaypropSFXWithCooldown()
+    {
+        isCarSFXPlaying = true;
+
+        // Assuming you have a carSFX array similar to treeSFX and others
+        AudioClip carSound = carDeathSFX[(Random.Range(0, carDeathSFX.Length))];
+        propAudioSource.PlayOneShot(carSound);
+
+        yield return new WaitForSeconds(carSFXCooldown);
+
+        isCarSFXPlaying = false;
+    }
+
+
+    public void PlayIncomingAbility()
     {
         //float randomPitch = Random.Range(0.8f, 1.2f);
         //militaryAbilitySource.pitch = randomPitch;

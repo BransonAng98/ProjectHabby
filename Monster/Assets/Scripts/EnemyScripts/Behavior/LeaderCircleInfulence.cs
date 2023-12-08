@@ -15,7 +15,7 @@ public class LeaderCircleInfulence : MonoBehaviour
     {
         if (collision.CompareTag("Civilian"))
         {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
+            Civilian civiRecruited = collision.gameObject.GetComponentInChildren<Civilian>();
             if (civiRecruited != null)
             {
                 leader.AddFollowers(civiRecruited);
@@ -27,7 +27,7 @@ public class LeaderCircleInfulence : MonoBehaviour
     {
         if (collision.CompareTag("Civilian"))
         {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
+            Civilian civiRecruited = collision.gameObject.GetComponentInChildren<Civilian>();
             if (civiRecruited != null)
             {
                 civiRecruited.RemoveCivilan();

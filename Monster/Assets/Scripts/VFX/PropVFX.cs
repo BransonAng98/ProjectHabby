@@ -26,7 +26,7 @@ public class PropVFX : MonoBehaviour
     {
         if (collision.CompareTag("PlayerLeg"))
         {
-            audiomanager.PlayCarSFX();
+            audiomanager.PlayPropSFX();
             Instantiate(shatterVFX, transform.position, Quaternion.identity);
             spriteRenderer.sprite = destroyedSprite;
             propCollider.enabled = false;

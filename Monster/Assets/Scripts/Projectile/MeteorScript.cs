@@ -19,7 +19,7 @@ public class MeteorScript : MonoBehaviour
     public PlayerHandler playerHandler;
     public GameObject impactVFX;
 
-    float meteorRadius = 3.4f;
+    float meteorRadius = 3.6f;
     public PlayerStatScriptableObject playerSO;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
@@ -86,6 +86,7 @@ public class MeteorScript : MonoBehaviour
         Invoke("DelayStopShake", 0.6f);
         MeteorCrashingSFX();
         SpawnCrater();
+        playerHandler.ChargeUltimate(25);
         Vector2 OverlapPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y +1f);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
@@ -95,6 +96,10 @@ public class MeteorScript : MonoBehaviour
             {
                 collateralTrigger.CollateralDamage(100f);
                 StartCoroutine(DestroyAfterDelay(collider.gameObject, 0f));
+            }
+            else if(collider.gameObject.tag == "Prop")
+            {
+                Destroy(collider.gameObject);
             }
            
         }
