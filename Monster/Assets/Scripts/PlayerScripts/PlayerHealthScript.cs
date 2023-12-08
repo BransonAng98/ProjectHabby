@@ -55,6 +55,7 @@ public class PlayerHealthScript : MonoBehaviour
     private float stagnateTimer;
     [SerializeField] float previousBarValue;
     public float barDecrease;
+    public bool activateAbiliityBar = true;
     [SerializeField] bool canDecrease;
     float lastChangeTime;
     [SerializeField] bool buffed1;
@@ -255,50 +256,58 @@ public class PlayerHealthScript : MonoBehaviour
         abilitySlider.value = abilityBarPercentage; // Update the slider's value
         abilityFill.fillAmount = abilityBarPercentage; // Update the fill amount of the health bar
 
-        if (HasValueChanged())
+        if (activateAbiliityBar)
         {
-            // Value has changed, update lastChangeTime
-            previousBarValue = playerHandler.currentUltimateCharge;
-            lastChangeTime = Time.time;
-            BuffPlayer();
-            canDecrease = false;
+            if (HasValueChanged())
+            {
+                // Value has changed, update lastChangeTime
+                previousBarValue = playerHandler.currentUltimateCharge;
+                lastChangeTime = Time.time;
+                BuffPlayer();
+                canDecrease = false;
+            }
+            else
+            {
+                // Value hasn't changed for a certain amount of time
+                if (Time.time - lastChangeTime > timeRetainThreshold)
+                {
+                    DecreaseBarValue();
+                    canDecrease = true;
+                }
+            }
+
+            if (abilityBarPercentage >= 75)
+            {
+                if (!isFlashing)
+                {
+                    StartCoroutine(FlashColor(flashColor, originalColor));
+                }
+            }
+
+            else
+            {
+                if (isFlashing)
+                {
+                    StopCoroutine("FlashColor");
+                    abilityFill.color = originalColor;
+                    isFlashing = false;
+                }
+            }
+
+            //Use ultimate
+            if (abilityBarPercentage > 95)
+            {
+                if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
+                {
+                    Debug.Log("Ultimating");
+                    playerHandler.DisableMovement(0);
+                }
+            }
         }
+
         else
         {
-            // Value hasn't changed for a certain amount of time
-            if (Time.time - lastChangeTime > timeRetainThreshold)
-            {
-                DecreaseBarValue();
-                canDecrease = true;
-            }
-        }
-
-        if (abilityBarPercentage >= 75)
-        {
-            if (!isFlashing)
-            {
-                StartCoroutine(FlashColor(flashColor, originalColor));
-            }
-        }
-
-        else
-        {
-            if (isFlashing)
-            {
-                StopCoroutine("FlashColor");
-                abilityFill.color = originalColor;  
-                isFlashing = false;
-            }
-        }
-
-        //Use ultimate
-        if (abilityBarPercentage > 95)
-        {
-            if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
-            {
-                Debug.Log("Ultimating");
-                playerHandler.DisableMovement(0);
-            }
+            return;
         }
     }
 

@@ -32,6 +32,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] float damageHolder;
     [SerializeField] float movementSpeedHolder;
     [SerializeField] float attackRangeHolder;
+    [SerializeField] float maxUltChargeHolder;
     public float stepDamageHolder;
 
     //Variable for player input
@@ -177,6 +178,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         attackRangeHolder = playerData.attackRange;
         stepDamageHolder = playerData.stepDamage;
         selectedUltimateHolder = playerData.setUltimate;
+        maxUltChargeHolder = playerData.maxUltimateCharge;
 
         switch (selectedUltimateHolder)
         {
@@ -728,6 +730,16 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         vfxManager.dashBodyVFX.SetActive(true);
     }
 
+    public void DecreaseUltimateBar(float decreaseRate)
+    {
+        playerHealth.activateAbiliityBar = false;
+        // Rapidly decrease the ultimate bar during the ultimate animation
+        currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
+
+        // Clamp the ultimate bar value to be within the valid range
+        currentUltimateCharge = Mathf.Clamp(currentUltimateCharge, 0f, maxUltChargeHolder);
+    }
+
     //Trigger ultimate, rage, victory and defeat state here
     public void DisableMovement(int state)
     {
@@ -866,6 +878,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (isExhausting)
         {
             isExhausting = false;
+            playerHealth.activateAbiliityBar = true;
             if (!joystick.gameObject.activeSelf)
             {
                 joystick.gameObject.SetActive(true);
