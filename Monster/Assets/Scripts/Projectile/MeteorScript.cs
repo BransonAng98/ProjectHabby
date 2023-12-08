@@ -19,12 +19,12 @@ public class MeteorScript : MonoBehaviour
     public PlayerHandler playerHandler;
     public GameObject impactVFX;
 
-    float meteorRadius = 3.6f;
+    public float meteorRadius;
     public PlayerStatScriptableObject playerSO;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
     public AudioClip meteorExplosionSFX;
-
+    public PlayerHealthScript healthscript;
     public void Start()
     {
         isMoving = true;
@@ -38,8 +38,9 @@ public class MeteorScript : MonoBehaviour
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         cameraShake = FindObjectOfType<CameraShake>();
+        healthscript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthScript>();
 
-       
+
         Vector2 landingPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 5f);
         targetPosition = landingPos;
 
@@ -86,8 +87,9 @@ public class MeteorScript : MonoBehaviour
         Invoke("DelayStopShake", 0.6f);
         MeteorCrashingSFX();
         SpawnCrater();
-        playerHandler.ChargeUltimate(25);
+        playerHandler.ChargeUltimate(45);
         Vector2 OverlapPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y +1f);
+     
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
         {
@@ -108,6 +110,7 @@ public class MeteorScript : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay(GameObject objToDestroy, float delay)
     {
+        healthscript.activateAbiliityBar = true;
         yield return new WaitForSeconds(delay);
 
         if (objToDestroy != null && objToDestroy.tag != "Player")

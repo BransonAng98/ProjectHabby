@@ -58,7 +58,7 @@ public class LobbyManager : MonoBehaviour
                         break;
 
                     case 6:
-                        SceneManager.LoadScene("LandmarkDesScene");
+                        SceneManager.LoadScene("France_Hard_Level");
                         levelData.loopGame = true;
                         break;
                 }

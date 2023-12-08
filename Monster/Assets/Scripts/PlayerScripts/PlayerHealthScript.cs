@@ -56,7 +56,7 @@ public class PlayerHealthScript : MonoBehaviour
     private float stagnateTimer;
     [SerializeField] float previousBarValue;
     public float barDecrease;
-    public bool activateAbiliityBar = true;
+    public bool activateAbiliityBar;
     [SerializeField] bool canDecrease;
     float lastChangeTime;
     [SerializeField] bool buffed1;
@@ -67,6 +67,8 @@ public class PlayerHealthScript : MonoBehaviour
     [SerializeField] Color originalColor = Color.yellow;
     [SerializeField] float flashSpeed;  // Speed of the color flash
     [SerializeField] bool isFlashing;
+
+
 
 
     private void Start()
@@ -238,51 +240,53 @@ public class PlayerHealthScript : MonoBehaviour
         abilitySlider.value = abilityBarPercentage; // Update the slider's value
         abilityFill.fillAmount = abilityBarPercentage; // Update the fill amount of the health bar
         AlterPlayer();
-
-        if (HasValueChanged())
+        if (activateAbiliityBar)
         {
-            // Value has changed, update lastChangeTime
-            previousBarValue = playerHandler.currentUltimateCharge;
-            lastChangeTime = Time.time;
-            riseOrFall = true;
-            canDecrease = false;
-        }
-        else
-        {
-            // Value hasn't changed for a certain amount of time
-            if (Time.time - lastChangeTime > timeRetainThreshold)
+            if (HasValueChanged())
             {
-                DecreaseBarValue();
-                riseOrFall = false;
-                canDecrease = true;
+                // Value has changed, update lastChangeTime
+                previousBarValue = playerHandler.currentUltimateCharge;
+                lastChangeTime = Time.time;
+                riseOrFall = true;
+                canDecrease = false;
             }
-        }
-
-        if (abilityBarPercentage >= 75)
-        {
-            if (!isFlashing)
+            else
             {
-                StartCoroutine(FlashColor(flashColor, originalColor));
+                // Value hasn't changed for a certain amount of time
+                if (Time.time - lastChangeTime > timeRetainThreshold)
+                {
+                    DecreaseBarValue();
+                    riseOrFall = false;
+                    canDecrease = true;
+                }
             }
-        }
 
-        else
-        {
-            if (isFlashing)
+            if (abilityBarPercentage >= 75)
             {
-                StopCoroutine("FlashColor");
-                abilityFill.color = originalColor;
-                isFlashing = false;
+                if (!isFlashing)
+                {
+                    StartCoroutine(FlashColor(flashColor, originalColor));
+                }
             }
-        }
 
-        //Use ultimate
-        if (abilityBarPercentage > 95)
-        {
-            if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
+            else
             {
-                Debug.Log("Ultimating");
-                playerHandler.DisableMovement(0);
+                if (isFlashing)
+                {
+                    StopCoroutine("FlashColor");
+                    abilityFill.color = originalColor;
+                    isFlashing = false;
+                }
+            }
+
+            //Use ultimate
+            if (abilityBarPercentage > 95)
+            {
+                if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
+                {
+                    Debug.Log("Ultimating");
+                    playerHandler.DisableMovement(0);
+                }
             }
         }
     }
