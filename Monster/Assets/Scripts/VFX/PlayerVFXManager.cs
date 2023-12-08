@@ -122,7 +122,7 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void SpawnRageOnText()
     {
-        Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + 5f);
+        Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + 7f);
         GameObject rageOnObject = Instantiate(rageOnTxt, spawnPosition, Quaternion.identity);
         StartCoroutine(MoveUpAndFade(rageOnObject));
     }
