@@ -83,6 +83,7 @@ public class MeteorScript : MonoBehaviour
         isTriggered = true;
         PlayExplosion();
         cameraShake.ShakeCamera();
+        Invoke("DelayStopShake", 0.6f);
         MeteorCrashingSFX();
         SpawnCrater();
         Vector2 OverlapPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y +1f);
