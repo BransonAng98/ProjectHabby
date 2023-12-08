@@ -704,6 +704,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 {
                     SetCharacterState(PlayerStates.rage);
                     isDashing = true;
+                    vfxManager.StartAppearing();
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
                     Invoke("TriggerUltimate2", 2.2f);
                 }
@@ -721,23 +722,26 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
+        vfxManager.StartFading();
         canMove = true;
         canAttack = false;
         canEarnUlt = false;
         enableInput = true;
         vfxManager.isDashing = true;
+        DecreaseUltimateBar(30f);
         utlimates[1].UseUtilityUltimate();
         vfxManager.dashBodyVFX.SetActive(true);
     }
 
     public void DecreaseUltimateBar(float decreaseRate)
     {
+        Debug.Log("Bar is decreasingh");
         playerHealth.activateAbiliityBar = false;
         // Rapidly decrease the ultimate bar during the ultimate animation
         currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
 
         // Clamp the ultimate bar value to be within the valid range
-        currentUltimateCharge = Mathf.Clamp(currentUltimateCharge, 0f, maxUltChargeHolder);
+        //currentUltimateCharge = Mathf.Clamp(currentUltimateCharge, 0f, maxUltChargeHolder);
     }
 
     //Trigger ultimate, rage, victory and defeat state here

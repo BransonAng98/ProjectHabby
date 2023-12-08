@@ -54,10 +54,8 @@ public class CrabUltimateU : UltimateBase
         {
             base.UseUtilityUltimate();
             //Put all the variables & effects that would happen during the dash
-            playerHandler.DecreaseUltimateBar(ultimateDuration);
             isTriggered = true;
             currentDuration = ultimateDuration;
-            playerHandler.currentUltimateCharge = 0;
             playerHandler.AlterStats(true, 3, 4f);
             playerHandler.AlterStats(true, 4, 10f);
             isActivated = true;

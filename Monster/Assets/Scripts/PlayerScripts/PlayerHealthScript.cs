@@ -61,7 +61,6 @@ public class PlayerHealthScript : MonoBehaviour
     [SerializeField] bool buffed1;
     [SerializeField] bool buffed2;
     [SerializeField] bool buffed3;
-    [SerializeField] bool hasRage;
     //AbilityBar Feedback
     [SerializeField] Color flashColor = Color.white;  // Color to flash to
     [SerializeField] Color originalColor = Color.yellow;
@@ -103,7 +102,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if(healthState == HealthState.berserk)
             {
-                hasRage = true;
                 if (!isTriggered)
                 {
                     playerHandler.DisableMovement(1);
@@ -120,7 +118,6 @@ public class PlayerHealthScript : MonoBehaviour
 
             if(healthState == HealthState.normal)
             {
-                hasRage = false;
                 meshRenderer.CustomMaterialOverride[originalMat] = originalMat;
                 playerHandler.attackAnimationSpeed = ogAtkSpeed;
                 playerHandler.animationSpeed = ogValues;
@@ -139,28 +136,12 @@ public class PlayerHealthScript : MonoBehaviour
             currentHealth = Mathf.Lerp(currentHealth, playerSO.health, Time.deltaTime * lerpSpeed);
             UpdateHealthBar();
         }
-        if (abilitySlider.value == abilitySlider.maxValue)
-        {
-            if(vfxManager.hasAppeared == false)
-            {
-                vfxManager.StartAppearing();
-            }
-        }
-
-        if(vfxManager.hasAppeared == true)
-        {
-            Invoke("DelayStartFade", 3f);
-        }
-
+      
         CheckAbilityBarPercentage();
         CheckHealthState();
         UpdateAbilityBar();
     }
 
-    void DelayStartFade()
-    {
-        vfxManager.StartFading();
-    }
     void CheckHealthStatus(float playerhealth)
     {
         int healthPercentage = (int)(100 - ((100f / playerSO.maxhealth) * currentHealth));

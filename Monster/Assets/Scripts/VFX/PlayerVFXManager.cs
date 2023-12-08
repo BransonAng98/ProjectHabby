@@ -118,46 +118,38 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void StartAppearing()
     {
-        while (fadeElapsedTime < fadeDuration)
-        {
-            fadeElapsedTime += Time.deltaTime;
-            float progress = fadeElapsedTime / fadeDuration;
-            targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f);
-            objectRenderer.color = Color.Lerp(initialColor, targetColor, progress);
-        }
-
-        if (fadeElapsedTime >= fadeDuration)
-        {
-            objectRenderer.color = targetColor; // Ensure it reaches the target color exactly
-        }
-
-        if(objectRenderer.color == targetColor)
-        {
-            hasAppeared = true;
-            fadeElapsedTime = 0;
-        }
+        StartCoroutine(FadeObject(0.5f)); // 0.5f is the target alpha value for fade in
     }
-        
 
     public void StartFading()
     {
-        while (fadeElapsedTime < fadeDuration)
+        StartCoroutine(FadeObject(0f)); // 0f is the target alpha value for fade out
+    }
+
+    private IEnumerator FadeObject(float targetAlpha)
+    {
+        float startAlpha = objectRenderer.color.a; // Initial alpha value
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
         {
-            fadeElapsedTime += Time.deltaTime;
-            float progress = fadeElapsedTime / fadeDuration;
-            targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
-            objectRenderer.color = Color.Lerp(initialColor, targetColor, progress);
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / fadeDuration;
+            float currentAlpha = Mathf.Lerp(startAlpha, targetAlpha, progress);
+            objectRenderer.color = new Color(initialColor.r, initialColor.g, initialColor.b, currentAlpha);
+            yield return null;
         }
 
-        if (fadeElapsedTime >= fadeDuration)
-        {
-            objectRenderer.color = targetColor; // Ensure it reaches the target color exactly
-            
-        }
-        if(objectRenderer.color == targetColor)
+        objectRenderer.color = new Color(initialColor.r, initialColor.g, initialColor.b, targetAlpha); // Ensure it reaches the target color exactly
+
+        if (targetAlpha == 0f)
         {
             hasAppeared = false;
-            fadeElapsedTime = 0;
+        }
+        else 
+        {
+            hasAppeared = true;
         }
     }
 
