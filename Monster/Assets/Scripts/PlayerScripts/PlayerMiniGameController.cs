@@ -39,6 +39,13 @@ public class PlayerMiniGameController : MonoBehaviour
     [SerializeField] bool hasInput;
     [SerializeField] CameraShake camShake;
 
+    [SerializeField] private float idleRoarTimer = 0f;
+    private float minRoarThreshold = 6f;
+    private float maxRoarThreshold = 10f;
+    private float varTime;
+    public AudioSource roarAudioSource;
+    public AudioClip monsterRoarSFX;
+
     private void Start()
     {
         landmark = GameObject.FindGameObjectWithTag("Landmark").GetComponent<MiniGameLandmark>();
@@ -49,6 +56,7 @@ public class PlayerMiniGameController : MonoBehaviour
         hitFeedbackDisplay = GameObject.Find("HitFlavorText").GetComponent<TextMeshProUGUI>();
         hitFeedbackDisplay.gameObject.SetActive(false);
         camShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
+        varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
 
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -266,6 +274,7 @@ public class PlayerMiniGameController : MonoBehaviour
 
     private void Update()
     {
+        PlayRoar();
         timeSinceLastTap += Time.deltaTime;
 
         if (Input.touchCount > 0)
@@ -322,6 +331,18 @@ public class PlayerMiniGameController : MonoBehaviour
                 hasInput = false;
                 UpdateHitFlavorText();
             }
+        }
+    }
+
+    public void PlayRoar()
+    {
+        idleRoarTimer += Time.deltaTime;
+
+        if (idleRoarTimer > varTime)
+        {
+            roarAudioSource.PlayOneShot(monsterRoarSFX);
+            varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
+            idleRoarTimer = 0f;
         }
     }
 }

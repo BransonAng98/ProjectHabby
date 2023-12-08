@@ -26,7 +26,7 @@ public class ClockSystem : MonoBehaviour
     private float enlargedFontSize = 60f;
     private Color enlargedColor = Color.red;
 
-    public float flashSpeed = 2f;
+    public float flashSpeed;
     public float timeSpeed;
 
     public float eventInterval;
@@ -64,7 +64,7 @@ public class ClockSystem : MonoBehaviour
                 timerValue = 0;
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(3);
-                Invoke("DelayEndScreen", 1.5f);
+                Invoke("DelayEndScreen", 5f);
             }
         }
 

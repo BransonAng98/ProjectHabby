@@ -26,6 +26,10 @@ public class MiniGameLandmark : MonoBehaviour
     private float hitDarkeningAmount = 0.2f; // Amount to darken the sprite on each hit
     private float minDarkness = 0.0f; // Minimum darkness level
 
+    public AudioSource landmarkAudioSource;
+
+    public AudioClip[] landmarkSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +55,7 @@ public class MiniGameLandmark : MonoBehaviour
     {
         if(health >= 0)
         {
+            playDamageSFX();
             health -= damage;
             shakeLandmark.StartShake();
             parentObject.transform.Translate(Vector3.down * sinkingSpeed);
@@ -61,6 +66,7 @@ public class MiniGameLandmark : MonoBehaviour
 
         else
         {
+            playDeathSFX();
             Death();
         }
     }
@@ -145,5 +151,19 @@ public class MiniGameLandmark : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void playDamageSFX()
+    {
+        AudioClip damagesoundtoPlay = landmarkSFX[Random.Range(0, 3)];
+        landmarkAudioSource.PlayOneShot(damagesoundtoPlay);
+        Debug.Log("PlaySound");
+    }
+
+    public void playDeathSFX()
+    {
+        AudioClip damagesoundtoPlay = landmarkSFX[Random.Range(4,6)];
+        landmarkAudioSource.PlayOneShot(damagesoundtoPlay);
+        Debug.Log("PlaySound");
     }
 }

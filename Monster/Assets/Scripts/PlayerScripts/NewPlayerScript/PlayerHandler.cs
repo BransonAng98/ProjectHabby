@@ -68,6 +68,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float aoeDmg = 10f;
     public bool isDashing;
 
+    private bool isOnSpawned;
+    private bool isOffSpawned;
+
     public float maxFrictionValue;
     public float lerpTime;
 
@@ -704,6 +707,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 if (utlimates[1] != null)
                 {
                     SetCharacterState(PlayerStates.rage);
+                  
+                    if (!isOnSpawned)
+                    {
+                        vfxManager.SpawnRageOnText();
+                        isOnSpawned = true;
+                        isOffSpawned = false;
+                    }
+
                     isDashing = true;
                     vfxManager.StartAppearing();
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
@@ -788,6 +799,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case 4:
                 SetCharacterState(PlayerStates.exhaust);
+               
+                if (!isOffSpawned)
+                {
+                    vfxManager.SpawnRageOffText();
+                    isOffSpawned = true;
+                    isOnSpawned = false;
+                }
+
                 if (!currentState.Equals(PlayerStates.exhaust))
                 {
                     prevState = currentState;

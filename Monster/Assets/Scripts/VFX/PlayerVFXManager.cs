@@ -14,6 +14,8 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject upgradeVFX;
     public GameObject dashBodyVFX;
     public GameObject blackSquare;
+    public GameObject rageOnTxt;
+    public GameObject rageOffTxt;
 
     private GameObject player;
 
@@ -23,7 +25,11 @@ public class PlayerVFXManager : MonoBehaviour
     public int numberOfVFX = 3;
 
     public float fadeDuration;
-   
+
+    public float moveSpeed;
+    public float rageFadeDuration;
+    public float delayRageFade;
+
     public SpriteRenderer objectRenderer;
     private Color targetColor;
     private Color initialColor;
@@ -112,6 +118,94 @@ public class PlayerVFXManager : MonoBehaviour
     {
         Vector2 upgradePos = new Vector2(this.transform.position.x, this.transform.position.y + 2f);
         Instantiate(upgradeVFX, upgradePos, Quaternion.identity);
+    }
+
+    public void SpawnRageOnText()
+    {
+        Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + 7f);
+        GameObject rageOnObject = Instantiate(rageOnTxt, spawnPosition, Quaternion.identity);
+        StartCoroutine(MoveUpAndFade(rageOnObject));
+    }
+
+    private IEnumerator MoveUpAndFade(GameObject obj)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("The spawned object must have a SpriteRenderer component.");
+            yield break;
+        }
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rageFadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsedTime = 0f; // Reset elapsed time for fading
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // Move the object upward
+            obj.transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
+
+            // Fade the object over time
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+
+            yield return null;
+        }
+
+        Destroy(obj);
+    }
+
+    public void SpawnRageOffText()
+    {
+        Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + 8f);
+        GameObject rageOnObject = Instantiate(rageOffTxt, spawnPosition, Quaternion.identity);
+        StartCoroutine(MoveDownAndFade(rageOnObject));
+    }
+
+    private IEnumerator MoveDownAndFade(GameObject obj)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("The spawned object must have a SpriteRenderer component.");
+            yield break;
+        }
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < delayRageFade)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsedTime = 0f; // Reset elapsed time for fading
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // Move the object downward
+            obj.transform.Translate(Vector2.down * moveSpeed * Time.deltaTime);
+
+            // Fade the object over time
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+
+            yield return null;
+        }
+
+        Destroy(obj);
     }
 
 
