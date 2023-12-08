@@ -50,6 +50,7 @@ public class PlayerHealthScript : MonoBehaviour
     //AbilityBar Variables
     [SerializeField] float abilityBarPercentage;
     [SerializeField] int abilityPhase;
+    public bool riseOrFall;
     public float abilityRetainThreshold;
     public float timeRetainThreshold;
     private float stagnateTimer;
@@ -236,59 +237,67 @@ public class PlayerHealthScript : MonoBehaviour
     {
         abilitySlider.value = abilityBarPercentage; // Update the slider's value
         abilityFill.fillAmount = abilityBarPercentage; // Update the fill amount of the health bar
+        AlterPlayer();
 
-        if (activateAbiliityBar)
+        if (HasValueChanged())
         {
-            if (HasValueChanged())
+            // Value has changed, update lastChangeTime
+            previousBarValue = playerHandler.currentUltimateCharge;
+            lastChangeTime = Time.time;
+            riseOrFall = true;
+            canDecrease = false;
+        }
+        else
+        {
+            // Value hasn't changed for a certain amount of time
+            if (Time.time - lastChangeTime > timeRetainThreshold)
             {
-                // Value has changed, update lastChangeTime
-                previousBarValue = playerHandler.currentUltimateCharge;
-                lastChangeTime = Time.time;
-                BuffPlayer();
-                canDecrease = false;
+                DecreaseBarValue();
+                riseOrFall = false;
+                canDecrease = true;
             }
-            else
-            {
-                // Value hasn't changed for a certain amount of time
-                if (Time.time - lastChangeTime > timeRetainThreshold)
-                {
-                    DecreaseBarValue();
-                    canDecrease = true;
-                }
-            }
+        }
 
-            if (abilityBarPercentage >= 75)
+        if (abilityBarPercentage >= 75)
+        {
+            if (!isFlashing)
             {
-                if (!isFlashing)
-                {
-                    StartCoroutine(FlashColor(flashColor, originalColor));
-                }
-            }
-
-            else
-            {
-                if (isFlashing)
-                {
-                    StopCoroutine("FlashColor");
-                    abilityFill.color = originalColor;
-                    isFlashing = false;
-                }
-            }
-
-            //Use ultimate
-            if (abilityBarPercentage > 95)
-            {
-                if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
-                {
-                    Debug.Log("Ultimating");
-                    playerHandler.DisableMovement(0);
-                }
+                StartCoroutine(FlashColor(flashColor, originalColor));
             }
         }
 
         else
         {
-            return;
+            if (isFlashing)
+            {
+                StopCoroutine("FlashColor");
+                abilityFill.color = originalColor;
+                isFlashing = false;
+            }
+        }
+
+        //Use ultimate
+        if (abilityBarPercentage > 95)
+        {
+            if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
+            {
+                Debug.Log("Ultimating");
+                playerHandler.DisableMovement(0);
+            }
+        }
+    }
+
+    void AlterPlayer()
+    {
+        switch (riseOrFall)
+        {
+            case true:
+                BuffPlayer();
+                break;
+
+            case false:
+                DebuffPlayer();
+                break;
         }
     }
 
@@ -317,7 +326,6 @@ public class PlayerHealthScript : MonoBehaviour
             //Start to decrease the ultimate bar
             playerHandler.currentUltimateCharge -= barDecrease * Time.deltaTime;
             previousBarValue -= barDecrease * Time.deltaTime;
-            DebuffPlayer();
         }
     }
 
@@ -337,93 +345,88 @@ public class PlayerHealthScript : MonoBehaviour
 
     void BuffPlayer()
     {
-        //Update Abilites accordingly
-        if (abilityBarPercentage > 25)
+        if(abilityBarPercentage < 25)
         {
-            if (!buffed1)
-            {
-                Debug.Log("attack speed buffed");
-                TriggerAbilities(1);
-                vfxManager.SpawnUpgradeVFX();
-                buffed1 = true;
-            }
-        }
-
-        //Update Abilites accordingly
-        if (abilityBarPercentage > 50)
-        {
-            if (!buffed2)
-            {
-                Debug.Log("attack damage buffed");
-                TriggerAbilities(2);
-                vfxManager.SpawnUpgradeVFX();
-                buffed2 = true;
-            }
-        }
-
-        if (abilityBarPercentage > 75)
-        {
-            if (!buffed3)
-            {
-                Debug.Log("attack speed buffed");
-                TriggerAbilities(3);
-                vfxManager.SpawnUpgradeVFX();
-                buffed3 = true;
-            }
-
-            else
-            {
-                return;
-            }
+            abilityPhase = 0;
         }
 
         else
         {
-            abilityPhase = 0;
+            //Update Abilites accordingly
+            if (abilityBarPercentage > 25 && abilityBarPercentage < 49)
+            {
+                if (!buffed1)
+                {
+                    abilityPhase = 1;
+                    Debug.Log("attack speed buffed");
+                    TriggerAbilities(1);
+                    vfxManager.SpawnUpgradeVFX();
+                    buffed1 = true;
+                }
+            }
+
+            //Update Abilites accordingly
+            if (abilityBarPercentage > 50 && abilityBarPercentage < 74)
+            {
+                if (!buffed2)
+                {
+                    abilityPhase = 2;
+                    Debug.Log("attack damage buffed");
+                    TriggerAbilities(2);
+                    vfxManager.SpawnUpgradeVFX();
+                    buffed2 = true;
+                }
+            }
+
+            if (abilityBarPercentage > 75 && abilityBarPercentage < 100)
+            {
+                if (!buffed3)
+                {
+                    abilityPhase = 3;
+                    Debug.Log("attack speed buffed");
+                    TriggerAbilities(3);
+                    vfxManager.SpawnUpgradeVFX();
+                    buffed3 = true;
+                }
+            }
         }
     }
 
     void DebuffPlayer()
     {
-        //Idk why need to offset by 1 points
-        if (abilityBarPercentage <= 76)
+        //Update Abilites accordingly
+        if (abilityBarPercentage >= 51 && abilityBarPercentage <= 75)
         {
             if (buffed3)
             {
                 Debug.Log("attack damage reduced");
                 RemoveAbilities(3);
-                abilityPhase -= 1;
                 buffed3 = false;
+                abilityPhase = 2;
             }
         }
 
         //Update Abilites accordingly
-        if (abilityBarPercentage <= 51)
+        if (abilityBarPercentage >= 26 && abilityBarPercentage <= 50)
         {
             if (buffed2)
             {
                 Debug.Log("attack speed reduced");
                 RemoveAbilities(2);
-                abilityPhase -= 1;
                 buffed2 = false;
+                abilityPhase = 1;
             }
         }
 
-        //Update Abilites accordingly
-        if (abilityBarPercentage <= 26)
+        if (abilityBarPercentage < 25)
         {
             if (buffed1)
             {
                 Debug.Log("attack speed reduced");
                 RemoveAbilities(1);
-                abilityPhase -= 1;
                 buffed1 = false;
+                abilityPhase = 0;
             }
-        }
-
-        else
-        {
-            abilityPhase = 0;
         }
     }
 

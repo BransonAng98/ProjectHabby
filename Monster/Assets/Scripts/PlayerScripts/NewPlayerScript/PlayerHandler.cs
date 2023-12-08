@@ -695,6 +695,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 if (utlimates[0] != null)
                 {
                     joystick.gameObject.SetActive(false);
+                    DecreaseUltimateBar(100f);
                     SetAnimation(0, ultimating, false, 1f);
                 }
                 break;
@@ -717,7 +718,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
-        currentUltimateCharge = 0;
     }
 
     void TriggerUltimate2()
@@ -728,7 +728,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         canEarnUlt = false;
         enableInput = true;
         vfxManager.isDashing = true;
-        DecreaseUltimateBar(30f);
         utlimates[1].UseUtilityUltimate();
         vfxManager.dashBodyVFX.SetActive(true);
     }
