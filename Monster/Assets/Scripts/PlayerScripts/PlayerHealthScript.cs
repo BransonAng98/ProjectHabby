@@ -214,7 +214,7 @@ public class PlayerHealthScript : MonoBehaviour
             playerHandler.isEnd = true;
             playerHandler.DisableMovement(3);
             gameManager.isVictory = false;
-            Invoke("TriggerDeath", 5f);
+            Invoke("TriggerDeath", 3f);
         }
     }
 

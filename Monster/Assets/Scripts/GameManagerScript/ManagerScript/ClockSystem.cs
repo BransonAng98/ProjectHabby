@@ -64,7 +64,7 @@ public class ClockSystem : MonoBehaviour
                 timerValue = 0;
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(3);
-                Invoke("DelayEndScreen", 5f);
+                Invoke("DelayEndScreen", 3f);
             }
         }
 
