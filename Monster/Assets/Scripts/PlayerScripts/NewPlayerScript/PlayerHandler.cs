@@ -18,6 +18,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         land,
         exhaust,
         damage,
+        dash,
     }
 
     //Variable for State
@@ -67,6 +68,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
     public bool isDashing;
+    public bool invokeHold;
+    [SerializeField] HitCircle hitCircle;
 
     private bool isOnSpawned;
     private bool isOffSpawned;
@@ -124,6 +127,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         footstepAudioSource = GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
         playerHealth = GetComponent<PlayerHealthScript>();
+        hitCircle = GameObject.Find("HitCircle").GetComponent<HitCircle>();
         AssignStats();
         foreach (Collider2D collider in entitycollider)
         {
@@ -144,14 +148,26 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             if (!isEnd)
             {
                 CheckJoyStickInput();
-                MoveAndAttack();
-                PlayerIdle();
-                PlayerMove();
-                PlayerAttack();
 
-                if (isDashing)
+                if (!invokeHold)
                 {
-                    MoveWithoutInput();
+                    if (isDashing)
+                    {
+                        Dash();
+                    }
+
+                    else
+                    {
+                        MoveAndAttack();
+                        PlayerIdle();
+                        PlayerMove();
+                        PlayerAttack();
+                    }
+                }
+
+                else
+                {
+                    HoldControlForDash();
                 }
             }
             //else
@@ -307,19 +323,43 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             collider.enabled = true;
         }
     }
-    
-    void MoveWithoutInput()
+
+    void Dash()
     {
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
+
+        movementInput = new Vector2(moveX, moveY).normalized;
+
         if (!currentState.Equals(PlayerStates.attack))
         {
             SetCharacterState(PlayerStates.move);
         }
 
-        rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
-        skeletonAnim.timeScale = animationSpeed;
-        Debug.Log("Moving without inputs");
-        CreateDrag();
+        if (movementInput.x != 0 && movementInput.y != 0)
+        {
+            lastKnownVector = movementInput;
+        }
+
+        if (movementInput == Vector2.zero)
+        {
+            rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+            skeletonAnim.timeScale = animationSpeed;
+            Debug.Log("Moving without inputs");
+            CreateDrag();
+        }
+
+        else
+        {
+            //Code to move the player
+            rb.velocity = new Vector2(movementInput.x * movementSpeedHolder, movementInput.y * movementSpeedHolder);
+            skeletonAnim.timeScale = animationSpeed;
+            CreateDrag();
+
+            Debug.Log("Moving with inputs");
+        }
     }
+
 
     private void PlayerMove()
     {
@@ -352,21 +392,21 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            if (!isDashing)
-            {
-                isMoving = false;
-                cameraShake.StopShaking();
+            isMoving = false;
+            cameraShake.StopShaking();
 
-                if (!currentState.Equals(PlayerStates.attack))
+            if (!currentState.Equals(PlayerStates.attack))
+            {
+                if (!isDashing)
                 {
                     rb.velocity = Vector2.zero;
                     SetCharacterState(PlayerStates.idle);
                 }
-            }
 
-            else
-            {
-                return;
+                else
+                {
+                    SetCharacterState(PlayerStates.move);
+                }
             }
         }
 
@@ -375,17 +415,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             //Code to move the player
             rb.velocity = new Vector2(movementInput.x * movementSpeedHolder, movementInput.y * movementSpeedHolder);
             skeletonAnim.timeScale = animationSpeed;
-
-            if (isDashing)
-            {
-                CreateDrag();
-            }
-            else { return; }
-        }
-
-        else
-        {
-            rb.velocity = Vector2.zero;
         }
     }
 
@@ -601,10 +630,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            if (currentState.Equals(PlayerStates.attack))
-            {
-                SetCharacterState(PlayerStates.idle);
-            }
+            SetCharacterState(PlayerStates.idle);
         }
 
         //else
@@ -743,9 +769,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     }
 
                     isDashing = true;
+                    canAttack = false;
                     vfxManager.StartAppearing();
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
-                    Invoke("TriggerUltimate2", 2.2f);
+                    invokeHold = true;
+                    hitCircle.triggerHoldingDown = true;
+                    playerHealth.activateAbiliityBar = false;
                 }
                 break;
         }
@@ -761,14 +790,45 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     void TriggerUltimate2()
     {
         vfxManager.StartFading();
-        canMove = true;
         canAttack = false;
         canEarnUlt = false;
         enableInput = true;
         vfxManager.isDashing = true;
         utlimates[1].UseUtilityUltimate();
         vfxManager.dashBodyVFX.SetActive(true);
+        playerHealth.activateAbiliityBar = true;
     }
+
+    void HoldControlForDash()
+    {
+        Debug.Log("Touch count: " + Input.touchCount);
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0); // Get the first touch (assuming single-touch for simplicity)
+
+            Debug.Log("Touch phase: " + touch.phase);
+
+            if (touch.phase == TouchPhase.Moved)
+            {
+                float moveX = joystick.Horizontal;
+                float moveY = joystick.Vertical;
+
+                movementInput = new Vector2(moveX, moveY).normalized;
+                lastKnownVector = movementInput;
+            }
+
+            // Check if the touch phase is Ended (finger released)
+            if (touch.phase == TouchPhase.Ended)
+            {
+                hitCircle.triggerHoldingDown = false;
+                invokeHold = false;
+                TriggerUltimate2();
+                Debug.Log("Release the monster");
+            }
+        }
+    }
+
 
     public void DecreaseUltimateBar(float decreaseRate)
     {
@@ -1005,7 +1065,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     }
 
     void CheckJoyStickInput()
-    {//Moving Upwards
+    {
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
+
+        movementInput = new Vector2(moveX, moveY).normalized;
+
+        //Moving Upwards
         if (degreeAngle > 45 && degreeAngle < 135)
         {
             moveSector = 1;
@@ -1035,6 +1101,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         switch (state)
         {
             case PlayerStates.idle:
+                playFull = false;
                 if (!extendedIdle)
                 {
                     SetAnimation(0, idling, true, 1f);
@@ -1046,10 +1113,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.attack:
+                playFull = false;
                 TriggerAttackDirAnimation();
                 break;
 
             case PlayerStates.move:
+                playFull = false;
                 if (moveSector == 1)
                 {
                     attackHitRange = attackRangeHolder;
@@ -1077,13 +1146,41 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     SetAnimation(0, moving4, true, animationSpeed);
                 }
                 break;
+            
+            case PlayerStates.dash:
+                playFull = false;
+                if (moveSector == 1)
+                {
+                    SetAnimation(0, moving, true, animationSpeed);
+                }
+
+                //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
+                if (moveSector == 4)
+                {
+                    SetAnimation(0, moving3, true, animationSpeed);
+                }
+
+                //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
+                if (moveSector == 3)
+                {
+                    SetAnimation(0, moving2, true, animationSpeed);
+                }
+
+                //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
+                if (moveSector == 2)
+                {
+                    SetAnimation(0, moving4, true, animationSpeed);
+                }
+                break;
 
             case PlayerStates.victory:
                 SetAnimation(1, victorying, true, 1f);
+                playFull = true;
                 break;
                 
             case PlayerStates.defeat:
                 SetAnimation(1, defeating, false, 1f);
+                playFull = true;
                 break;
                 
             case PlayerStates.ultimate:
@@ -1097,8 +1194,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
                 
             case PlayerStates.rage:
-                
-                SetAnimation(0, raging, false, 1f);
+                SetAnimation(0, raging, true, 1f);
                 playFull = true;
                 break;
                 

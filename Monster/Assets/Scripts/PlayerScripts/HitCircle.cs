@@ -22,6 +22,7 @@ public class HitCircle : MonoBehaviour
     public SpriteRenderer currentArrowSprite;
     public Sprite defaultArrowSprite;
     public Sprite dashArrowSprite;
+    public bool triggerHoldingDown;
 
     private PlayerHandler playerHandler;
 
@@ -70,7 +71,17 @@ public class HitCircle : MonoBehaviour
 
         else
         {
-            angleDifference = prevInput - angleToPlayer;
+            if (!triggerHoldingDown)
+            {
+                angleDifference = prevInput - angleToPlayer;
+            }
+
+            else
+            {
+                // Calculate the difference between the input angle and angle to the player.
+                angleDifference = inputAngle - angleToPlayer;
+                prevInput = inputAngle;
+            }
         }
 
         // Update the current angle by adding the difference and the orbit speed.

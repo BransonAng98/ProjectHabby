@@ -145,30 +145,30 @@ public class PlayerHealthScript : MonoBehaviour
         UpdateAbilityBar();
     }
 
-    void CheckHealthStatus(float playerhealth)
-    {
-        int healthPercentage = (int)(100 - ((100f / playerSO.maxhealth) * currentHealth));
+    //void CheckHealthStatus(float playerhealth)
+    //{
+    //    int healthPercentage = (int)(100 - ((100f / playerSO.maxhealth) * currentHealth));
 
-        if (healthPercentage <= 45)
-        {
-            if(healthState == HealthState.berserk)
-            {
-                healthState = HealthState.normal;
-            }
-        }
+    //    if (healthPercentage <= 45)
+    //    {
+    //        if(healthState == HealthState.berserk)
+    //        {
+    //            healthState = HealthState.normal;
+    //        }
+    //    }
 
-        else
-        {
-            if(healthState != HealthState.berserk)
-            {
-                healthState = HealthState.berserk;
-            }
-            else
-            {
-                return;
-            }
-        }
-    }
+    //    else
+    //    {
+    //        if(healthState != HealthState.berserk)
+    //        {
+    //            healthState = HealthState.berserk;
+    //        }
+    //        else
+    //        {
+    //            return;
+    //        }
+    //    }
+    //}
 
     public void TakeDamage(int damage)
     {
@@ -200,7 +200,6 @@ public class PlayerHealthScript : MonoBehaviour
                 }
             }
 
-            CheckHealthStatus(playerSO.health);
             int healthDifference = thresholdHealth - playerSO.health;
             if (healthDifference >= triggerNumber)
             {
