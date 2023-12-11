@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public int eventNumber;
 
     public TextMeshProUGUI bannerText;
+    public TextMeshProUGUI endStatusText;
     public LevelManager levelManagerScript;
     public PlayerHandler playerHandler;
     public GameManagerScript gameManager;
@@ -17,15 +18,12 @@ public class EventManager : MonoBehaviour
     public Artillery artilleryScript;
     public MissileManager missileScript;
     public PlayerHealthScript playerHealth;
-
     public AudioManagerScript audiomanager;
     public ClockSystem clock;
 
     public GameObject endStatus;
-    public TextMeshProUGUI endStatusText;
 
     public float timer;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +51,7 @@ public class EventManager : MonoBehaviour
         if (gameManager.hasActivated == true)
         {
             timer += Time.deltaTime;
-            
+
             if (timer >= clock.eventInterval)
             {
                 eventNumber = Random.Range(0, 2);
@@ -121,5 +119,5 @@ public class EventManager : MonoBehaviour
     {
         audiomanager.PlayIncomingAbility();
     }
-
 }
+
