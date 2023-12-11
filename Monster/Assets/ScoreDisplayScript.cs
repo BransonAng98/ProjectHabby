@@ -18,7 +18,7 @@ public class ScoreDisplayScript : MonoBehaviour
     [SerializeField] private int gemamt;
 
     public ClockSystem clock;
-    private float lerpDuration = 5.0f;
+    private float lerpDuration = 2.0f;
     public ScoreManagerScript scoreManager;
     public GameManagerScript gamemanager;
     public bool isWin;
