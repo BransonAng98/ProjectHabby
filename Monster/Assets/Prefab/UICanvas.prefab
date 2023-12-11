@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 2237128164224124571}
   - component: {fileID: 807046155057014926}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_GemsObtained
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 6759632653091396453}
   - component: {fileID: 6929955421259501410}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_StructuresSmashed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 4821654742518007465}
   - component: {fileID: 8910031916870778240}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_CarsDestroyed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 1611476446810378362}
   - component: {fileID: 6974541244950681285}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_CiviliansSlain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 6450752723103410508}
   - component: {fileID: 3314366165735592380}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: winText_cars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -964,7 +964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 123, y: 151}
+  m_AnchoredPosition: {x: 118.899994, y: 151}
   m_SizeDelta: {x: 61, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4281621106083406017
@@ -1170,7 +1170,7 @@ GameObject:
   - component: {fileID: 3816223316187928211}
   - component: {fileID: 3733760630642875404}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: winText_structure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ GameObject:
   - component: {fileID: 6866780065129414536}
   - component: {fileID: 9215581250562803136}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: loseText_cars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1465,7 +1465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -106, y: -220.4}
+  m_AnchoredPosition: {x: -101, y: -199.99997}
   m_SizeDelta: {x: 96.62869, y: 74.3298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4664523004477750794
@@ -1619,7 +1619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -282, y: -34}
+  m_AnchoredPosition: {x: -286.1, y: -34}
   m_SizeDelta: {x: 79.4155, y: 83.3212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8113225930096133681
@@ -4454,7 +4454,7 @@ GameObject:
   - component: {fileID: 4436811185242385516}
   - component: {fileID: 9100254892812708977}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: loseText_gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4616,7 +4616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -290.9, y: 142}
+  m_AnchoredPosition: {x: -295, y: 142}
   m_SizeDelta: {x: 64, y: 68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7886556793257547781
@@ -4745,7 +4745,7 @@ GameObject:
   - component: {fileID: 8835730151454173904}
   - component: {fileID: 2510901393513513437}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_CarsDestroyed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4880,7 +4880,7 @@ GameObject:
   - component: {fileID: 2583933347335133952}
   - component: {fileID: 7505371362667512039}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_CiviliansSlain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5057,7 +5057,7 @@ GameObject:
   - component: {fileID: 4008462135745239652}
   - component: {fileID: 7006862435882499431}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: winText_civilians
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5293,7 +5293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -282, y: -34}
+  m_AnchoredPosition: {x: -286.1, y: -34}
   m_SizeDelta: {x: 79.4155, y: 83.3212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &607994451207385950
@@ -5346,7 +5346,7 @@ GameObject:
   - component: {fileID: 4423782861719533984}
   - component: {fileID: 3791197980241917525}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_StructuresSmashed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5506,7 +5506,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -290.9, y: 142}
+  m_AnchoredPosition: {x: -295, y: 142}
   m_SizeDelta: {x: 64, y: 68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8415706456821471450
@@ -5559,7 +5559,7 @@ GameObject:
   - component: {fileID: 4228596106398397117}
   - component: {fileID: 6278684631808771326}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: loseText_civilians
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5797,7 +5797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -106, y: -220.4}
+  m_AnchoredPosition: {x: -101, y: -200}
   m_SizeDelta: {x: 96.62869, y: 74.3298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &459572977716223398
@@ -5850,7 +5850,7 @@ GameObject:
   - component: {fileID: 3265247932404064281}
   - component: {fileID: 6995010821187711425}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: loseText_structure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6023,7 +6023,7 @@ GameObject:
   - component: {fileID: 578000778769309550}
   - component: {fileID: 5217204799430645859}
   m_Layer: 5
-  m_Name: Text_Reset
+  m_Name: Text_GemsObtained
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6301,7 +6301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 123, y: 151}
+  m_AnchoredPosition: {x: 118.899994, y: 151}
   m_SizeDelta: {x: 61, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2288860793402170536
@@ -6430,7 +6430,7 @@ GameObject:
   - component: {fileID: 6517331547597921088}
   - component: {fileID: 5318639866493232518}
   m_Layer: 5
-  m_Name: Text_Time
+  m_Name: winText_gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6708,6 +6708,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Icon_Time
       objectReference: {fileID: 0}
+    - target: {fileID: 4662309806694111501, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
+      propertyPath: m_Name
+      value: loseText_time
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760445463485091269, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
+      propertyPath: m_Name
+      value: Text_TimeLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6774,7 +6782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 120
+      value: 115.899994
       objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8091,6 +8099,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Icon_Time
       objectReference: {fileID: 0}
+    - target: {fileID: 4662309806694111501, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
+      propertyPath: m_Name
+      value: winText_time
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760445463485091269, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
+      propertyPath: m_Name
+      value: Text_TimeLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8157,7 +8173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 120
+      value: 115.899994
       objectReference: {fileID: 0}
     - target: {fileID: 7282417179529909548, guid: 7135c7ab78acd46c093121fa37c59bf0, type: 3}
       propertyPath: m_AnchoredPosition.y

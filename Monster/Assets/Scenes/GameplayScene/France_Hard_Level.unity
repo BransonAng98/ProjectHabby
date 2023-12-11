@@ -585,6 +585,8 @@ Transform:
   - {fileID: 805057035}
   - {fileID: 708813260}
   - {fileID: 1818746886}
+  - {fileID: 2030074641}
+  - {fileID: 1771012713}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4845,6 +4847,7 @@ MonoBehaviour:
   hitIndicator: {fileID: 635596423}
   joystick: {fileID: 2090532567}
   clock: {fileID: 1294789420}
+  scoreDisplay: {fileID: 0}
 --- !u!114 &1267804332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5243,6 +5246,59 @@ Transform:
   m_Father: {fileID: 1705190840}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1771012712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771012713}
+  - component: {fileID: 1771012714}
+  m_Layer: 0
+  m_Name: ScoreDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1771012713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771012712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 132227947}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1771012714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771012712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27351cdfe6079914c8bf668051f9362b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structuresText: {fileID: 0}
+  civiliansText: {fileID: 0}
+  carsText: {fileID: 0}
+  timeText: {fileID: 0}
+  gemsText: {fileID: 0}
+  lerpDuration: 2
+  scoreManager: {fileID: 0}
+  gamemanager: {fileID: 0}
+  isWin: 0
 --- !u!1 &1808873699
 GameObject:
   m_ObjectHideFlags: 0
@@ -6439,6 +6495,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcd95cf4f3149c6409aa7e4066c352a9, type: 3}
+--- !u!1 &2030074640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030074641}
+  - component: {fileID: 2030074642}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2030074641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030074640}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 132227947}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2030074642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030074640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ccd5150e0fcf64a8e88c71e75b82b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amtOfStructures: 0
+  amtOfcivilians: 0
+  amtOfCarskilled: 0
+  timeLeft: 0
+  gemsEarned: 0
+  clock: {fileID: 0}
 --- !u!114 &2044451536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2695255127844746694, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}

@@ -67,8 +67,11 @@ public class Civilian : MonoBehaviour
     public Vector2 verticalDispenseVelocity;
     public bool isKicking;
     public float rotationSpeed;
+
+    public ScoreManagerScript scoremanager;
     private void Awake()
     {
+        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         fakeheight = GetComponentInParent<FakeHeightScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -369,7 +372,7 @@ public class Civilian : MonoBehaviour
             //PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
-
+        scoremanager.amtOfcivilians += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;

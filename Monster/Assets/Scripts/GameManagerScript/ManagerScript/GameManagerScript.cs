@@ -31,16 +31,18 @@ public class GameManagerScript : MonoBehaviour
     //public List<Collider2D> playerLegs = new List<Collider2D>();
     public GameObject joystick;
     public ClockSystem clock;
+    public GameObject scoreDisplay;
 
     private void Start()
     {
         Time.timeScale = 1f;
+     
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GetComponent<LevelManager>();
         //GNAManager = GetComponent<GNAManager>();
         player.GetComponent<MeshRenderer>().enabled = false;
-
+        //scoreDisplay.SetActive(false);
         deployScreen.SetActive(true);
         endScreen.SetActive(false);
 
@@ -48,6 +50,7 @@ public class GameManagerScript : MonoBehaviour
         ScanAndInsert();
         DisableObstacles();
         DeactivatePlayer();
+        
     }
 
 
@@ -62,7 +65,7 @@ public class GameManagerScript : MonoBehaviour
     public void TriggerEndScreen()
     {
         inputHandler.enableInput = false;
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         levelText.text = "" + levelManager.levelData.cityLevel;
         //GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
@@ -71,6 +74,7 @@ public class GameManagerScript : MonoBehaviour
             
             audiomanager.PlayVictoryBGM();  
             winScreen.SetActive(false);
+            
            
         }
 
@@ -80,6 +84,7 @@ public class GameManagerScript : MonoBehaviour
             loseScreen.SetActive(false);
             
         }
+        scoreDisplay.SetActive(true);
     }
 
     public void LoadNextScene()
