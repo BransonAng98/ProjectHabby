@@ -17,16 +17,20 @@ public class ScoreDisplayScript : MonoBehaviour
     [SerializeField] private float timeamt;
     [SerializeField] private int gemamt;
 
+    public ClockSystem clock;
     private float lerpDuration = 5.0f;
     public ScoreManagerScript scoreManager;
     public GameManagerScript gamemanager;
     public bool isWin;
+    public string formattedTime;
     private void Start()
     {
+     
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         SetActiveScreen();
         StartCoroutine(LerpScores());
+       
 
         structureamt = scoreManager.amtOfStructures;
         civilianamt = scoreManager.amtOfcivilians;
@@ -35,23 +39,23 @@ public class ScoreDisplayScript : MonoBehaviour
         gemamt = scoreManager.gemsEarned;
     }
 
-    
-
     private IEnumerator LerpScores()
     {
         float elapsedTime = 0f;
 
         while (elapsedTime < lerpDuration)
-        {
+        {;
             float t = elapsedTime / lerpDuration;
 
             int structuresScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfStructures, t));
             int civiliansScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfcivilians, t));
             int carsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfCarskilled, t));
-            int timeScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.timeLeft, t));
+            float timeScore = Mathf.RoundToInt(Mathf.Lerp(clock.timerValue, scoreManager.timeLeft, t));
+            formattedTime = clock.GetFormattedTime(timeScore);
             int gemsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.gemsEarned, t));
 
-            UpdateScoreUI(structuresScore, civiliansScore, carsScore, timeScore, gemsScore);
+           
+            UpdateScoreUI(structuresScore, civiliansScore, carsScore, formattedTime, gemsScore);
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -59,10 +63,10 @@ public class ScoreDisplayScript : MonoBehaviour
 
         // Ensure the final scores are set correctly
         UpdateScoreUI(scoreManager.amtOfStructures, scoreManager.amtOfcivilians,
-                       scoreManager.amtOfCarskilled, scoreManager.timeLeft, scoreManager.gemsEarned);
+                       scoreManager.amtOfCarskilled, formattedTime , scoreManager.gemsEarned);
     }
 
-    private void UpdateScoreUI(int structures, int civilians, int cars, float time, int gems)
+    private void UpdateScoreUI(int structures, int civilians, int cars, string time, int gems)
     {
         structuresText.text = "" + structures;
         civiliansText.text = "" + civilians;

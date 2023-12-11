@@ -12,6 +12,7 @@ public class ScoreManagerScript : MonoBehaviour
     public int gemsEarned;
 
     public ClockSystem clock;
+    
 
     void Start()
     {
@@ -22,5 +23,6 @@ public class ScoreManagerScript : MonoBehaviour
     void Update()
     {
         timeLeft = clock.timerValue;
+        
     }
 }
