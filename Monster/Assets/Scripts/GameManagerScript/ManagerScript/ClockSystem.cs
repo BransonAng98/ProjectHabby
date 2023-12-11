@@ -175,6 +175,19 @@ public class ClockSystem : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    public string GetFormattedTime(float timeToFormat)
+    {
+        if (timeToFormat < 0)
+        {
+            timeToFormat = 0;
+        }
+
+        float minutes = Mathf.FloorToInt(timeToFormat / 60);
+        float seconds = Mathf.FloorToInt(timeToFormat % 60);
+
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
     void DisplayCountdownMessages(float remainingTime)
     {
         // Display countdown numbers for the last 10 seconds

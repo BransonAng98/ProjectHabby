@@ -144,7 +144,7 @@ public class GameManagerScript : MonoBehaviour
         audiomanager.PlayBGM();
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
-
+        
         // Set the game as started
         gameStarted = true;
         SpawnMeteor();
@@ -178,9 +178,11 @@ public class GameManagerScript : MonoBehaviour
     IEnumerator StartGameSequence()
     {
         objectiveText.enabled = true;
+        string formattedTime = clock.GetFormattedTime(clock.timerValue);
+
         // Display the game objective text
         SetObjectiveText("");
-        SetObjectiveText("Destroy the city!");
+        SetObjectiveText("Destroy the city in " + formattedTime);
 
         // Fade in the destruction bar
         yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
