@@ -4888,7 +4888,7 @@ MonoBehaviour:
   hitIndicator: {fileID: 635596423}
   joystick: {fileID: 2090532567}
   clock: {fileID: 1294789420}
-  scoreDisplay: {fileID: 0}
+  scoreDisplay: {fileID: 1771012712}
 --- !u!114 &1267804332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5341,9 +5341,11 @@ MonoBehaviour:
   caramt: 0
   timeamt: 0
   gemamt: 0
+  clock: {fileID: 1294789420}
   scoreManager: {fileID: 0}
   gamemanager: {fileID: 0}
   isWin: 0
+  formattedTime: 
 --- !u!1 &1808873699
 GameObject:
   m_ObjectHideFlags: 0
