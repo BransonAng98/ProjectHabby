@@ -73,6 +73,7 @@ public class CrabUltimateU : UltimateBase
     {
         if (ultEnd)
         {
+            vfxManager.SpawnExhaustedVFX();
             //Revert the player's stats & all changes back to normal state
             ultEnd = false;
             playerHandler.isDashing = false;
@@ -88,6 +89,7 @@ public class CrabUltimateU : UltimateBase
             vfxManager.dashBodyVFX.SetActive(false);
             isTriggered = false;
             Invoke("EnableMovement", 2f);
+            
         }
         else
         {
@@ -98,5 +100,6 @@ public class CrabUltimateU : UltimateBase
     void EnableMovement()
     {
         playerHandler.IdleOrMove();
+        vfxManager.DeTrigger();
     }
 }

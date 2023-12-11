@@ -12,6 +12,7 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject deathVFX;
     public GameObject dashFootVFX;
     public GameObject upgradeVFX;
+    public GameObject exhaustedVFX;
     public GameObject dashBodyVFX;
     public GameObject blackSquare;
     public GameObject rageOnTxt;
@@ -100,6 +101,25 @@ public class PlayerVFXManager : MonoBehaviour
                 Instantiate(deathVFX, randomPosition, Quaternion.identity);
             }
         }
+    }
+
+    public void SpawnExhaustedVFX()
+    {
+        if (!isTriggered)
+        {
+            for (int i = 0; i < numberOfVFX; i++)
+            {
+                isTriggered = true;
+                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 2f);
+                Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
+                Instantiate(exhaustedVFX, randomPosition, Quaternion.identity);
+            }
+        }
+    }
+
+    public void DeTrigger()
+    {
+        isTriggered = false;
     }
 
     public void SpawnAoeVFX()
@@ -211,7 +231,7 @@ public class PlayerVFXManager : MonoBehaviour
 
     public void StartAppearing()
     {
-        StartCoroutine(FadeObject(0.5f)); // 0.5f is the target alpha value for fade in
+        StartCoroutine(FadeObject(0.8f)); // 0.5f is the target alpha value for fade in
     }
 
     public void StartFading()
@@ -245,6 +265,8 @@ public class PlayerVFXManager : MonoBehaviour
             hasAppeared = true;
         }
     }
+
+   
 
 }
 

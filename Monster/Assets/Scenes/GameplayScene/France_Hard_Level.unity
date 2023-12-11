@@ -198,9 +198,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1452367982}
     m_Modifications:
+    - target: {fileID: 45854393, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 45854393, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 45854393, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 45854394, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 0.20392157
       objectReference: {fileID: 0}
     - target: {fileID: 61134896, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: healthFill
@@ -235,12 +247,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 45854392}
     - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: exhaustedVFX
+      value: 
+      objectReference: {fileID: 1141330259687333427, guid: 63d28bc59f7e76847bf9be4b8515276b, type: 3}
+    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: fadeDuration
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: delayRageFade
-      value: 0.5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
+      propertyPath: deathVFXRadius
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 61134910, guid: 67f82c5ae35bda149bb78f56813931dd, type: 3}
       propertyPath: objectRenderer
@@ -1243,6 +1263,7 @@ MonoBehaviour:
   currentArrowSprite: {fileID: 635596426}
   defaultArrowSprite: {fileID: 21300000, guid: 8ca82eba25093864a8d7646b9b9b3ccf, type: 3}
   dashArrowSprite: {fileID: 21300000, guid: ead6d1224efc7e741af7b89f05f616e8, type: 3}
+  triggerHoldingDown: 0
 --- !u!212 &311242519
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1442,6 +1463,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &463412152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8147635832281685304, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+  m_PrefabInstance: {fileID: 2003536924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,6 +3306,11 @@ MonoBehaviour:
   m_AmplitudeGain: 0
   m_FrequencyGain: 0
   mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &787201166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2695255128273715673, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+  m_PrefabInstance: {fileID: 2003536924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &805057033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4061,6 +4098,7 @@ MonoBehaviour:
   numberOfEvents: 4
   eventNumber: 0
   bannerText: {fileID: 1478291478}
+  endStatusText: {fileID: 1103916801}
   levelManagerScript: {fileID: 1267804330}
   playerHandler: {fileID: 0}
   gameManager: {fileID: 0}
@@ -4071,7 +4109,6 @@ MonoBehaviour:
   audiomanager: {fileID: 0}
   clock: {fileID: 1294789420}
   endStatus: {fileID: 1103916800}
-  endStatusText: {fileID: 1103916801}
   timer: 0
 --- !u!1001 &1090540995
 PrefabInstance:
@@ -4840,9 +4877,13 @@ MonoBehaviour:
   endScreen: {fileID: 1890249180}
   winScreen: {fileID: 2003536927}
   loseScreen: {fileID: 2003536926}
+  destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
+  objectiveText: {fileID: 463412152}
   isVictory: 0
   hasActivated: 0
+  fadeDuration: 1
+  displayDuration: 2
   playerStatusBars: {fileID: 246436639}
   hitIndicator: {fileID: 635596423}
   joystick: {fileID: 2090532567}
@@ -5295,7 +5336,11 @@ MonoBehaviour:
   carsText: {fileID: 0}
   timeText: {fileID: 0}
   gemsText: {fileID: 0}
-  lerpDuration: 2
+  structureamt: 0
+  civilianamt: 0
+  caramt: 0
+  timeamt: 0
+  gemamt: 0
   scoreManager: {fileID: 0}
   gamemanager: {fileID: 0}
   isWin: 0
@@ -5943,6 +5988,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 61134888}
+    - target: {fileID: 3209800542187263487, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4333615331746317531, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

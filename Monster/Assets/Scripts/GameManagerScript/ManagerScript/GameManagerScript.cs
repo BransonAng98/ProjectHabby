@@ -18,12 +18,17 @@ public class GameManagerScript : MonoBehaviour
     public GameObject endScreen;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject destructionBar;
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI objectiveText;
 
     //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
     public bool hasActivated;
+    public float fadeDuration;
+    public float displayDuration;
+
 
     //Meteor
     public GameObject playerStatusBars;
@@ -97,19 +102,13 @@ public class GameManagerScript : MonoBehaviour
         playerStatusBars.SetActive(false);
         hitIndicator.SetActive(false);
         joystick.SetActive(false);
-        //foreach (Collider2D collider in playerLegs)
-        //{
-        //    collider.gameObject.SetActive(false);
-        //}
+
     }
 
     public void ActivatePlayer()
     {
+        TriggerIntro();
         Invoke("ActivateInput", 4.5f);
-        //foreach (Collider2D collider in playerLegs)
-        //{
-        //    collider.gameObject.SetActive(true);
-        //}
     }
 
     void ActivateInput()
@@ -171,6 +170,76 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
+    public void TriggerIntro()
+    {
+        StartCoroutine(StartGameSequence());
+    }
+
+    IEnumerator StartGameSequence()
+    {
+        objectiveText.enabled = true;
+        // Display the game objective text
+        SetObjectiveText("");
+        SetObjectiveText("Destroy the city!");
+
+        // Fade in the destruction bar
+        yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
+
+        // Wait for a short duration
+        yield return new WaitForSeconds(displayDuration);
+
+        // Fade out the objective text
+        yield return StartCoroutine(FadeOutObject(objectiveText.gameObject, fadeDuration));
+
+        // Destroy the objective text
+        Destroy(objectiveText.gameObject);
+
+    }
+
+    void SetObjectiveText(string text)
+    {
+        objectiveText.text = text;
+    }
+
+    IEnumerator FadeOutObject(GameObject obj, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            // Fade out the object
+            objectiveText.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        objectiveText.alpha = 0f;
+    }
+
+    IEnumerator FadeInObject(GameObject obj, float duration)
+    {
+        float elapsedTime = 0f;
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f; // Start with alpha set to 0
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            // Fade in the object
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        canvasGroup.alpha = 1f;
+    }
 
     //Trigger all the end game stuff
 }
