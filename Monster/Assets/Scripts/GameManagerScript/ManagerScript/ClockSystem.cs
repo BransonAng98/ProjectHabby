@@ -9,17 +9,19 @@ public class ClockSystem : MonoBehaviour
     public LevelManagerScriptableObject levelData;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI timerWarningText;
-    public GameObject countDownBG;
+    public TextMeshProUGUI timeOutText;
+    public Image clockSprite;
+    public Animator anim;
+
     public Image vignette;
     private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
     [SerializeField] private EventManager eventManager;
-    private float timerValue;
+    public float timerValue;
     private float addOnTime;
     
     public bool startTime;
     private bool thirtySecondsMessageDisplayed = false;
-    private bool timeUpMessageDisplayed = false;
     private bool isfinalSecondsLeft = false;
 
     private Color normalColor = Color.white;
@@ -38,11 +40,11 @@ public class ClockSystem : MonoBehaviour
         CalculateEventInterval();
 
         timerText = GetComponent<TextMeshProUGUI>();
-        countDownBG.gameObject.SetActive(false);
 
         DisplayTime(timerValue);
         startTime = false;
         vignette.enabled = false;
+        clockSprite.enabled = false;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
@@ -64,6 +66,8 @@ public class ClockSystem : MonoBehaviour
                 timerValue = 0;
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(3);
+                timeOutText.text = "";
+                timeOutText.text = "OUT OF TIME!";
                 Invoke("DelayEndScreen", 3f);
             }
         }
@@ -85,7 +89,24 @@ public class ClockSystem : MonoBehaviour
         }
         
     }
-        
+
+    public void ActivateTimeWarning()
+    {
+        clockSprite.enabled = true;
+
+        Invoke("DeactiveBanner", 3f);
+
+        anim.SetBool("Close", true);
+
+        Invoke("ResetActivation", 15f);
+    }
+
+    void DeactiveBanner()
+    {
+        anim.SetBool("Close", false);
+        clockSprite.enabled = false;
+    }
+
 
     void DelayEndScreen()
     {
@@ -161,31 +182,19 @@ public class ClockSystem : MonoBehaviour
         {
             isfinalSecondsLeft = true;
             float newTime = remainingTime - 1;
-            timerWarningText.text = Mathf.CeilToInt(newTime).ToString();
             timerText.fontSize = enlargedFontSize;
         }
 
         else
         {
-            if (remainingTime <= 30 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
+            if (remainingTime <= 32 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
             {
-                countDownBG.gameObject.SetActive(true);
+                ActivateTimeWarning();
                 timerWarningText.text = "";
-                timerWarningText.text += "30 Seconds!";
+                timerWarningText.text += "30 SECONDS!";
                 thirtySecondsMessageDisplayed = true;
-                Invoke("TurnOffText", 3f);
             }
-           
-
-            else if (remainingTime <= 0 && !timeUpMessageDisplayed)
-            {
-                countDownBG.gameObject.SetActive(true);
-                timerWarningText.text = "";
-                timerWarningText.text = "Time's up!";
-                timeUpMessageDisplayed = true;
-                Invoke("TurnOffText", 3f);
-            }
-            
+          
         }
     }
     void CalculateEventInterval()
@@ -194,8 +203,5 @@ public class ClockSystem : MonoBehaviour
         eventInterval = timerValue / eventManager.numberOfEvents;
     }
 
-    void TurnOffText()
-    {
-        countDownBG.gameObject.SetActive(false);
-    }
+
 }

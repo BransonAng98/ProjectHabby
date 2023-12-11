@@ -16,9 +16,13 @@ public class EventManager : MonoBehaviour
     public AirStrike airStrikeScript;
     public Artillery artilleryScript;
     public MissileManager missileScript;
+    public PlayerHealthScript playerHealth;
 
     public AudioManagerScript audiomanager;
     public ClockSystem clock;
+
+    public GameObject endStatus;
+    public TextMeshProUGUI endStatusText;
 
     public float timer;
 
@@ -32,6 +36,7 @@ public class EventManager : MonoBehaviour
         levelManagerScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        playerHealth = GameObject.Find("CrabPlayer").GetComponent<PlayerHealthScript>();
 
         timer = 0f;
     }
@@ -40,6 +45,7 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         GenerateEvents();
+        TriggerEndStatus();
     }
 
     public void GenerateEvents()
@@ -81,7 +87,36 @@ public class EventManager : MonoBehaviour
         }
 
     }
-    
+
+    public void TriggerEndStatus()
+    {
+        endStatus.SetActive(false); // Ensure it starts deactivated
+
+        if (gameManager.isVictory == false && playerHealth.healthSlider.value <= 0)
+        {
+            endStatus.SetActive(true);
+            endStatusText.text = "";
+
+            endStatusText.color = Color.red;
+            endStatusText.text = "Monster Slain!";
+        }
+        else if (gameManager.isVictory == true)
+        {
+            endStatus.SetActive(true);
+            endStatusText.text = "";
+
+            endStatusText.color = Color.green;
+            endStatusText.text = "Mission Complete!";
+        }
+        else if (clock.timerValue == 0 && gameManager.isVictory == false)
+        {
+            endStatus.SetActive(true);
+            endStatusText.text = "";
+
+            endStatusText.color = Color.red;
+            endStatusText.text = "Time's Up!";
+        }
+    }
     public void PlaySFX()
     {
         audiomanager.PlayIncomingAbility();

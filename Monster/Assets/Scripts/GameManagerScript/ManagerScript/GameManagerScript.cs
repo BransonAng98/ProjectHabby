@@ -19,6 +19,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
     public TextMeshProUGUI levelText;
+
     //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
@@ -99,7 +100,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ActivatePlayer()
     {
-        Invoke("ActivateInput", 4f);
+        Invoke("ActivateInput", 4.5f);
         //foreach (Collider2D collider in playerLegs)
         //{
         //    collider.gameObject.SetActive(true);
