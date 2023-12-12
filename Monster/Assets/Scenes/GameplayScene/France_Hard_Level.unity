@@ -513,7 +513,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95431133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16c2b1abada87b94194885a303234d9c, type: 3}
   m_Name: 
@@ -523,7 +523,6 @@ MonoBehaviour:
   mainCam: {fileID: 519420031}
   joystick: {fileID: 0}
   playerHandler: {fileID: 0}
-  anim: {fileID: 0}
   missileMaxAmount: 5
   touchRadius: 0.5
   eventDuration: 10
@@ -4125,7 +4124,6 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   airStrikeScript: {fileID: 34761370}
   artilleryScript: {fileID: 2001666953}
-  missileScript: {fileID: 0}
   playerHealth: {fileID: 0}
   audiomanager: {fileID: 0}
   clock: {fileID: 1294789420}
@@ -6044,10 +6042,30 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 61134888}
+    - target: {fileID: 2695255128993914452, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -700
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695255128993914455, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695255128993914455, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bdbbd43a253d47f99f853e49dce8edc, type: 2}
+    - target: {fileID: 2695255128993914455, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4333615331746317531, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1267804331}
+    - target: {fileID: 4948403650826233312, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 531
+      objectReference: {fileID: 0}
     - target: {fileID: 6187009993225311476, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -6116,6 +6134,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1267804336}
+    - target: {fileID: 8147635832281685304, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_fontSize
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147635832281685304, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 54
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2015572331, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}

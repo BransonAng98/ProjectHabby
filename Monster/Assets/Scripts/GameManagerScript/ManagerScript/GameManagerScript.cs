@@ -48,14 +48,12 @@ public class GameManagerScript : MonoBehaviour
         //GNAManager = GetComponent<GNAManager>();
         player.GetComponent<MeshRenderer>().enabled = false;
         //scoreDisplay.SetActive(false);
-        deployScreen.SetActive(true);
         endScreen.SetActive(false);
-
         //AstarPath.active.Scan(); //scan the grid
+        DisplayObjective();
         ScanAndInsert();
         DisableObstacles();
         DeactivatePlayer();
-        
     }
 
 
@@ -170,6 +168,15 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
+    void DisplayObjective()
+    {
+        deployScreen.SetActive(true);
+        objectiveText.enabled = true;
+        // Display the game objective text
+        SetObjectiveText("");
+        SetObjectiveText("Destroy the city within the time limit!");
+    }
+
     public void TriggerIntro()
     {
         StartCoroutine(StartGameSequence());
@@ -177,13 +184,7 @@ public class GameManagerScript : MonoBehaviour
 
     IEnumerator StartGameSequence()
     {
-        objectiveText.enabled = true;
-        string formattedTime = clock.GetFormattedTime(clock.timerValue);
-
-        // Display the game objective text
-        SetObjectiveText("");
-        SetObjectiveText("Destroy the city in " + formattedTime);
-
+        
         // Fade in the destruction bar
         yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
 
