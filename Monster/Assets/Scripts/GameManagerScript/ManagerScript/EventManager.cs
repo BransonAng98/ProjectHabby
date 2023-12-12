@@ -31,7 +31,6 @@ public class EventManager : MonoBehaviour
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         airStrikeScript = GameObject.Find("AirStrikeSpawner").GetComponent<AirStrike>();
         artilleryScript = GameObject.Find("ArtySpawner").GetComponent<Artillery>();
-        missileScript = GameObject.Find("MissileManager").GetComponent<MissileManager>();
         levelManagerScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();

@@ -9,7 +9,6 @@ public class MissileManager : MonoBehaviour
     public Camera mainCam;
     public Joystick joystick;
     [SerializeField] private PlayerHandler playerHandler;
-    [SerializeField] private Animator anim;
 
     public int missileMaxAmount;
     public float touchRadius;
@@ -30,7 +29,6 @@ public class MissileManager : MonoBehaviour
         eventTimer = 0;
         isEventActive = false;
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
-        anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -83,9 +81,6 @@ public class MissileManager : MonoBehaviour
     {
         if (!hasSpawned)
         {
-            Invoke("DeactiveBanner", 3f);
-            anim.SetBool("Close", true);
-            Invoke("ResetActivation", 15f);
 
             Vector2 textPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 8f);
             guide = Instantiate(tapText, textPos, Quaternion.Euler(0f, 0f, 0f));
