@@ -126,6 +126,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator FadeBannerInOut(float fadeInDuration, float fadeOutDuration, float waitDuration)
     {
+        
         yield return StartCoroutine(FadeInBanner(fadeInDuration));
 
         // Wait for a short duration
@@ -137,6 +138,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator FadeInBanner(float duration)
     {
+        audiomanager.PlayWoosh1SFX();
         CanvasGroup canvasGroup = bannerObj.GetComponent<CanvasGroup>();
 
         float elapsedTime = 0f;
@@ -157,6 +159,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator FadeOutBanner(float duration)
     {
+        audiomanager.PlayWoosh2SFX();
         CanvasGroup canvasGroup = bannerObj.GetComponent<CanvasGroup>();
 
         float elapsedTime = 0f;

@@ -9,9 +9,6 @@ public class ArtilleryBullet : MonoBehaviour
     private CircularIndicator storedData;
     private Collider2D entityCollider;
 
-    public AudioSource artiAudioSource;
-    public AudioClip[] artiSFX;
-
     private void Start()
     {
         entityCollider = GetComponent<Collider2D>();
@@ -37,7 +34,6 @@ public class ArtilleryBullet : MonoBehaviour
     public void BlowUp()
     {
         Debug.Log("Blow Up");
-        PlayExplodeSFX();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 6f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -48,10 +44,5 @@ public class ArtilleryBullet : MonoBehaviour
             }
         }
     }
-
-    public void PlayExplodeSFX()
-    {
-        AudioClip soundtoPlay = artiSFX[Random.Range(0, artiSFX.Length)];
-        artiAudioSource.PlayOneShot(soundtoPlay);
-    }  
+  
 }
