@@ -22,6 +22,10 @@ public class GameManagerScript : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI objectiveText;
 
+    public float textMoveSpeed;
+    public float textFadeDuration;
+    public float textMoveDuration;
+
     //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
@@ -62,6 +66,7 @@ public class GameManagerScript : MonoBehaviour
         if (!gameStarted && Input.anyKeyDown)
         {
             StartGame();
+            StartCoroutine(MoveUpAndFadeOut(objectiveText.gameObject, textMoveDuration, textFadeDuration));
         }
     }
 
@@ -177,41 +182,30 @@ public class GameManagerScript : MonoBehaviour
         SetObjectiveText("Destroy the city within the time limit!");
     }
 
-    public void TriggerIntro()
-    {
-        StartCoroutine(StartGameSequence());
-    }
-
-    IEnumerator StartGameSequence()
-    {
-        
-        // Fade in the destruction bar
-        yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
-
-        // Wait for a short duration
-        yield return new WaitForSeconds(displayDuration);
-
-        // Fade out the objective text
-        yield return StartCoroutine(FadeOutObject(objectiveText.gameObject, fadeDuration));
-
-        // Destroy the objective text
-        Destroy(objectiveText.gameObject);
-
-    }
-
-    void SetObjectiveText(string text)
-    {
-        objectiveText.text = text;
-    }
-
-    IEnumerator FadeOutObject(GameObject obj, float duration)
+    IEnumerator MoveUpAndFadeOut(GameObject obj, float moveDuration, float fadeDuration)
     {
         float elapsedTime = 0f;
+        RectTransform rectTransform = obj.GetComponent<RectTransform>();
 
-        while (elapsedTime < duration)
+        // Move up
+        while (elapsedTime < moveDuration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
+            float t = elapsedTime / moveDuration;
+
+            // Move the object upwards using RectTransform
+            rectTransform.anchoredPosition += Vector2.up * textMoveSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+        // Reset timer for fading
+        elapsedTime = 0f;
+
+        // Fade out
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
 
             // Fade out the object
             objectiveText.alpha = Mathf.Lerp(1f, 0f, t);
@@ -221,6 +215,26 @@ public class GameManagerScript : MonoBehaviour
 
         // Ensure it reaches the target alpha exactly
         objectiveText.alpha = 0f;
+
+        // Turn off the objective text
+        objectiveText.enabled = false;
+    }
+
+    public void TriggerIntro()
+    {
+        StartCoroutine(StartGameSequence());
+    }
+
+    IEnumerator StartGameSequence()
+    {
+        // Fade in the destruction bar
+        yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
+
+    }
+
+    void SetObjectiveText(string text)
+    {
+        objectiveText.text = text;
     }
 
     IEnumerator FadeInObject(GameObject obj, float duration)
