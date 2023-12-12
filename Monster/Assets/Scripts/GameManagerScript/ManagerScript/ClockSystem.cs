@@ -11,12 +11,12 @@ public class ClockSystem : MonoBehaviour
     public TextMeshProUGUI timerWarningText;
     public TextMeshProUGUI timeOutText;
     public Image clockSprite;
-    public Animator anim;
-
     public Image vignette;
-    private GameManagerScript gameManager;
+
+    [SerializeField] private GameManagerScript gameManager;
     [SerializeField] private PlayerHandler playerHandler;
     [SerializeField] private EventManager eventManager;
+
     public float timerValue;
     private float addOnTime;
     
@@ -93,20 +93,12 @@ public class ClockSystem : MonoBehaviour
     public void ActivateTimeWarning()
     {
         clockSprite.enabled = true;
-
-        Invoke("DeactiveBanner", 3f);
-
-        anim.SetBool("Close", true);
-
-        Invoke("ResetActivation", 15f);
     }
 
-    void DeactiveBanner()
+    public void DeactivateTimeWarning()
     {
-        anim.SetBool("Close", false);
         clockSprite.enabled = false;
     }
-
 
     void DelayEndScreen()
     {
@@ -202,10 +194,12 @@ public class ClockSystem : MonoBehaviour
         {
             if (remainingTime <= 32 && remainingTime > 20 && !thirtySecondsMessageDisplayed)
             {
+                eventManager.PerformBannerFade(0.5f, 0.5f, 3f);
                 ActivateTimeWarning();
                 timerWarningText.text = "";
                 timerWarningText.text += "30 SECONDS!";
                 thirtySecondsMessageDisplayed = true;
+                Invoke("DeactivateTimeWarning", 1f);
             }
           
         }

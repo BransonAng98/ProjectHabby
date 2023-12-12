@@ -20,6 +20,7 @@ public class EventManager : MonoBehaviour
     public PlayerHealthScript playerHealth;
     public AudioManagerScript audiomanager;
     public ClockSystem clock;
+    public GameObject bannerObj;
 
     public GameObject endStatus;
 
@@ -59,23 +60,21 @@ public class EventManager : MonoBehaviour
                 switch (eventNumber)
                 {
                     case 0:
-                        Debug.Log("boom");
+                        PerformBannerFade(0.5f, 0.5f, 3f);
                         airStrikeScript.ActivateAirStrike();
                         Invoke("PlaySFX", 2f);
                         bannerText.text = "Incoming AirStrike!";
                         timer = 0f;
                         break;
+
                     case 1:
+                        PerformBannerFade(0.5f, 0.5f, 3f);
                         artilleryScript.ActivateArtillery();
                         Invoke("PlaySFX", 6f);
                         bannerText.text = "Incoming Barrage!";
                         timer = 0f;
                         break;
-                    /*case 2:
-                        missileScript.StartEvent();
-                        bannerText.text = "Incoming Missiles!";
-                        currentScore = 0;
-                        break;*/
+
                     default:
                         break;
                 }
@@ -119,5 +118,64 @@ public class EventManager : MonoBehaviour
     {
         audiomanager.PlayIncomingAbility();
     }
+
+
+    public void PerformBannerFade(float fadeInDuration, float fadeOutDuration, float waitDuration)
+    {
+        StartCoroutine(FadeBannerInOut(fadeInDuration, fadeOutDuration, waitDuration));
+    }
+
+    IEnumerator FadeBannerInOut(float fadeInDuration, float fadeOutDuration, float waitDuration)
+    {
+        yield return StartCoroutine(FadeInBanner(fadeInDuration));
+
+        // Wait for a short duration
+        yield return new WaitForSeconds(waitDuration);
+
+        yield return StartCoroutine(FadeOutBanner(fadeOutDuration));
+    }
+
+
+    IEnumerator FadeInBanner(float duration)
+    {
+        CanvasGroup canvasGroup = bannerObj.GetComponent<CanvasGroup>();
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        canvasGroup.alpha = 1f;
+    }
+
+    IEnumerator FadeOutBanner(float duration)
+    {
+        CanvasGroup canvasGroup = bannerObj.GetComponent<CanvasGroup>();
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        canvasGroup.alpha = 0f;
+    }
+
+
 }
 

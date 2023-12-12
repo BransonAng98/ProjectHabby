@@ -108,62 +108,62 @@ public class MeteorScript : MonoBehaviour
 
     }
 
-    private IEnumerator DestroyAfterDelay(GameObject objToDestroy, float delay)
+    private IEnumerator DestroyAfterDelay(GameObject objToSort, float delay)
     {
         healthscript.activateAbiliityBar = true;
         yield return new WaitForSeconds(delay);
 
-        if (objToDestroy != null && objToDestroy.tag != "Player")
+        if (objToSort != null && objToSort.tag != "Player")
         {
-            if (objToDestroy.tag == "Civilian")
+            if (objToSort.tag == "Civilian")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    objToDestroy.GetComponent<Civilian>().causeOfDeath = "Meteor shower";
-                    Destroy(parentTransform.gameObject);
+                    objToSort.GetComponent<Civilian>().causeOfDeath = "Meteor shower";
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Car")
+            else if (objToSort.tag == "Car")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    Destroy(parentTransform.gameObject);
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Tree")
+            else if (objToSort.tag == "Tree")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    Destroy(parentTransform.gameObject);
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.name == "CamConfiner")
+            else if (objToSort.name == "CamConfiner")
             {
                 // do nothing
             }
-            else if (objToDestroy.tag == "BigBuilding")
+            else if (objToSort.tag == "BigBuilding")
             {
-                SpriteRenderer buildingRenderer = objToDestroy.GetComponentInChildren<SpriteRenderer>();
+                SpriteRenderer buildingRenderer = objToSort.GetComponentInChildren<SpriteRenderer>();
                 if (buildingRenderer != null)
                 {
-                    buildingRenderer.enabled = false;
+                    buildingRenderer.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Leader")
+            else if (objToSort.tag == "Leader")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    objToDestroy.GetComponent<Leader>().causeOfDeath = "Meteor shower";
-                    Destroy(parentTransform.gameObject);
+                    objToSort.GetComponent<Leader>().causeOfDeath = "Meteor shower";
+                    parentTransform.sortingOrder = 1;
                 }
             }
             else
             {
-                Destroy(objToDestroy);
+                
             }
         }
     }
