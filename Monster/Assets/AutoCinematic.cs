@@ -9,6 +9,6 @@ public class AutoCinematic : MonoBehaviour
     void AutoChange()
     {
         Debug.Log("Check");
-        comicScript.TurnAuto();
+        //comicScript.TurnAuto();
     }
 }
