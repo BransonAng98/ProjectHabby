@@ -22,7 +22,7 @@ public class ScoreDisplayScript : MonoBehaviour
     public ScoreManagerScript scoreManager;
     public GameManagerScript gamemanager;
     public bool isWin;
-    public string formattedTime;
+    //public string formattedTime;
     private void Start()
     {
      
@@ -44,18 +44,18 @@ public class ScoreDisplayScript : MonoBehaviour
         float elapsedTime = 0f;
 
         while (elapsedTime < lerpDuration)
-        {;
+        {
             float t = elapsedTime / lerpDuration;
 
             int structuresScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfStructures, t));
             int civiliansScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfcivilians, t));
             int carsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfCarskilled, t));
-            float timeScore = Mathf.RoundToInt(Mathf.Lerp(clock.timerValue, scoreManager.timeLeft, t));
-            formattedTime = clock.GetFormattedTime(timeScore);
+            float timeScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.timeLeft, t));
+            //formattedTime = clock.GetFormattedTime(timeScore);
             int gemsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.gemsEarned, t));
 
            
-            UpdateScoreUI(structuresScore, civiliansScore, carsScore, formattedTime, gemsScore);
+            UpdateScoreUI(structuresScore, civiliansScore, carsScore, timeScore, gemsScore);
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -63,15 +63,18 @@ public class ScoreDisplayScript : MonoBehaviour
 
         // Ensure the final scores are set correctly
         UpdateScoreUI(scoreManager.amtOfStructures, scoreManager.amtOfcivilians,
-                       scoreManager.amtOfCarskilled, formattedTime , scoreManager.gemsEarned);
+                       scoreManager.amtOfCarskilled, scoreManager.timeLeft , scoreManager.gemsEarned);
     }
 
-    private void UpdateScoreUI(int structures, int civilians, int cars, string time, int gems)
+    private void UpdateScoreUI(int structures, int civilians, int cars, float time, int gems)
     {
         structuresText.text = "" + structures;
         civiliansText.text = "" + civilians;
         carsText.text = "" + cars;
-        timeText.text = "" + time;
+        float minutes = Mathf.FloorToInt(timeamt / 60);
+        float seconds = Mathf.FloorToInt(timeamt % 60);
+
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         gemsText.text = "" + gems;
     }
 
