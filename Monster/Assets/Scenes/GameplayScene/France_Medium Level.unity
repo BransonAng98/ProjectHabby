@@ -523,7 +523,6 @@ MonoBehaviour:
   mainCam: {fileID: 519420031}
   joystick: {fileID: 0}
   playerHandler: {fileID: 0}
-  anim: {fileID: 0}
   missileMaxAmount: 5
   touchRadius: 0.5
   eventDuration: 10
@@ -4902,6 +4901,9 @@ MonoBehaviour:
   destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
   objectiveText: {fileID: 463412152}
+  textMoveSpeed: 0
+  textFadeDuration: 0
+  textMoveDuration: 0
   isVictory: 0
   hasActivated: 0
   fadeDuration: 1
@@ -5721,22 +5723,22 @@ MonoBehaviour:
   - {fileID: 8765843850186578843, guid: 8936068a21360bd4c895f7b79340a45c, type: 3}
   - {fileID: 1596909546565700212, guid: 62bac595180a51d48ab143c493283d92, type: 3}
   - {fileID: 7209707194317485303, guid: 212687844c1a28948ba4ebab68b47797, type: 3}
-  numberOfColumns: 5
-  numberOfRows: 5
+  numberOfColumns: 4
+  numberOfRows: 4
   spacingX: 25.6
   spacingY: 25.6
   obstacleList: []
-  prefab0Count: 3
+  prefab0Count: 2
   prefab1Count: 2
   prefab2Count: 1
   prefab3Count: 2
   prefab4Count: 2
   prefab5Count: 2
-  prefab6Count: 1
+  prefab6Count: 2
   prefab7Count: 1
-  prefab8Count: 1
+  prefab8Count: 2
   prefab9Count: 1
-  prefab10Count: 3
+  prefab10Count: 2
   prefab11Count: 1
   prefab12Count: 1
   prefab13Count: 1
