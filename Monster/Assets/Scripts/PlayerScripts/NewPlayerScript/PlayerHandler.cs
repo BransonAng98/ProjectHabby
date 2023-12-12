@@ -42,7 +42,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerVFXManager vfxManager;
     [SerializeField] private CameraShake cameraShake;
-    Vector2 movementInput;
+    [SerializeField] Vector2 movementInput;
+    [SerializeField] Vector2 firstInput;
+    [SerializeField] Vector2 lastInput;
     [SerializeField] Vector2 lastKnownVector;
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
@@ -70,6 +72,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public bool isDashing;
     public bool invokeHold;
     [SerializeField] HitCircle hitCircle;
+    public float lagTime;
+    [SerializeField] bool startInputLag;
 
     private bool isOnSpawned;
     private bool isOffSpawned;
@@ -341,25 +345,56 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             lastKnownVector = movementInput;
         }
 
+        //Move the character based on the player's previous input
         if (movementInput == Vector2.zero)
         {
             rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
-            skeletonAnim.timeScale = animationSpeed;
-            Debug.Log("Moving without inputs");
-            CreateDrag();
         }
 
+        //Move the character based on the player's input   
         else
         {
-            //Code to move the player
-            rb.velocity = new Vector2(movementInput.x * movementSpeedHolder, movementInput.y * movementSpeedHolder);
-            skeletonAnim.timeScale = animationSpeed;
-            CreateDrag();
+            firstInput = lastKnownVector;
+            Invoke("TriggerLastInput", lagTime);
+            //rb.AddForce(lastKnownVector, ForceMode2D.Force);
+            if(lastInput == Vector2.zero)
+            {
+                rb.velocity = new Vector2(Mathf.Lerp(lastKnownVector.x, firstInput.x, 3f), Mathf.Lerp(lastKnownVector.y, firstInput.y, 3f));
+            }
+            else
+            {
+                //Charges at normal speed when the firstInput has caught up with the lastInput and its the same
+                if(firstInput == lastInput)
+                {
+                    rb.velocity = new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder);
+                }
 
-            Debug.Log("Moving with inputs");
+                //Causes a lag when the player is changing
+                else
+                {
+                    // rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder), 0.5f);
+                    //rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x, rb.velocity.y, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 3f * Time.deltaTime,float.MaxValue);
+                    rb.velocity = new Vector3(Mathf.SmoothStep(rb.velocity.x, lastInput.x, 2f * Time.deltaTime), Mathf.SmoothStep(rb.velocity.y, lastInput.y, 2f * Time.deltaTime), 0);
+                    rb.AddForce(lastKnownVector);
+                }
+            }
         }
+        skeletonAnim.timeScale = animationSpeed;
+        //CreateDrag();
     }
 
+    void TriggerLastInput()
+    {
+        lastInput = movementInput;
+    }
+
+    //private void RecordLastVector()
+    //{
+    //    if (movementInput.x != 0 && movementInput.y != 0)
+    //    {
+    //        lastKnownVector = movementInput;
+    //    }
+    //}
 
     private void PlayerMove()
     {
@@ -801,13 +836,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void HoldControlForDash()
     {
-        Debug.Log("Touch count: " + Input.touchCount);
 
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0); // Get the first touch (assuming single-touch for simplicity)
-
-            Debug.Log("Touch phase: " + touch.phase);
 
             if (touch.phase == TouchPhase.Moved)
             {
@@ -824,11 +856,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 hitCircle.triggerHoldingDown = false;
                 invokeHold = false;
                 TriggerUltimate2();
-                Debug.Log("Release the monster");
             }
         }
     }
-
 
     public void DecreaseUltimateBar(float decreaseRate)
     {

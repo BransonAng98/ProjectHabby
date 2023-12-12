@@ -1969,12 +1969,17 @@ MonoBehaviour:
   damageHolder: 5
   movementSpeedHolder: 0
   attackRangeHolder: 0
+  maxUltChargeHolder: 0
   stepDamageHolder: 0
   playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
   joystick: {fileID: 0}
   rb: {fileID: 0}
   vfxManager: {fileID: 0}
   cameraShake: {fileID: 0}
+  movementInput: {x: 0, y: 0}
+  firstInput: {x: 0, y: 0}
+  lastInput: {x: 0, y: 0}
+  lastKnownVector: {x: 0, y: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2000,6 +2005,10 @@ MonoBehaviour:
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
+  invokeHold: 0
+  hitCircle: {fileID: 0}
+  lagTime: 0.15
+  startInputLag: 0
   maxFrictionValue: 15
   lerpTime: 10
   animationSpeed: 1.5
@@ -2073,10 +2082,12 @@ MonoBehaviour:
   rageMat: {fileID: 2100000, guid: 8f3f7f1999f95b541be03e1caac33e42, type: 2}
   abilityBarPercentage: 0
   abilityPhase: 0
+  riseOrFall: 0
   abilityRetainThreshold: 2
   timeRetainThreshold: 3
   previousBarValue: 0
   barDecrease: 15
+  activateAbiliityBar: 0
   canDecrease: 0
   buffed1: 0
   buffed2: 0
@@ -2138,13 +2149,20 @@ MonoBehaviour:
   deathVFX: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   dashFootVFX: {fileID: 141433446842962269, guid: 96aae905eacc9824995d15a320d805a8, type: 3}
   upgradeVFX: {fileID: 184778, guid: b694e7b9822f1f941924b418de1a8c50, type: 3}
+  exhaustedVFX: {fileID: 0}
   dashBodyVFX: {fileID: 1090552897384165593}
   blackSquare: {fileID: 0}
+  rageOnTxt: {fileID: 0}
+  rageOffTxt: {fileID: 0}
   deathVFXRadius: 2
   footTremorRadius: 2
   aoeTremorRadius: 10
   numberOfVFX: 3
   fadeDuration: 2
+  moveSpeed: 0
+  rageFadeDuration: 0
+  delayRageFade: 0
+  objectRenderer: {fileID: 0}
   legLocations:
   - {fileID: 5507663565289665753}
   - {fileID: 9173137633997902772}
@@ -2152,6 +2170,7 @@ MonoBehaviour:
   - {fileID: 5883512054228401086}
   isTriggered: 0
   isDashing: 0
+  hasAppeared: 0
 --- !u!23 &6516790000295486548
 MeshRenderer:
   m_ObjectHideFlags: 0
