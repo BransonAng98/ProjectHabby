@@ -342,7 +342,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (movementInput.x != 0 && movementInput.y != 0)
         {
-            lastKnownVector = movementInput;
+            lastKnownVector = movementInput.normalized;
         }
 
         if (movementInput == Vector2.zero)
@@ -451,7 +451,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void TurnOffPlayer()
     {
-        
+        StopAllCoroutines();
+        isDashing = false;
+        MuteRoar();
+        DisableColliders();
+        animationSpeed = 1.7f;
     }
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -857,20 +861,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case 2:
                 SetCharacterState(PlayerStates.victory);
-                isDashing = false;
-                MuteRoar();
-                DisableColliders();
-                animationSpeed = 1.7f;
+                TurnOffPlayer();
                 Debug.Log("Player won");
                 break;
 
             case 3:
                 SetCharacterState(PlayerStates.defeat);
-                isDashing = false;
-                vfxManager.SpawnDeathVFX();
-                MuteRoar();
-                DisableColliders();
-                 animationSpeed = 1.7f;
+                TurnOffPlayer();
                 Debug.Log("Player lost");
                 break;
 
@@ -1165,7 +1162,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case PlayerStates.rage:
                 SetAnimation(0, raging, true, 1f);
-                playFull = false;
+                playFull = true;
                 break;
 
             case PlayerStates.exhaust:
