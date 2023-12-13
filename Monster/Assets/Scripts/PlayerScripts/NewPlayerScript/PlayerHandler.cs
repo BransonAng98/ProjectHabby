@@ -1144,12 +1144,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.victory:
-                SetAnimation(1, victorying, true, 0.5f);
+                SetAnimation(1, victorying, true, 1f);
                 playFull = true;
                 break;
 
             case PlayerStates.defeat:
-                SetAnimation(1, defeating, false, 0.5f);
+                SetAnimation(1, defeating, false, 1f);
                 playFull = true;
                 break;
 
