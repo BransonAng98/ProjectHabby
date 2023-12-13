@@ -451,8 +451,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void TurnOffPlayer()
     {
-        MuteRoar();
-        DisableColliders();
+        
     }
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -775,6 +774,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     void TriggerUltimate2()
     {
         vfxManager.StartFading();
+        countdown = 5f;
         canAttack = false;
         canEarnUlt = false;
         enableInput = true;
@@ -818,7 +818,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         // Rapidly decrease the ultimate bar during the ultimate animation
         currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
     }
-    void DisableUltimateVFX()
+   public void DisableUltimateVFX()
     {
         vfxManager.dashBodyVFX.SetActive(false);
     }
@@ -858,6 +858,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             case 2:
                 SetCharacterState(PlayerStates.victory);
                 isDashing = false;
+                MuteRoar();
+                DisableColliders();
+                animationSpeed = 1.7f;
                 Debug.Log("Player won");
                 break;
 
@@ -865,6 +868,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 SetCharacterState(PlayerStates.defeat);
                 isDashing = false;
                 vfxManager.SpawnDeathVFX();
+                MuteRoar();
+                DisableColliders();
+                 animationSpeed = 1.7f;
                 Debug.Log("Player lost");
                 break;
 
@@ -1138,12 +1144,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.victory:
-                SetAnimation(1, victorying, true, 1f);
+                SetAnimation(1, victorying, true, 0.5f);
                 playFull = true;
                 break;
 
             case PlayerStates.defeat:
-                SetAnimation(1, defeating, false, 1f);
+                SetAnimation(1, defeating, false, 0.5f);
                 playFull = true;
                 break;
 

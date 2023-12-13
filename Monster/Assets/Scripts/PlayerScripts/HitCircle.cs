@@ -131,6 +131,11 @@ public class HitCircle : MonoBehaviour
 
     }
 
+    public void DisableHitCircleVFX()
+    {
+        rageDirVFX.SetActive(false);
+    }
+
 }
 
 

@@ -17,7 +17,7 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject blackSquare;
     public GameObject rageOnTxt;
     public GameObject rageOffTxt;
-
+    public GameManagerScript gamemanager;
     private GameObject player;
 
     public float deathVFXRadius;
@@ -46,7 +46,7 @@ public class PlayerVFXManager : MonoBehaviour
     private void Start()
     {
         objectRenderer = GameObject.Find("BlackSquare").GetComponent<SpriteRenderer>();
-
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         initialColor = objectRenderer.color;
         playerHandler = GetComponent<PlayerHandler>();
         isTriggered = false;
@@ -60,9 +60,14 @@ public class PlayerVFXManager : MonoBehaviour
         {
             Instantiate(impactVFX, correction, Quaternion.identity);
         }
-        else
+        if(isDashing & gamemanager.gameEnded == false)
         {
             Instantiate(dashFootVFX, correction, Quaternion.identity);
+        }
+
+        if(isDashing & gamemanager.gameEnded == true)
+        {
+            Instantiate(impactVFX, correction, Quaternion.identity);
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(correction, footTremorRadius);

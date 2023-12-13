@@ -21,6 +21,7 @@ public class EventManager : MonoBehaviour
     public AudioManagerScript audiomanager;
     public ClockSystem clock;
     public GameObject bannerObj;
+    public HitCircle hitcircleScript;
 
     public GameObject endStatus;
 
@@ -35,6 +36,8 @@ public class EventManager : MonoBehaviour
         playerHandler = GameObject.Find("CrabPlayer").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         playerHealth = GameObject.Find("CrabPlayer").GetComponent<PlayerHealthScript>();
+        hitcircleScript = GameObject.Find("HitCircle").GetComponent<HitCircle>();
+
 
         timer = 0f;
     }
@@ -92,6 +95,8 @@ public class EventManager : MonoBehaviour
         {
             gameManager.gameEnded = true;
             playerHandler.DisableMovement(3);
+            playerHandler.DisableUltimateVFX();
+            hitcircleScript.DisableHitCircleVFX();
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -102,6 +107,8 @@ public class EventManager : MonoBehaviour
         {
             gameManager.gameEnded = true;
             playerHandler.DisableMovement(2);
+            playerHandler.DisableUltimateVFX();
+            hitcircleScript.DisableHitCircleVFX();
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -112,6 +119,8 @@ public class EventManager : MonoBehaviour
         {
             gameManager.gameEnded = true;
             playerHandler.DisableMovement(3);
+            playerHandler.DisableUltimateVFX();
+            hitcircleScript.DisableHitCircleVFX();
             endStatus.SetActive(true);
             endStatusText.text = "";
 
