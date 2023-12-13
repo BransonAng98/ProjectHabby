@@ -350,59 +350,68 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             lastKnownVector = movementInput;
         }
 
-        //Move the character based on the player's previous input
-        if (movementInput == Vector2.zero)
+        if(movementInput == Vector2.zero)
         {
-            hitCircle.lagInput = false;
             rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
         }
 
-        //Move the character based on the player's input   
         else
         {
-            hitCircle.lagInput = true;
-            firstInput = lastKnownVector;
-            Invoke("TriggerLastInput", lagTime);
-            //rb.AddForce(lastKnownVector, ForceMode2D.Force);
-            if(lastInput == Vector2.zero)
-            {
-                rb.velocity = new Vector2(Mathf.Lerp(lastKnownVector.x, firstInput.x, 3f), Mathf.Lerp(lastKnownVector.y, firstInput.y, 3f));
-            }
-            else
-            {
-                //Charges at normal speed when the firstInput has caught up with the lastInput and its the same AreVectorsWithinRange(firstInput, lastInput, 0.01f)
-                if (firstInput == lastInput)
-                {
-                    rb.velocity = new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder);
-                }
-
-                //Causes a lag when the player is changing
-                else
-                {
-                    // rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder), 0.5f);
-                    
-                    if(moveX > moveY)
-                    {
-                        rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder/ 4, rb.velocity.y * movementSpeedHolder / 10, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
-                    }
-                    else
-                    {
-                        rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder / 10, rb.velocity.y * movementSpeedHolder / 4, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
-                    }
-                    //if (moveX > moveY)
-                    //{
-                    //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder / 3, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
-                    //}
-                    //else
-                    //{
-                    //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder /3, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
-                    //}
-                    rb.AddForce(lastKnownVector);
-                }
-            }
+            rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 180f * Time.deltaTime, float.MaxValue);
         }
-        skeletonAnim.timeScale = animationSpeed;
-        //CreateDrag();
+        ////Move the character based on the player's previous input
+        //if (movementInput == Vector2.zero)
+        //{
+        //    hitCircle.lagInput = false;
+        //    rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+        //}
+
+        ////Move the character based on the player's input   
+        //else
+        //{
+        //    hitCircle.lagInput = true;
+        //    firstInput = lastKnownVector;
+        //    Invoke("TriggerLastInput", lagTime);
+        //    //rb.AddForce(lastKnownVector, ForceMode2D.Force);
+        //    if(lastInput == Vector2.zero)
+        //    {
+        //        rb.velocity = new Vector2(Mathf.Lerp(lastKnownVector.x, firstInput.x, 3f), Mathf.Lerp(lastKnownVector.y, firstInput.y, 3f));
+        //    }
+        //    else
+        //    {
+        //        //Charges at normal speed when the firstInput has caught up with the lastInput and its the same AreVectorsWithinRange(firstInput, lastInput, 0.01f)
+        //        if (firstInput == lastInput)
+        //        {
+        //            rb.velocity = new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder);
+        //        }
+
+        //        //Causes a lag when the player is changing
+        //        else
+        //        {
+        //            // rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder), 0.5f);
+
+        //            if(moveX > moveY)
+        //            {
+        //                rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder/ 4, rb.velocity.y * movementSpeedHolder / 10, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
+        //            }
+        //            else
+        //            {
+        //                rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder / 10, rb.velocity.y * movementSpeedHolder / 4, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
+        //            }
+        //            //if (moveX > moveY)
+        //            //{
+        //            //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder / 3, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
+        //            //}
+        //            //else
+        //            //{
+        //            //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder /3, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
+        //            //}
+        //            rb.AddForce(lastKnownVector);
+        //        }
+        //    }
+        //}
+        //skeletonAnim.timeScale = animationSpeed;
+        ////CreateDrag();
     }
 
     void TriggerLastInput()
