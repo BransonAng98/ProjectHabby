@@ -48,7 +48,7 @@ public class EventManager : MonoBehaviour
 
     public void GenerateEvents()
     {
-        if (gameManager.hasActivated == true)
+        if (gameManager.hasActivated == true && gameManager.gameEnded == false)
         {
             timer += Time.deltaTime;
 
@@ -90,6 +90,8 @@ public class EventManager : MonoBehaviour
 
         if (gameManager.isVictory == false && playerHealth.healthSlider.value <= 0)
         {
+            gameManager.gameEnded = true;
+            
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -98,6 +100,8 @@ public class EventManager : MonoBehaviour
         }
         else if (gameManager.isVictory == true)
         {
+            gameManager.gameEnded = true;
+            playerHandler.TurnOffPlayer();
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -106,6 +110,8 @@ public class EventManager : MonoBehaviour
         }
         else if (clock.timerValue == 0 && gameManager.isVictory == false)
         {
+            gameManager.gameEnded = true;
+            playerHandler.DisableColliders();
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -155,6 +161,7 @@ public class EventManager : MonoBehaviour
 
         // Ensure it reaches the target alpha exactly
         canvasGroup.alpha = 1f;
+        audiomanager.PlayWarningSFX();
     }
 
     IEnumerator FadeOutBanner(float duration)

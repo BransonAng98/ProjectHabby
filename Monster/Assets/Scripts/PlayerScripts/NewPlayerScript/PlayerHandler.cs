@@ -138,10 +138,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         chargeCountdown = GameObject.Find("ChargeDashCountdown").GetComponent<TextMeshProUGUI>();
         chargeCountdown.gameObject.SetActive(false);
         AssignStats();
-        foreach (Collider2D collider in entitycollider)
-        {
-            collider.enabled = false;
-        }
+        DisableColliders();
 
         varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
@@ -332,6 +329,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             collider.enabled = true;
         }
     }
+    public void DisableColliders()
+    {
+        foreach (Collider2D collider in entitycollider)
+        {
+            collider.enabled = false;
+        }
+    }
 
     void Dash()
     {
@@ -357,7 +361,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 180f * Time.deltaTime, float.MaxValue);
+            rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 90f * Time.deltaTime, float.MaxValue);
         }
         ////Move the character based on the player's previous input
         //if (movementInput == Vector2.zero)
@@ -533,6 +537,16 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
+    public void MuteRoar()
+    {
+        roarAudioSource.volume = 0;
+    }
+
+    public void TurnOffPlayer()
+    {
+        MuteRoar();
+        DisableColliders();
+    }
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
     {

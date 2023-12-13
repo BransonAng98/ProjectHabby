@@ -47,12 +47,16 @@ public class AudioManagerScript : MonoBehaviour
         minTime = 1f;
         maxTime = 1f;
         eventmanagerScript = GameObject.Find("EventManager").GetComponent<EventManager>();
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+      if(gamemanager.gameEnded == true)
+        {
+            CivilianSource.volume = 0f;
+        }
     }
 
     public void PlayBGM()

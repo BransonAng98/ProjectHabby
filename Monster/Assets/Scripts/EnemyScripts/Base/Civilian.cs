@@ -44,6 +44,7 @@ public class Civilian : MonoBehaviour
     private PlayerHandler inputHandler;
     [SerializeField] private Transform blockingEntity;
     private EventManager eventManager;
+    private GameManagerScript gamemanager;
 
     public bool isBlocked;
     private bool hasSpawned;
@@ -82,6 +83,7 @@ public class Civilian : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         SetValue();
     }
@@ -399,6 +401,11 @@ public class Civilian : MonoBehaviour
         lastPosX = currentPositionX;
     }
 
+    void StopMovement()
+    {
+        walkSpeed = 0f;
+        runSpeed = 0f;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -430,6 +437,11 @@ public class Civilian : MonoBehaviour
                 Idle();
                 break;
 
+        }
+
+        if(gamemanager.gameEnded== true)
+        {
+            StopMovement();
         }
     }
 

@@ -41,6 +41,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject joystick;
     public ClockSystem clock;
     public GameObject scoreDisplay;
+    public bool gameEnded;
 
     private void Start()
     {
@@ -72,6 +73,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void TriggerEndScreen()
     {
+        //gameEnded = true;
         inputHandler.enableInput = false;
         Time.timeScale = 1f;
         levelText.text = "" + levelManager.levelData.cityLevel;
@@ -93,6 +95,7 @@ public class GameManagerScript : MonoBehaviour
             
         }
         scoreDisplay.SetActive(true);
+        
     }
 
     public void LoadNextScene()
@@ -235,6 +238,11 @@ public class GameManagerScript : MonoBehaviour
     void SetObjectiveText(string text)
     {
         objectiveText.text = text;
+    }
+
+    void DeactivateEverything()
+    {
+       
     }
 
     IEnumerator FadeInObject(GameObject obj, float duration)

@@ -23,10 +23,14 @@ public class Leader : MonoBehaviour
     private float runSpeed;
 
     [SerializeField] private LevelManager levelManager;
+    private GameManagerScript gamemanager;
 
     //Leader Circle of Infulence
     public List<Civilian> followerList = new List<Civilian>();
     public int maxFollowers;
+
+    private float walkspeed;
+    private float runspeed;
 
     bool isTriggered;
     bool hasDied;
@@ -65,8 +69,10 @@ public class Leader : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
         fadeEffect = GetComponent<ObjectFadeEffect>();
+     
 
     }
 
@@ -84,6 +90,7 @@ public class Leader : MonoBehaviour
     private void RandomizeSpeed(float speed)
     {
         runSpeed = Random.Range(enemyData.speed, enemyData.speed + 1.5f);
+        walkspeed = enemyData.speed;
     }
 
 
@@ -208,7 +215,7 @@ public class Leader : MonoBehaviour
 
                     newRunDirection.Normalize();
                     // Calculate a new target position within the wander range
-                    transform.position += newRunDirection * enemyData.speed * Time.deltaTime;
+                    transform.position += newRunDirection * walkspeed * Time.deltaTime;
 
                     isBlocked = false;
                 }
@@ -218,7 +225,7 @@ public class Leader : MonoBehaviour
             }
 
             // Move towards the target position
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemyData.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, walkspeed * Time.deltaTime);
         }
     }
     public void Death()
@@ -258,6 +265,12 @@ public class Leader : MonoBehaviour
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
         deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;
         Destroy(transform.parent.gameObject);     
+    }
+
+    void StopMovement()
+    {
+        runSpeed = 0;
+        walkspeed = 0;
     }
 
     void FlipSprite()
@@ -300,6 +313,10 @@ public class Leader : MonoBehaviour
                 Walk();
                 break;
 
+        }
+        if(gamemanager.gameEnded == true)
+        {
+            StopMovement();
         }
     }
 
