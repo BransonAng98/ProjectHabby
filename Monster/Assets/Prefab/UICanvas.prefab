@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 424094962}
   - component: {fileID: 424094964}
   - component: {fileID: 424094963}
+  - component: {fileID: 424094965}
   m_Layer: 5
   m_Name: AbilityBanner
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -78,6 +79,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &424094965
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424094961}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1103916800
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +371,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2015572330}
   - component: {fileID: 2015572332}
-  - component: {fileID: 2015572331}
   m_Layer: 5
   m_Name: WarningBanners
   m_TagString: Untagged
@@ -395,18 +407,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015572329}
   m_CullTransparentMesh: 1
---- !u!225 &2015572331
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015572329}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &2106104435
 GameObject:
   m_ObjectHideFlags: 0
@@ -3806,7 +3806,7 @@ MonoBehaviour:
   timerText: {fileID: 2695255128511029152}
   timerWarningText: {fileID: 1912748599}
   timeOutText: {fileID: 8012365724736778372}
-  clockSprite: {fileID: 0}
+  clockSprite: {fileID: 2106104437}
   vignette: {fileID: 1575588598935782553}
   gameManager: {fileID: 0}
   playerHandler: {fileID: 0}
@@ -4381,7 +4381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -700}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2695255128993914454
@@ -4412,9 +4412,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TAP TO BEGIN RAMPAGE!
+  m_text: TAP TO BEGIN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8b49e92eb47584046bb890d4670ce6e2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1bdbbd43a253d47f99f853e49dce8edc, type: 2}
   m_sharedMaterial: {fileID: -3203508407227384393, guid: 25735d00cf3b73141a432fb24a931c90, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4439,8 +4439,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6779,7 +6779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 270}
+  m_AnchoredPosition: {x: 0, y: 129}
   m_SizeDelta: {x: 0, y: 66.1089}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8946767479364906227
@@ -6810,7 +6810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Current Status
+  m_text: Current Objective
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1bdbbd43a253d47f99f853e49dce8edc, type: 2}
   m_sharedMaterial: {fileID: -6360588970910393389, guid: 1bdbbd43a253d47f99f853e49dce8edc, type: 2}
@@ -6820,7 +6820,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.73333335, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6849,7 +6849,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 25
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -6873,7 +6873,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.04260254, y: 0, z: 0.080200195, w: 0}
+  m_margin: {x: 247.94617, y: 0, z: 242.55829, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
