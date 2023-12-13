@@ -91,7 +91,7 @@ public class EventManager : MonoBehaviour
         if (gameManager.isVictory == false && playerHealth.healthSlider.value <= 0)
         {
             gameManager.gameEnded = true;
-            
+            playerHandler.DisableMovement(3);
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -101,7 +101,7 @@ public class EventManager : MonoBehaviour
         else if (gameManager.isVictory == true)
         {
             gameManager.gameEnded = true;
-            playerHandler.TurnOffPlayer();
+            playerHandler.DisableMovement(2);
             endStatus.SetActive(true);
             endStatusText.text = "";
 
@@ -111,7 +111,7 @@ public class EventManager : MonoBehaviour
         else if (clock.timerValue == 0 && gameManager.isVictory == false)
         {
             gameManager.gameEnded = true;
-            playerHandler.DisableColliders();
+            playerHandler.DisableMovement(3);
             endStatus.SetActive(true);
             endStatusText.text = "";
 

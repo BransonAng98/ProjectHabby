@@ -975,11 +975,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case 2:
                 SetCharacterState(PlayerStates.victory);
+                TurnOffPlayer();
                 Debug.Log("Player won");
                 break;
 
             case 3:
                 SetCharacterState(PlayerStates.defeat);
+                TurnOffPlayer();
                 vfxManager.SpawnDeathVFX();
                 Debug.Log("Player lost");
                 break;
