@@ -539,7 +539,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void MuteRoar()
     {
-        roarAudioSource.volume = 0;
+        roarAudioSource.enabled = false;
+        footstepAudioSource.enabled = false;
+
     }
 
     public void TurnOffPlayer()

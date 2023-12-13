@@ -1249,6 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
   speed: 20
+  lagSpeed: 0.2
   player: {fileID: 1006525446}
   joystick: {fileID: 2090532569}
   playerRb: {fileID: 0}
@@ -1263,6 +1264,7 @@ MonoBehaviour:
   defaultArrowSprite: {fileID: 21300000, guid: 8ca82eba25093864a8d7646b9b9b3ccf, type: 3}
   dashArrowSprite: {fileID: 21300000, guid: ead6d1224efc7e741af7b89f05f616e8, type: 3}
   triggerHoldingDown: 0
+  lagInput: 0
 --- !u!212 &311242519
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1416,7 +1418,7 @@ GameObject:
   - component: {fileID: 410422627}
   m_Layer: 0
   m_Name: MapBound(Left)
-  m_TagString: Untagged
+  m_TagString: Blocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3414,7 +3416,7 @@ GameObject:
   - component: {fileID: 929563184}
   m_Layer: 0
   m_Name: MapBound(Right)
-  m_TagString: Untagged
+  m_TagString: Blocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4892,6 +4894,7 @@ MonoBehaviour:
   joystick: {fileID: 2090532567}
   clock: {fileID: 1294789420}
   scoreDisplay: {fileID: 1771012712}
+  gameEnded: 0
 --- !u!114 &1267804332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5376,7 +5379,6 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   gamemanager: {fileID: 0}
   isWin: 0
-  formattedTime: 
 --- !u!1 &1808873699
 GameObject:
   m_ObjectHideFlags: 0
@@ -5389,7 +5391,7 @@ GameObject:
   - component: {fileID: 1808873701}
   m_Layer: 0
   m_Name: MapBound(Up)
-  m_TagString: Untagged
+  m_TagString: Blocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6731,7 +6733,7 @@ GameObject:
   - component: {fileID: 2088884672}
   m_Layer: 0
   m_Name: MapBound(Down)
-  m_TagString: Untagged
+  m_TagString: Blocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
