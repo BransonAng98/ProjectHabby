@@ -43,7 +43,7 @@ public class CrabUltimateU : UltimateBase
             else
             {
                 currentDuration = 0f;
-                joystick.SetActive(false);
+                //joystick.SetActive(false);
                 ultEnd = true;
                 EndOfUltimate();
             }
@@ -75,7 +75,6 @@ public class CrabUltimateU : UltimateBase
         {
             vfxManager.SpawnExhaustedVFX();
             //Revert the player's stats & all changes back to normal state
-            ultEnd = false;
             playerHandler.isDashing = false;
             playerHandler.DisableMovement(4);
             playerHandler.listOfEnemies.Clear();
@@ -90,7 +89,8 @@ public class CrabUltimateU : UltimateBase
             vfxManager.dashBodyVFX.SetActive(false);
             isTriggered = false;
             Invoke("EnableMovement", 2f);
-            
+            ultEnd = false;
+
         }
         else
         {
@@ -100,7 +100,7 @@ public class CrabUltimateU : UltimateBase
 
     void EnableMovement()
     {
-        joystick.SetActive(true);
+        //joystick.SetActive(true);
         playerHandler.enableInput = true;
         playerHandler.canMove = true;
         playerHandler.canAttack = true;

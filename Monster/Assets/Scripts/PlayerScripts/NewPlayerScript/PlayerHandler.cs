@@ -243,7 +243,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder += statChange;
-                    animationSpeed += statChange;
+                    animationSpeed += statChange/2;
                     break;
 
                 case 4:
