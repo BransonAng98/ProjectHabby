@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using Spine;
+using TMPro;
 
 public class PlayerHandler : MonoBehaviour, ISoundable
 {
@@ -74,6 +75,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] HitCircle hitCircle;
     public float lagTime;
     [SerializeField] bool startInputLag;
+    [SerializeField] TextMeshProUGUI chargeCountdown;
+    [SerializeField] float countdown;
 
     private bool isOnSpawned;
     private bool isOffSpawned;
@@ -132,6 +135,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         cameraShake = FindObjectOfType<CameraShake>();
         playerHealth = GetComponent<PlayerHealthScript>();
         hitCircle = GameObject.Find("HitCircle").GetComponent<HitCircle>();
+        chargeCountdown = GameObject.Find("ChargeDashCountdown").GetComponent<TextMeshProUGUI>();
+        chargeCountdown.gameObject.SetActive(false);
         AssignStats();
         foreach (Collider2D collider in entitycollider)
         {
@@ -348,12 +353,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         //Move the character based on the player's previous input
         if (movementInput == Vector2.zero)
         {
+            hitCircle.lagInput = false;
             rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
         }
 
         //Move the character based on the player's input   
         else
         {
+            hitCircle.lagInput = true;
             firstInput = lastKnownVector;
             Invoke("TriggerLastInput", lagTime);
             //rb.AddForce(lastKnownVector, ForceMode2D.Force);
@@ -363,8 +370,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
             else
             {
-                //Charges at normal speed when the firstInput has caught up with the lastInput and its the same
-                if(firstInput == lastInput)
+                //Charges at normal speed when the firstInput has caught up with the lastInput and its the same AreVectorsWithinRange(firstInput, lastInput, 0.01f)
+                if (firstInput == lastInput)
                 {
                     rb.velocity = new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder);
                 }
@@ -373,8 +380,23 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 else
                 {
                     // rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder), 0.5f);
-                    //rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x, rb.velocity.y, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 3f * Time.deltaTime,float.MaxValue);
-                    rb.velocity = new Vector3(Mathf.SmoothStep(rb.velocity.x, lastInput.x, 2f * Time.deltaTime), Mathf.SmoothStep(rb.velocity.y, lastInput.y, 2f * Time.deltaTime), 0);
+                    
+                    if(moveX > moveY)
+                    {
+                        rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder/ 4, rb.velocity.y * movementSpeedHolder / 10, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
+                    }
+                    else
+                    {
+                        rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder / 10, rb.velocity.y * movementSpeedHolder / 4, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
+                    }
+                    //if (moveX > moveY)
+                    //{
+                    //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder / 3, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
+                    //}
+                    //else
+                    //{
+                    //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder /3, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
+                    //}
                     rb.AddForce(lastKnownVector);
                 }
             }
@@ -388,13 +410,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         lastInput = movementInput;
     }
 
-    //private void RecordLastVector()
-    //{
-    //    if (movementInput.x != 0 && movementInput.y != 0)
-    //    {
-    //        lastKnownVector = movementInput;
-    //    }
-    //}
+    public static bool AreVectorsWithinRange(Vector3 vector1, Vector3 vector2, float maxDistance)
+    {
+        float distance = Vector3.Distance(vector1, vector2);
+        return distance <= maxDistance;
+    }
 
     private void PlayerMove()
     {
@@ -836,28 +856,53 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void HoldControlForDash()
     {
-
-        if (Input.touchCount > 0)
+        if(countdown > 0)
         {
-            Touch touch = Input.GetTouch(0); // Get the first touch (assuming single-touch for simplicity)
-
-            if (touch.phase == TouchPhase.Moved)
+            if (!chargeCountdown.gameObject.activeSelf)
             {
-                float moveX = joystick.Horizontal;
-                float moveY = joystick.Vertical;
-
-                movementInput = new Vector2(moveX, moveY).normalized;
-                lastKnownVector = movementInput;
+                chargeCountdown.gameObject.SetActive(true);
             }
 
-            // Check if the touch phase is Ended (finger released)
-            if (touch.phase == TouchPhase.Ended)
-            {
-                hitCircle.triggerHoldingDown = false;
-                invokeHold = false;
-                TriggerUltimate2();
-            }
+            countdown -= 1 * Time.deltaTime;
+            float holdDashTimer = Mathf.RoundToInt(countdown);
+            chargeCountdown.text = "Get Ready to Charge in: " + holdDashTimer.ToString();
+
+            float moveX = joystick.Horizontal;
+            float moveY = joystick.Vertical;
+
+            movementInput = new Vector2(moveX, moveY).normalized;
+            lastKnownVector = movementInput;
         }
+
+        else
+        {
+            hitCircle.triggerHoldingDown = false;
+            invokeHold = false;
+            TriggerUltimate2();
+            chargeCountdown.gameObject.SetActive(false);
+        }
+
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch touch = Input.GetTouch(0); // Get the first touch (assuming single-touch for simplicity)
+
+        //    if (touch.phase == TouchPhase.Moved)
+        //    {
+        //        float moveX = joystick.Horizontal;
+        //        float moveY = joystick.Vertical;
+
+        //        movementInput = new Vector2(moveX, moveY).normalized;
+        //        lastKnownVector = movementInput;
+        //    }
+
+        //    // Check if the touch phase is Ended (finger released)
+        //    if (touch.phase == TouchPhase.Ended)
+        //    {
+        //        hitCircle.triggerHoldingDown = false;
+        //        invokeHold = false;
+        //        TriggerUltimate2();
+        //    }
+        //}
     }
 
     public void DecreaseUltimateBar(float decreaseRate)

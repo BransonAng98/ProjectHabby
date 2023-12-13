@@ -6,6 +6,7 @@ public class HitCircle : MonoBehaviour
 {
     public PlayerStatScriptableObject playerData;
     public float speed = 10.0f;  // The speed of rotation.
+    public float lagSpeed =  0.2f;  // The speed of rotation.
     public Transform player;    // Reference to the player's Transform.
     public Joystick joystick;
     [SerializeField] private Rigidbody2D playerRb;
@@ -23,6 +24,7 @@ public class HitCircle : MonoBehaviour
     public Sprite defaultArrowSprite;
     public Sprite dashArrowSprite;
     public bool triggerHoldingDown;
+    public bool lagInput;
 
     private PlayerHandler playerHandler;
 
@@ -48,7 +50,7 @@ public class HitCircle : MonoBehaviour
 
         if(horizontalInput != 0 && verticalInput != 0)
         {
-            // Calculate the input angle based on player's input.
+            // Allow player to move the arrow when the character isn't moving
             inputAngle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
             prevInputX = horizontalInput;
             prevInputY = verticalInput;
@@ -85,7 +87,17 @@ public class HitCircle : MonoBehaviour
         }
 
         // Update the current angle by adding the difference and the orbit speed.
-        currentAngle += (angleDifference + 180f) % 360f + speed * Time.deltaTime;
+        if (!lagInput)
+        {
+            Debug.Log("Using Regular Speed");
+            currentAngle += (angleDifference + 180f) % 360f + speed * Time.deltaTime;
+        }
+
+        else
+        {
+            Debug.Log("Using Lag Speed");
+            currentAngle += (angleDifference + 180f) % 360f + lagSpeed * Time.deltaTime;
+        }
 
         // Calculate the new position of the object in orbit around the player character.
         float x = player.position.x + 6.5f * Mathf.Cos(currentAngle * Mathf.Deg2Rad);
