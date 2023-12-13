@@ -46,7 +46,7 @@ public class ComicManager : MonoBehaviour
 
     public void GoToGame()
     {
-        SceneManager.LoadScene("France_Easy_Level");
+        SceneManager.LoadScene("France_Hard_Level");
     }
 
 }
