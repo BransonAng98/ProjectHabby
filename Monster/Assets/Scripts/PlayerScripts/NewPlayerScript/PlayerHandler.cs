@@ -19,7 +19,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         land,
         exhaust,
         damage,
-        dash,
     }
 
     //Variable for State
@@ -44,8 +43,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private PlayerVFXManager vfxManager;
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] Vector2 movementInput;
-    [SerializeField] Vector2 firstInput;
-    [SerializeField] Vector2 lastInput;
     [SerializeField] Vector2 lastKnownVector;
     public LayerMask enemyLayer;
     [SerializeField] private Collider2D selectedEnemy;
@@ -73,8 +70,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public bool isDashing;
     public bool invokeHold;
     [SerializeField] HitCircle hitCircle;
-    public float lagTime;
-    [SerializeField] bool startInputLag;
     [SerializeField] TextMeshProUGUI chargeCountdown;
     [SerializeField] float countdown;
 
@@ -105,11 +100,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float idleTimer;
     public Collider2D[] entitycollider;
 
-   [SerializeField] private float idleRoarTimer = 0f;
+    [SerializeField] private float idleRoarTimer = 0f;
     private float minRoarThreshold = 10f;
     private float maxRoarThreshold = 20f;
     private float varTime;
-    
+
     //FootSteps
     public AudioSource footstepAudioSource;
     public AudioSource attackAudioSource;
@@ -142,7 +137,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
-                
+
     // Update is called once per frame
     void Update()
     {
@@ -189,12 +184,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             return;
         }
 
-        if(playerData.health == 0)
+        if (playerData.health == 0)
         {
             vfxManager.SpawnDeathVFX();
         }
 
-        if(selectedEnemy == null)
+        if (selectedEnemy == null)
         {
             attackSector = 0;
         }
@@ -232,7 +227,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             {
                 //Health
                 case 0:
-                    playerHealth.playerSO.maxhealth += (int)statChange; 
+                    playerHealth.playerSO.maxhealth += (int)statChange;
                     break;
 
                 //Attack Damage
@@ -292,7 +287,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void MoveAndAttack()
     {
-        if(attackSector == moveSector)
+        if (attackSector == moveSector)
         {
             canMove = false;
         }
@@ -310,7 +305,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         enableInput = true;
 
         //If there is movement input
-        if(movementInput != Vector2.zero)
+        if (movementInput != Vector2.zero)
         {
             SetCharacterState(PlayerStates.move);
         }
@@ -339,11 +334,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void Dash()
     {
-        float moveX = joystick.Horizontal;
-        float moveY = joystick.Vertical;
-
-        movementInput = new Vector2(moveX, moveY).normalized;
-
         if (!currentState.Equals(PlayerStates.attack))
         {
             SetCharacterState(PlayerStates.move);
@@ -354,73 +344,24 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             lastKnownVector = movementInput;
         }
 
-        if(movementInput == Vector2.zero)
+        if (movementInput == Vector2.zero)
         {
-            rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+            if (lastKnownVector.x == 0 && lastKnownVector.y == 0)
+            {
+                SetCharacterState(PlayerStates.move);
+                moveSector = 2;
+                rb.velocity = new Vector2(0.99f * movementSpeedHolder, -0.99f * movementSpeedHolder);
+            }
+            else
+            {
+                rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+            }
         }
 
         else
         {
-            rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 90f * Time.deltaTime, float.MaxValue);
+            rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 60f * Time.deltaTime, float.MaxValue);
         }
-        ////Move the character based on the player's previous input
-        //if (movementInput == Vector2.zero)
-        //{
-        //    hitCircle.lagInput = false;
-        //    rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
-        //}
-
-        ////Move the character based on the player's input   
-        //else
-        //{
-        //    hitCircle.lagInput = true;
-        //    firstInput = lastKnownVector;
-        //    Invoke("TriggerLastInput", lagTime);
-        //    //rb.AddForce(lastKnownVector, ForceMode2D.Force);
-        //    if(lastInput == Vector2.zero)
-        //    {
-        //        rb.velocity = new Vector2(Mathf.Lerp(lastKnownVector.x, firstInput.x, 3f), Mathf.Lerp(lastKnownVector.y, firstInput.y, 3f));
-        //    }
-        //    else
-        //    {
-        //        //Charges at normal speed when the firstInput has caught up with the lastInput and its the same AreVectorsWithinRange(firstInput, lastInput, 0.01f)
-        //        if (firstInput == lastInput)
-        //        {
-        //            rb.velocity = new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder);
-        //        }
-
-        //        //Causes a lag when the player is changing
-        //        else
-        //        {
-        //            // rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder), 0.5f);
-
-        //            if(moveX > moveY)
-        //            {
-        //                rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder/ 4, rb.velocity.y * movementSpeedHolder / 10, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
-        //            }
-        //            else
-        //            {
-        //                rb.velocity = Vector3.RotateTowards(new Vector3(rb.velocity.x * movementSpeedHolder / 10, rb.velocity.y * movementSpeedHolder / 4, 0f), new Vector3(lastInput.x * movementSpeedHolder, lastInput.y * movementSpeedHolder, 0f), Mathf.Deg2Rad * 120f * Time.deltaTime, float.MaxValue);
-        //            }
-        //            //if (moveX > moveY)
-        //            //{
-        //            //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder / 3, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
-        //            //}
-        //            //else
-        //            //{
-        //            //    rb.velocity = new Vector3(Mathf.SmoothStep(lastKnownVector.x * movementSpeedHolder, lastInput.x * movementSpeedHolder, 2f * Time.deltaTime), Mathf.SmoothStep(lastKnownVector.y * movementSpeedHolder /3, lastInput.y * movementSpeedHolder, 1f * Time.deltaTime), 0);
-        //            //}
-        //            rb.AddForce(lastKnownVector);
-        //        }
-        //    }
-        //}
-        //skeletonAnim.timeScale = animationSpeed;
-        ////CreateDrag();
-    }
-
-    void TriggerLastInput()
-    {
-        lastInput = movementInput;
     }
 
     public static bool AreVectorsWithinRange(Vector3 vector1, Vector3 vector2, float maxDistance)
@@ -431,21 +372,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     private void PlayerMove()
     {
-        float moveX = joystick.Horizontal;
-        float moveY = joystick.Vertical;
-
-        movementInput = new Vector2(moveX, moveY).normalized;
-
         if (movementInput != Vector2.zero)
         {
             isMoving = true;
             //cameraShake.ShakeCamera();
-            float angleRadians = Mathf.Atan2(movementInput.y, movementInput.x);
-            // Convert the angle from radians to degrees
-            degreeAngle = angleRadians * Mathf.Rad2Deg;
-
-            // Ensure the angle is positive (0 to 360 degrees)
-            degreeAngle = (degreeAngle + 360) % 360;
 
             if (!currentState.Equals(PlayerStates.attack))
             {
@@ -486,45 +416,19 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    void CreateDrag()
-    {
-        if(moveSector != prevMoveSector)
-        {
-            if(rb.drag != maxFrictionValue)
-            {
-                float currentLinearDrag = Mathf.Lerp(rb.drag, maxFrictionValue, lerpTime * Time.deltaTime);
-
-                // Apply the lerped linear drag value to the Rigidbody
-                rb.drag = currentLinearDrag;
-            }
-
-            else
-            {
-                prevMoveSector = moveSector;
-                rb.drag = 0f;
-            }
-        }
-
-        else
-        {
-            return;
-            //rb.drag = 0f;
-        }
-    }
-
     public void PlayerIdle()
     {
-        if(currentState == PlayerStates.idle)
+        if (currentState == PlayerStates.idle)
         {
             skeletonAnim.timeScale = 1f;
             isIdle = true;
-            
-            if(idleTimer < 4f)
+
+            if (idleTimer < 4f)
             {
                 idleTimer += Time.deltaTime;
             }
 
-            if(idleTimer >= 4f)
+            if (idleTimer >= 4f)
             {
                 extendedIdle = true;
                 SetCharacterState(PlayerStates.idle);
@@ -563,7 +467,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             PlaySFX();
         }
 
-        if(eventName == "right01")
+        if (eventName == "right01")
         {
             vfxManager.footImpact(0);
             PlaySFX();
@@ -584,20 +488,20 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             PlaySFX();
         }
 
-        if(eventName == "jump")
+        if (eventName == "jump")
         {
             vfxManager.TriggerAoeTremor();
             JumpSFX();
         }
 
-        if(eventName == "land")
+        if (eventName == "land")
         {
             PlaySFX();
             vfxManager.TriggerAoeTremor();
             TriggerUltimate1();
         }
 
-        if(eventName == "Smash")
+        if (eventName == "Smash")
         {
             vfxManager.TriggerAoeTremor();
             //TriggerAOE();
@@ -632,7 +536,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     private void PlayerAttack()
     {
-        if(canAttack && movementInput != Vector2.zero)
+        if (canAttack && movementInput != Vector2.zero)
         { //Using the RAYCAST to detect and hit enemies
             if (listOfEnemies.Count == 0)
             {
@@ -738,7 +642,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        if(selectedEnemy != null)
+        if (selectedEnemy != null)
         {
             float playerX = this.transform.position.x;
             float objectX = selectedEnemy.gameObject.transform.position.x;
@@ -786,7 +690,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             SetCharacterState(prevState);
         }
-        
+
     }
 
     //In the animation, this will deal damage to the select unit
@@ -840,7 +744,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 if (utlimates[1] != null)
                 {
                     SetCharacterState(PlayerStates.rage);
-                  
+
                     if (!isOnSpawned)
                     {
                         vfxManager.SpawnRageOnText();
@@ -881,7 +785,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void HoldControlForDash()
     {
-        if(countdown > 0)
+        if (countdown > 0)
         {
             if (!chargeCountdown.gameObject.activeSelf)
             {
@@ -975,20 +879,20 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case 2:
                 SetCharacterState(PlayerStates.victory);
-                TurnOffPlayer();
+                isDashing = false;
                 Debug.Log("Player won");
                 break;
 
             case 3:
                 SetCharacterState(PlayerStates.defeat);
-                TurnOffPlayer();
+                isDashing = false;
                 vfxManager.SpawnDeathVFX();
                 Debug.Log("Player lost");
                 break;
 
             case 4:
                 SetCharacterState(PlayerStates.exhaust);
-               
+
                 if (!isOffSpawned)
                 {
                     vfxManager.SpawnRageOffText();
@@ -1047,7 +951,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             return;
         }
 
-        if(playFull)
+        if (playFull)
         {
             Spine.TrackEntry animationEntry = skeletonAnim.state.AddAnimation(track, animation, loop, 0f);
             animationEntry.TimeScale = timeScale;
@@ -1155,7 +1059,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             return;
         }
 
-        if(currentState != PlayerStates.victory || currentState != PlayerStates.defeat)
+        if (currentState != PlayerStates.victory || currentState != PlayerStates.defeat)
         {
             SetCharacterState(prevState);
         }
@@ -1172,6 +1076,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         float moveY = joystick.Vertical;
 
         movementInput = new Vector2(moveX, moveY).normalized;
+
+        float angleRadians = Mathf.Atan2(movementInput.y, movementInput.x);
+        // Convert the angle from radians to degrees
+        degreeAngle = angleRadians * Mathf.Rad2Deg;
+
+        // Ensure the angle is positive (0 to 360 degrees)
+        degreeAngle = (degreeAngle + 360) % 360;
 
         //Moving Upwards
         if (degreeAngle > 45 && degreeAngle < 135)
@@ -1248,58 +1159,32 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     SetAnimation(0, moving4, true, animationSpeed);
                 }
                 break;
-            
-            case PlayerStates.dash:
-                playFull = false;
-                if (moveSector == 1)
-                {
-                    SetAnimation(0, moving, true, animationSpeed);
-                }
-
-                //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
-                if (moveSector == 4)
-                {
-                    SetAnimation(0, moving3, true, animationSpeed);
-                }
-
-                //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
-                if (moveSector == 3)
-                {
-                    SetAnimation(0, moving2, true, animationSpeed);
-                }
-
-                //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
-                if (moveSector == 2)
-                {
-                    SetAnimation(0, moving4, true, animationSpeed);
-                }
-                break;
 
             case PlayerStates.victory:
                 SetAnimation(1, victorying, true, 1f);
                 playFull = true;
                 break;
-                
+
             case PlayerStates.defeat:
                 SetAnimation(1, defeating, false, 1f);
                 playFull = true;
                 break;
-                
+
             case PlayerStates.ultimate:
                 //Trigger the different ultimates here
                 UseUltimate(selectedUltimateHolder);
                 break;
-                
+
             case PlayerStates.land:
                 SetAnimation(0, landing, false, 1f);
-                playFull = true;
+                playFull = false;
                 break;
-                
+
             case PlayerStates.rage:
                 SetAnimation(0, raging, true, 1f);
                 playFull = true;
                 break;
-                
+
             case PlayerStates.exhaust:
                 SetAnimation(0, exhausting, false, 1f);
                 playFull = true;
@@ -1337,14 +1222,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             EventManager eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
             ClockSystem clockSystem = GameObject.FindGameObjectWithTag("Timer").GetComponent<ClockSystem>();
-            eventManager.timer = clockSystem.eventInterval ;
-           
+            eventManager.timer = clockSystem.eventInterval;
+
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
-           PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
-           playerhealth.TakeDamage(100);
+            PlayerHealthScript playerhealth = GetComponent<PlayerHealthScript>();
+            playerhealth.TakeDamage(100);
         }
 
         if (Input.GetKeyUp(KeyCode.U))
@@ -1359,13 +1244,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         AudioClip AttackToPlay = attackSFX[Random.Range(0, 1)];
         if (isMoving == true)
         {
-            
+
             footstepAudioSource.PlayOneShot(SoundToPlay);
         }
 
         if (isAttacking == true)
         {
-            
+
             attackAudioSource.pitch = UnityEngine.Random.Range(1f, 1.5f);
             attackAudioSource.PlayOneShot(AttackToPlay);
         }
@@ -1374,7 +1259,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             AudioClip UltimateAttackToPlay = attackSFX[2];
             attackAudioSource.PlayOneShot(UltimateAttackToPlay);
         }
-       
+
     }
 
     public void IdleRoar()
@@ -1382,7 +1267,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (isIdle == true || isMoving == true)
         {
             idleRoarTimer += Time.deltaTime;
-            
+
             if (idleRoarTimer > varTime)
             {
                 roarAudioSource.PlayOneShot(monsterRoarSFX);
@@ -1397,7 +1282,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         AudioClip roarSoundToPlay = painRoarSFX[Random.Range(0, painRoarSFX.Length)];
         roarAudioSource.PlayOneShot(roarSoundToPlay);
     }
-
 
     public void JumpSFX()
     {

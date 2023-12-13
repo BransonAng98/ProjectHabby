@@ -56,6 +56,7 @@ public class MissileScript : MonoBehaviour
         {
             GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
             collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            collision.GetComponent<PlayerHandler>().DisableMovement(6);
             Destroy(gameObject);
         }
     }

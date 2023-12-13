@@ -57,7 +57,15 @@ public class PlaneMissileScript : MonoBehaviour
         {
             SpawnExplosion();
             collision.GetComponent<PlayerHealthScript>().TakeDamage(damageAmount);
-            collision.GetComponent<PlayerHandler>().DisableMovement(6);
+            if (!collision.gameObject.GetComponent<PlayerHandler>().isDashing)
+            {
+                collision.gameObject.GetComponent<PlayerHandler>().DisableMovement(6);
+            }
+
+            else
+            {
+                return;
+            }
             Destroy(gameObject);
         }
 

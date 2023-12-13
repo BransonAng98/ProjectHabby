@@ -99,7 +99,11 @@ public class CrabUltimateU : UltimateBase
 
     void EnableMovement()
     {
-        playerHandler.IdleOrMove();
+        joystick.SetActive(true);
+        playerHandler.enableInput = true;
+        playerHandler.canMove = true;
+        playerHandler.canAttack = true;
+        //playerHandler.IdleOrMove();
         vfxManager.DeTrigger();
     }
 }

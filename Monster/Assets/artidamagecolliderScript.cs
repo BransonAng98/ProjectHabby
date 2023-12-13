@@ -31,6 +31,15 @@ public class artidamagecolliderScript : MonoBehaviour
             Debug.Log("DamageByArti");
             GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
             collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            if (!collision.gameObject.GetComponent<PlayerHandler>().isDashing)
+            {
+                collision.gameObject.GetComponent<PlayerHandler>().DisableMovement(6);
+            }
+
+            else
+            {
+                return;
+            }
             //Destroy(gameObject);
         }
     }
