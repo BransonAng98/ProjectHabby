@@ -747,6 +747,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     triggerHold = true;
                     if (!isOnSpawned)
                     {
+                        StartCoroutine(HoldControlForDash());
                         vfxManager.SpawnRageOnText();
                         isOnSpawned = true;
                         isOffSpawned = false;
@@ -757,7 +758,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     vfxManager.StartAppearing();
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
                     hitCircle.triggerHoldingDown = true;
-                    StartCoroutine(HoldControlForDash());
                     playerHealth.activateAbiliityBar = false;
                 }
                 break;
