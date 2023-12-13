@@ -29,7 +29,7 @@ public class PlaneMissileScript : MonoBehaviour
         
         if (currentTime >= destroyTime)
         {
-            SpawnExplosion();
+            //SpawnExplosion();
             Destroy(gameObject); // Destroy the GameObject
         }
     }
