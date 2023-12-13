@@ -84,6 +84,7 @@ public class CrabUltimateU : UltimateBase
             healthScript.healthState = PlayerHealthScript.HealthState.normal;
             playerHandler.AlterStats(false, 3, 4f);
             playerHandler.AlterStats(false, 4, 10f);
+            healthScript.activateAbiliityBar = true;
             isActivated = false;
             playerHandler.canEarnUlt = true;
             vfxManager.dashBodyVFX.SetActive(false);

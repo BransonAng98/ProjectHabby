@@ -68,7 +68,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
     public bool isDashing;
-    public bool invokeHold;
+    public bool triggerHold;
     [SerializeField] HitCircle hitCircle;
     [SerializeField] TextMeshProUGUI chargeCountdown;
     [SerializeField] float countdown;
@@ -150,7 +150,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             {
                 CheckJoyStickInput();
 
-                if (!invokeHold)
+                if (!triggerHold)
                 {
                     if (isDashing)
                     {
@@ -168,7 +168,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
                 else
                 {
-                    HoldControlForDash();
+                    return;
                 }
             }
             //else
@@ -243,6 +243,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder += statChange;
+                    animationSpeed += statChange;
                     break;
 
                 case 4:
@@ -744,7 +745,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 if (utlimates[1] != null)
                 {
                     SetCharacterState(PlayerStates.rage);
-
+                    triggerHold = true;
                     if (!isOnSpawned)
                     {
                         vfxManager.SpawnRageOnText();
@@ -756,8 +757,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     canAttack = false;
                     vfxManager.StartAppearing();
                     playerHealth.healthState = PlayerHealthScript.HealthState.berserk;
-                    invokeHold = true;
                     hitCircle.triggerHoldingDown = true;
+                    StartCoroutine(HoldControlForDash());
                     playerHealth.activateAbiliityBar = false;
                 }
                 break;
@@ -780,19 +781,20 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         vfxManager.isDashing = true;
         utlimates[1].UseUtilityUltimate();
         vfxManager.dashBodyVFX.SetActive(true);
-        playerHealth.activateAbiliityBar = true;
     }
 
-    void HoldControlForDash()
+    IEnumerator HoldControlForDash()
     {
-        if (countdown > 0)
+        Debug.Log("Trigger hold down to charge");
+        while (countdown > 0)
         {
+            yield return null;
             if (!chargeCountdown.gameObject.activeSelf)
             {
                 chargeCountdown.gameObject.SetActive(true);
             }
 
-            countdown -= 1 * Time.deltaTime;
+            countdown -= Time.deltaTime;
             float holdDashTimer = Mathf.RoundToInt(countdown);
             chargeCountdown.text = "Get Ready to Charge in: " + holdDashTimer.ToString();
 
@@ -803,35 +805,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             lastKnownVector = movementInput;
         }
 
-        else
-        {
-            hitCircle.triggerHoldingDown = false;
-            invokeHold = false;
-            TriggerUltimate2();
-            chargeCountdown.gameObject.SetActive(false);
-        }
-
-        //if (Input.touchCount > 0)
-        //{
-        //    Touch touch = Input.GetTouch(0); // Get the first touch (assuming single-touch for simplicity)
-
-        //    if (touch.phase == TouchPhase.Moved)
-        //    {
-        //        float moveX = joystick.Horizontal;
-        //        float moveY = joystick.Vertical;
-
-        //        movementInput = new Vector2(moveX, moveY).normalized;
-        //        lastKnownVector = movementInput;
-        //    }
-
-        //    // Check if the touch phase is Ended (finger released)
-        //    if (touch.phase == TouchPhase.Ended)
-        //    {
-        //        hitCircle.triggerHoldingDown = false;
-        //        invokeHold = false;
-        //        TriggerUltimate2();
-        //    }
-        //}
+        hitCircle.triggerHoldingDown = false;
+        triggerHold = false;
+        TriggerUltimate2();
+        chargeCountdown.gameObject.SetActive(false);
     }
 
     public void DecreaseUltimateBar(float decreaseRate)
@@ -840,9 +817,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         playerHealth.activateAbiliityBar = false;
         // Rapidly decrease the ultimate bar during the ultimate animation
         currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
-
-        // Clamp the ultimate bar value to be within the valid range
-        //currentUltimateCharge = Mathf.Clamp(currentUltimateCharge, 0f, maxUltChargeHolder);
+    }
+    void DisableUltimateVFX()
+    {
+        vfxManager.dashBodyVFX.SetActive(false);
     }
 
     //Trigger ultimate, rage, victory and defeat state here
@@ -993,7 +971,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (isExhausting)
         {
             isExhausting = false;
-            playerHealth.activateAbiliityBar = true;
             if (!joystick.gameObject.activeSelf)
             {
                 joystick.gameObject.SetActive(true);
@@ -1182,7 +1159,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case PlayerStates.rage:
                 SetAnimation(0, raging, true, 1f);
-                playFull = true;
+                playFull = false;
                 break;
 
             case PlayerStates.exhaust:

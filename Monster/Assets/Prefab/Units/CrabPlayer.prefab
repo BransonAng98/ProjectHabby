@@ -1977,8 +1977,6 @@ MonoBehaviour:
   vfxManager: {fileID: 0}
   cameraShake: {fileID: 0}
   movementInput: {x: 0, y: 0}
-  firstInput: {x: 0, y: 0}
-  lastInput: {x: 0, y: 0}
   lastKnownVector: {x: 0, y: 0}
   enemyLayer:
     serializedVersion: 2
@@ -2005,15 +2003,13 @@ MonoBehaviour:
   ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
-  invokeHold: 0
+  triggerHold: 0
   hitCircle: {fileID: 0}
-  lagTime: 0.15
-  startInputLag: 0
   chargeCountdown: {fileID: 0}
-  countdown: 3
+  countdown: 5
   maxFrictionValue: 15
   lerpTime: 10
-  animationSpeed: 1.5
+  animationSpeed: 1.7
   attackAnimationSpeed: 1.4
   isUltimate: 0
   isRaging: 0
