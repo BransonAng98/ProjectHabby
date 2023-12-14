@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using Haptics.Vibrations;
 
 public class BigBuildingEnemy : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class BigBuildingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
@@ -141,6 +143,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void Death()
     {
+        //VibrateHaptics.VibrateDoubleClick();
         audiomanager.playBuildingDeathSFX();
         scoremanager.amtOfStructures += 1;
        // playDeathSFX();
@@ -161,7 +164,7 @@ public class BigBuildingEnemy : MonoBehaviour
         SpawnDeathVFX();
         spriteRenderer.sprite = destroyedBuilding;
         spriteRenderer.sortingOrder = 1;
- 
+        //VibrateHaptics.Release();
     }
 
 
