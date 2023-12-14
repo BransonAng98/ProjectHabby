@@ -33,41 +33,31 @@ public class LobbyManager : MonoBehaviour
         menuaudiomanager.PlayTap();
         if (levelData.cutscenePlayed)
         {
-            if (!levelData.loopGame)
+            switch (levelData.cityLevel)
             {
-                switch (levelData.cityLevel)
-                {
-                    case 1:
-                        SceneManager.LoadScene("France_Easy_Level");
-                        break;
+                case 1:
+                    SceneManager.LoadScene("France_Easy_Level");
+                    break;
 
-                    case 2:
-                        SceneManager.LoadScene("France_Easy_Level");
-                        break;
+                case 2:
+                    SceneManager.LoadScene("France_Easy_Level");
+                    break;
 
-                    case 3:
-                        SceneManager.LoadScene("France_Medium_Level");
-                        break;
+                case 3:
+                    SceneManager.LoadScene("France_Medium_Level");
+                    break;
 
-                    case 4:
-                        SceneManager.LoadScene("France_Medium_Level");
-                        break;
+                case 4:
+                    SceneManager.LoadScene("France_Medium_Level");
+                    break;
 
-                    case 5:
-                        SceneManager.LoadScene("France_Hard_Level");
-                        break;
+                case 5:
+                    SceneManager.LoadScene("France_Hard_Level");
+                    break;
 
-                    case 6:
-                        SceneManager.LoadScene("LandmarkDesScene");
-                        levelData.loopGame = true;
-                        break;
-                }
-            }
-
-            else
-            {
-                levelData.cityLevel = 5;
-                SceneManager.LoadScene("France_Hard_Level");
+                case 6:
+                    SceneManager.LoadScene("LandmarkDesScene");
+                    break;
             }
         }
         
