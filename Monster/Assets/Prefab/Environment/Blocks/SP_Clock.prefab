@@ -3911,6 +3911,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8803872740345178636}
     m_Modifications:
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: maxNumberOfEnemiesToSpawn
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: minNumberOfEnemiesToSpawn
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2502542426989302196, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: m_Name
       value: CivilianSpawner
