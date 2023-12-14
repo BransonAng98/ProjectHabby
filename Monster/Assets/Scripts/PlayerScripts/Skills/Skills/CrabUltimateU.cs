@@ -58,7 +58,7 @@ public class CrabUltimateU : UltimateBase
             //Put all the variables & effects that would happen during the dash
             isTriggered = true;
             currentDuration = ultimateDuration;
-            playerHandler.AlterStats(true, 3, 4f);
+            playerHandler.AlterStats(true, 3, 7f);
             playerHandler.AlterStats(true, 4, 10f);
             isActivated = true;
         }
@@ -81,7 +81,7 @@ public class CrabUltimateU : UltimateBase
             vfxManager.isDashing = false;
             currentDuration = 0f;
             healthScript.healthState = PlayerHealthScript.HealthState.normal;
-            playerHandler.AlterStats(false, 3, 4f);
+            playerHandler.AlterStats(false, 3, 7f);
             playerHandler.AlterStats(false, 4, 10f);
             healthScript.activateAbiliityBar = true;
             isActivated = false;

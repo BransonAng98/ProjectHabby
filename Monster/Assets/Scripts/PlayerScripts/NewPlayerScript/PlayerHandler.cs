@@ -243,7 +243,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 //Movement Speed
                 case 3:
                     movementSpeedHolder += statChange;
-                    animationSpeed += 1.35f;
+                    animationSpeed += 1.15f;
                     break;
 
                 case 4:
@@ -1265,7 +1265,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case PlayerStates.rage:
                 SetAnimation(0, raging, true, 1f);
-                playFull = true;
+                playFull = false;
                 break;
 
             case PlayerStates.exhaust:
