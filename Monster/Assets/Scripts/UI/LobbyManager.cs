@@ -38,19 +38,19 @@ public class LobbyManager : MonoBehaviour
                 switch (levelData.cityLevel)
                 {
                     case 1:
-                        SceneManager.LoadScene("France_Hard_Level");
+                        SceneManager.LoadScene("France_Easy_Level");
                         break;
 
                     case 2:
-                        SceneManager.LoadScene("France_Hard_Level");
+                        SceneManager.LoadScene("France_Easy_Level");
                         break;
 
                     case 3:
-                        SceneManager.LoadScene("France_Hard_Level");
+                        SceneManager.LoadScene("France_Medium_Level");
                         break;
 
                     case 4:
-                        SceneManager.LoadScene("France_Hard_Level");
+                        SceneManager.LoadScene("France_Medium_Level");
                         break;
 
                     case 5:
@@ -58,7 +58,7 @@ public class LobbyManager : MonoBehaviour
                         break;
 
                     case 6:
-                        SceneManager.LoadScene("France_Hard_Level");
+                        SceneManager.LoadScene("LandmarkDesScene");
                         levelData.loopGame = true;
                         break;
                 }
