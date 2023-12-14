@@ -68,6 +68,7 @@ MonoBehaviour:
   carscript: {fileID: 0}
   groundVelocity: {x: 0, y: 0}
   verticalVelocity: 0
+  Gravity: 0
   isGrounded: 0
 --- !u!114 &-953112245114195876
 MonoBehaviour:
@@ -161,8 +162,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingLayer: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 14266bd4c264d054d807b29ca5e74334, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -250,6 +251,7 @@ MonoBehaviour:
   smokeVFX: {fileID: 8656522925564163052, guid: bdd520eac103dfc489c19335cd5c2417, type: 3}
   smokeTrailVFX: {fileID: 1325150215483635993}
   kickedVFX: {fileID: 3773575516213515262, guid: fd42a33170d5c5842989dd7da71b37b6, type: 3}
+  audiomanager: {fileID: 0}
   vehicleaudioSource: {fileID: 2306229610857155356}
   vehicleSFX:
   - {fileID: 8300000, guid: ce5b27ea4f83158408b5cc7a91b29a78, type: 3}
@@ -262,6 +264,7 @@ MonoBehaviour:
   fadescript: {fileID: 0}
   groundDispenseVelocity: {x: 8, y: 10}
   verticalDispenseVelocity: {x: 6, y: 8}
+  scoremanager: {fileID: 0}
 --- !u!114 &723102526004898221
 MonoBehaviour:
   m_ObjectHideFlags: 0
