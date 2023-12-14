@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
-    private int calculateCityDestruction;
-    public int calculation1;
+    private float calculateCityDestruction;
+    public float calculation1;
 
     public Slider objSlider;
     public Image frontSlider;
@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
                 break;
 
             case 2:
-                calculateCityDestruction = 2;
+                calculateCityDestruction = 1.5f;
                 break;
 
             case 3:
