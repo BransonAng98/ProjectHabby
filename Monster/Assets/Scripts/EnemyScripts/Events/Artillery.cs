@@ -116,7 +116,7 @@ public class Artillery : MonoBehaviour
                 yield return null;
                 if (Vector3.Distance(transform.position, targetPosition) < 1f)
                 {
-                    artidamagecolliderScript artillerycollider = artilleryBullet.GetComponentInChildren<artidamagecolliderScript>();
+                    ArtiDamageColliderScript artillerycollider = artilleryBullet.GetComponentInChildren<ArtiDamageColliderScript>();
                     Debug.Log("OpenCollider");
                     artillerycollider.turnonCollider();
 
