@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelManagerScriptableObject : ScriptableObject
 {
     public int buildingsInScene;
-    public int baseScore;
+    public float baseScore;
     public float destructionLevel;
     public int cityLevel;
     public float currentDestruction;
