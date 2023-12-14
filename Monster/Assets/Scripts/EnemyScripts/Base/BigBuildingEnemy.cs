@@ -160,7 +160,7 @@ public class BigBuildingEnemy : MonoBehaviour
         buildingCollider.enabled = false;
         SpawnDeathVFX();
         spriteRenderer.sprite = destroyedBuilding;
-        spriteRenderer.sortingOrder = 2;
+        spriteRenderer.sortingOrder = 1;
  
     }
 

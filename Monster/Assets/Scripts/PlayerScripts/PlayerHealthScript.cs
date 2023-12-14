@@ -62,6 +62,7 @@ public class PlayerHealthScript : MonoBehaviour
     [SerializeField] bool buffed1;
     [SerializeField] bool buffed2;
     [SerializeField] bool buffed3;
+    [SerializeField] bool buffed4;
     //AbilityBar Feedback
     [SerializeField] Color flashColor = Color.white;  // Color to flash to
     [SerializeField] Color originalColor = Color.yellow;
@@ -348,7 +349,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     void BuffPlayer()
     {
-        if(abilityBarPercentage < 25)
+        if(abilityBarPercentage < 15)
         {
             abilityPhase = 0;
         }
@@ -356,7 +357,7 @@ public class PlayerHealthScript : MonoBehaviour
         else
         {
             //Update Abilites accordingly
-            if (abilityBarPercentage > 25 && abilityBarPercentage < 49)
+            if (abilityBarPercentage > 15 && abilityBarPercentage < 24)
             {
                 if (!buffed1)
                 {
@@ -369,7 +370,7 @@ public class PlayerHealthScript : MonoBehaviour
             }
 
             //Update Abilites accordingly
-            if (abilityBarPercentage > 50 && abilityBarPercentage < 74)
+            if (abilityBarPercentage > 25 && abilityBarPercentage < 34)
             {
                 if (!buffed2)
                 {
@@ -381,7 +382,7 @@ public class PlayerHealthScript : MonoBehaviour
                 }
             }
 
-            if (abilityBarPercentage > 75 && abilityBarPercentage < 100)
+            if (abilityBarPercentage > 35 && abilityBarPercentage < 44)
             {
                 if (!buffed3)
                 {
@@ -392,13 +393,38 @@ public class PlayerHealthScript : MonoBehaviour
                     buffed3 = true;
                 }
             }
+
+            if (abilityBarPercentage > 45 && abilityBarPercentage < 95)
+            {
+                if (!buffed4)
+                {
+                    abilityPhase = 4;
+                    Debug.Log("attack speed buffed");
+                    TriggerAbilities(4);
+                    vfxManager.SpawnUpgradeVFX();
+                    buffed4 = true;
+                }
+            }
         }
     }
 
     void DebuffPlayer()
     {
+        
         //Update Abilites accordingly
-        if (abilityBarPercentage >= 51 && abilityBarPercentage <= 75)
+        if (abilityBarPercentage >= 46 && abilityBarPercentage <= 95)
+        {
+            if (buffed4)
+            {
+                Debug.Log("attack damage reduced");
+                RemoveAbilities(4);
+                buffed4 = false;
+                abilityPhase = 4;
+            }
+        }
+        
+        //Update Abilites accordingly
+        if (abilityBarPercentage >= 36 && abilityBarPercentage <= 45)
         {
             if (buffed3)
             {
@@ -410,7 +436,7 @@ public class PlayerHealthScript : MonoBehaviour
         }
 
         //Update Abilites accordingly
-        if (abilityBarPercentage >= 26 && abilityBarPercentage <= 50)
+        if (abilityBarPercentage >= 26 && abilityBarPercentage <= 35)
         {
             if (buffed2)
             {
@@ -442,12 +468,15 @@ public class PlayerHealthScript : MonoBehaviour
                 break;
 
             case 2:
-                playerHandler.AlterStats(true, 1, 5f);
                 playerHandler.AlterStats(true, 2, 0.3f);
                 break;
 
             case 3:
                 playerHandler.AlterStats(true, 2, 0.3f);
+                break;
+
+            case 4:
+                playerHandler.AlterStats(true, 1, 5f);
                 break;
         }
     }
@@ -460,13 +489,15 @@ public class PlayerHealthScript : MonoBehaviour
                 playerHandler.AlterStats(false, 2, 0.3f);
                 break;
 
-            case 2:
-                playerHandler.AlterStats(false, 1, 5f);
                 playerHandler.AlterStats(false, 2, 0.3f);
                 break;
 
             case 3:
                 playerHandler.AlterStats(false, 2, 0.3f);
+                break;
+
+            case 4:
+                playerHandler.AlterStats(false, 1, 5f);
                 break;
         }
     }

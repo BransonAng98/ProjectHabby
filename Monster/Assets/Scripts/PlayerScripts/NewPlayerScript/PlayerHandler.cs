@@ -778,7 +778,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     void TriggerUltimate2()
     {
         vfxManager.StartFading();
-        countdown = 5f;
+        countdown = 1f;
         canAttack = false;
         canEarnUlt = false;
         enableInput = true;
@@ -799,8 +799,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
 
             countdown -= Time.deltaTime;
-            float holdDashTimer = Mathf.RoundToInt(countdown);
-            chargeCountdown.text = "Get Ready to Charge in: " + holdDashTimer.ToString();
+            chargeCountdown.text = "Get Ready to Charge";
 
             float moveX = joystick.Horizontal;
             float moveY = joystick.Vertical;
