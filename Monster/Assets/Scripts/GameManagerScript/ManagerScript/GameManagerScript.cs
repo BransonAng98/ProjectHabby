@@ -114,7 +114,7 @@ public class GameManagerScript : MonoBehaviour
     public void ActivatePlayer()
     {
         TriggerIntro();
-        Invoke("ActivateInput", 4.5f);
+        Invoke("ActivateInput", 3.5f);
     }
 
     void ActivateInput()
