@@ -4131,6 +4131,7 @@ MonoBehaviour:
   audiomanager: {fileID: 0}
   clock: {fileID: 1294789420}
   bannerObj: {fileID: 424094961}
+  hitcircleScript: {fileID: 0}
   endStatus: {fileID: 1103916800}
   timer: 0
 --- !u!1001 &1090540995
@@ -4903,9 +4904,9 @@ MonoBehaviour:
   destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
   objectiveText: {fileID: 463412152}
-  textMoveSpeed: 0
-  textFadeDuration: 0
-  textMoveDuration: 0
+  textMoveSpeed: 250
+  textFadeDuration: 1
+  textMoveDuration: 1.8
   isVictory: 0
   hasActivated: 0
   fadeDuration: 1
