@@ -446,7 +446,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         roarAudioSource.enabled = false;
         footstepAudioSource.enabled = false;
-
     }
 
     public void TurnOffPlayer()
@@ -541,42 +540,46 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     private void PlayerAttack()
     {
         if (canAttack && movementInput != Vector2.zero)
-        { //Using the RAYCAST to detect and hit enemies
+        { 
+            //Using the RAYCAST to detect and hit enemies
             if (listOfEnemies.Count == 0)
             {
-                skeletonAnim.timeScale = animationSpeed;
-                RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
-                // Check if the raycast hits an object
-                if (hit.collider != null)
+
+                if (!listOfEnemies.Contains(selectedEnemy))
                 {
-                    selectedEnemy = hit.collider;
-                    if (!currentState.Equals(PlayerStates.attack))
+                    selectedEnemy = null;
+                    if (isAttacking)
                     {
-                        prevState = currentState;
-                    }
-                    SetCharacterState(PlayerStates.attack);
-                    if (!isAttacking)
-                    {
-                        isAttacking = true;
+                        SetCharacterState(prevState);
+                        isAttacking = false;
                     }
                 }
+
                 else
                 {
-                    if (!listOfEnemies.Contains(selectedEnemy))
-                    {
-                        selectedEnemy = null;
-                        if (isAttacking)
-                        {
-                            SetCharacterState(prevState);
-                            isAttacking = false;
-                        }
-                    }
-
-                    else
-                    {
-                        return;
-                    }
+                    return;
                 }
+
+                //skeletonAnim.timeScale = animationSpeed;
+                //RaycastHit2D hit = Physics2D.Raycast(HitDetection.transform.position, lastKnownVector, attackHitRange, enemyLayer);
+                //// Check if the raycast hits an object
+                //if (hit.collider != null)
+                //{
+                //    selectedEnemy = hit.collider;
+                //    if (!currentState.Equals(PlayerStates.attack))
+                //    {
+                //        prevState = currentState;
+                //    }
+                //    SetCharacterState(PlayerStates.attack);
+                //    if (!isAttacking)
+                //    {
+                //        isAttacking = true;
+                //    }
+                //}
+                //else
+                //{
+                //  Put the if state ontop here
+                //}
             }
 
             //Using the CYLINDER COLLIDER to detect and hit enemies
@@ -646,55 +649,138 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerAttackDirAnimation()
     {
-        if (selectedEnemy != null)
+        float playerX = this.transform.position.x;
+        float objectX = selectedEnemy.gameObject.transform.position.x;
+        Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
+
+        float angleRadians = Mathf.Atan2(dir.y, dir.x);
+        // Convert the angle from radians to degrees
+        degreeAngle = angleRadians * Mathf.Rad2Deg;
+
+        // Ensure the angle is positive (0 to 360 degrees)
+        degreeAngle = (degreeAngle + 360) % 360;
+        if (objectX > playerX)
         {
-            float playerX = this.transform.position.x;
-            float objectX = selectedEnemy.gameObject.transform.position.x;
-            Vector3 dir = selectedEnemy.transform.position - HitDetection.transform.position;
-            float angle = Vector3.Angle(dir, Vector3.down);
-            if (objectX > playerX)
+            if (degreeAngle >= 45f && degreeAngle < 90f)
             {
-                if (angle >= 135f)
+                attackSector = 2;
+                if(CheckSectors(moveSector, attackSector))
                 {
-                    attackSector = 1;
                     SetAnimation(0, attacking3, true, attackAnimationSpeed);
                 }
-                if (angle >= 45f && angle < 135f)
+                else
                 {
-                    attackSector = 2;
+                    SetCharacterState(prevState);
+                }
+            }
+            if (degreeAngle > 315 && degreeAngle < 360)
+            {
+                attackSector = 8;
+                if(CheckSectors(moveSector, attackSector))
+                {
                     SetAnimation(0, attacking2, true, attackAnimationSpeed);
                 }
-                if (angle >= 0f && angle < 45f)
+                else
                 {
-                    attackSector = 3;
+                    SetCharacterState(prevState);
+                }
+            }
+            if (degreeAngle > 0 && degreeAngle < 45)
+            {
+                attackSector = 1;
+                if(CheckSectors(moveSector, attackSector))
+                {
+                    SetAnimation(0, attacking2, true, attackAnimationSpeed);
+                }
+                else
+                {
+                    SetCharacterState(prevState);
+                }
+            }
+            if (degreeAngle >= 270f && degreeAngle < 315f)
+            {
+                attackSector = 7;
+                if (CheckSectors(moveSector, attackSector))
+                {
                     SetAnimation(0, attacking, true, attackAnimationSpeed);
                 }
-            }
-            else if (objectX < playerX)
-            {
-                if (angle >= 135f)
+                else
                 {
-                    attackSector = 1;
+                    SetCharacterState(prevState);
+                }
+            }
+
+            playFull = false;
+        }
+
+        else if (objectX < playerX)
+        {
+            if (degreeAngle >= 90f && degreeAngle < 135f)
+            {
+                attackSector = 3;
+                if (CheckSectors(moveSector, attackSector))
+                {
                     SetAnimation(0, attacking6, true, attackAnimationSpeed);
                 }
-                if (angle >= 45f && angle < 135f)
+                else
                 {
-                    attackSector = 4;
-                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
-                }
-                if (angle >= 0f && angle < 45f)
-                {
-                    attackSector = 3;
-                    SetAnimation(0, attacking4, true, attackAnimationSpeed);
+                    SetCharacterState(prevState);
                 }
             }
+            if (degreeAngle >= 135f && degreeAngle < 180f)
+            {
+                attackSector = 4;
+                if (CheckSectors(moveSector, attackSector))
+                {
+                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
+                }
+                else
+                {
+                    SetCharacterState(prevState);
+                }
+            }
+            if (degreeAngle >= 180f && degreeAngle < 225f)
+            {
+                attackSector = 5;
+                if (CheckSectors(moveSector, attackSector))
+                {
+                    SetAnimation(0, attacking5, true, attackAnimationSpeed);
+                }
+                else
+                {
+                    SetCharacterState(prevState);
+                }
+            }
+            if (degreeAngle >= 225f && degreeAngle < 270f)
+            {
+                attackSector = 6;
+                if (CheckSectors(moveSector, attackSector))
+                {
+                    SetAnimation(0, attacking4, true, attackAnimationSpeed);
+                }
+                else
+                {
+                    SetCharacterState(prevState);
+                }
+            }
+
+            playFull = false;
+        }
+
+    }
+
+    bool CheckSectors(int a, int b)
+    {
+        if (a == 1 && b == 8 || a == 8 && b == 1)
+        {
+            return Mathf.Abs(a - b) <= 7;
         }
 
         else
         {
-            SetCharacterState(prevState);
+            Debug.Log("Check abnormally");
+            return Mathf.Abs(a - b) <= 1;
         }
-
     }
 
     //In the animation, this will deal damage to the select unit
@@ -1064,27 +1150,43 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         degreeAngle = (degreeAngle + 360) % 360;
 
         //Moving Upwards
-        if (degreeAngle > 45 && degreeAngle < 135)
+        if (degreeAngle > 45f && degreeAngle < 90f)
         {
-            moveSector = 1;
+            moveSector = 2;
         }
-
-        //Moving Leftwards
-        if (degreeAngle > 135 && degreeAngle < 225)
-        {
-            moveSector = 4;
-        }
-
-        //Moving Downwards
-        if (degreeAngle > 225 && degreeAngle < 315)
+        if (degreeAngle > 90f && degreeAngle < 135f)
         {
             moveSector = 3;
         }
 
-        //Moving Rightward
-        if (degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45)
+        //Moving Leftwards
+        if (degreeAngle > 135f && degreeAngle < 180f)
         {
-            moveSector = 2;
+            moveSector = 4;
+        }
+        if (degreeAngle > 180f && degreeAngle < 225f)
+        {
+            moveSector = 5;
+        }
+
+        //Moving Downwards
+        if (degreeAngle > 225f && degreeAngle < 270f)
+        {
+            moveSector = 6;
+        }
+        if (degreeAngle > 270f && degreeAngle < 315f)
+        {
+            moveSector = 7;
+        }
+
+        //Moving Rightward
+        if (degreeAngle > 315 && degreeAngle < 360)
+        {
+            moveSector = 8;
+        }
+        if (degreeAngle > 0 && degreeAngle < 45)
+        {
+            moveSector = 1;
         }
     }
 
@@ -1093,7 +1195,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         switch (state)
         {
             case PlayerStates.idle:
-                playFull = false;
                 if (!extendedIdle)
                 {
                     SetAnimation(0, idling, true, 1f);
@@ -1102,41 +1203,42 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 {
                     SetAnimation(0, idling2, true, 1f);
                 }
+                playFull = false;
                 break;
 
             case PlayerStates.attack:
-                playFull = false;
                 TriggerAttackDirAnimation();
                 break;
 
             case PlayerStates.move:
-                playFull = false;
-                if (moveSector == 1)
+                if (moveSector == 1 || moveSector == 8)
                 {
                     attackHitRange = attackRangeHolder;
                     SetAnimation(0, moving, true, animationSpeed);
                 }
 
                 //Moving Leftwards, degreeAngle > 135 && degreeAngle < 225
-                if (moveSector == 4)
+                if (moveSector == 4 || moveSector == 5)
                 {
                     attackHitRange = attackRangeHolder + 1f;
                     SetAnimation(0, moving3, true, animationSpeed);
                 }
 
                 //Moving Downwards, degreeAngle > 225 && degreeAngle < 315
-                if (moveSector == 3)
+                if (moveSector == 6 || moveSector == 7)
                 {
                     attackHitRange = attackRangeHolder;
                     SetAnimation(0, moving2, true, animationSpeed);
                 }
 
                 //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
-                if (moveSector == 2)
+                if (moveSector == 2 || moveSector == 3)
                 {
                     attackHitRange = attackRangeHolder + 1f;
                     SetAnimation(0, moving4, true, animationSpeed);
                 }
+
+                playFull = false;
                 break;
 
             case PlayerStates.victory:
@@ -1266,7 +1368,5 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         jumpAudioSource.PlayOneShot(jumpAudioSource.clip);
     }
-
-
 }
 
