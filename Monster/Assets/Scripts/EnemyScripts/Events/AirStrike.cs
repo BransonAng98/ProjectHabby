@@ -8,7 +8,6 @@ public class AirStrike : MonoBehaviour
     public int numberOfMissiles;
     public GameObject enemyPlane;
 
-    private Animator anim;
     public Transform player;
     public Transform[] spawnPoints;
     [SerializeField] Transform missileSpawnPos;
@@ -19,8 +18,6 @@ public class AirStrike : MonoBehaviour
 
     private void Start()
     {
-        anim = GameObject.Find("MilitaryAbilityWarning").GetComponent<Animator>();
-
         // Check if we have at least one spawn point
         if (spawnPoints.Length == 0)
         {
@@ -40,22 +37,9 @@ public class AirStrike : MonoBehaviour
     {
         if (enemyPlane != null)
         {
-
-            Invoke("DeactiveBanner", 3f);
-
-            anim.SetBool("Close", true);
-
             Invoke("RandomizeAndSpawn", 2f);
 
-            Invoke("ResetActivation", 15f);
-
         }
-
-    }
-
-    void DeactiveBanner()
-    {
-        anim.SetBool("Close", false);
     }
 
     public void RandomizeAndSpawn()

@@ -813,8 +813,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -228449173
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3f4caf58100f2d148b94243542492727, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6732,6 +6732,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8803872740345178636}
     m_Modifications:
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: maxNumberOfEnemiesToSpawn
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2502542426989302196, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: m_Name
       value: CivilianSpawner

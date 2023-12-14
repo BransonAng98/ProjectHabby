@@ -8,7 +8,6 @@ public class MiniGameManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     private GameObject landMark;
-    public TextMeshProUGUI hitIndicator;
  
     // Start is called before the first frame update
     void Start()
@@ -32,7 +31,6 @@ public class MiniGameManager : MonoBehaviour
 
         else
         {
-            hitIndicator.enabled = false;
             Invoke("ReturnToMainMenu", 2f);
         }
     }

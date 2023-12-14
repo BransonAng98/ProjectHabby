@@ -19,12 +19,12 @@ public class MeteorScript : MonoBehaviour
     public PlayerHandler playerHandler;
     public GameObject impactVFX;
 
-    float meteorRadius = 3.4f;
+    public float meteorRadius;
     public PlayerStatScriptableObject playerSO;
     public AudioSource meteorAudioSource;
     public AudioClip meteormovingSFX;
     public AudioClip meteorExplosionSFX;
-
+    public PlayerHealthScript healthscript;
     public void Start()
     {
         isMoving = true;
@@ -38,8 +38,9 @@ public class MeteorScript : MonoBehaviour
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         cameraShake = FindObjectOfType<CameraShake>();
+        healthscript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthScript>();
 
-       
+
         Vector2 landingPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y + 5f);
         targetPosition = landingPos;
 
@@ -83,9 +84,12 @@ public class MeteorScript : MonoBehaviour
         isTriggered = true;
         PlayExplosion();
         cameraShake.ShakeCamera();
+        Invoke("DelayStopShake", 0.6f);
         MeteorCrashingSFX();
         SpawnCrater();
+        playerHandler.ChargeUltimate(45);
         Vector2 OverlapPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y +1f);
+     
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);
         foreach (Collider2D collider in hitColliders)
         {
@@ -95,66 +99,71 @@ public class MeteorScript : MonoBehaviour
                 collateralTrigger.CollateralDamage(100f);
                 StartCoroutine(DestroyAfterDelay(collider.gameObject, 0f));
             }
+            else if(collider.gameObject.tag == "Prop")
+            {
+                Destroy(collider.gameObject);
+            }
            
         }
 
     }
 
-    private IEnumerator DestroyAfterDelay(GameObject objToDestroy, float delay)
+    private IEnumerator DestroyAfterDelay(GameObject objToSort, float delay)
     {
+        healthscript.activateAbiliityBar = true;
         yield return new WaitForSeconds(delay);
 
-        if (objToDestroy != null && objToDestroy.tag != "Player")
+        if (objToSort != null && objToSort.tag != "Player")
         {
-            if (objToDestroy.tag == "Civilian")
+            if (objToSort.tag == "Civilian")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    objToDestroy.GetComponent<Civilian>().causeOfDeath = "Meteor shower";
-                    Destroy(parentTransform.gameObject);
+                    objToSort.GetComponent<Civilian>().causeOfDeath = "Meteor shower";
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Car")
+            else if (objToSort.tag == "Car")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    Destroy(parentTransform.gameObject);
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Tree")
+            else if (objToSort.tag == "Tree")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    Destroy(parentTransform.gameObject);
+                    parentTransform.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.name == "CamConfiner")
+            else if (objToSort.name == "CamConfiner")
             {
                 // do nothing
             }
-            else if (objToDestroy.tag == "BigBuilding")
+            else if (objToSort.tag == "BigBuilding")
             {
-                SpriteRenderer buildingRenderer = objToDestroy.GetComponentInChildren<SpriteRenderer>();
+                SpriteRenderer buildingRenderer = objToSort.GetComponentInChildren<SpriteRenderer>();
                 if (buildingRenderer != null)
                 {
-                    buildingRenderer.enabled = false;
+                    buildingRenderer.sortingOrder = 1;
                 }
             }
-            else if (objToDestroy.tag == "Leader")
+            else if (objToSort.tag == "Leader")
             {
-                Transform parentTransform = objToDestroy.transform.parent;
+                SpriteRenderer parentTransform = objToSort.GetComponent<SpriteRenderer>();
                 if (parentTransform != null)
                 {
-                    objToDestroy.GetComponent<Leader>().causeOfDeath = "Meteor shower";
-                    Destroy(parentTransform.gameObject);
+                    objToSort.GetComponent<Leader>().causeOfDeath = "Meteor shower";
+                    parentTransform.sortingOrder = 1;
                 }
             }
             else
             {
-                Destroy(objToDestroy);
+                
             }
         }
     }

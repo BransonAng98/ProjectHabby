@@ -13,6 +13,7 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource treeaudioSource;
     public AudioSource civilianAudioSource;
     public AudioSource carAudioSource;
+    public AudioSource propAudioSource;
 
     public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
@@ -46,12 +47,16 @@ public class AudioManagerScript : MonoBehaviour
         minTime = 1f;
         maxTime = 1f;
         eventmanagerScript = GameObject.Find("EventManager").GetComponent<EventManager>();
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+      if(gamemanager.gameEnded == true)
+        {
+            CivilianSource.volume = 0f;
+        }
     }
 
     public void PlayBGM()
@@ -188,8 +193,30 @@ public class AudioManagerScript : MonoBehaviour
         isCarSFXPlaying = false;
     }
 
+    // For Props use car sounds since they are basically the same
+    public void PlayPropSFX()
+    {
+        if (!isCarSFXPlaying)
+        {
+            StartCoroutine(PlaypropSFXWithCooldown());
+        }
+    }
 
-        public void PlayIncomingAbility()
+    private IEnumerator PlaypropSFXWithCooldown()
+    {
+        isCarSFXPlaying = true;
+
+        // Assuming you have a carSFX array similar to treeSFX and others
+        AudioClip carSound = carDeathSFX[(Random.Range(0, carDeathSFX.Length))];
+        propAudioSource.PlayOneShot(carSound);
+
+        yield return new WaitForSeconds(carSFXCooldown);
+
+        isCarSFXPlaying = false;
+    }
+
+
+    public void PlayIncomingAbility()
     {
         //float randomPitch = Random.Range(0.8f, 1.2f);
         //militaryAbilitySource.pitch = randomPitch;

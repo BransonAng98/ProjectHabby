@@ -5,7 +5,6 @@ using UnityEngine;
 public class LeaderCircleInfulence : MonoBehaviour
 {
     [SerializeField] Leader leader;
-    // Start is called before the first frame update
     void Start()
     {
         leader = GetComponentInParent<Leader>();
@@ -15,8 +14,8 @@ public class LeaderCircleInfulence : MonoBehaviour
     {
         if (collision.CompareTag("Civilian"))
         {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
-            if (civiRecruited != null)
+            Civilian civiRecruited = collision.gameObject.GetComponentInChildren<Civilian>();
+            if (civiRecruited != null && leader != null)
             {
                 leader.AddFollowers(civiRecruited);
             }
@@ -27,8 +26,8 @@ public class LeaderCircleInfulence : MonoBehaviour
     {
         if (collision.CompareTag("Civilian"))
         {
-            Civilian civiRecruited = collision.gameObject.GetComponent<Civilian>();
-            if (civiRecruited != null)
+            Civilian civiRecruited = collision.gameObject.GetComponentInChildren<Civilian>();
+            if (civiRecruited != null && leader != null && leader.followerList != null)
             {
                 civiRecruited.RemoveCivilan();
                 leader.followerList.Remove(civiRecruited);

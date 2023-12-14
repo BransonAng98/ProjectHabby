@@ -8,8 +8,6 @@ public class CutSceneManager : MonoBehaviour
     public GameManagerScript gameManager;
     public Animator anim;
     private PlayerHandler inputHandler;
-    public Image commanderImage;
-    public List<Sprite> commanderDialogues = new List<Sprite>();
     public AudioManagerScript audiomanager;
 
 
@@ -21,22 +19,9 @@ public class CutSceneManager : MonoBehaviour
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
     }
 
-    public void TriggerDialogue()
-    {
-        if (gameManager.isVictory)
-        {
-            commanderImage.sprite = commanderDialogues[0]; //Victory dialogue goes here
-        }
-
-        else
-        {
-            commanderImage.sprite = commanderDialogues[1]; //Defeat dialogue goes here
-        }
-    }
 
     public void CallEndScreen()
     {
-        ;
         gameManager.TriggerEndScreen();
     }
 
@@ -44,7 +29,6 @@ public class CutSceneManager : MonoBehaviour
     {
         audiomanager.StopBGM();
         inputHandler.enableInput = false;
-        TriggerDialogue();
         anim.SetBool("isTriggered", true);
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1569463386181299303}
   m_Layer: 0
   m_Name: GasStationSign
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9159ae564af77a143b03f3deb93c2758, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,7 +118,7 @@ MonoBehaviour:
   maxFires: 3
   destroyedBuilding: {fileID: 21300000, guid: ef159b8b1dd31d649ae032f00671988b, type: 3}
   pfCoin: {fileID: 0}
-  pfDelvin: {fileID: 0}
+  pfFallingDelvin: {fileID: 0}
   minEntities: 0
   maxEntities: 3
   minCoins: 0

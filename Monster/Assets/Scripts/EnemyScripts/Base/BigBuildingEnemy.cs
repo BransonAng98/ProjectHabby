@@ -53,6 +53,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public AudioManagerScript audiomanager;
     public float spawnheight;
+    public ScoreManagerScript scoremanager;
     private void Awake()
     {
         buildingType = GetComponent<Targetable>();
@@ -61,6 +62,7 @@ public class BigBuildingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
@@ -140,6 +142,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public void Death()
     {
         audiomanager.playBuildingDeathSFX();
+        scoremanager.amtOfStructures += 1;
        // playDeathSFX();
         TriggerLoot();
 

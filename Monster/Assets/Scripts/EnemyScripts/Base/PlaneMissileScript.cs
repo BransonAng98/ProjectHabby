@@ -14,9 +14,6 @@ public class PlaneMissileScript : MonoBehaviour
     //public Transform jetPos;
 
     private Transform missileObj;
-    public AudioSource planemissileAudioSource;
-    public AudioClip[] planemissileSFX;
-
     public bool isLeft;
 
     private void Start()
@@ -32,7 +29,7 @@ public class PlaneMissileScript : MonoBehaviour
         
         if (currentTime >= destroyTime)
         {
-            SpawnExplosion();
+            //SpawnExplosion();
             Destroy(gameObject); // Destroy the GameObject
         }
     }
@@ -58,10 +55,17 @@ public class PlaneMissileScript : MonoBehaviour
      
         if (collision.CompareTag("Player"))
         {
-            PlaySFX(); //Sound can't play cuz missile is destroyed too fast, find a faster sound or invoke missile
             SpawnExplosion();
             collision.GetComponent<PlayerHealthScript>().TakeDamage(damageAmount);
-            collision.GetComponent<PlayerHandler>().DisableMovement(6);
+            if (!collision.gameObject.GetComponent<PlayerHandler>().isDashing)
+            {
+                collision.gameObject.GetComponent<PlayerHandler>().DisableMovement(6);
+            }
+
+            else
+            {
+                return;
+            }
             Destroy(gameObject);
         }
 
@@ -86,11 +90,5 @@ public class PlaneMissileScript : MonoBehaviour
         Instantiate(explosionVFX, explosionPos.position, Quaternion.identity);
     }
 
-    void PlaySFX()
-    {       
-        AudioClip deathsoundtoPlay = planemissileSFX[Random.Range(0, planemissileSFX.Length)];
-        planemissileAudioSource.PlayOneShot(deathsoundtoPlay);
-      
-    }
 
 }

@@ -54,9 +54,11 @@ public class CarAI : MonoBehaviour
     //public FadeObjectinParent fadescript;
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
+    public ScoreManagerScript scoremanager;
 
     void Start()
     {
+        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerscript = GetComponent<PlayerHandler>();
         //fadescript = GetComponentInParent<FadeObjectinParent>();
@@ -170,6 +172,7 @@ public class CarAI : MonoBehaviour
 
     public void Death()
     {
+        scoremanager.amtOfCarskilled += 1;
         if (!hasTriggered)
         {
             levelManager.CalculateScore(3);

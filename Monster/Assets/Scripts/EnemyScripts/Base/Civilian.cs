@@ -44,6 +44,7 @@ public class Civilian : MonoBehaviour
     private PlayerHandler inputHandler;
     [SerializeField] private Transform blockingEntity;
     private EventManager eventManager;
+    private GameManagerScript gamemanager;
 
     public bool isBlocked;
     private bool hasSpawned;
@@ -67,8 +68,11 @@ public class Civilian : MonoBehaviour
     public Vector2 verticalDispenseVelocity;
     public bool isKicking;
     public float rotationSpeed;
+
+    public ScoreManagerScript scoremanager;
     private void Awake()
     {
+        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         fakeheight = GetComponentInParent<FakeHeightScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -79,6 +83,7 @@ public class Civilian : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         SetValue();
     }
@@ -369,7 +374,7 @@ public class Civilian : MonoBehaviour
             //PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
-
+        scoremanager.amtOfcivilians += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
@@ -396,6 +401,11 @@ public class Civilian : MonoBehaviour
         lastPosX = currentPositionX;
     }
 
+    void StopMovement()
+    {
+        walkSpeed = 0f;
+        runSpeed = 0f;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -427,6 +437,11 @@ public class Civilian : MonoBehaviour
                 Idle();
                 break;
 
+        }
+
+        if(gamemanager.gameEnded== true)
+        {
+            StopMovement();
         }
     }
 

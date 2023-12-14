@@ -9,21 +9,30 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player; // Prefab of the player
     public GameObject meteorObject;
     public GameObject deployScreen;
-    public Animator barAnim;
     public bool gameStarted = false;
     public List<GameObject> obstacleList = new List<GameObject>();
    
     public AudioManagerScript audiomanager;
-    private GNAManager GNAManager;
+    //private GNAManager GNAManager;
     private LevelManager levelManager;
     public GameObject endScreen;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject destructionBar;
     public TextMeshProUGUI levelText;
-    public TextMeshProUGUI GNAText;
+    public TextMeshProUGUI objectiveText;
+
+    public float textMoveSpeed;
+    public float textFadeDuration;
+    public float textMoveDuration;
+
+    //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
     public bool isVictory;
     public bool hasActivated;
+    public float fadeDuration;
+    public float displayDuration;
+
 
     //Meteor
     public GameObject playerStatusBars;
@@ -31,25 +40,24 @@ public class GameManagerScript : MonoBehaviour
     //public List<Collider2D> playerLegs = new List<Collider2D>();
     public GameObject joystick;
     public ClockSystem clock;
+    public GameObject scoreDisplay;
+    public bool gameEnded;
 
     private void Start()
     {
         Time.timeScale = 1f;
-        deployScreen.SetActive(true);
-
-        player.GetComponent<MeshRenderer>().enabled = false;
-        barAnim.SetBool("RevealGame", false);
-        //AstarPath.active.Scan(); //scan the grid
-        ScanAndInsert();
-        DisableObstacles();
      
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
-        
-
-        endScreen.SetActive(false);
-        levelManager = GetComponent<LevelManager>();
-        GNAManager = GetComponent<GNAManager>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        levelManager = GetComponent<LevelManager>();
+        //GNAManager = GetComponent<GNAManager>();
+        player.GetComponent<MeshRenderer>().enabled = false;
+        //scoreDisplay.SetActive(false);
+        endScreen.SetActive(false);
+        //AstarPath.active.Scan(); //scan the grid
+        DisplayObjective();
+        ScanAndInsert();
+        DisableObstacles();
         DeactivatePlayer();
     }
 
@@ -59,21 +67,24 @@ public class GameManagerScript : MonoBehaviour
         if (!gameStarted && Input.anyKeyDown)
         {
             StartGame();
+            StartCoroutine(MoveUpAndFadeOut(objectiveText.gameObject, textMoveDuration, textFadeDuration));
         }
     }
 
     public void TriggerEndScreen()
     {
+        //gameEnded = true;
         inputHandler.enableInput = false;
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         levelText.text = "" + levelManager.levelData.cityLevel;
-        GNAText.text = "" + GNAManager.gnaData.inGameGNA;
+        //GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
         if (isVictory == false)
         {
             
             audiomanager.PlayVictoryBGM();  
             winScreen.SetActive(false);
+            
            
         }
 
@@ -83,6 +94,8 @@ public class GameManagerScript : MonoBehaviour
             loseScreen.SetActive(false);
             
         }
+        scoreDisplay.SetActive(true);
+        
     }
 
     public void LoadNextScene()
@@ -90,34 +103,18 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("LevelSelectScene");
     }
 
-    public void CloseBar()
-    {
-        barAnim.SetBool("GameRevealed", true);
-    }
-
-    public void OpenBar()
-    {
-        barAnim.SetBool("RevealGame", true);
-    }
-
     void DeactivatePlayer()
     {
         playerStatusBars.SetActive(false);
         hitIndicator.SetActive(false);
         joystick.SetActive(false);
-        //foreach (Collider2D collider in playerLegs)
-        //{
-        //    collider.gameObject.SetActive(false);
-        //}
+
     }
 
     public void ActivatePlayer()
     {
-        Invoke("ActivateInput", 3.4f);
-        //foreach (Collider2D collider in playerLegs)
-        //{
-        //    collider.gameObject.SetActive(true);
-        //}
+        TriggerIntro();
+        Invoke("ActivateInput", 4.5f);
     }
 
     void ActivateInput()
@@ -153,10 +150,9 @@ public class GameManagerScript : MonoBehaviour
         audiomanager.PlayBGM();
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
-
+        
         // Set the game as started
         gameStarted = true;
-        OpenBar();
         SpawnMeteor();
 
     }
@@ -180,6 +176,95 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
+    void DisplayObjective()
+    {
+        deployScreen.SetActive(true);
+        objectiveText.enabled = true;
+        // Display the game objective text
+        SetObjectiveText("");
+        SetObjectiveText("Destroy the city within the time limit!");
+    }
+
+    IEnumerator MoveUpAndFadeOut(GameObject obj, float moveDuration, float fadeDuration)
+    {
+        float elapsedTime = 0f;
+        RectTransform rectTransform = obj.GetComponent<RectTransform>();
+
+        // Move up
+        while (elapsedTime < moveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / moveDuration;
+
+            // Move the object upwards using RectTransform
+            rectTransform.anchoredPosition += Vector2.up * textMoveSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+        // Reset timer for fading
+        elapsedTime = 0f;
+
+        // Fade out
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+
+            // Fade out the object
+            objectiveText.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        objectiveText.alpha = 0f;
+
+        // Turn off the objective text
+        objectiveText.enabled = false;
+    }
+
+    public void TriggerIntro()
+    {
+        StartCoroutine(StartGameSequence());
+    }
+
+    IEnumerator StartGameSequence()
+    {
+        // Fade in the destruction bar
+        yield return StartCoroutine(FadeInObject(destructionBar, fadeDuration));
+
+    }
+
+    void SetObjectiveText(string text)
+    {
+        objectiveText.text = text;
+    }
+
+    void DeactivateEverything()
+    {
+       
+    }
+
+    IEnumerator FadeInObject(GameObject obj, float duration)
+    {
+        float elapsedTime = 0f;
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f; // Start with alpha set to 0
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            // Fade in the object
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
+
+        // Ensure it reaches the target alpha exactly
+        canvasGroup.alpha = 1f;
+    }
 
     //Trigger all the end game stuff
 }
