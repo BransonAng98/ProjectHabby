@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
 
     void HardResetLevel()
     {
-        if(levelData.cityLevel > 10)
+        if(levelData.cityLevel > 5)
         {
             levelData.cityLevel = 5;
         }
@@ -71,27 +71,7 @@ public class LevelManager : MonoBehaviour
                 break;
 
             case 5:
-                calculateCityDestruction = 3;
-                break;
-
-            case 6:
-                calculateCityDestruction = 3;
-                break;
-
-            case 7:
                 calculateCityDestruction = 4;
-                break;
-
-            case 8:
-                calculateCityDestruction = 4;
-                break;
-
-            case 9:
-                calculateCityDestruction = 5;
-                break;
-
-            case 10:
-                calculateCityDestruction = 5;
                 break;
         }
 
@@ -111,15 +91,8 @@ public class LevelManager : MonoBehaviour
             {
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(2);
-                if(levelData.cityLevel == 5)
-                {
-                    levelData.cityLevel = 1;
-                }
 
-                else
-                {
-                    levelData.cityLevel += 1;
-                }
+                levelData.cityLevel += 1;
 
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
