@@ -37,7 +37,7 @@ public class CrabUltimateU : UltimateBase
             {
                 currentDuration -= timeReduction * Time.deltaTime;
                 healthScript.riseOrFall = false;
-                playerHandler.DecreaseUltimateBar(19f);
+                playerHandler.DecreaseUltimateBar(28f);
             }
 
             else
