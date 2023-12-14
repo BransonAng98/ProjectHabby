@@ -1211,7 +1211,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.move:
-                if (moveSector == 1 || moveSector == 8)
+
+                //Moving upwards
+                if (moveSector == 2 || moveSector == 3)
                 {
                     attackHitRange = attackRangeHolder;
                     SetAnimation(0, moving, true, animationSpeed);
@@ -1232,7 +1234,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 }
 
                 //Moving Rightward, degreeAngle > 315 && degreeAngle < 360 || degreeAngle > 0 && degreeAngle < 45
-                if (moveSector == 2 || moveSector == 3)
+                if (moveSector == 1 || moveSector == 8)
                 {
                     attackHitRange = attackRangeHolder + 1f;
                     SetAnimation(0, moving4, true, animationSpeed);

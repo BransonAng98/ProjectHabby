@@ -55,6 +55,7 @@ public class CarAI : MonoBehaviour
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
     public ScoreManagerScript scoremanager;
+    
 
     void Start()
     {
@@ -172,6 +173,7 @@ public class CarAI : MonoBehaviour
 
     public void Death()
     {
+        spriteRenderer.sortingOrder = 2;   
         scoremanager.amtOfCarskilled += 1;
         if (!hasTriggered)
         {
