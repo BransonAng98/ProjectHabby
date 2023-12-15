@@ -115,39 +115,23 @@ public class ClockSystem : MonoBehaviour
                 break;
 
             case 2:
+                //Prev was 30
                 addOnTime = 30;
                 break;
 
             case 3:
-                addOnTime = 45;
+                //Prev was 45
+                addOnTime = 75;
                 break;
 
             case 4:
-                addOnTime = 60;
-                break;
-
-            case 5:
+                //Prev was 60
                 addOnTime = 90;
                 break;
 
-            case 6:
-                addOnTime = 105;
-                break;
-
-            case 7:
-                addOnTime = 120;
-                break;
-
-            case 8:
+            case 5:
+                //prev was 90
                 addOnTime = 135;
-                break;
-
-            case 9:
-                addOnTime = 150;
-                break;
-
-            case 10:
-                addOnTime = 160;
                 break;
         }
 

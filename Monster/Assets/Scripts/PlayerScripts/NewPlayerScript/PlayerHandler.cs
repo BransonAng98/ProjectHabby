@@ -429,21 +429,24 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         footstepAudioSource.enabled = false;
     }
 
-    public void TurnOffPlayer()
+    public void TurnOffPlayer(bool hasPlayerDied)
     {
         StopAllCoroutines();
-        if (isDashing)
+        if (!hasPlayerDied)
         {
-            isDashing = false;
-            CrabUltimateU dashUlt = utlimates[1].GetComponent<CrabUltimateU>();
-            if(dashUlt != null)
+            if (isDashing)
             {
-                dashUlt.currentDuration = 0;
+                isDashing = false;
+                CrabUltimateU dashUlt = utlimates[1].GetComponent<CrabUltimateU>();
+                if (dashUlt != null)
+                {
+                    dashUlt.currentDuration = 0;
+                }
             }
         }
+
         MuteRoar();
         DisableColliders();
-        animationSpeed = 1f;
     }
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -934,13 +937,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case 2:
-                TurnOffPlayer();
+                TurnOffPlayer(false);
                 SetCharacterState(PlayerStates.victory);
+                skeletonAnim.AnimationState.TimeScale = 1f;
                 Debug.Log("Player won");
                 break;
 
             case 3:
-                TurnOffPlayer();
+                TurnOffPlayer(true);
                 SetCharacterState(PlayerStates.defeat);
                 Debug.Log("Player lost");
                 break;
@@ -1238,8 +1242,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.defeat:
-                playFull = true;
                 SetAnimation(0, defeating, false, 1f);
+                playFull = true;
                 break;
 
             case PlayerStates.ultimate:

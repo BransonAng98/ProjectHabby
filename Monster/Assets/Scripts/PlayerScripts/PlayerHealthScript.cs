@@ -76,6 +76,7 @@ public class PlayerHealthScript : MonoBehaviour
     {
         shakeScript = healthSlider.gameObject.GetComponent<ObjectShakeScript>();
         //playerSO.health = 100;
+        playerSO.health = playerSO.maxhealth;
         currentHealth = playerSO.health; // Set initial health to full
         healthSlider.maxValue = currentHealth;
         thresholdHealth = playerSO.health;

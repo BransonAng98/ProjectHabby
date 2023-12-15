@@ -22,7 +22,6 @@ public class PlayerStatScriptableObject : ScriptableObject
 
     private void OnEnable()
     {
-        
         health = maxhealth;
     }
 }
