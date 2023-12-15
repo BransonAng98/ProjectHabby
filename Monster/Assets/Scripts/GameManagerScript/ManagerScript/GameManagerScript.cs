@@ -240,11 +240,6 @@ public class GameManagerScript : MonoBehaviour
         objectiveText.text = text;
     }
 
-    void DeactivateEverything()
-    {
-       
-    }
-
     IEnumerator FadeInObject(GameObject obj, float duration)
     {
         float elapsedTime = 0f;

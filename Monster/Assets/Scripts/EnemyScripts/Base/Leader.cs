@@ -72,8 +72,6 @@ public class Leader : MonoBehaviour
         gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
         fadeEffect = GetComponent<ObjectFadeEffect>();
-     
-
     }
 
 
@@ -141,6 +139,7 @@ public class Leader : MonoBehaviour
     {
         if (enemyState == EnemyState.run)
         {
+            anim.SetBool("run", true);
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             float newDistance = detectionDistance + 5f;
 

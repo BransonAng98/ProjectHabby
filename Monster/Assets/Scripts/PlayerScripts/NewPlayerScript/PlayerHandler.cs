@@ -22,6 +22,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     }
 
     //Variable for State
+    public Skeleton skeleton;
     public SkeletonAnimation skeletonAnim;
     public AnimationReferenceAsset idling, idling2, moving, moving2, moving3, moving4, attacking, attacking2, attacking3, attacking4, attacking5, attacking6, attacking7, ultimating, ultimating2, victorying, defeating, raging, landing, exhausting, damaging;
     [SerializeField] private PlayerStates currentState;
@@ -159,7 +160,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
                     else
                     {
-                        MoveAndAttack();
                         PlayerIdle();
                         PlayerMove();
                         PlayerAttack();
@@ -286,20 +286,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    void MoveAndAttack()
-    {
-        if (attackSector == moveSector)
-        {
-            canMove = false;
-        }
-
-        else
-        {
-            canMove = true;
-            selectedEnemy = null;
-        }
-    }
-
     //To allow other scripts to reset the player's state to idle or moving based on the input
     public void IdleOrMove()
     {
@@ -347,15 +333,16 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         if (movementInput == Vector2.zero)
         {
-            if (lastKnownVector.x == 0 && lastKnownVector.y == 0)
+            if(rb.velocity == Vector2.zero)
             {
-                SetCharacterState(PlayerStates.move);
-                moveSector = 2;
-                rb.velocity = new Vector2(0.99f * movementSpeedHolder, -0.99f * movementSpeedHolder);
+                //dash to the last known position 
+                rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
             }
+
             else
             {
-                rb.velocity = new Vector2(lastKnownVector.x * movementSpeedHolder, lastKnownVector.y * movementSpeedHolder);
+                //Trigger the sion dash logic even when the player is not controlling it
+                rb.velocity = Vector3.RotateTowards(rb.velocity, lastKnownVector * movementSpeedHolder, Mathf.Deg2Rad * 60f * Time.deltaTime, float.MaxValue);
             }
         }
 
@@ -363,12 +350,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             rb.velocity = Vector3.RotateTowards(rb.velocity, movementInput * movementSpeedHolder, Mathf.Deg2Rad * 60f * Time.deltaTime, float.MaxValue);
         }
-    }
-
-    public static bool AreVectorsWithinRange(Vector3 vector1, Vector3 vector2, float maxDistance)
-    {
-        float distance = Vector3.Distance(vector1, vector2);
-        return distance <= maxDistance;
     }
 
     private void PlayerMove()
@@ -451,10 +432,18 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public void TurnOffPlayer()
     {
         StopAllCoroutines();
-        isDashing = false;
+        if (isDashing)
+        {
+            isDashing = false;
+            CrabUltimateU dashUlt = utlimates[1].GetComponent<CrabUltimateU>();
+            if(dashUlt != null)
+            {
+                dashUlt.currentDuration = 0;
+            }
+        }
         MuteRoar();
         DisableColliders();
-        animationSpeed = 1.7f;
+        animationSpeed = 1f;
     }
     //Function to trigger any spine events
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -778,7 +767,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
         else
         {
-            Debug.Log("Check abnormally");
             return Mathf.Abs(a - b) <= 1;
         }
     }
@@ -875,7 +863,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     IEnumerator HoldControlForDash()
     {
-        Debug.Log("Trigger hold down to charge");
         while (countdown > 0)
         {
             yield return null;
@@ -885,12 +872,15 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             }
 
             countdown -= Time.deltaTime;
-            chargeCountdown.text = "Get Ready to Charge";
 
             float moveX = joystick.Horizontal;
             float moveY = joystick.Vertical;
 
             movementInput = new Vector2(moveX, moveY).normalized;
+        }
+
+        if (movementInput != Vector2.zero)
+        {
             lastKnownVector = movementInput;
         }
 
@@ -902,7 +892,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void DecreaseUltimateBar(float decreaseRate)
     {
-        Debug.Log("Bar is decreasingh");
         playerHealth.activateAbiliityBar = false;
         // Rapidly decrease the ultimate bar during the ultimate animation
         currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
@@ -945,14 +934,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case 2:
-                SetCharacterState(PlayerStates.victory);
                 TurnOffPlayer();
+                SetCharacterState(PlayerStates.victory);
                 Debug.Log("Player won");
                 break;
 
             case 3:
-                SetCharacterState(PlayerStates.defeat);
                 TurnOffPlayer();
+                SetCharacterState(PlayerStates.defeat);
                 Debug.Log("Player lost");
                 break;
 
@@ -1244,13 +1233,13 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 break;
 
             case PlayerStates.victory:
-                SetAnimation(1, victorying, true, 1f);
                 playFull = true;
+                SetAnimation(0, victorying, true, 1f);
                 break;
 
             case PlayerStates.defeat:
-                SetAnimation(1, defeating, false, 1f);
                 playFull = true;
+                SetAnimation(0, defeating, false, 1f);
                 break;
 
             case PlayerStates.ultimate:
@@ -1265,7 +1254,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             case PlayerStates.rage:
                 SetAnimation(0, raging, true, 1f);
-                playFull = false;
+                playFull = true;
                 break;
 
             case PlayerStates.exhaust:
