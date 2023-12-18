@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //using Haptics.Vibrations;
+using Destructible2D;
 
 public class BigBuildingEnemy : MonoBehaviour
 {
@@ -55,6 +56,11 @@ public class BigBuildingEnemy : MonoBehaviour
     public AudioManagerScript audiomanager;
     public float spawnheight;
     public ScoreManagerScript scoremanager;
+
+    //Destruction Variables
+    [SerializeField] D2dFracturer fracture;
+    [SerializeField] D2dRequirements destroyer;
+
     private void Awake()
     {
         buildingType = GetComponent<Targetable>();
@@ -170,6 +176,13 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void SpawnDeathVFX()
     {
+        if (fracture != null)
+        {
+            destroyer.AlphaCount = false;
+            fracture.Fracture();
+            Debug.Log("Fracturing");
+        }
+
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
         GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
         GameObject crumble = Instantiate(crumblingVFX, transform.position, Quaternion.identity);
