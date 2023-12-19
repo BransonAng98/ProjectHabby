@@ -23,6 +23,8 @@ public class StaminaSystem : MonoBehaviour
         if (!PlayerPrefs.HasKey("currentEnergy"))
         {
             PlayerPrefs.SetInt("currentEnergy", 30);
+
+            UpdateEnergy();
             Load();
             StartCoroutine(RestoreEnergy());
         }
@@ -57,6 +59,9 @@ public class StaminaSystem : MonoBehaviour
         UpdateEnergy();
         nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
         lastEnergyTime = DateTime.Now;
+
+        // Reset the timer to the initial duration
+        UpdateEnergyTimer();
 
         // Save the reset values
         Save();
