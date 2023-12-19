@@ -18,10 +18,13 @@ public class LobbyManager : MonoBehaviour
     public Button ultimate1;
     public Button ultimate2;
 
+    private StaminaSystem staminaSystem;
+
     // Start is called before the first frame update
     void Start()
     {
         menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
+        staminaSystem = GameObject.Find("StaminaSystem").GetComponent<StaminaSystem>();
         VibrateHaptics.Initialize();
     }
 
@@ -32,44 +35,52 @@ public class LobbyManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        VibrateHaptics.VibrateDoubleClick();
-        menuaudiomanager.PlayTap();
-        if (levelData.cutscenePlayed)
+        if(staminaSystem.currentEnergy >= 5)
         {
-            switch (levelData.cityLevel)
+            VibrateHaptics.VibrateDoubleClick();
+            menuaudiomanager.PlayTap();
+            if (levelData.cutscenePlayed)
             {
-                case 1:
-                    SceneManager.LoadScene("France_Easy_Level");
-                    break;
+                switch (levelData.cityLevel)
+                {
+                    case 1:
+                        SceneManager.LoadScene("France_Easy_Level");
+                        break;
 
-                case 2:
-                    SceneManager.LoadScene("France_Easy_Level");
-                    break;
+                    case 2:
+                        SceneManager.LoadScene("France_Easy_Level");
+                        break;
 
-                case 3:
-                    SceneManager.LoadScene("France_Medium_Level");
-                    break;
+                    case 3:
+                        SceneManager.LoadScene("France_Medium_Level");
+                        break;
 
-                case 4:
-                    SceneManager.LoadScene("France_Medium_Level");
-                    break;
+                    case 4:
+                        SceneManager.LoadScene("France_Medium_Level");
+                        break;
 
-                case 5:
-                    SceneManager.LoadScene("France_Hard_Level");
-                    break;
+                    case 5:
+                        SceneManager.LoadScene("France_Hard_Level");
+                        break;
 
-                case 6:
-                    SceneManager.LoadScene("LandmarkDesScene");
-                    break;
+                    case 6:
+                        SceneManager.LoadScene("LandmarkDesScene");
+                        break;
+                }
+            }
+
+            else
+            {
+                SceneManager.LoadScene("ComicScene");
+                VibrateHaptics.Release();
+                levelData.cutscenePlayed = true;
             }
         }
-        
         else
         {
-            SceneManager.LoadScene("ComicScene");
-            VibrateHaptics.Release();
-            levelData.cutscenePlayed = true;
+            Debug.Log("Insufficient Energy You Fool!");
         }
+        
        
     }
 

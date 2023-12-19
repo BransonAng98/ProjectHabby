@@ -11,7 +11,7 @@ public class StaminaSystem : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
 
     private int maxEnergy = 30;
-    private int currentEnergy;
+    public int currentEnergy;
     private int restoreDuration = 3;
     private DateTime nextEnergyTime;
     private DateTime lastEnergyTime;
@@ -70,19 +70,15 @@ public class StaminaSystem : MonoBehaviour
         StartCoroutine(RestoreEnergy());
     }
 
-    public void UseEnergy()
+    private void UseEnergy()
     {
-        if(currentEnergy >= 1)
+        if (CanUseEnergy())
         {
             currentEnergy -= 5;
             UpdateEnergy();
-            if (isRestoring == false)
+            if (isRestoring == false && currentEnergy + 1 == maxEnergy)
             {
-                if(currentEnergy +1 == maxEnergy)
-                {
-                    nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
-                }
-
+                nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
                 StartCoroutine(RestoreEnergy());
             }
         }
@@ -91,7 +87,13 @@ public class StaminaSystem : MonoBehaviour
             Debug.Log("Insufficient Energy!");
         }
     }
-        
+
+    private bool CanUseEnergy()
+    {
+        return currentEnergy >= 5;
+    }
+
+
     private IEnumerator RestoreEnergy()
     {
         UpdateEnergyTimer();
