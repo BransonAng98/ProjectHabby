@@ -47,7 +47,7 @@ public class MenuController : MonoBehaviour
 		SceneManager.LoadScene("LabScene");
 	}
 
-	public void TempRestartGame()
+	public void RestartLevel()
 	{
 		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
@@ -56,7 +56,7 @@ public class MenuController : MonoBehaviour
 		SceneManager.LoadScene(currentSceneName);	
 	}
 
-	public void LeaveGame()
+	public void ToLobby()
     {
 		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
