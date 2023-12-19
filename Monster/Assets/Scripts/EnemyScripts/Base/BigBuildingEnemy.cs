@@ -130,7 +130,6 @@ public class BigBuildingEnemy : MonoBehaviour
         if(hitColor != null)
         {
             hitColor.Blink();
-            Debug.Log("Blink");
         }
 
         tempHealth -= damage;

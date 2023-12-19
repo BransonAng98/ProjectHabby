@@ -27,6 +27,7 @@ public class MeteorScript : MonoBehaviour
     public PlayerHealthScript healthscript;
     public void Start()
     {
+        VibrateHaptics.Initialize();
         isMoving = true;
 
         if (!isPlayed)

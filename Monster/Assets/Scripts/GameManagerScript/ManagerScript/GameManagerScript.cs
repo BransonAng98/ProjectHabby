@@ -46,8 +46,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Start()
     {
+        VibrateHaptics.Initialize();
         Time.timeScale = 1f;
-     
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GetComponent<LevelManager>();
