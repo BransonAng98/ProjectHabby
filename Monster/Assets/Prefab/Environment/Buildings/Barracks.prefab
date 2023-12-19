@@ -118,10 +118,14 @@ MonoBehaviour:
   minCoins: 1
   maxCoins: 4
   shakeScript: {fileID: 8863370269845361440}
+  hitColor: {fileID: 0}
   groundDispenseVelocity: {x: 1, y: 1}
   verticalDispenseVelocity: {x: 10, y: 13}
   audiomanager: {fileID: 0}
   spawnheight: 3
+  scoremanager: {fileID: 0}
+  fracture: {fileID: 0}
+  destroyer: {fileID: 0}
 --- !u!114 &1747484668381174134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +352,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 1059431532, guid: 2c1a4e5ce6b0a9c46a36b6e1f7ccda73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

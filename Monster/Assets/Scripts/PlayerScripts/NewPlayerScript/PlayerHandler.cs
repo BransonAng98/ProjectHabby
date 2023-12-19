@@ -633,14 +633,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
                 foreach (var enemy in listOfEnemies)
                 {
-                    Debug.Log(enemy);
+                    //Debug.Log(enemy);
                     float distance = Vector2.Distance(transform.position, enemy.transform.position);
 
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
                         closestCollider = enemy;
-                        Debug.Log(closestCollider);
+                        //Debug.Log(closestCollider);
                     }
                 }
 

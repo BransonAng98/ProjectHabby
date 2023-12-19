@@ -285,7 +285,6 @@ public class PlayerHealthScript : MonoBehaviour
             {
                 if (playerHandler.currentUltimateCharge == playerHandler.playerData.maxUltimateCharge)
                 {
-                    Debug.Log("Ultimating");
                     playerHandler.DisableMovement(0);
                 }
             }
@@ -363,7 +362,6 @@ public class PlayerHealthScript : MonoBehaviour
                 if (!buffed1)
                 {
                     abilityPhase = 1;
-                    Debug.Log("attack speed buffed");
                     TriggerAbilities(1);
                     vfxManager.SpawnUpgradeVFX();
                     buffed1 = true;
@@ -376,7 +374,6 @@ public class PlayerHealthScript : MonoBehaviour
                 if (!buffed2)
                 {
                     abilityPhase = 2;
-                    Debug.Log("attack damage buffed");
                     TriggerAbilities(2);
                     vfxManager.SpawnUpgradeVFX();
                     buffed2 = true;
@@ -388,7 +385,6 @@ public class PlayerHealthScript : MonoBehaviour
                 if (!buffed3)
                 {
                     abilityPhase = 3;
-                    Debug.Log("attack speed buffed");
                     TriggerAbilities(3);
                     vfxManager.SpawnUpgradeVFX();
                     buffed3 = true;
@@ -400,7 +396,6 @@ public class PlayerHealthScript : MonoBehaviour
                 if (!buffed4)
                 {
                     abilityPhase = 4;
-                    Debug.Log("attack speed buffed");
                     TriggerAbilities(4);
                     vfxManager.SpawnUpgradeVFX();
                     buffed4 = true;
@@ -416,7 +411,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (buffed4)
             {
-                Debug.Log("attack damage reduced");
                 RemoveAbilities(4);
                 buffed4 = false;
                 abilityPhase = 4;
@@ -428,7 +422,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (buffed3)
             {
-                Debug.Log("attack damage reduced");
                 RemoveAbilities(3);
                 buffed3 = false;
                 abilityPhase = 2;
@@ -440,7 +433,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (buffed2)
             {
-                Debug.Log("attack speed reduced");
                 RemoveAbilities(2);
                 buffed2 = false;
                 abilityPhase = 1;
@@ -451,7 +443,6 @@ public class PlayerHealthScript : MonoBehaviour
         {
             if (buffed1)
             {
-                Debug.Log("attack speed reduced");
                 RemoveAbilities(1);
                 buffed1 = false;
                 abilityPhase = 0;
