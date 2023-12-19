@@ -26,6 +26,8 @@ public class EventManager : MonoBehaviour
     public GameObject endStatus;
 
     public float timer;
+
+    private bool isEndStatusTriggered = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,12 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        GenerateEvents();
+
+        if (!isEndStatusTriggered)
+        {
+            GenerateEvents();
+        }
+
         TriggerEndStatus();
     }
 
@@ -94,6 +101,7 @@ public class EventManager : MonoBehaviour
         if (gameManager.isVictory == false && playerHealth.healthSlider.value <= 0)
         {
             gameManager.gameEnded = true;
+            isEndStatusTriggered = true;
             playerHandler.DisableMovement(3);
             playerHandler.DisableUltimateVFX();
             hitcircleScript.DisableHitCircleVFX();
@@ -106,6 +114,7 @@ public class EventManager : MonoBehaviour
         else if (gameManager.isVictory == true)
         {
             gameManager.gameEnded = true;
+            isEndStatusTriggered = true;
             playerHandler.DisableMovement(2);
             playerHandler.DisableUltimateVFX();
             hitcircleScript.DisableHitCircleVFX();
@@ -118,6 +127,7 @@ public class EventManager : MonoBehaviour
         else if (clock.timerValue == 0 && gameManager.isVictory == false)
         {
             gameManager.gameEnded = true;
+            isEndStatusTriggered = true;
             playerHandler.DisableMovement(3);
             playerHandler.DisableUltimateVFX();
             hitcircleScript.DisableHitCircleVFX();
@@ -148,6 +158,8 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(waitDuration);
 
         yield return StartCoroutine(FadeOutBanner(fadeOutDuration));
+        // Reset the flag after fading
+        isEndStatusTriggered = false;
     }
 
 
