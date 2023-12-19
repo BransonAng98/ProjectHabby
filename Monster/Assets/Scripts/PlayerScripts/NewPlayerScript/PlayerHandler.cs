@@ -4,6 +4,7 @@ using UnityEngine;
 using Spine.Unity;
 using Spine;
 using TMPro;
+using Haptics.Vibrations;
 
 public class PlayerHandler : MonoBehaviour, ISoundable
 {
@@ -119,6 +120,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     // Start is called before the first frame update
     void Start()
     {
+        VibrateHaptics.Initialize();
         currentState = PlayerStates.idle;
         SetCharacterState(currentState);
         skeletonAnim = GetComponent<SkeletonAnimation>();
@@ -135,7 +137,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         chargeCountdown.gameObject.SetActive(false);
         AssignStats();
         DisableColliders();
-
         varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
     }
 
@@ -194,6 +195,53 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             attackSector = 0;
         }
 
+        //VibrationManager
+        if(Input.touchCount > 0)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                // Get the current touch
+                Touch touch = Input.GetTouch(i);
+
+                // Check the phase of the touch (began, moved, stationary, ended)
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        // Touch started, perform actions
+                        VibrationManager();
+                        break;
+
+                    case TouchPhase.Moved:
+                        // Touch moved, perform actions
+                        VibrationManager();
+                        break;
+
+                    case TouchPhase.Stationary:
+                        // Touch stationary, perform actions
+                        VibrationManager();
+                        break;
+
+                    case TouchPhase.Ended:
+                        // Touch ended, perform actions
+                        VibrateHaptics.Release();
+                        break;
+                }
+            }
+        }
+
+    }
+
+    void VibrationManager()
+    {
+        if (isUltimate)
+        {
+            VibrateHaptics.VibrateHeavyClick();
+        }
+
+        if (isDashing)
+        {
+            VibrateHaptics.VibrateTick();
+        }
     }
 
     void AssignStats()
@@ -321,6 +369,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void Dash()
     {
+        VibrateHaptics.VibrateTick();
+
         if (!currentState.Equals(PlayerStates.attack))
         {
             SetCharacterState(PlayerStates.move);
@@ -847,6 +897,8 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void TriggerUltimate1()
     {
+        VibrateHaptics.VibrateHeavyClick();
+        Invoke("StopVibration", 1f);
         utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);

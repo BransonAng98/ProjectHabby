@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Haptics.Vibrations;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -100,6 +101,8 @@ public class GameManagerScript : MonoBehaviour
 
     public void LoadNextScene()
     {
+        VibrateHaptics.VibrateClick();
+        VibrateHaptics.Release();
         SceneManager.LoadScene("LevelSelectScene");
     }
 
@@ -144,6 +147,7 @@ public class GameManagerScript : MonoBehaviour
     }
     void StartGame()
     {
+        VibrateHaptics.VibrateClick();
         audiomanager.PlayTap();
         // Call any other functions or actions to start your game
         deployScreen.SetActive(false);
@@ -178,6 +182,7 @@ public class GameManagerScript : MonoBehaviour
 
     void DisplayObjective()
     {
+        VibrateHaptics.Release();
         deployScreen.SetActive(true);
         objectiveText.enabled = true;
         // Display the game objective text

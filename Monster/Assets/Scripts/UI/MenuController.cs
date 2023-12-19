@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Haptics.Vibrations;
 
 public class MenuController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class MenuController : MonoBehaviour
 
 	public void PauseGame()
 	{
+		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
 		PauseMenu.SetActive(true);
 		PauseButton.SetActive(false);
@@ -31,6 +33,7 @@ public class MenuController : MonoBehaviour
 
 	public void ResumeGame()
 	{
+		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
 		PauseMenu.SetActive(false);
 		PauseButton.SetActive(true);
@@ -46,13 +49,23 @@ public class MenuController : MonoBehaviour
 
 	public void TempRestartGame()
 	{
+		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
-		SceneManager.LoadScene("France_Hard_Level");	
+		string currentSceneName = SceneManager.GetActiveScene().name;
+		StopVibration();
+		SceneManager.LoadScene(currentSceneName);	
 	}
 
 	public void LeaveGame()
     {
+		VibrateHaptics.VibrateClick();
 		menuaudiomanager.PlayTap();
+		StopVibration();
 		SceneManager.LoadScene("LevelSelectScene");
+    }
+
+	void StopVibration()
+    {
+		VibrateHaptics.Release();
     }
 }

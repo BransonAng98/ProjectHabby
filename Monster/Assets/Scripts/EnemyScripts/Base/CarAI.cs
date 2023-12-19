@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Pathfinding;
-
+using Haptics.Vibrations;
 public class CarAI : MonoBehaviour
 {
     [SerializeField] private LevelManager levelManager;
@@ -59,6 +59,7 @@ public class CarAI : MonoBehaviour
 
     void Start()
     {
+        VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         playerscript = GetComponent<PlayerHandler>();
@@ -173,6 +174,8 @@ public class CarAI : MonoBehaviour
 
     public void Death()
     {
+        VibrateHaptics.VibrateHeavyClick();
+        Invoke("StopVibration", 1f);
         spriteRenderer.sortingOrder = 2;   
         scoremanager.amtOfCarskilled += 1;
         if (!hasTriggered)
@@ -218,6 +221,11 @@ public class CarAI : MonoBehaviour
         
     }
 
+    void StopVibration()
+    {
+        VibrateHaptics.Release();
+    }
+
     /*public void PlaySFX()
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
@@ -231,6 +239,7 @@ public class CarAI : MonoBehaviour
 
     void KickLogic(Collider2D collision)
     {
+        VibrateHaptics.VibrateTick();
         Instantiate(kickedVFX, transform.position, Quaternion.identity);
         smokeTrailVFX.SetActive(true);
         Vector2 kickDirection = transform.position - player.transform.position;

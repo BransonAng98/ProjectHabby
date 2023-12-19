@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Haptics.Vibrations;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class LobbyManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        VibrateHaptics.VibrateDoubleClick();
         menuaudiomanager.PlayTap();
         if (levelData.cutscenePlayed)
         {
@@ -64,6 +66,7 @@ public class LobbyManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene("ComicScene");
+            VibrateHaptics.Release();
             levelData.cutscenePlayed = true;
         }
        
@@ -71,6 +74,7 @@ public class LobbyManager : MonoBehaviour
 
     public void SelectUltimate(int whichUlt)
     {
+        VibrateHaptics.VibrateClick();
         playerData.setUltimate = whichUlt;
         ShowSelectedButton(whichUlt);
     }
@@ -91,6 +95,11 @@ public class LobbyManager : MonoBehaviour
                 //Apply VFX for button 2
                 break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        VibrateHaptics.Release();
     }
 
     // Update is called once per frame

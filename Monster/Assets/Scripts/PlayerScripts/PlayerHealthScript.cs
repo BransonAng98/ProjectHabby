@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Spine;
 using Spine.Unity;
-
+using Haptics.Vibrations;
 public class PlayerHealthScript : MonoBehaviour
 {
     public enum HealthState
@@ -411,7 +411,6 @@ public class PlayerHealthScript : MonoBehaviour
 
     void DebuffPlayer()
     {
-        
         //Update Abilites accordingly
         if (abilityBarPercentage >= 46 && abilityBarPercentage <= 95)
         {
@@ -462,6 +461,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     void TriggerAbilities(int ability)
     {
+        VibrateHaptics.VibrateTick();
         switch (ability)
         {
             case 1:
@@ -484,6 +484,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     void RemoveAbilities(int ability)
     {
+        VibrateHaptics.VibrateTick();
         switch (ability)
         {
             case 1:

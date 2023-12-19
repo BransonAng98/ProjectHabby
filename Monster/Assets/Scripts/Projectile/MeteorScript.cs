@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Haptics.Vibrations;
 public class MeteorScript : MonoBehaviour
 {
     public Vector2 targetPosition;
@@ -103,9 +103,7 @@ public class MeteorScript : MonoBehaviour
             {
                 Destroy(collider.gameObject);
             }
-           
         }
-
     }
 
     private IEnumerator DestroyAfterDelay(GameObject objToSort, float delay)
@@ -185,6 +183,7 @@ public class MeteorScript : MonoBehaviour
 
     public void DestroyMeteor()
     {
+        StopVibration();
         Destroy(gameObject);
     }
 
@@ -197,6 +196,7 @@ public class MeteorScript : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        VibrateHaptics.VibrateHeavyClick();
         gameManager.SpawnPlayer();
     }
 
@@ -213,5 +213,10 @@ public class MeteorScript : MonoBehaviour
     public void MeteorCrashingSFX()
     {
         meteorAudioSource.PlayOneShot(meteorExplosionSFX);
+    }
+
+    void StopVibration()
+    {
+        VibrateHaptics.Release();
     }
 }

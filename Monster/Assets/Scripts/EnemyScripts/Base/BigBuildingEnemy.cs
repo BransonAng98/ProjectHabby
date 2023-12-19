@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Haptics.Vibrations;
+using Haptics.Vibrations;
 using Destructible2D;
 
 public class BigBuildingEnemy : MonoBehaviour
@@ -69,7 +69,7 @@ public class BigBuildingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //VibrateHaptics.Initialize();
+        VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
@@ -136,6 +136,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (tempHealth <= 0)
         {
+            VibrateHaptics.VibrateTick();
             inputHandler.ChargeUltimate(destructionScore);
             Death();
             inputHandler.DisableAttack(buildingCollider);
@@ -170,18 +171,23 @@ public class BigBuildingEnemy : MonoBehaviour
         SpawnDeathVFX();
         spriteRenderer.sprite = destroyedBuilding;
         spriteRenderer.sortingOrder = 1;
+        Invoke("StopVibration", 1f);
         //VibrateHaptics.Release();
     }
 
+    void StopVibration()
+    {
+        VibrateHaptics.Release();
+    }
 
     public void SpawnDeathVFX()
     {
-        if (fracture != null)
-        {
-            destroyer.AlphaCount = false;
-            fracture.Fracture();
-            Debug.Log("Fracturing");
-        }
+        //if (fracture != null)
+        //{
+        //    destroyer.AlphaCount = false;
+        //    fracture.Fracture();
+        //    Debug.Log("Fracturing");
+        //}
 
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
         GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
