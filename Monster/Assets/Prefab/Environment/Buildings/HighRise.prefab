@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f7e7ab4dee0d4df47b22571530a13638, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f725e5874447ee941a811a6becd66408, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 6195012715558975330}
   - component: {fileID: 9206709704775670209}
   - component: {fileID: -7675621538401893134}
+  - component: {fileID: 2975405309070494032}
   m_Layer: 7
   m_Name: HighRise
   m_TagString: BigBuilding
@@ -174,10 +175,14 @@ MonoBehaviour:
   minCoins: 1
   maxCoins: 4
   shakeScript: {fileID: 3469571163104835178}
+  hitColor: {fileID: 0}
   groundDispenseVelocity: {x: 1, y: 1}
   verticalDispenseVelocity: {x: 10, y: 13}
   audiomanager: {fileID: 0}
   spawnheight: 2.7
+  scoremanager: {fileID: 0}
+  fracture: {fileID: 0}
+  destroyer: {fileID: 0}
 --- !u!61 &6700997449796004450
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -245,3 +250,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: {fileID: 0}
+--- !u!114 &2975405309070494032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267388683768261312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913dfdb24af1745c0b2cdb0339564b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: f7e7ab4dee0d4df47b22571530a13638, type: 2}
+  hitColor: {r: 1, g: 0, b: 0.13054657, a: 1}

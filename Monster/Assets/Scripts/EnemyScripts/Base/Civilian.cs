@@ -9,7 +9,6 @@ public class Civilian : MonoBehaviour
     public EnemyState enemyState;
     SpriteRenderer spriteRenderer;
     public EnemyScriptableObject enemyData;
-    Rigidbody2D rb;
     public float detectionDistance = 4f;
 
     public Collider2D entityCollider;
@@ -74,7 +73,6 @@ public class Civilian : MonoBehaviour
     {
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         fakeheight = GetComponentInParent<FakeHeightScript>();
-        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -129,7 +127,6 @@ public class Civilian : MonoBehaviour
             causeOfDeath = "Stepped to death";
             murderer = collision.name;
             enemyState = EnemyState.death;
-            Debug.Log("Hit");
         }
     }
 
@@ -419,6 +416,7 @@ public class Civilian : MonoBehaviour
                 spriteRenderer.sortingOrder = 3;
                 Death();
                 break;
+
             case EnemyState.fall:
                 anim.SetBool("fall", true);
                 spriteRenderer.sortingOrder = 4;

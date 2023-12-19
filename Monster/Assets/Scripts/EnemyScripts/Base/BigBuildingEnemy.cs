@@ -47,6 +47,8 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public ObjectShakeScript shakeScript;
 
+    [SerializeField] HittableSpriteGroup hitColor;
+
     bool isOnFire;
     bool hasDied;
 
@@ -78,6 +80,7 @@ public class BigBuildingEnemy : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        hitColor = GetComponent<HittableSpriteGroup>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -124,6 +127,12 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if(hitColor != null)
+        {
+            hitColor.Blink();
+            Debug.Log("Blink");
+        }
+
         tempHealth -= damage;
         SpawnCivilian();
         audiomanager.playBuildingDamageFX();
