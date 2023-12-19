@@ -22,6 +22,7 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
+        VibrateHaptics.Initialize();
     }
 
     void UpdateLevelName()

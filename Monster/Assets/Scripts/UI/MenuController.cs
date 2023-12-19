@@ -13,6 +13,7 @@ public class MenuController : MonoBehaviour
     public void Start()
     {
 		menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
+		VibrateHaptics.Initialize();
 	}
 
     public void EnterGame()
@@ -62,6 +63,11 @@ public class MenuController : MonoBehaviour
 		menuaudiomanager.PlayTap();
 		StopVibration();
 		SceneManager.LoadScene("LevelSelectScene");
+    }
+
+	public void ToUpgrade()
+    {
+		SceneManager.LoadScene("UpgradeScene");
     }
 
 	void StopVibration()
