@@ -38,7 +38,7 @@ public class ScoreDisplayScript : MonoBehaviour
         caramt = scoreManager.amtOfCarskilled;
         timeamt = scoreManager.timeLeft;
         goldamt = scoreManager.goldearned;
-        goldData.currentGNA += goldamt;
+        goldData.currentGold += goldamt;
     }
 
     private IEnumerator LerpScores()

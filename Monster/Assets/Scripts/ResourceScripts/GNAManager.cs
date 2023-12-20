@@ -13,7 +13,7 @@ public class GNAManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        goldData.inGameGNA = 0;
+        //goldData.inGameGNA = 0;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class GNAManager : MonoBehaviour
     {
         if(goldCounter.text != null)
         {
-            goldCounter.text = "" + goldData.currentGNA;
+            //goldCounter.text = "" + goldData.currentGNA;
         }
         else
         {
@@ -37,6 +37,6 @@ public class GNAManager : MonoBehaviour
 
     public void GainGNA(int amount)
     {
-        goldData.inGameGNA += amount;
+        //goldData.inGameGNA += amount;
     }
 }

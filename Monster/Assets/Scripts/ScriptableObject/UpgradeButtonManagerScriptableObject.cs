@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "UIManagerScriptableObject", menuName = "ScriptableObject/UI")]
-public class UpgradeButtonManagerScriptableObject : MonoBehaviour
+public class UpgradeButtonManagerScriptableObject : ScriptableObject
 {
-    public List<Button> activatedButtons = new List<Button>();
+    public List<GameObject> activatedButtons = new List<GameObject>();
 }
