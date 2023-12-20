@@ -42,10 +42,10 @@ public class MenuController : MonoBehaviour
 
 	}
 
-	public void LoadLab()
+	public void ToZoo()
     {
 		menuaudiomanager.PlayTap();
-		SceneManager.LoadScene("LabScene");
+		SceneManager.LoadScene("Zoo");
 	}
 
 	public void RestartLevel()

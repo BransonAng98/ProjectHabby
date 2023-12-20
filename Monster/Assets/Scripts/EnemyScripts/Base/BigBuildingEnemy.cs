@@ -198,9 +198,9 @@ public class BigBuildingEnemy : MonoBehaviour
         //}
 
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
-        GameObject explosion = Instantiate(deathVFX, explosionLoc, Quaternion.identity);
-        GameObject crumble = Instantiate(crumblingVFX, transform.position, Quaternion.identity);
-        GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0)); 
+        Instantiate(deathVFX, explosionLoc, Quaternion.identity);
+        Instantiate(crumblingVFX, transform.position, Quaternion.identity);
+        Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0)); 
   
     }
     public void SpawnFireVFX()
@@ -235,7 +235,7 @@ public class BigBuildingEnemy : MonoBehaviour
         //Add points
         levelManager.CalculateScore(destructionScore);
         Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 2f);
-        GameObject pointVFX = Instantiate(pointIndicatorVFX, pointPos, Quaternion.Euler(0f, 0f, 0f));
+        Instantiate(pointIndicatorVFX, pointPos, Quaternion.Euler(0f, 0f, 0f));
     }
 
     void DamageEffect()
@@ -245,7 +245,7 @@ public class BigBuildingEnemy : MonoBehaviour
             shakeScript.StartShake();
         }
         GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
-        GameObject hitEffect = Instantiate(hitVFX, transform.position, Quaternion.identity);
+        Instantiate(hitVFX, transform.position, Quaternion.identity);
         spriteRenderer.sprite = damagedSprite;
         Destroy(hit, 1f);
     }

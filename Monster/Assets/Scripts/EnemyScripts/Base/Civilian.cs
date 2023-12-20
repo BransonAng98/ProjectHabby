@@ -16,6 +16,7 @@ public class Civilian : MonoBehaviour
     public Transform player;
     public Animator anim;
     public GameObject deathVFX;
+    public GameObject coinVFX;
    
     private float lastPosX;
     [SerializeField] float walkSpeed;
@@ -356,6 +357,7 @@ public class Civilian : MonoBehaviour
         if (!hasSpawned)
         {
             Instantiate(deathVFX, transform.position, Quaternion.identity);
+            Instantiate(coinVFX, transform.position, Quaternion.Euler(0f, 0f, 0f));
             hasSpawned = true;
         }
 
