@@ -9,8 +9,10 @@ public class ScoreManagerScript : MonoBehaviour
     public int amtOfcivilians;
     public int amtOfCarskilled;
     public float timeLeft;
-    public int gemsEarned;
-
+    public int goldearned;
+  
+    public int bigbuildingKilled;
+    public int smallbuildingKilled;
     public ClockSystem clock;
     
 
@@ -23,6 +25,12 @@ public class ScoreManagerScript : MonoBehaviour
     void Update()
     {
         timeLeft = clock.timerValue;
+        GoldCalculation();
         
+    }
+
+    void GoldCalculation()
+    {
+        goldearned = (amtOfcivilians * 1) + (amtOfCarskilled * 3) + (smallbuildingKilled * 5) + (bigbuildingKilled * 10);
     }
 }

@@ -9,13 +9,14 @@ public class ScoreDisplayScript : MonoBehaviour
     public TextMeshProUGUI civiliansText;
     public TextMeshProUGUI carsText;
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI gemsText;
+    public TextMeshProUGUI goldText;
+    public ResourceScriptableObject goldData;
 
     [SerializeField] private int structureamt;
     [SerializeField] private int civilianamt;
     [SerializeField] private int caramt;
     [SerializeField] private float timeamt;
-    [SerializeField] private int gemamt;
+    [SerializeField] private int goldamt;
 
     public ClockSystem clock;
     private float lerpDuration = 2.0f;
@@ -36,7 +37,8 @@ public class ScoreDisplayScript : MonoBehaviour
         civilianamt = scoreManager.amtOfcivilians;
         caramt = scoreManager.amtOfCarskilled;
         timeamt = scoreManager.timeLeft;
-        gemamt = scoreManager.gemsEarned;
+        goldamt = scoreManager.goldearned;
+        goldData.currentGNA += goldamt;
     }
 
     private IEnumerator LerpScores()
@@ -52,7 +54,7 @@ public class ScoreDisplayScript : MonoBehaviour
             int carsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.amtOfCarskilled, t));
             float timeScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.timeLeft, t));
             //formattedTime = clock.GetFormattedTime(timeScore);
-            int gemsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.gemsEarned, t));
+            int gemsScore = Mathf.RoundToInt(Mathf.Lerp(0, scoreManager.goldearned, t));
 
            
             UpdateScoreUI(structuresScore, civiliansScore, carsScore, timeScore, gemsScore);
@@ -63,7 +65,7 @@ public class ScoreDisplayScript : MonoBehaviour
 
         // Ensure the final scores are set correctly
         UpdateScoreUI(scoreManager.amtOfStructures, scoreManager.amtOfcivilians,
-                       scoreManager.amtOfCarskilled, scoreManager.timeLeft , scoreManager.gemsEarned);
+                       scoreManager.amtOfCarskilled, scoreManager.timeLeft , scoreManager.goldearned);
     }
 
     private void UpdateScoreUI(int structures, int civilians, int cars, float time, int gems)
@@ -75,7 +77,8 @@ public class ScoreDisplayScript : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeamt % 60);
 
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        gemsText.text = "" + gems;
+        goldText.text = "" + gems;
+        
     }
 
     public void SetActiveScreen()
@@ -90,7 +93,7 @@ public class ScoreDisplayScript : MonoBehaviour
             civiliansText = GameObject.Find("winText_civilians").GetComponent<TextMeshProUGUI>();
             carsText = GameObject.Find("winText_cars").GetComponent<TextMeshProUGUI>();
             timeText = GameObject.Find("winText_time").GetComponent<TextMeshProUGUI>();
-            gemsText = GameObject.Find("winText_gems").GetComponent<TextMeshProUGUI>();
+            goldText = GameObject.Find("winText_gems").GetComponent<TextMeshProUGUI>();
         }
         else
         {
@@ -99,7 +102,7 @@ public class ScoreDisplayScript : MonoBehaviour
             civiliansText = GameObject.Find("loseText_civilians").GetComponent<TextMeshProUGUI>();
             carsText = GameObject.Find("loseText_cars").GetComponent<TextMeshProUGUI>();
             timeText = GameObject.Find("loseText_time").GetComponent<TextMeshProUGUI>();
-            gemsText = GameObject.Find("loseText_gems").GetComponent<TextMeshProUGUI>();
+            goldText = GameObject.Find("loseText_gems").GetComponent<TextMeshProUGUI>();
         }
     }
 }

@@ -1473,18 +1473,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 424094961, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_PrefabInstance: {fileID: 2003536924}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &424094965
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424094961}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!114 &463412152 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8147635832281685304, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
@@ -5352,12 +5340,12 @@ MonoBehaviour:
   civiliansText: {fileID: 0}
   carsText: {fileID: 0}
   timeText: {fileID: 0}
-  gemsText: {fileID: 0}
+  goldText: {fileID: 0}
   structureamt: 0
   civilianamt: 0
   caramt: 0
   timeamt: 0
-  gemamt: 0
+  goldamt: 0
   clock: {fileID: 1294789420}
   scoreManager: {fileID: 0}
   gamemanager: {fileID: 0}
@@ -5829,34 +5817,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 424094963, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 424094963, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 134859302f81ce3409560e814081a4a6, type: 3}
-    - target: {fileID: 424094963, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912748599, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912748599, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912748599, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912748599, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 1022420650030304622, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6034,10 +5994,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2695255128511029154, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-      propertyPath: clockSprite
-      value: 
-      objectReference: {fileID: 2106104437}
-    - target: {fileID: 2695255128511029154, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: eventManager
       value: 
       objectReference: {fileID: 1049721075}
@@ -6121,8 +6077,7 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1267804336}
-    m_RemovedComponents:
-    - {fileID: 2015572331, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
 --- !u!114 &2003536925 stripped
 MonoBehaviour:
@@ -6650,7 +6605,9 @@ MonoBehaviour:
   amtOfcivilians: 0
   amtOfCarskilled: 0
   timeLeft: 0
-  gemsEarned: 0
+  goldearned: 0
+  bigbuildingKilled: 0
+  smallbuildingKilled: 0
   clock: {fileID: 0}
 --- !u!114 &2044451536 stripped
 MonoBehaviour:
@@ -6819,16 +6776,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2106104437 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2106104437, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-  m_PrefabInstance: {fileID: 2003536924}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

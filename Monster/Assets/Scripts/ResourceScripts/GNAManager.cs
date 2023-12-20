@@ -6,28 +6,37 @@ using TMPro;
 public class GNAManager : MonoBehaviour
 {
 
-    public ResourceScriptableObject gnaData;
-    public TextMeshProUGUI gnaCounter;
+    public ResourceScriptableObject goldData;
+    public TextMeshProUGUI goldCounter;
+    public ScoreManagerScript scoremanager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gnaData.inGameGNA = 0;
+        goldData.inGameGNA = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //gnaCounter.text = "GNA: " + gnaData.inGameGNA;
+        if(goldCounter.text != null)
+        {
+            goldCounter.text = "" + goldData.currentGNA;
+        }
+        else
+        {
+            
+        }
+       
     }
 
     public void UpdateTotal()
     {
-        gnaData.currentGNA += gnaData.inGameGNA;
+        //goldData.currentGNA += scoremanager.goldearned;
     }
 
     public void GainGNA(int amount)
     {
-        gnaData.inGameGNA += amount;
+        goldData.inGameGNA += amount;
     }
 }
