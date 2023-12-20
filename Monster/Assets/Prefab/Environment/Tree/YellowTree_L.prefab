@@ -217,7 +217,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045325611815685911}
-  - component: {fileID: 8683876845516747045}
   - component: {fileID: 1827029053220561808}
   m_Layer: 8
   m_Name: YellowTree_L
@@ -242,41 +241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8683876845516747045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7119553600120946249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 307c949c62918d34bbf023705198a679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadescript: {fileID: 0}
-  onGroundHitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8683876845516747045}
-        m_TargetAssemblyTypeName: treeFakeHeightScript, Assembly-CSharp
-        m_MethodName: Stick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  transObject: {fileID: 2045325611815685911}
-  transBody: {fileID: 129463005532814293}
-  treescript: {fileID: 0}
-  groundVelocity: {x: 0, y: 0}
-  verticalVelocity: 0
-  Gravity: 0
-  isGrounded: 0
 --- !u!114 &1827029053220561808
 MonoBehaviour:
   m_ObjectHideFlags: 0
