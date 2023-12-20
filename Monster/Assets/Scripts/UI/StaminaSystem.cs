@@ -23,9 +23,8 @@ public class StaminaSystem : MonoBehaviour
         if (!PlayerPrefs.HasKey("currentEnergy"))
         {
             PlayerPrefs.SetInt("currentEnergy", 30);
-
-            UpdateEnergy();
             Load();
+            UpdateEnergy();
             StartCoroutine(RestoreEnergy());
         }
         else
@@ -71,26 +70,20 @@ public class StaminaSystem : MonoBehaviour
     }
 
     private void UseEnergy()
-    {
-        if (CanUseEnergy())
+    { 
+        if (currentEnergy >= 5)
         {
             currentEnergy -= 5;
             UpdateEnergy();
-            if (isRestoring == false && currentEnergy + 1 == maxEnergy)
+            if (isRestoring == false)
             {
-                nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
-                StartCoroutine(RestoreEnergy());
+                if (currentEnergy + 1 == maxEnergy)
+                {
+                    nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
+                }
             }
+            StartCoroutine(RestoreEnergy());
         }
-        else
-        {
-            Debug.Log("Insufficient Energy!");
-        }
-    }
-
-    private bool CanUseEnergy()
-    {
-        return currentEnergy >= 5;
     }
 
 
