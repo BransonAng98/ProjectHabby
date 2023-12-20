@@ -8,7 +8,7 @@ public class GNAManager : MonoBehaviour
 
     public ResourceScriptableObject goldData;
     public TextMeshProUGUI goldCounter;
-    public ScoreManagerScript scoremanager;
+    //public ScoreManagerScript scoremanager;
 
     // Start is called before the first frame update
     void Start()
@@ -21,13 +21,9 @@ public class GNAManager : MonoBehaviour
     {
         if(goldCounter.text != null)
         {
-            //goldCounter.text = "" + goldData.currentGNA;
+            goldCounter.text = "" + goldData.currentGold;
         }
-        else
-        {
-            
-        }
-       
+
     }
 
     public void UpdateTotal()

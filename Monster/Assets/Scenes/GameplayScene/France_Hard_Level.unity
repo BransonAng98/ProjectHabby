@@ -4822,7 +4822,6 @@ GameObject:
   - component: {fileID: 1267804329}
   - component: {fileID: 1267804330}
   - component: {fileID: 1267804331}
-  - component: {fileID: 1267804332}
   - component: {fileID: 1267804334}
   - component: {fileID: 1267804335}
   - component: {fileID: 1267804336}
@@ -4905,21 +4904,6 @@ MonoBehaviour:
   clock: {fileID: 1294789420}
   scoreDisplay: {fileID: 1771012712}
   gameEnded: 0
---- !u!114 &1267804332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267804328}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84676452f0d70194191d78483b10608b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goldData: {fileID: 11400000, guid: d37673c8ba7de764aafeb2dd7fea1c13, type: 2}
-  goldCounter: {fileID: 0}
-  scoremanager: {fileID: 2030074642}
 --- !u!114 &1267804334
 MonoBehaviour:
   m_ObjectHideFlags: 0
