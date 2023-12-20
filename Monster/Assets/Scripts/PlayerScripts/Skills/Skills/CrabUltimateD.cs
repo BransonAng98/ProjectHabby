@@ -5,21 +5,49 @@ using UnityEngine;
 public class CrabUltimateD : UltimateBase
 {
     private GameObject player;
+    public PlayerStatScriptableObject playerData;
     private PlayerVFXManager vfxManager;
     public Transform detectionOrigin;
+
+    [SerializeField] float ultRadius;
+    [SerializeField] float ultDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         vfxManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerVFXManager>();
+
+        AssignVariables();
     }
 
-    public override void UseDamageUltimate(float ultimateRadius, float ultimateDamage)
+    void AssignVariables()
     {
-        base.UseDamageUltimate(ultimateRadius, ultimateDamage);
+        switch (playerData.ultimateLevel)
+        {
+            case 1:
+                ultRadius = 10f;
+                ultDamage = 10f;
+                break;
+                
+            case 2:
+                ultRadius = 15f;
+                ultDamage = 20f;
+                break;
+                
+            case 3:
+                ultRadius = 20f;
+                ultDamage = 30f;
+                break;
+
+        }
+    }
+
+    public override void UseDamageUltimate()
+    {
+        base.UseDamageUltimate();
         vfxManager.SpawnUltiVFX();
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(detectionOrigin.position, ultimateRadius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(detectionOrigin.position, ultRadius);
         foreach (Collider2D collider in hitColliders)
         {
             if (collider.CompareTag("Tank"))
@@ -27,7 +55,7 @@ public class CrabUltimateD : UltimateBase
                 NewEnemyScript tank = collider.GetComponent<NewEnemyScript>();
                 if (tank != null)
                 {
-                    tank.TakeDamage(ultimateDamage);
+                    tank.TakeDamage(ultDamage);
                 }
                 else { return; }
             }
@@ -37,7 +65,7 @@ public class CrabUltimateD : UltimateBase
                 BigBuildingEnemy bigBuilding = collider.GetComponent<BigBuildingEnemy>();
                 if (bigBuilding != null)
                 {
-                    bigBuilding.TakeDamage(ultimateDamage);
+                    bigBuilding.TakeDamage(ultDamage);
                 }
                 else { return; }
             }

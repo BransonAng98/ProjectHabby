@@ -7,11 +7,11 @@ using TMPro;
 public class CrabUltimateU : UltimateBase
 {
     PlayerHandler playerHandler;
-
     [SerializeField] bool isActivated;
     [SerializeField] bool ultEnd;
     public PlayerHealthScript healthScript;
     public float ultimateDuration;
+    [SerializeField] float barDecreaseRate;
     public float timeReduction;
     public float currentDuration;
     [SerializeField] bool isTriggered;
@@ -22,9 +22,34 @@ public class CrabUltimateU : UltimateBase
     void Start()
     {
         playerHandler = GetComponent<PlayerHandler>();
+        AssignVariables();
         healthScript = GetComponent<PlayerHealthScript>();
         vfxManager = GetComponent<PlayerVFXManager>();
         joystick = GameObject.Find("Floating Joystick");
+    }
+
+
+
+    void AssignVariables()
+    {
+        switch (playerHandler.playerData.ultimateLevel)
+        {
+            case 1:
+                ultimateDuration = 5f;
+                barDecreaseRate = 40f;
+                break;
+
+            case 2:
+                ultimateDuration = 7f;
+                barDecreaseRate = 28f;
+                break;
+
+            case 3:
+                ultimateDuration = 10f;
+                barDecreaseRate = 19.9f;
+                break;
+
+        }
     }
 
     // Update is called once per frame
@@ -37,7 +62,7 @@ public class CrabUltimateU : UltimateBase
             {
                 currentDuration -= timeReduction * Time.deltaTime;
                 healthScript.riseOrFall = false;
-                playerHandler.DecreaseUltimateBar(28f);
+                playerHandler.DecreaseUltimateBar(barDecreaseRate);
             }
 
             else

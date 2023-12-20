@@ -19,7 +19,7 @@ public class FogWeather : Weather
 
     void StaticEffect()
     {
-        inputHandler.ultimateRadius = 5;
+        //inputHandler.ultimateRadius = 5;
         visionMask.position = player.position;
 
         // Limit the player's vision based on the vision distance

@@ -19,6 +19,7 @@ public class PlayerStatScriptableObject : ScriptableObject
     public int Storedincome = 0;
 
     public int setUltimate;
+    public int ultimateLevel;
 
     private void OnEnable()
     {

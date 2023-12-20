@@ -67,7 +67,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] private int selectedUltimateHolder;
     public bool canEarnUlt = true;
     public float currentUltimateCharge;
-    public float ultimateRadius = 20f;
     public float aoeDmg = 10f;
     public bool isDashing;
     public bool triggerHold;
@@ -899,7 +898,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     {
         VibrateHaptics.VibrateHeavyClick();
         Invoke("StopVibration", 1f);
-        utlimates[0].UseDamageUltimate(ultimateRadius, playerData.ultimateDamage);
+        utlimates[0].UseDamageUltimate();
         currentUltimateCharge = 0f;
         Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
