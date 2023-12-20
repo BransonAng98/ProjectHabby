@@ -31,7 +31,7 @@ public class Trees : MonoBehaviour
     private bool deathTriggered = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -46,47 +46,12 @@ public class Trees : MonoBehaviour
     {
         if(fallleft == true)
         {
-            Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);
-            rotationSpeed = 10;
-            // Smoothly interpolate towards the target rotation
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
-            if (normalizedAngle >= 90f && !deathTriggered)
-            {
-
-                // If so, set isKicking to false or perform any other desired actions
-                rotationSpeed = 0;
-                isKicking = false;
-                fallleft = false;
-                // Set the flag to true to prevent repeated triggering
-                deathTriggered = true;
-
-                // Call the Death function
-                Death();
-            }
+            TreeFallLeft();
         }
 
         if(fallright == true)
         {
-            
-            Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, -90f);
-            rotationSpeed = 10;
-            // Smoothly interpolate towards the target rotation
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
-            if (normalizedAngle <= 270f && !deathTriggered)
-            {
-                Debug.Log("FallenRight");
-                
-                // If so, set isKicking to false or perform any other desired actions
-                rotationSpeed = 0;
-                isKicking = false;
-                fallright = false;
-                // Set the flag to true to prevent repeated triggering
-                deathTriggered = true;
-
-                Death();
-            }
+            TreeFallRight();
         }
     }
 
@@ -98,24 +63,19 @@ public class Trees : MonoBehaviour
         hasDied = true;
         spriteRenderer.sortingOrder = 2;
         rotationSpeed = 0;
-        if (entityCollider == null)
-        {
-            return;
-        }
 
-        else
+        if (entityCollider != null)
         {
             SpawnVFX();
             audiomanager.PlayTreeSFX();
             entityCollider.enabled = false;
-            if (isShake != true)
+
+            if (!isShake)
             {
                 shakeScript.StartShake();
                 isShake = true;
             }
-             hasDied = true;
-        spriteRenderer.sortingOrder = 2;
-        rotationSpeed = 0;
+
             spriteRenderer.sprite = destroyedSprite;
         }
     }
@@ -145,6 +105,45 @@ public class Trees : MonoBehaviour
             }
         }
 
+    }
+
+    public void TreeFallLeft()
+    {
+        Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);
+        rotationSpeed = 10;
+        // Smoothly interpolate towards the target rotation
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
+        if (normalizedAngle >= 90f && !deathTriggered)
+        {
+            // If so, set isKicking to false or perform any other desired actions
+            rotationSpeed = 0;
+            isKicking = false;
+            fallleft = false;
+            // Set the flag to true to prevent repeated triggering
+            deathTriggered = true;
+            // Call the Death function
+            Death();
+        }
+    }
+    
+    public void TreeFallRight()
+    {
+        Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, -90f);
+        rotationSpeed = 10;
+        // Smoothly interpolate towards the target rotation
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        float normalizedAngle = (transform.rotation.eulerAngles.z + 360) % 360;
+        if (normalizedAngle <= 270f && !deathTriggered)
+        {
+            // If so, set isKicking to false or perform any other desired actions
+            rotationSpeed = 0;
+            isKicking = false;
+            fallright = false;
+            // Set the flag to true to prevent repeated triggering
+            deathTriggered = true;
+            Death();
+        }
     }
 
     void SpawnVFX()
