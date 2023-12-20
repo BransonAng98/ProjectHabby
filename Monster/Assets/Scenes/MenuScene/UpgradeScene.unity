@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 11082840}
   - component: {fileID: 11082839}
   m_Layer: 0
-  m_Name: UpgradeBanner (5)
+  m_Name: Upgrade10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + AGILITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + ULTIMATE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -1050,7 +1050,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '800
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -2112,7 +2114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9052f7a0bc8ae4a348c9da24ce2c1c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2227,7 +2229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + ULTIMATE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -2573,7 +2575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + VITALITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -2662,7 +2664,7 @@ GameObject:
   - component: {fileID: 422988222}
   - component: {fileID: 422988221}
   m_Layer: 0
-  m_Name: UpgradeBanner (14)
+  m_Name: Upgrade9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2788,7 +2790,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34afb4f1aeb554a35b3bff429de77455, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2864,7 +2866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + VITALITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -3024,7 +3026,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 473194202}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1583822861}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 473194201}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &473194202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3121,7 +3159,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '650
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -3518,7 +3558,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + AGILITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -3839,7 +3879,7 @@ GameObject:
   - component: {fileID: 593377510}
   - component: {fileID: 593377509}
   m_Layer: 0
-  m_Name: UpgradeBanner (16)
+  m_Name: Upgrade5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4497,7 +4537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 028be5fcbc45146d4a5c288a8dc35a02, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4960,7 +5000,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 724450054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1268057169}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 724450053}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &724450054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5213,7 +5289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + VITALITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -5631,7 +5707,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 831102481}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1108800756}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 831102480}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &831102481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5728,7 +5840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + VITALITY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -5943,7 +6055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: 500
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -6078,7 +6190,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7394279986944ece84c90f77921cd68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6230,7 +6342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: 1000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -6497,7 +6609,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1054254585}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 977778205}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1054254584}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1054254585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6965,7 +7113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: 150
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -7590,7 +7738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9052f7a0bc8ae4a348c9da24ce2c1c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7755,7 +7903,7 @@ GameObject:
   - component: {fileID: 1194703136}
   - component: {fileID: 1194703135}
   m_Layer: 0
-  m_Name: UpgradeBanner (9)
+  m_Name: Upgrade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7881,7 +8029,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9052f7a0bc8ae4a348c9da24ce2c1c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8238,7 +8386,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1219160126}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 152661670}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1219160125}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1219160126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8315,8 +8499,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40.7498}
-  m_SizeDelta: {x: 984.1485, y: 1773.5005}
+  m_AnchoredPosition: {x: 0, y: 65.536865}
+  m_SizeDelta: {x: 984.1485, y: 1560.9263}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245293798
 MonoBehaviour:
@@ -8412,7 +8596,7 @@ GameObject:
   - component: {fileID: 1253440443}
   - component: {fileID: 1253440442}
   m_Layer: 0
-  m_Name: UpgradeBanner (6)
+  m_Name: Upgrade8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8492,7 +8676,7 @@ GameObject:
   - component: {fileID: 1259216536}
   - component: {fileID: 1259216535}
   m_Layer: 0
-  m_Name: UpgradeBanner (8)
+  m_Name: Upgrade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8618,7 +8802,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '300
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -8989,7 +9175,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1297035767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2054622142}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1297035766}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1297035767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9318,7 +9540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd9d2a266a4664cd692ce7c032361041, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7394279986944ece84c90f77921cd68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9419,7 +9641,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1355335614}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 490070277}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1355335613}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1355335614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9676,7 +9934,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1413781240}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 991220963}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1413781239}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1413781240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9850,7 +10144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34afb4f1aeb554a35b3bff429de77455, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10208,7 +10502,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1463252620}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1817615897}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1463252619}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1463252620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10718,7 +11048,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '550
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -11199,7 +11531,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '850
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -11692,7 +12026,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1729174153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: CheckForSufficientFunds
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1647271802}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: TriggerUpgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1871167635}
+        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+        m_MethodName: StoreButtonData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1729174152}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1729174153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11789,7 +12159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: '- DAMAGE'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -11924,7 +12294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perk Name
+  m_text: + DAMAGE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -12013,7 +12383,7 @@ GameObject:
   - component: {fileID: 1753547337}
   - component: {fileID: 1753547336}
   m_Layer: 0
-  m_Name: UpgradeBanner (15)
+  m_Name: Upgrade7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12701,7 +13071,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '200
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -13275,6 +13647,7 @@ GameObject:
   - component: {fileID: 1871167634}
   - component: {fileID: 1871167633}
   - component: {fileID: 1871167632}
+  - component: {fileID: 1871167635}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -13364,6 +13737,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1871167635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871167630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32c36859c97ef848befdd22948debf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
+  menuButtonData: {fileID: 0}
+  priceCost: 0
+  canPurchase: 0
 --- !u!1 &1875257474
 GameObject:
   m_ObjectHideFlags: 0
@@ -13544,7 +13933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 028be5fcbc45146d4a5c288a8dc35a02, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13574,7 +13963,7 @@ GameObject:
   - component: {fileID: 1920696279}
   - component: {fileID: 1920696278}
   m_Layer: 0
-  m_Name: UpgradeBanner (18)
+  m_Name: Upgrade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13865,7 +14254,7 @@ GameObject:
   - component: {fileID: 1971951424}
   - component: {fileID: 1971951423}
   m_Layer: 0
-  m_Name: UpgradeBanner (17)
+  m_Name: Upgrade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13991,7 +14380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9052f7a0bc8ae4a348c9da24ce2c1c38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14156,7 +14545,7 @@ GameObject:
   - component: {fileID: 2032190078}
   - component: {fileID: 2032190077}
   m_Layer: 0
-  m_Name: UpgradeBanner (7)
+  m_Name: Upgrade6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14282,7 +14671,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BUY!
+  m_text: '100
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
   m_sharedMaterial: {fileID: 5568139486216784236, guid: 6ecbe1defc55a463ba1172f67f84844b, type: 2}
@@ -14470,8 +14861,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00076293945, y: 830.14465}
-  m_SizeDelta: {x: 984.15, y: 3580.288}
+  m_AnchoredPosition: {x: 0.00076293945, y: 761.28}
+  m_SizeDelta: {x: 984.15, y: 3083.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2129065790
 GameObject:
@@ -14531,7 +14922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d430462e79d84f99969ddf7a190b000, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7394279986944ece84c90f77921cd68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
