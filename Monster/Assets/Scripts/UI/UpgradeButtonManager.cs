@@ -125,6 +125,7 @@ public class UpgradeButtonManager : MonoBehaviour
             playerData.speed = 7;
             playerData.attackDamage = 5;
             playerData.ultimateLevel = 2;
+            menuButtonData.activatedButtons.Clear();
         }
     }
 }
