@@ -12,6 +12,9 @@ public class UpgradeButtonManager : MonoBehaviour
     public int priceCost;
     [SerializeField] bool canPurchase;
 
+    public Canvas canvas;  // Reference to your canvas
+    public GameObject noMoneyVFX;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -73,7 +76,9 @@ public class UpgradeButtonManager : MonoBehaviour
 
         else
         {
-            return;
+            GameObject prompter = Instantiate(noMoneyVFX); ;
+            // Make the text object a child of the canvas
+            prompter.transform.SetParent(canvas.transform, false);
         }
     }
 
