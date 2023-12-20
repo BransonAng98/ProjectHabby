@@ -2107,7 +2107,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f5925024850b14fb1255a8c5b4e263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
   detectionOrigin: {fileID: 6516790000295486552}
+  ultRadius: 0
+  ultDamage: 0
 --- !u!114 &6437343458785009124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,7 +2125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActivated: 0
   ultEnd: 0
-  healthScript: {fileID: 0}
+  healthScript: {fileID: 61134896}
   ultimateDuration: 7
   timeReduction: 1
   currentDuration: 0
