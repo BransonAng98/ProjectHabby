@@ -5,15 +5,15 @@ public class HittableSpriteGroup : MonoBehaviour {
 	public Material material;
 	public Color hitColor = Color.white;
 
-	private SpriteRenderer[] _renderers;
-	private MaterialPropertyBlock _mpb;
-	private static readonly int HIT_TIME_KEY = Shader.PropertyToID("_HitTime");
-	private static readonly int HIT_COLOR_KEY = Shader.PropertyToID("_HitColor");
+	[SerializeField] SpriteRenderer[] _renderers;
+	[SerializeField] MaterialPropertyBlock _mpb;
+	[SerializeField] static readonly int HIT_TIME_KEY = Shader.PropertyToID("_HitTime");
+	[SerializeField] static readonly int HIT_COLOR_KEY = Shader.PropertyToID("_HitColor");
 
 	private void Awake() {
 		_renderers = GetComponentsInChildren<SpriteRenderer>();
 		foreach (var renderer in _renderers) {
-			renderer.sharedMaterial = material;
+			renderer.material = material;
 		}
 		SetHitColor(hitColor);
 	}
@@ -22,8 +22,10 @@ public class HittableSpriteGroup : MonoBehaviour {
 		_mpb ??= new MaterialPropertyBlock();
 		foreach (var spriteRenderer in _renderers) {
 			spriteRenderer.GetPropertyBlock(_mpb);
-			_mpb.SetFloat(HIT_TIME_KEY, Time.time);
+			_mpb.SetFloat(HIT_TIME_KEY, Time.timeSinceLevelLoad);
 			spriteRenderer.SetPropertyBlock(_mpb);
+
+			Debug.Log(spriteRenderer.gameObject.name);
 		}
 	}
 
