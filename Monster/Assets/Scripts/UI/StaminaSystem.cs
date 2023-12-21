@@ -55,11 +55,12 @@ public class StaminaSystem : MonoBehaviour
     {
         // Reset all stamina-related values to their initial state
         currentEnergy = maxEnergy;
-        UpdateEnergy();
+        
         nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
         lastEnergyTime = DateTime.Now;
 
         // Reset the timer to the initial duration
+        UpdateEnergy();
         UpdateEnergyTimer();
 
         // Save the reset values

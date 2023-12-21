@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 45854392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.05882168, y: 1.4941136, z: 0}
-  m_LocalScale: {x: 35.294117, y: 58.823524, z: 1.1764705}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 80, y: 133.33333, z: 2.6666665}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
   m_RootOrder: 7
@@ -2000,7 +2000,6 @@ MonoBehaviour:
   selectedUltimateHolder: 0
   canEarnUlt: 1
   currentUltimateCharge: 0
-  ultimateRadius: 15
   aoeDmg: 10
   isDashing: 0
   triggerHold: 0
@@ -2127,6 +2126,7 @@ MonoBehaviour:
   ultEnd: 0
   healthScript: {fileID: 61134896}
   ultimateDuration: 7
+  barDecreaseRate: 0
   timeReduction: 1
   currentDuration: 0
   isTriggered: 0
