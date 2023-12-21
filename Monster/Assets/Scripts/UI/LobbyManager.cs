@@ -10,6 +10,7 @@ public class LobbyManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     public PlayerStatScriptableObject playerData;
+    public PlayerLevelSelectScript playerSprite;
     public TextMeshProUGUI levelName;
     public ResourceScriptableObject resourceData;
     public TextMeshProUGUI gnaText;
@@ -80,6 +81,7 @@ public class LobbyManager : MonoBehaviour
     {
         VibrateHaptics.VibrateClick();
         playerData.setUltimate = whichUlt;
+        playerSprite.TriggerSelectedAnimation();
         ShowSelectedButton(whichUlt);
     }
 
