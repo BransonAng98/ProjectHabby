@@ -7,9 +7,11 @@ using Haptics.Vibrations;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public LevelManagerScriptableObject levelData;
     public GameObject player; // Prefab of the player
     public GameObject meteorObject;
     public GameObject deployScreen;
+    public GameObject tutorialScreen;
     public bool gameStarted = false;
     public List<GameObject> obstacleList = new List<GameObject>();
    
@@ -150,7 +152,16 @@ public class GameManagerScript : MonoBehaviour
         VibrateHaptics.VibrateClick();
         audiomanager.PlayTap();
         // Call any other functions or actions to start your game
-        deployScreen.SetActive(false);
+        if (deployScreen.activeSelf == true)
+        {
+            deployScreen.SetActive(false);
+        }
+
+        if(tutorialScreen.activeSelf == true)
+        {
+            tutorialScreen.SetActive(false);
+            levelData.tutorialPlayed = true;
+        }
         audiomanager.PlayBGM();
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
@@ -183,7 +194,16 @@ public class GameManagerScript : MonoBehaviour
     void DisplayObjective()
     {
         VibrateHaptics.Release();
-        deployScreen.SetActive(true);
+
+        if (levelData.tutorialPlayed)
+        {
+            deployScreen.SetActive(true);
+        }
+
+        else
+        {
+            tutorialScreen.SetActive(true);
+        }
         objectiveText.enabled = true;
         // Display the game objective text
         SetObjectiveText("");
