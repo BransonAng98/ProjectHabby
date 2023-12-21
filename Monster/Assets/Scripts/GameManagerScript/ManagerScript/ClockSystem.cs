@@ -183,7 +183,7 @@ public class ClockSystem : MonoBehaviour
                 timerWarningText.text = "";
                 timerWarningText.text += "30 SECONDS!";
                 thirtySecondsMessageDisplayed = true;
-                Invoke("DeactivateTimeWarning", 1f);
+                Invoke("DeactivateTimeWarning", 1.5f);
             }
           
         }

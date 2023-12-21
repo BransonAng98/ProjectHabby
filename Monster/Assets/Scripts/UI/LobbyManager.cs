@@ -8,6 +8,7 @@ using Haptics.Vibrations;
 
 public class LobbyManager : MonoBehaviour
 {
+    public UpgradeButtonManagerScriptableObject UBSO;
     public LevelManagerScriptableObject levelData;
     public PlayerStatScriptableObject playerData;
     public PlayerLevelSelectScript playerSprite;
@@ -105,6 +106,7 @@ public class LobbyManager : MonoBehaviour
 
     public void ResetDemo()
     {
+
         //Reset the player stats
         playerData.maxhealth = 110;
         playerData.attackDamage = 3;
@@ -119,6 +121,7 @@ public class LobbyManager : MonoBehaviour
         //Restart from the start screen 
         SceneManager.LoadScene("StartScene");
         resourceData.currentGold = 0;
+        UBSO.activatedButtons.Clear();
     }
 
     private void OnDestroy()
