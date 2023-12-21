@@ -6,5 +6,5 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "UIManagerScriptableObject", menuName = "ScriptableObject/UI")]
 public class UpgradeButtonManagerScriptableObject : ScriptableObject
 {
-    public List<GameObject> activatedButtons = new List<GameObject>();
+    public List<string> buttonNames = new List<string>();
 }
