@@ -39,41 +39,33 @@ public class LobbyManager : MonoBehaviour
         {
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
-            if (levelData.cutscenePlayed)
+
+            VibrateHaptics.Release();
+            switch (levelData.cityLevel)
             {
-                switch (levelData.cityLevel)
-                {
-                    case 1:
-                        SceneManager.LoadScene("France_Easy_Level");
-                        break;
+                case 1:
+                    SceneManager.LoadScene("France_Easy_Level");
+                    break;
 
-                    case 2:
-                        SceneManager.LoadScene("France_Easy_Level");
-                        break;
+                case 2:
+                    SceneManager.LoadScene("France_Easy_Level");
+                    break;
 
-                    case 3:
-                        SceneManager.LoadScene("France_Medium_Level");
-                        break;
+                case 3:
+                    SceneManager.LoadScene("France_Medium_Level");
+                    break;
 
-                    case 4:
-                        SceneManager.LoadScene("France_Medium_Level");
-                        break;
+                case 4:
+                    SceneManager.LoadScene("France_Medium_Level");
+                    break;
 
-                    case 5:
-                        SceneManager.LoadScene("France_Hard_Level");
-                        break;
+                case 5:
+                    SceneManager.LoadScene("France_Hard_Level");
+                    break;
 
-                    case 6:
-                        SceneManager.LoadScene("LandmarkDesScene");
-                        break;
-                }
-            }
-
-            else
-            {
-                SceneManager.LoadScene("ComicScene");
-                VibrateHaptics.Release();
-                levelData.cutscenePlayed = true;
+                case 6:
+                    SceneManager.LoadScene("LandmarkDesScene");
+                    break;
             }
         }
         else

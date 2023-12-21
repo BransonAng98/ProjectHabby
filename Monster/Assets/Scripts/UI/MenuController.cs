@@ -6,6 +6,7 @@ using Haptics.Vibrations;
 
 public class MenuController : MonoBehaviour
 {
+	public LevelManagerScriptableObject levelData;
 	public MenuAMScript menuaudiomanager;
 	public GameObject PauseMenu;
 	public GameObject PauseButton;
@@ -20,7 +21,15 @@ public class MenuController : MonoBehaviour
 	{
 		menuaudiomanager.PlayTap();
 		Debug.Log("Sound");
-		SceneManager.LoadScene("LevelSelectScene");
+        if (levelData.tutorialPlayed)
+		{
+			SceneManager.LoadScene("LevelSelectScene");
+		}
+
+        else
+        {
+			SceneManager.LoadScene("ComicScene");
+		}
 	}
 
 	public void PauseGame()

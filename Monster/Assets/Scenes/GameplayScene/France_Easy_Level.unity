@@ -4870,9 +4870,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fff4f4ba57bdf4694e5cc3dba2fc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelData: {fileID: 11400000, guid: b2a1f5841014e914caacedec67cfc4ad, type: 2}
   player: {fileID: 61134889}
   meteorObject: {fileID: 5820943973999638618, guid: d13365e410c8ad8419e229873fb1eed4, type: 3}
   deployScreen: {fileID: 854719959}
+  tutorialScreen: {fileID: 2003536928}
   gameStarted: 0
   obstacleList: []
   audiomanager: {fileID: 0}
@@ -4938,6 +4940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9b234ec21d1194fb151b10cbba12e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelData: {fileID: 0}
   menuaudiomanager: {fileID: 0}
   PauseMenu: {fileID: 705295604}
   PauseButton: {fileID: 1717869733}
@@ -6073,6 +6076,11 @@ GameObject:
 --- !u!1 &2003536927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1915935358866795095, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+  m_PrefabInstance: {fileID: 2003536924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2003536928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5531373218269190576, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_PrefabInstance: {fileID: 2003536924}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2016763000

@@ -34,7 +34,6 @@ public class ComicManager : MonoBehaviour
             {
                 ComicPanels[0].SetActive(false);
                 ComicPanels[1].SetActive(true);
-
             }
 
             // Activate the new current panel
@@ -46,6 +45,7 @@ public class ComicManager : MonoBehaviour
 
     public void GoToGame()
     {
+        levelData.cutscenePlayed = true;
         SceneManager.LoadScene("France_Easy_Level");
     }
 
