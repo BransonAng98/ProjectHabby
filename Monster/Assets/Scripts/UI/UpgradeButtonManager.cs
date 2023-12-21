@@ -15,6 +15,8 @@ public class UpgradeButtonManager : MonoBehaviour
     public Canvas canvas;  // Reference to your canvas
     public GameObject noMoneyVFX;
 
+    public List<GameObject> listOfButtons = new List<GameObject>();
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,11 +25,11 @@ public class UpgradeButtonManager : MonoBehaviour
 
     void CheckIfButtonIsActive()
     {
-        foreach(var buttons in menuButtonData.activatedButtons)
+        foreach(var buttons in listOfButtons)
         {
-            if (buttons != null)
+            if (menuButtonData.buttonNames.Contains(buttons.gameObject.name))
             {
-                Button chosenButton = buttons.GetComponent<Button>();
+                Button chosenButton = buttons.GetComponentInChildren<Button>();
                 if(chosenButton != null)
                 {
                     chosenButton.interactable = false;
@@ -58,10 +60,10 @@ public class UpgradeButtonManager : MonoBehaviour
     {
         if (canPurchase)
         {
-            if (!menuButtonData.activatedButtons.Contains(clickedButton))
+            if (!menuButtonData.buttonNames.Contains(clickedButton.name))
             {
-                menuButtonData.activatedButtons.Add(clickedButton);
-                Button chosenButton = clickedButton.GetComponent<Button>();
+                menuButtonData.buttonNames.Add(clickedButton.name);
+                Button chosenButton = clickedButton.GetComponentInChildren<Button>();
                 if (chosenButton != null)
                 {
                     chosenButton.interactable = false;
@@ -130,7 +132,7 @@ public class UpgradeButtonManager : MonoBehaviour
             playerData.speed = 7;
             playerData.attackDamage = 5;
             playerData.ultimateLevel = 2;
-            menuButtonData.activatedButtons.Clear();
+            menuButtonData.buttonNames.Clear();
         }
     }
 }

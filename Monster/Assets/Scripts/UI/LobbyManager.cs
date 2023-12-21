@@ -121,7 +121,7 @@ public class LobbyManager : MonoBehaviour
         //Restart from the start screen 
         SceneManager.LoadScene("StartScene");
         resourceData.currentGold = 0;
-        UBSO.activatedButtons.Clear();
+        UBSO.buttonNames.Clear();
     }
 
     private void OnDestroy()
