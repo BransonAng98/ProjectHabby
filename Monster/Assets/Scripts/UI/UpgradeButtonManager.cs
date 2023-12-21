@@ -123,16 +123,4 @@ public class UpgradeButtonManager : MonoBehaviour
             return;
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            playerData.maxhealth = 150;
-            playerData.speed = 7;
-            playerData.attackDamage = 5;
-            playerData.ultimateLevel = 2;
-            menuButtonData.buttonNames.Clear();
-        }
-    }
 }
