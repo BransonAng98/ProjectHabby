@@ -14,6 +14,7 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource civilianAudioSource;
     public AudioSource carAudioSource;
     public AudioSource propAudioSource;
+    public AudioSource babblingAudioSource;
 
     public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
@@ -48,6 +49,12 @@ public class AudioManagerScript : MonoBehaviour
         maxTime = 1f;
         eventmanagerScript = GameObject.Find("EventManager").GetComponent<EventManager>();
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        PlayCiviBabbling();
+
+    }
+     void Awake()
+    {
+       
     }
 
     // Update is called once per frame
@@ -78,7 +85,7 @@ public class AudioManagerScript : MonoBehaviour
     public void PlayScreaming()
     {
         // Choose a random screaming sound from the list
-        AudioClip randomScream = screamingSFX[Random.Range(0, screamingSFX.Length)];
+        AudioClip randomScream = screamingSFX[Random.Range(0, 2)];
 
         // Play the chosen screaming sound
         CivilianSource.PlayOneShot(randomScream);
@@ -86,7 +93,12 @@ public class AudioManagerScript : MonoBehaviour
 
     public void PlayTap()
     {
-        AudioClip SoundtoPlay = feedbackSFX[Random.Range(0, feedbackSFX.Length)];
+        AudioClip SoundtoPlay = feedbackSFX[Random.Range(0, 3)];
+        feedbackaudioSource.PlayOneShot(SoundtoPlay);
+    }
+    public void PlayPointCalculation()
+    {
+        AudioClip SoundtoPlay = feedbackSFX[Random.Range(4, 4)];
         feedbackaudioSource.PlayOneShot(SoundtoPlay);
     }
 
@@ -242,11 +254,39 @@ public class AudioManagerScript : MonoBehaviour
 
        
     }
-
+    
+    public void PlayCiviBabbling()
+    {
+        babblingAudioSource.Play();
+       
+    }
     public void StopBGM()
     {
         BGMSource.Stop();
     }
+
+    public void FadeOutBGM(float duration)
+    {
+        StartCoroutine(FadeOutBGMCoroutine(duration));
+    }
+
+    // Coroutine for lerping BGM volume
+    private IEnumerator FadeOutBGMCoroutine(float duration)
+    {
+        float elapsedTime = 0f;
+        float startVolume = BGMSource.volume;
+
+        while (elapsedTime < duration)
+        {
+            BGMSource.volume = Mathf.Lerp(startVolume, 0f, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the volume is set to 0 at the end
+        BGMSource.volume = 0f;
+    }
+
 
     public IEnumerator PlayRandomScreaming()
     {

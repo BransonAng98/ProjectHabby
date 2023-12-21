@@ -11,6 +11,7 @@ public class ScoreDisplayScript : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI goldText;
     public ResourceScriptableObject goldData;
+    public AudioManagerScript audiomanager;
 
     [SerializeField] private int structureamt;
     [SerializeField] private int civilianamt;
@@ -29,6 +30,7 @@ public class ScoreDisplayScript : MonoBehaviour
      
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         SetActiveScreen();
         StartCoroutine(LerpScores());
        
@@ -39,6 +41,7 @@ public class ScoreDisplayScript : MonoBehaviour
         timeamt = scoreManager.timeLeft;
         goldamt = scoreManager.goldearned;
         goldData.currentGold += goldamt;
+        audiomanager.PlayPointCalculation();
     }
 
     private IEnumerator LerpScores()

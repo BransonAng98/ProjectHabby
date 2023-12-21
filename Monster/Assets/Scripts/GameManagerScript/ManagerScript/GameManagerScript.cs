@@ -82,6 +82,7 @@ public class GameManagerScript : MonoBehaviour
         levelText.text = "" + levelManager.levelData.cityLevel;
         //GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
+       
         if (isVictory == false)
         {
             
@@ -136,6 +137,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        audiomanager.babblingAudioSource.Stop();
         player.GetComponent<MeshRenderer>().enabled = true;
         inputHandler.DisableMovement(5);
         playerStatusBars.SetActive(true);
@@ -163,6 +165,8 @@ public class GameManagerScript : MonoBehaviour
             levelData.tutorialPlayed = true;
         }
         audiomanager.PlayBGM();
+        audiomanager.BGMSource.loop = true;
+        
         StartCoroutine(audiomanager.PlayRandomScreaming());
         StartCoroutine(audiomanager.StartTimer(1f));
         

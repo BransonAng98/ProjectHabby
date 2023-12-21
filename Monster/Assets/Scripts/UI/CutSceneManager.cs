@@ -27,7 +27,8 @@ public class CutSceneManager : MonoBehaviour
 
     public void TriggerEnd()
     {
-        audiomanager.StopBGM();
+        //audiomanager.StopBGM();
+        audiomanager.FadeOutBGM(3f);
         inputHandler.enableInput = false;
         anim.SetBool("isTriggered", true);
     }
