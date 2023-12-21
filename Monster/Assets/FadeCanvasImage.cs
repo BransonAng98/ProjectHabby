@@ -8,6 +8,8 @@ public class FadeCanvasImage : MonoBehaviour
 
     public float fadeDuration = 2f; // Duration of the fade-in effect in seconds
     public GameObject endScreen;
+    public GameObject scoredisplay;
+
 
 
     public void StartFade()
@@ -31,5 +33,7 @@ public class FadeCanvasImage : MonoBehaviour
         // Ensure the alpha is exactly 1 at the end
         image.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0.8f);
         endScreen.SetActive(true);
+        scoredisplay.SetActive(true);
+
     }
 }

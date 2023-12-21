@@ -118,6 +118,7 @@ public class LobbyManager : MonoBehaviour
 
         //Restart from the start screen 
         SceneManager.LoadScene("StartScene");
+        resourceData.currentGold = 0;
     }
 
     private void OnDestroy()

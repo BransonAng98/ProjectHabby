@@ -87,7 +87,7 @@ public class MiniGameLandmark : MonoBehaviour
         {
             isDead = true;
             Destroy(gameObject, 0.5f);
-            // Send back to the level select
+            
             fadeCanvasImage.StartFade();
         }
         else return;
