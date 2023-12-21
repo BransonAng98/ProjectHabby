@@ -18,7 +18,6 @@ public class PlayerVFXManager : MonoBehaviour
     public GameObject rageOnTxt;
     public GameObject rageOffTxt;
     public GameManagerScript gamemanager;
-    private GameObject player;
 
     public float deathVFXRadius;
     public float footTremorRadius;
@@ -130,13 +129,13 @@ public class PlayerVFXManager : MonoBehaviour
     public void SpawnAoeVFX()
     {
         Vector2 aoePos = new Vector2(transform.position.x, transform.position.y - 1f);
-        GameObject aoe = Instantiate(aoeVFX, aoePos, Quaternion.identity);
+        Instantiate(aoeVFX, aoePos, Quaternion.identity);
     }
 
     public void SpawnUltiVFX()
     {
         Vector2 ultiPos = new Vector2(this.transform.position.x, this.transform.position.y - 2.5f);
-        GameObject ultiVFX = Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
+        Instantiate(ultimateVFX, ultiPos, Quaternion.identity);
     }
 
     public void SpawnUpgradeVFX()

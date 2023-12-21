@@ -10,12 +10,14 @@ public class MiniGameLandmark : MonoBehaviour
     ObjectShakeScript shakeLandmark;
     private float health;
 
-
-    [SerializeField] GameObject pfDelvin;
     public GameObject parentObject;
+    private FadeCanvasImage fadeCanvasImage;
+    
+    [SerializeField] GameObject pfDelvin;
     [SerializeField] float healthPercentage;
     [SerializeField] int healthState;
     [SerializeField] bool isDead;
+    
     public int minEntities = 1; // Minimum number of entities to spawn
     public int maxEntities = 4; // Maximum number of entities to spawn
     public float spawnRadius = 3.0f; // Maximum distance from the current position
@@ -36,6 +38,7 @@ public class MiniGameLandmark : MonoBehaviour
         health = enemyData.health;
         shakeLandmark = GetComponent<ObjectShakeScript>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fadeCanvasImage = GameObject.Find("Darken").GetComponent<FadeCanvasImage>();
     }
 
     private void SpawnCivilian()
@@ -44,8 +47,9 @@ public class MiniGameLandmark : MonoBehaviour
         for (int i = 0; i < numberOfEntities; i++)
         {
             Vector3 randomDirection = Random.insideUnitCircle.normalized;
-            Vector3 spawnPos = transform.position + randomDirection * Random.Range(0.0f, spawnRadius);
-            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.identity);
+            Vector3 posCorrection = new Vector3(transform.position.x, transform.position.y + 2f);
+            Vector3 spawnPos = posCorrection + randomDirection * Random.Range(0.0f, spawnRadius);
+            Instantiate(pfDelvin, spawnPos, Quaternion.identity);
             //Sets the civilian state upon initialization
         }
 
@@ -84,14 +88,9 @@ public class MiniGameLandmark : MonoBehaviour
             isDead = true;
             Destroy(gameObject, 2f);
             // Send back to the level select
-            Invoke("ReturnToLevelSelect", 6f);
+            fadeCanvasImage.StartFade();
         }
         else return;
-    }
-
-    void ReturnToLevelSelect()
-    {
-        SceneManager.LoadScene("LevelSelectScene");
     }
 
     void DamageEffect()

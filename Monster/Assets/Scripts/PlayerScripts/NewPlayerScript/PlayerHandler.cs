@@ -900,7 +900,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         Invoke("StopVibration", 1f);
         utlimates[0].UseDamageUltimate();
         currentUltimateCharge = 0f;
-        Vector2 crackPos = new Vector2(transform.position.x, transform.position.y - 1f);
         Instantiate(Groundcrack, transform.position, Quaternion.identity);
     }
 

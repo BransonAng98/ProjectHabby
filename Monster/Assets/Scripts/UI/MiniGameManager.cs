@@ -15,23 +15,22 @@ public class MiniGameManager : MonoBehaviour
         landMark = GameObject.FindGameObjectWithTag("Landmark");
     }
 
-    void ReturnToMainMenu()
+    public void ReturnToMainMenu()
     {
+        Debug.Log("Trying to change");
         levelData.cityLevel = 1;
         SceneManager.LoadScene("LevelSelectScene");
     }
+    //void Update()
+    //{
+    //    if (landMark != null)
+    //    {
+    //        return;
+    //    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(landMark != null)
-        {
-            return;
-        }
-
-        else
-        {
-            Invoke("ReturnToMainMenu", 2f);
-        }
-    }
+    //    else
+    //    {
+    //        Invoke("ReturnToMainMenu", 8f);
+    //    }
+    //}
 }
