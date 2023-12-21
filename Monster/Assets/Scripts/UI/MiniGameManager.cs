@@ -7,13 +7,6 @@ using TMPro;
 public class MiniGameManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
-    private GameObject landMark;
- 
-    // Start is called before the first frame update
-    void Start()
-    {
-        landMark = GameObject.FindGameObjectWithTag("Landmark");
-    }
 
     public void ReturnToMainMenu()
     {
@@ -21,16 +14,4 @@ public class MiniGameManager : MonoBehaviour
         levelData.cityLevel = 1;
         SceneManager.LoadScene("LevelSelectScene");
     }
-    //void Update()
-    //{
-    //    if (landMark != null)
-    //    {
-    //        return;
-    //    }
-
-    //    else
-    //    {
-    //        Invoke("ReturnToMainMenu", 8f);
-    //    }
-    //}
 }

@@ -125,22 +125,22 @@ public class PlayerMiniGameController : MonoBehaviour
             animationSpeed = 1.6f;
         }
 
-        if(hitCount > 9)
+        if(hitCount > 5)
         {
             animationSpeed = 2.2f;
         }
 
-        if(hitCount > 19)
+        if(hitCount > 10)
         {
             animationSpeed = 2.8f;
         }
 
-        if(hitCount > 29)
+        if(hitCount > 15)
         {
             animationSpeed = 3.4f;
         }
 
-        if(hitCount > 39)
+        if(hitCount > 25)
         {
             animationSpeed = 4f;
         }
@@ -277,22 +277,23 @@ public class PlayerMiniGameController : MonoBehaviour
         PlayRoar();
         timeSinceLastTap += Time.deltaTime;
 
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                SetAttackSpeed(currentHitCount);
-                hasInput = true;
-                // A touch has just begun
-                TriggerAttack();
-                timeSinceLastTap = 0f;
-            }
-        }
 
         if(landmark != null)
         {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    SetAttackSpeed(currentHitCount);
+                    hasInput = true;
+                    // A touch has just begun
+                    TriggerAttack();
+                    timeSinceLastTap = 0f;
+                }
+            }
+
             if (!canAttack)
             {
                 SetCharacterState(PlayerState.idle);

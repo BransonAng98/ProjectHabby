@@ -77,7 +77,7 @@ public class MiniGameLandmark : MonoBehaviour
 
     private void SinkLandmark()
     {
-        float sinkAmount = 5f * Time.deltaTime;
+        float sinkAmount = 10f * Time.deltaTime;
         parentObject.transform.Translate(Vector3.down * sinkAmount);
     }
 
@@ -86,7 +86,7 @@ public class MiniGameLandmark : MonoBehaviour
         if (gameObject != null)
         {
             isDead = true;
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 0.5f);
             // Send back to the level select
             fadeCanvasImage.StartFade();
         }
