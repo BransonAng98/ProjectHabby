@@ -559,6 +559,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 986846225}
+        m_TargetAssemblyTypeName: AbilityDisplayScript, Assembly-CSharp
+        m_MethodName: UsingAbility2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &407691658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,7 +1705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 381.83002
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1717,7 +1729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 106.165
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1877,7 +1889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 664.83
       objectReference: {fileID: 0}
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2197,6 +2209,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 986846225}
+        m_TargetAssemblyTypeName: AbilityDisplayScript, Assembly-CSharp
+        m_MethodName: UsingAbility1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2460,19 +2484,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 888498984}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1762602640}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: ToUpgrade
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &888498984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2511,6 +2523,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888498981}
   m_CullTransparentMesh: 1
+--- !u!1 &986846224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 986846226}
+  - component: {fileID: 986846225}
+  m_Layer: 0
+  m_Name: AbilityDisplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &986846225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986846224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8eaeeb3a6176804fb747e001d66f311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rushText: {fileID: 5961831057369860527, guid: 97904ddfdfa44e642ad318d9600e3ae4, type: 3}
+  smashText: {fileID: 5961831057369860527, guid: e245126894ae0fb42b45b8648b7513f5, type: 3}
+  canvas: {fileID: 1868432509}
+--- !u!4 &986846226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986846224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1091325190 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1235468222272262011, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
@@ -2700,9 +2759,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'EVOLVE
-
-'
+  m_text: LOCKED CONTENT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d34560b6d49c4469b2174ccd34ae34b, type: 2}
   m_sharedMaterial: {fileID: 8690591861142563998, guid: 8d34560b6d49c4469b2174ccd34ae34b, type: 2}
@@ -3554,6 +3611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbed50256d2b164488aa9e0548326b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UBSO: {fileID: 0}
   levelData: {fileID: 11400000, guid: b2a1f5841014e914caacedec67cfc4ad, type: 2}
   playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
   playerSprite: {fileID: 32631275}
