@@ -101,6 +101,23 @@ public class LobbyManager : MonoBehaviour
                 //Apply VFX for button 2
                 break;
         }
+    } 
+
+    public void ResetDemo()
+    {
+        //Reset the player stats
+        playerData.maxhealth = 110;
+        playerData.attackDamage = 3;
+        playerData.speed = 5f;
+        playerData.ultimateLevel = 1;
+
+        //Reset the level stats
+        levelData.cityLevel = 1;
+        levelData.tutorialPlayed = false;
+        levelData.cutscenePlayed = false;
+
+        //Restart from the start screen 
+        SceneManager.LoadScene("StartScene");
     }
 
     private void OnDestroy()

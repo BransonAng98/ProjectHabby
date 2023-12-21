@@ -1693,7 +1693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 381.83002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926634552341, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1717,7 +1717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 106.165
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845926878487699, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1877,7 +1877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 664.83
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2628845927916455666, guid: b3d9864c681aa4be09905b0ffeeecee8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2067,6 +2067,34 @@ PrefabInstance:
     - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
       propertyPath: m_Colors.m_PressedColor.r
       value: 0.5377358
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1868432511}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetDemo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180609928362267166, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7455457380005457200, guid: ce6626e56438e4adba41da27db2e672b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4264,6 +4292,7 @@ MonoBehaviour:
   civilianAudioSource: {fileID: 0}
   carAudioSource: {fileID: 0}
   propAudioSource: {fileID: 0}
+  babblingAudioSource: {fileID: 0}
   treeSFX: []
   militaryIncomingSFX: []
   feedbackSFX:
