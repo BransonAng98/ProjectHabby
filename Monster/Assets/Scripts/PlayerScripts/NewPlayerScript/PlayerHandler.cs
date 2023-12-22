@@ -37,6 +37,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     [SerializeField] float attackRangeHolder;
     [SerializeField] float maxUltChargeHolder;
     public float stepDamageHolder;
+    public float ultimateLevelHolder;
 
     //Variable for player input
     public PlayerStatScriptableObject playerData;
@@ -251,6 +252,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         stepDamageHolder = playerData.stepDamage;
         selectedUltimateHolder = playerData.setUltimate;
         maxUltChargeHolder = playerData.maxUltimateCharge;
+        ultimateLevelHolder = playerData.ultimateLevel;
 
         switch (selectedUltimateHolder)
         {
@@ -264,10 +266,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         }
     }
 
-    public void AlterStats(bool isBuff, int statID, float statChange)
+    public void AlterStats(bool change, int statID, float statChange)
     {
         //Increase stat here
-        if (isBuff)
+        if (change)
         {
             //Which stat to increase 
             switch (statID)
@@ -284,7 +286,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
                 //Attack Speed
                 case 2:
-                    attackAnimationSpeed += statChange;
+                    attackAnimationSpeed = statChange;
                     break;
 
                 //Movement Speed
@@ -294,42 +296,47 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                     break;
 
                 case 4:
-                    stepDamageHolder += statChange;
+                    stepDamageHolder = statChange;
                     break;
             }
         }
 
-        //Decrease stat
+        //Reset the stats
         else
         {
-            //Which stat to decrease 
+            //Which stat to increase 
             switch (statID)
             {
                 //Health
                 case 0:
-                    playerHealth.playerSO.maxhealth -= (int)statChange;
+                    playerHealth.playerSO.maxhealth += (int)statChange;
                     break;
 
                 //Attack Damage
                 case 1:
-                    damageHolder -= statChange;
+                    damageHolder = playerData.attackDamage;
                     break;
 
                 //Attack Speed
                 case 2:
-                    attackAnimationSpeed -= statChange;
+                    attackAnimationSpeed = statChange;
                     break;
 
                 //Movement Speed
                 case 3:
                     movementSpeedHolder -= statChange;
+                    //animationSpeed -= 1.15f;
                     break;
 
                 case 4:
-                    stepDamageHolder -= statChange;
+                    stepDamageHolder = statChange;
+                    break;
+
+                case 5:
+                    damageHolder = playerData.attackDamage;
+                    attackAnimationSpeed = 1.4f;
                     break;
             }
-
         }
     }
 

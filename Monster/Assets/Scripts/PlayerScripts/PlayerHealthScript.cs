@@ -456,15 +456,15 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(true, 2, 0.3f);
+                playerHandler.AlterStats(true, 2, 1.6f);
                 break;
 
             case 2:
-                playerHandler.AlterStats(true, 2, 0.3f);
+                playerHandler.AlterStats(true, 2, 1.8f);
                 break;
 
             case 3:
-                playerHandler.AlterStats(true, 2, 0.3f);
+                playerHandler.AlterStats(true, 2, 2.0f);
                 break;
 
             case 4:
@@ -479,18 +479,23 @@ public class PlayerHealthScript : MonoBehaviour
         switch (ability)
         {
             case 1:
-                playerHandler.AlterStats(false, 2, 0.3f);
+                playerHandler.AlterStats(false, 2, 1.4f);
                 break;
 
-                playerHandler.AlterStats(false, 2, 0.3f);
+            case 2:
+                playerHandler.AlterStats(false, 2, 1.6f);
                 break;
 
             case 3:
-                playerHandler.AlterStats(false, 2, 0.3f);
+                playerHandler.AlterStats(false, 2, 1.8f);
                 break;
 
             case 4:
                 playerHandler.AlterStats(false, 1, 5f);
+                break;
+
+            case 5:
+                playerHandler.AlterStats(false, 5, 0);
                 break;
         }
     }

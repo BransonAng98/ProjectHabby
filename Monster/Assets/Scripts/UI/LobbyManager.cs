@@ -20,6 +20,10 @@ public class LobbyManager : MonoBehaviour
     public Button ultimate1;
     public Button ultimate2;
 
+    [SerializeField] string countryName;
+    public Image countryFlag;
+    public List<Sprite> countrySprite = new List<Sprite>();
+    
     private StaminaSystem staminaSystem;
 
     // Start is called before the first frame update
@@ -28,11 +32,53 @@ public class LobbyManager : MonoBehaviour
         menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
         staminaSystem = GameObject.Find("StaminaSystem").GetComponent<StaminaSystem>();
         VibrateHaptics.Initialize();
+        UpdateLevelData();
     }
 
-    void UpdateLevelName()
+    void SetCountryName()
     {
-        levelName.text = "Europe: France " + levelData.cityLevel;
+        switch (levelData.worldID)
+        {
+            case 1:
+                countryName = "France";
+                break;
+
+            case 2:
+                countryName = "Germany";
+                break;
+
+            case 3:
+                countryName = "China";
+                break;
+        }
+    }
+
+
+    void SetCountryFlag()
+    {
+        switch (levelData.worldID)
+        {
+            case 1:
+                //France Flag
+                countryFlag.sprite = countrySprite[0];
+                break;
+
+            case 2:
+                //Germany Flag
+                countryFlag.sprite = countrySprite[1];
+                break;
+
+            case 3:
+                //China Flag
+                countryFlag.sprite = countrySprite[2];
+                break;
+        }
+    }
+    void UpdateLevelData()
+    {
+        SetCountryName();
+        SetCountryFlag();
+        levelName.text = countryName + ": " + levelData.cityLevel;
     }
 
     public void LoadLevel()
@@ -127,11 +173,5 @@ public class LobbyManager : MonoBehaviour
     private void OnDestroy()
     {
         VibrateHaptics.Release();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateLevelName();
     }
 }

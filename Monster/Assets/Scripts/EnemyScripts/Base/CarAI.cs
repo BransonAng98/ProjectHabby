@@ -39,7 +39,6 @@ public class CarAI : MonoBehaviour
     public GameObject smokeVFX;
     public GameObject smokeTrailVFX;
     public GameObject kickedVFX;
-    public GameObject coinVFX;
 
     private Sprite intitialSprite;
 
@@ -193,7 +192,6 @@ public class CarAI : MonoBehaviour
         //PlaySFX();
 
         Instantiate(explosionVFX, transform.position, Quaternion.identity);
-        Instantiate(coinVFX, transform.position, Quaternion.Euler(0f, 0f, 0f));
 
         if (isVertical == true)
         {
