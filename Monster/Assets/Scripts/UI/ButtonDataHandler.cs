@@ -66,6 +66,7 @@ public class ButtonDataHandler : MonoBehaviour
         {
             secondFrame.SetActive(true);
             thisGO.interactable = false;
+            CheckSecondButtonActive();
         }
     }
 
@@ -78,7 +79,7 @@ public class ButtonDataHandler : MonoBehaviour
 
         else
         {
-            return;
+            secondButton.interactable = false;
         }
     }
 
