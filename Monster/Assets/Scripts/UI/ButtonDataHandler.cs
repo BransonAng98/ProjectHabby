@@ -17,11 +17,13 @@ public class ButtonDataHandler : MonoBehaviour
     public TextMeshProUGUI upgradeText;
     public int upgradeCost;
 
+    public GameObject purchaseImage;
     // Start is called before the first frame update
     void Start()
     {
         upgradeCost = int.Parse(upgradeText.text);
         thisGO = GetComponent<Button>();
+        purchaseImage.SetActive(false);
         buttonState = PlayerPrefs.GetInt(buttonID);
         secondFrame.SetActive(false);
         CheckForActive();
@@ -86,6 +88,7 @@ public class ButtonDataHandler : MonoBehaviour
         SaveData();
         secondButton.interactable = false;
         secondFrame.SetActive(false);
+        purchaseImage.SetActive(true);
         switch (id)
         {
             case 1:
