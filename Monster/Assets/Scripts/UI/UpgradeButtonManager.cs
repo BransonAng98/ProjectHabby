@@ -88,6 +88,8 @@ public class UpgradeButtonManager : MonoBehaviour
     {
         if (canPurchase)
         {
+            playerData.upgradeLevel++;
+
             switch (id)
             {
                 case 1:
