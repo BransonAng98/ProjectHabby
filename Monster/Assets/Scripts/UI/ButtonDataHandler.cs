@@ -34,6 +34,10 @@ public class ButtonDataHandler : MonoBehaviour
         if(upgradeTier != playerData.upgradeLevel)
         {
             thisGO.interactable = false;
+            if(buttonState == 1)
+            {
+                purchaseImage.SetActive(true);
+            }
         }
 
         else
