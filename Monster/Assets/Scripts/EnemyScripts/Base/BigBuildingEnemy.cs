@@ -228,11 +228,13 @@ public class BigBuildingEnemy : MonoBehaviour
         if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
             scoremanager.bigbuildingKilled += 1;
+            scoremanager.goldearned += 10;
         }
 
         if (buildingType.enemyType == Targetable.EnemyType.Building)
         {
             scoremanager.smallbuildingKilled += 1;
+            scoremanager.goldearned += 5;
         }
     }
 

@@ -372,6 +372,7 @@ public class Civilian : MonoBehaviour
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
         scoremanager.amtOfcivilians += 1;
+        scoremanager.goldearned += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
