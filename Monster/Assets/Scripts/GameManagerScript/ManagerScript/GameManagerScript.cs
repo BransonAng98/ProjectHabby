@@ -25,6 +25,7 @@ public class GameManagerScript : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI objectiveText;
 
+    public GameObject GoWord;
     public float textMoveSpeed;
     public float textFadeDuration;
     public float textMoveDuration;
@@ -62,6 +63,7 @@ public class GameManagerScript : MonoBehaviour
         ScanAndInsert();
         DisableObstacles();
         DeactivatePlayer();
+       
     }
 
 
@@ -125,6 +127,7 @@ public class GameManagerScript : MonoBehaviour
 
     void ActivateInput()
     {
+        GoWord.SetActive(false);
         inputHandler.enableInput = true;
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
@@ -267,6 +270,16 @@ public class GameManagerScript : MonoBehaviour
     void SetObjectiveText(string text)
     {
         objectiveText.text = text;
+    }
+    
+    public void TurnOnGo()
+    {
+        GoWord.SetActive(true);
+    }
+
+    public void TurnOffGo()
+    {
+        GoWord.SetActive(false);
     }
 
     IEnumerator FadeInObject(GameObject obj, float duration)
