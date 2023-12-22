@@ -23,7 +23,6 @@ public class BigBuildingEnemy : MonoBehaviour
     public GameObject crumblingVFX;
     public GameObject hitVFX;
     public GameObject smokeVFX;
-    public GameObject pointIndicatorVFX;
     private GameObject fireHandler;
     public float deathVFXRadius;
     public int minFires;
@@ -225,7 +224,6 @@ public class BigBuildingEnemy : MonoBehaviour
         //Add points
         levelManager.CalculateScore(destructionScore);
         Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 2f);
-        Instantiate(pointIndicatorVFX, pointPos, Quaternion.Euler(0f, 0f, 0f));
 
         if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
