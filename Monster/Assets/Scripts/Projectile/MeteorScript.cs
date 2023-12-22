@@ -82,7 +82,7 @@ public class MeteorScript : MonoBehaviour
 
     public void ImpactDamage()
     {
-        gameManager.TurnOnGo();
+        gameManager.StartCountdown();
         isTriggered = true;
         PlayExplosion();
         cameraShake.ShakeCamera();

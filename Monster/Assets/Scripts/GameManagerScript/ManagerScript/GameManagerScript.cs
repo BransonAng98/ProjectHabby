@@ -24,11 +24,12 @@ public class GameManagerScript : MonoBehaviour
     public GameObject destructionBar;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI objectiveText;
-
-    public GameObject GoWord;
+    public TextMeshProUGUI startingText;
+ 
     public float textMoveSpeed;
     public float textFadeDuration;
     public float textMoveDuration;
+    public float countdownDuration = 3.0f;
 
     //public TextMeshProUGUI GNAText;
     private PlayerHandler inputHandler;
@@ -54,6 +55,7 @@ public class GameManagerScript : MonoBehaviour
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         levelManager = GetComponent<LevelManager>();
+        startingText = GameObject.Find("GoText").GetComponent<TextMeshProUGUI>();
         //GNAManager = GetComponent<GNAManager>();
         player.GetComponent<MeshRenderer>().enabled = false;
         //scoreDisplay.SetActive(false);
@@ -127,7 +129,6 @@ public class GameManagerScript : MonoBehaviour
 
     void ActivateInput()
     {
-        GoWord.SetActive(false);
         inputHandler.enableInput = true;
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
@@ -271,15 +272,39 @@ public class GameManagerScript : MonoBehaviour
     {
         objectiveText.text = text;
     }
-    
-    public void TurnOnGo()
+
+    public void StartCountdown()
     {
-        GoWord.SetActive(true);
+        startingText.enabled = true;
+        StartCoroutine(CountdownCoroutine());
     }
 
-    public void TurnOffGo()
+    private System.Collections.IEnumerator CountdownCoroutine()
     {
-        GoWord.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        SetCountdownText("3...");
+
+        yield return new WaitForSeconds(1.0f);
+        SetCountdownText("2...");
+
+        yield return new WaitForSeconds(1.0f);
+        SetCountdownText("1...");
+
+        yield return new WaitForSeconds(1.0f);
+        SetCountdownText("GO!");
+
+        // Optionally clear the text after a delay
+        yield return new WaitForSeconds(1.0f);
+        SetCountdownText("");
+        startingText.enabled = false;
+    }
+
+    private void SetCountdownText(string text)
+    {
+        if (startingText != null)
+        {
+            startingText.text = text;
+        }
     }
 
     IEnumerator FadeInObject(GameObject obj, float duration)

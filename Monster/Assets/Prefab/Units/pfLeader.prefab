@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1219626135270714756}
   - component: {fileID: 8807212110822699263}
+  - component: {fileID: 2325434036170072926}
   m_Layer: 16
   m_Name: pfLeader
   m_TagString: Leader
@@ -151,6 +152,21 @@ MonoBehaviour:
   verticalVelocity: 0
   Gravity: 0
   isGrounded: 0
+--- !u!114 &2325434036170072926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219626135270714778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd13a942f2f59e4aa6e162d2598cff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 210732760888851329}
+  cullingDistance: 30
+  checkInterval: 0.5
 --- !u!1 &4027125601117460664
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,3 +545,4 @@ MonoBehaviour:
   deadSprite: {fileID: 7197585282131594275, guid: d794a76e836965b40a878cf8673456b1, type: 3}
   causeOfDeath: 
   murderer: 
+  scoremanager: {fileID: 0}
