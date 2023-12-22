@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FadeObjectinParent : MonoBehaviour
@@ -7,13 +6,15 @@ public class FadeObjectinParent : MonoBehaviour
     public float fadeDuration = 3f;
     public float delayFadeDuration = 2f;
 
-    private Renderer objectRenderer;
-    private Color targetColor;
+    private SpriteRenderer objectRenderer;
+    private MaterialPropertyBlock materialPropertyBlock;
     private Color initialColor;
 
     void Start()
     {
         objectRenderer = GetComponentInChildren<SpriteRenderer>();
+        materialPropertyBlock = new MaterialPropertyBlock();
+        
         if (objectRenderer == null)
         {
             Debug.LogError("No Renderer System found in children. Make sure it's a child of the empty GameObject.");
@@ -21,9 +22,10 @@ public class FadeObjectinParent : MonoBehaviour
             return;
         }
 
-        initialColor = objectRenderer.material.color;
-        targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0);
-       // StartFading();
+        objectRenderer.GetPropertyBlock(materialPropertyBlock);
+        initialColor = materialPropertyBlock.GetColor("_Color");
+        
+        // StartFading();
     }
 
     public void StartFading()
@@ -39,19 +41,28 @@ public class FadeObjectinParent : MonoBehaviour
     private IEnumerator FadeObject()
     {
         float elapsedTime = 0f;
+        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0);
+
         while (elapsedTime < fadeDuration)
         {
-            objectRenderer.material.color = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
+            Color currentColor = Color.Lerp(initialColor, targetColor, elapsedTime / fadeDuration);
+            materialPropertyBlock.SetColor("_Color", currentColor);
+            objectRenderer.SetPropertyBlock(materialPropertyBlock);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        objectRenderer.material.color = targetColor;
+
+        materialPropertyBlock.SetColor("_Color", targetColor);
+        objectRenderer.SetPropertyBlock(materialPropertyBlock);
+
         DestroyFadedObj();
     }
 
     public void DestroyFadedObj()
     {
-        if (objectRenderer.material.color == targetColor)
+        Color finalColor = materialPropertyBlock.GetColor("_Color");
+        if (finalColor.a == 0)
         {
             Destroy(objectRenderer.gameObject);
             Destroy(gameObject);
