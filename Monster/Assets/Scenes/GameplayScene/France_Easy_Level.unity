@@ -4983,6 +4983,7 @@ MonoBehaviour:
   destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
   objectiveText: {fileID: 463412152}
+  GoWord: {fileID: 2003536929}
   textMoveSpeed: 250
   textFadeDuration: 1
   textMoveDuration: 1.8
@@ -6187,6 +6188,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5531373218269190576, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_PrefabInstance: {fileID: 2003536924}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2003536929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6976262511260451146, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+  m_PrefabInstance: {fileID: 2003536924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2016763000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6693,6 +6699,7 @@ MonoBehaviour:
   amtOfCarskilled: 0
   timeLeft: 0
   goldearned: 0
+  goldDisplay: {fileID: 0}
   bigbuildingKilled: 0
   smallbuildingKilled: 0
   clock: {fileID: 0}
