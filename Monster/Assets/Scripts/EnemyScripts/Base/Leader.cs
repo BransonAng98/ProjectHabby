@@ -58,8 +58,10 @@ public class Leader : MonoBehaviour
     //Troubleshoot
     public string causeOfDeath;
     public string murderer;
+    public ScoreManagerScript scoremanager;
     private void Awake()
     {
+        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
@@ -259,6 +261,8 @@ public class Leader : MonoBehaviour
             PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
+        scoremanager.amtOfcivilians += 1;
+        scoremanager.goldearned += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;

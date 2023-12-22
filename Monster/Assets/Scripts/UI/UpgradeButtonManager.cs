@@ -125,4 +125,8 @@ public class UpgradeButtonManager : MonoBehaviour
             return;
         }
     }
+
+    private void Update()
+    {
+    }
 }

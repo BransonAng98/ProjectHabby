@@ -55,27 +55,27 @@ public class LevelManager : MonoBehaviour
         switch (levelData.cityLevel)
         {
             case 1:
-                calculateCityDestruction = 1;
+                calculateCityDestruction = 0;
                 break;
 
             case 2:
-                calculateCityDestruction = 1.5f;
+                calculateCityDestruction = 150f;
                 break;
 
             case 3:
-                calculateCityDestruction = 2;
+                calculateCityDestruction = 300;
                 break;
 
             case 4:
-                calculateCityDestruction = 2.5f;
+                calculateCityDestruction = 450f;
                 break;
 
             case 5:
-                calculateCityDestruction = 4;
+                calculateCityDestruction = 600f;
                 break;
         }
 
-        calculation1 = levelData.baseScore * calculateCityDestruction;
+        calculation1 = levelData.baseScore + calculateCityDestruction;
         objSlider.maxValue = calculation1;
         Debug.Log(calculation1);
     }

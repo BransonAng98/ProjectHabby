@@ -236,7 +236,7 @@ public class PlayerMiniGameController : MonoBehaviour
 
         if (states.Equals(PlayerState.attack))
         {
-            SetAnimation(0, attack1, false, animationSpeed);
+            SetAnimation(0, attack3, false, animationSpeed);
         }
 
         if (states.Equals(PlayerState.ultimate))

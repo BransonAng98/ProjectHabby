@@ -16,7 +16,6 @@ public class Civilian : MonoBehaviour
     public Transform player;
     public Animator anim;
     public GameObject deathVFX;
-    public GameObject coinVFX;
    
     private float lastPosX;
     [SerializeField] float walkSpeed;
@@ -357,7 +356,6 @@ public class Civilian : MonoBehaviour
         if (!hasSpawned)
         {
             Instantiate(deathVFX, transform.position, Quaternion.identity);
-            Instantiate(coinVFX, transform.position, Quaternion.Euler(0f, 0f, 0f));
             hasSpawned = true;
         }
 
@@ -374,6 +372,7 @@ public class Civilian : MonoBehaviour
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
         scoremanager.amtOfcivilians += 1;
+        scoremanager.goldearned += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;

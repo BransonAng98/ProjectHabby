@@ -1180,7 +1180,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 9
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.764151, g: 0.20545568, b: 0.20901434, a: 0.70980394}
+  m_Color: {r: 0.14117648, g: 0.7647059, b: 0.59607846, a: 0.70980394}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4983,6 +4983,7 @@ MonoBehaviour:
   destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
   objectiveText: {fileID: 463412152}
+  GoWord: {fileID: 2003536929}
   textMoveSpeed: 250
   textFadeDuration: 1
   textMoveDuration: 1.8
@@ -5801,8 +5802,8 @@ MonoBehaviour:
   - {fileID: 1382596275936686184, guid: 6113e78fd52aea94fa86acbdc10ba1aa, type: 3}
   - {fileID: 7209707194317485303, guid: 3646ce03af0d91d42a517ec25c6e7db4, type: 3}
   - {fileID: 5701827066488964064, guid: a856e0c12cb4d454e9d3cf428fad794c, type: 3}
-  - {fileID: 1596909546565700212, guid: 62bac595180a51d48ab143c493283d92, type: 3}
-  - {fileID: 7209707194317485303, guid: 212687844c1a28948ba4ebab68b47797, type: 3}
+  - {fileID: 5701827066488964064, guid: e8d41b46ede742a4b8e3dba69de75492, type: 3}
+  - {fileID: 1382596275936686184, guid: cfb0b3c17cd82714d9d090241e456cce, type: 3}
   numberOfColumns: 3
   numberOfRows: 3
   spacingX: 25.6
@@ -5816,7 +5817,7 @@ MonoBehaviour:
   prefab5Count: 1
   prefab6Count: 1
   prefab7Count: 1
-  prefab8Count: 0
+  prefab8Count: 1
   prefab9Count: 0
   prefab10Count: 0
   prefab11Count: 0
@@ -6185,6 +6186,11 @@ GameObject:
 --- !u!1 &2003536928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5531373218269190576, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+  m_PrefabInstance: {fileID: 2003536924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2003536929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6976262511260451146, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_PrefabInstance: {fileID: 2003536924}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2016763000
@@ -6693,6 +6699,7 @@ MonoBehaviour:
   amtOfCarskilled: 0
   timeLeft: 0
   goldearned: 0
+  goldDisplay: {fileID: 0}
   bigbuildingKilled: 0
   smallbuildingKilled: 0
   clock: {fileID: 0}

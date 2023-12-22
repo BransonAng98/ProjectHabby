@@ -10,6 +10,7 @@ public class ScoreManagerScript : MonoBehaviour
     public int amtOfCarskilled;
     public float timeLeft;
     public int goldearned;
+    public TextMeshProUGUI goldDisplay;
   
     public int bigbuildingKilled;
     public int smallbuildingKilled;
@@ -19,18 +20,20 @@ public class ScoreManagerScript : MonoBehaviour
     void Start()
     {
         clock = GameObject.Find("Timer").GetComponent<ClockSystem>();
+        goldDisplay = GameObject.Find("CoinText").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         timeLeft = clock.timerValue;
-        GoldCalculation();
-        
+        //GoldCalculation();
+        goldDisplay.text = "" + goldearned;
+
     }
 
     void GoldCalculation()
     {
-        goldearned = (amtOfcivilians * 1) + (amtOfCarskilled * 3) + (smallbuildingKilled * 5) + (bigbuildingKilled * 10);
+        //goldearned = (amtOfcivilians * 1) + (amtOfCarskilled * 3) + (smallbuildingKilled * 5) + (bigbuildingKilled * 10);
     }
 }
