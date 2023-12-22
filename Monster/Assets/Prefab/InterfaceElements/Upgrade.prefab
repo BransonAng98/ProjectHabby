@@ -313,38 +313,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
-        m_MethodName: CheckForSufficientFunds
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2454078751496637154}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
+      - m_Target: {fileID: 4387275691401925708}
+        m_TargetAssemblyTypeName: ButtonDataHandler, Assembly-CSharp
         m_MethodName: TriggerUpgrade
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UpgradeButtonManager, Assembly-CSharp
-        m_MethodName: StoreButtonData
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -361,6 +337,7 @@ GameObject:
   - component: {fileID: 2454078751260441171}
   - component: {fileID: 2454078751260441170}
   - component: {fileID: 2454078751260441180}
+  - component: {fileID: 4387275691401925708}
   m_Layer: 0
   m_Name: IconButton
   m_TagString: Untagged
@@ -469,7 +446,39 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2454078751260441170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4387275691401925708}
+        m_TargetAssemblyTypeName: ButtonDataHandler, Assembly-CSharp
+        m_MethodName: OpenSecondFrame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4387275691401925708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2454078751260441168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d34eeca9e65954eb322799c9dbc5fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonID: Upgrade
+  upgradeTier: 0
+  buttonState: 0
+  playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
+  resourceData: {fileID: 0}
+  secondFrame: {fileID: 5418127026803406915}
+  secondButton: {fileID: 0}
+  upgradeCost: 0
 --- !u!1 &2454078751284231939
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6945567889615181411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1154,7 +1163,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5760464111562494689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4387275691401925708}
+        m_TargetAssemblyTypeName: ButtonDataHandler, Assembly-CSharp
+        m_MethodName: CloseSecondScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8605928854471706777
 GameObject:
   m_ObjectHideFlags: 0
