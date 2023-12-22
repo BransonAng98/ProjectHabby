@@ -178,6 +178,7 @@ public class CarAI : MonoBehaviour
         Invoke("StopVibration", 1f);
         spriteRenderer.sortingOrder = 2;   
         scoremanager.amtOfCarskilled += 1;
+        scoremanager.goldearned += 3;
         if (!hasTriggered)
         {
             levelManager.CalculateScore(3);
