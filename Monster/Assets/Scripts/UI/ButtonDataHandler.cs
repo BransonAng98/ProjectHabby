@@ -90,6 +90,7 @@ public class ButtonDataHandler : MonoBehaviour
         }
 
         SaveData();
+        resourceData.currentGold -= upgradeCost;
         secondButton.interactable = false;
         secondFrame.SetActive(false);
         purchaseImage.SetActive(true);
