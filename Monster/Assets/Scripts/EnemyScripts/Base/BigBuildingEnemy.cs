@@ -158,7 +158,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void Death()
     {
-        //VibrateHaptics.VibrateDoubleClick();
+        VibrateHaptics.VibrateDoubleClick();
         audiomanager.playBuildingDeathSFX();
         scoremanager.amtOfStructures += 1;
        // playDeathSFX();
@@ -180,7 +180,6 @@ public class BigBuildingEnemy : MonoBehaviour
         spriteRenderer.sprite = destroyedBuilding;
         spriteRenderer.sortingOrder = 1;
         Invoke("StopVibration", 1f);
-        //VibrateHaptics.Release();
     }
 
     void StopVibration()
