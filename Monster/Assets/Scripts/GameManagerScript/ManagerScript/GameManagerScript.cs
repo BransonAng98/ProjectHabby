@@ -282,13 +282,13 @@ public class GameManagerScript : MonoBehaviour
     private System.Collections.IEnumerator CountdownCoroutine()
     {
         yield return new WaitForSeconds(1.0f);
-        SetCountdownText("3...");
+        SetCountdownText("3");
 
         yield return new WaitForSeconds(1.0f);
-        SetCountdownText("2...");
+        SetCountdownText("2");
 
         yield return new WaitForSeconds(1.0f);
-        SetCountdownText("1...");
+        SetCountdownText("1");
 
         yield return new WaitForSeconds(1.0f);
         SetCountdownText("GO!");

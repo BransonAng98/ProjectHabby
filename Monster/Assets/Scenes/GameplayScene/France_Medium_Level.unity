@@ -4992,10 +4992,11 @@ MonoBehaviour:
   destructionBar: {fileID: 787201166}
   levelText: {fileID: 2003536925}
   objectiveText: {fileID: 463412152}
-  GoWord: {fileID: 2003536929}
+  startingText: {fileID: 0}
   textMoveSpeed: 250
   textFadeDuration: 1
   textMoveDuration: 1.8
+  countdownDuration: 3
   isVictory: 0
   hasActivated: 0
   fadeDuration: 1
@@ -5907,6 +5908,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49355455368460341, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 387.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1022420650030304622, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6193,11 +6198,6 @@ GameObject:
 --- !u!1 &2003536928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5531373218269190576, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
-  m_PrefabInstance: {fileID: 2003536924}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2003536929 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6976262511260451146, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
   m_PrefabInstance: {fileID: 2003536924}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2016763000
