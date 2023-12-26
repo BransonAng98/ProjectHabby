@@ -36,17 +36,17 @@ public class CrabUltimateU : UltimateBase
         {
             case 1:
                 ultimateDuration = 5f;
-                barDecreaseRate = 40f;
+                barDecreaseRate = 80f;
                 break;
 
             case 2:
                 ultimateDuration = 7f;
-                barDecreaseRate = 28f;
+                barDecreaseRate = 56f;
                 break;
 
             case 3:
                 ultimateDuration = 10f;
-                barDecreaseRate = 19.9f;
+                barDecreaseRate = 39.8f;
                 break;
 
         }
