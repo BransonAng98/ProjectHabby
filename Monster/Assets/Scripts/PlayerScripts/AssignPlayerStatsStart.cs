@@ -69,7 +69,7 @@ public class AssignPlayerStatsStart : MonoBehaviour
             playerData.upgradeLevel = 1;
         }
 
-        //Assign comic & tutorial variables
+        //Assign comic variables
         if (PlayerPrefs.HasKey("CutscenePlayed"))
         {
             levelData.cutscenePlayed = true;
@@ -78,6 +78,17 @@ public class AssignPlayerStatsStart : MonoBehaviour
         else
         {
             levelData.cutscenePlayed = false;
+        }
+
+        //Assign tutorial variables
+        if (PlayerPrefs.HasKey("TutorialPlayed"))
+        {
+            levelData.tutorialPlayed = true;
+        }
+
+        else
+        {
+            levelData.tutorialPlayed = false;
         }
     }
 }

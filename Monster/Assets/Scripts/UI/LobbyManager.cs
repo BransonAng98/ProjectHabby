@@ -92,7 +92,7 @@ public class LobbyManager : MonoBehaviour
             switch (levelData.cityLevel)
             {
                 case 1:
-                    SceneManager.LoadScene("France_Easy_Level");
+                    SceneManager.LoadScene("France_Tutorial_Level");
                     break;
 
                 case 2:

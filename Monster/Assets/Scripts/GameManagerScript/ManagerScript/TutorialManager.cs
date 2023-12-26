@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     public Image tutorialpage2;
     private bool pg1isActive;
     private bool pg2isActive;
+    public LevelManagerScriptableObject leveldata;
 
     [SerializeField] int currentPg;
     public GameManagerScript gamemanager;
@@ -54,6 +55,8 @@ public class TutorialManager : MonoBehaviour
             {
                 tutorialpage2.enabled = false;
                 Time.timeScale = 1;
+                leveldata.tutorialPlayed = true;
+                PlayerPrefs.SetString("TutorialPlayed", "Tutorial has been played");
             }
         }
     }
