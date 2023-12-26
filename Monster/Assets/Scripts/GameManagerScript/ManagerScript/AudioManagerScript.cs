@@ -23,7 +23,6 @@ public class AudioManagerScript : MonoBehaviour
     public AudioClip wooshSFX2;
     public AudioClip[] screamingSFX;
     public AudioClip sirenSFX;
-    public AudioClip bgm;
     public AudioClip Victory;
     public AudioClip Defeat;
     public AudioClip[] buildingdamageSFX;
@@ -68,7 +67,7 @@ public class AudioManagerScript : MonoBehaviour
 
     public void PlayBGM()
     {
-        BGMSource.PlayOneShot(bgm);
+        BGMSource.Play();
     }
     
     public void PlayVictoryBGM()
