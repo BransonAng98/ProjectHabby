@@ -47,6 +47,7 @@ public class GameManagerScript : MonoBehaviour
     public ClockSystem clock;
     public GameObject scoreDisplay;
     public bool gameEnded;
+    public bool activatePlayer;
 
     private void Start()
     {
@@ -129,6 +130,7 @@ public class GameManagerScript : MonoBehaviour
 
     void ActivateInput()
     {
+   
         inputHandler.enableInput = true;
         inputHandler.canAttack = true;
         inputHandler.canMove = true;
@@ -137,15 +139,18 @@ public class GameManagerScript : MonoBehaviour
         //inputHandler.entitycollider.enabled = true;
         inputHandler.EnableColliders();
         joystick.SetActive(true);
+      
     }
 
     public void SpawnPlayer()
     {
+       
         audiomanager.babblingAudioSource.Stop();
         player.GetComponent<MeshRenderer>().enabled = true;
         inputHandler.DisableMovement(5);
         playerStatusBars.SetActive(true);
         hitIndicator.SetActive(true);
+        
     }
 
     void SpawnMeteor()
@@ -254,6 +259,7 @@ public class GameManagerScript : MonoBehaviour
 
         // Turn off the objective text
         objectiveText.enabled = false;
+        activatePlayer = true;
     }
 
     public void TriggerIntro()
