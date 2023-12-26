@@ -1820,7 +1820,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1be67d6cda070dc418ff10a6eea512b4, type: 3}
   - {fileID: 8300000, guid: 097db12577f665d42a5e646bfd4224bf, type: 3}
   sirenSFX: {fileID: 8300000, guid: a5284de6aaae2b34ba3910199ad9b918, type: 3}
-  bgm: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
   Victory: {fileID: 8300000, guid: 565a4ffccc2017f4586c83266f7593c7, type: 3}
   Defeat: {fileID: 8300000, guid: fe7114cc7ffa3da49a8269de21008db2, type: 3}
   buildingdamageSFX:
@@ -1853,7 +1852,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4d092582d88dea544ac0dd5189988f84, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.06
   m_Pitch: 1
@@ -1951,7 +1950,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5007,6 +5006,7 @@ MonoBehaviour:
   clock: {fileID: 1294789420}
   scoreDisplay: {fileID: 1771012712}
   gameEnded: 0
+  activatePlayer: 0
 --- !u!114 &1267804334
 MonoBehaviour:
   m_ObjectHideFlags: 0
