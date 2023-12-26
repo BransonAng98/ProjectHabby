@@ -88,6 +88,7 @@ public class ButtonDataHandler : MonoBehaviour
         if(playerData.upgradeLevel < 10)
         {
             playerData.upgradeLevel++;
+            PlayerPrefs.SetInt("PlayerUpgradeLevel", playerData.upgradeLevel);
         }
 
         SaveData();
@@ -99,14 +100,17 @@ public class ButtonDataHandler : MonoBehaviour
         {
             case 1:
                 playerData.maxhealth += 10;
+                PlayerPrefs.SetInt("PlayerHealth", playerData.maxhealth);
                 break;
 
             case 2:
                 playerData.speed += 1;
+                PlayerPrefs.SetFloat("PlayerMovement", playerData.speed);
                 break;
 
             case 3:
                 playerData.attackDamage += 1;
+                PlayerPrefs.SetFloat("PlayerAttackDamage", playerData.attackDamage);
                 break;
 
             case 4:
@@ -119,6 +123,7 @@ public class ButtonDataHandler : MonoBehaviour
                 else
                 {
                     playerData.ultimateLevel += 1;
+                    PlayerPrefs.SetInt("PlayerUltimateLevel", playerData.ultimateLevel);
                 }
                 break;
 

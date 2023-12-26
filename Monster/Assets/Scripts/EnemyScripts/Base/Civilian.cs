@@ -371,8 +371,13 @@ public class Civilian : MonoBehaviour
             //PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
-        scoremanager.amtOfcivilians += 1;
-        scoremanager.goldearned += 1;
+
+        if(isKicking == false)
+        {
+            scoremanager.amtOfcivilians += 1;
+            scoremanager.goldearned += 1;
+        }
+     
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
@@ -420,6 +425,7 @@ public class Civilian : MonoBehaviour
 
             case EnemyState.fall:
                 anim.SetBool("fall", true);
+                isKicking = true;
                 spriteRenderer.sortingOrder = 4;
                 FallToRun();
                 break;
