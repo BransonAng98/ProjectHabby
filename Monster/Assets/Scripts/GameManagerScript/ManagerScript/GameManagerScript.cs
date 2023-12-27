@@ -49,6 +49,9 @@ public class GameManagerScript : MonoBehaviour
     public bool gameEnded;
     public bool activatePlayer;
 
+    //Update Player progress
+    [SerializeField] PlayerProgressChecker progressChecker;
+
     private void Start()
     {
         VibrateHaptics.Initialize();
@@ -59,6 +62,7 @@ public class GameManagerScript : MonoBehaviour
         startingText = GameObject.Find("GoText").GetComponent<TextMeshProUGUI>();
         //GNAManager = GetComponent<GNAManager>();
         player.GetComponent<MeshRenderer>().enabled = false;
+        progressChecker = GetComponent<PlayerProgressChecker>();
         //scoreDisplay.SetActive(false);
         endScreen.SetActive(false);
         //AstarPath.active.Scan(); //scan the grid
@@ -111,6 +115,7 @@ public class GameManagerScript : MonoBehaviour
     {
         VibrateHaptics.VibrateClick();
         VibrateHaptics.Release();
+        progressChecker.UpdatePlayerProgress();
         SceneManager.LoadScene("LevelSelectScene");
     }
 

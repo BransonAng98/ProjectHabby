@@ -69,6 +69,17 @@ public class AssignPlayerStatsStart : MonoBehaviour
             playerData.upgradeLevel = 1;
         }
 
+        //Assign saved player progress level
+        if (PlayerPrefs.HasKey("LevelProgress"))
+        {
+            playerData.levelProgress = PlayerPrefs.GetInt("LevelProgress");
+        }
+
+        else
+        {
+            playerData.levelProgress = 0;
+        }
+
         //Assign comic variables
         if (PlayerPrefs.HasKey("CutscenePlayed"))
         {

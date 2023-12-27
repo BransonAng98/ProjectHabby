@@ -48,7 +48,7 @@ public class ComicManager : MonoBehaviour
         levelData.cutscenePlayed = true;
         PlayerPrefs.SetString("CutscenePlayed", "Cutscene has been played");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("France_Easy_Level");
+        SceneManager.LoadScene("France_Tutorial_Level");
     }
 
 }
