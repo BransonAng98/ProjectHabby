@@ -333,6 +333,5 @@ public class GameManagerScript : MonoBehaviour
         // Ensure it reaches the target alpha exactly
         canvasGroup.alpha = 1f;
     }
-
-    //Trigger all the end game stuff
+    
 }

@@ -7,6 +7,7 @@ using TMPro;
 public class EventManager : MonoBehaviour
 {
     public int numberOfEvents;
+    public float eventTiming;
     public int eventNumber;
 
     public TextMeshProUGUI bannerText;
@@ -54,6 +55,7 @@ public class EventManager : MonoBehaviour
         }
 
         TriggerEndStatus();
+        eventTiming = clock.eventInterval;
     }
 
     public void GenerateEvents()
