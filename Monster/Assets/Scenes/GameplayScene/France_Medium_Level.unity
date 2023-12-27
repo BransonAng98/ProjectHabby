@@ -4203,7 +4203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcad79fd07cf1d64aba8377648cbe4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfEvents: 3
+  numberOfEvents: 6
+  eventTiming: 0
   eventNumber: 0
   bannerText: {fileID: 1912748599}
   endStatusText: {fileID: 1103916801}
@@ -4923,6 +4924,7 @@ GameObject:
   - component: {fileID: 1267804334}
   - component: {fileID: 1267804335}
   - component: {fileID: 1267804336}
+  - component: {fileID: 1267804337}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -5007,6 +5009,7 @@ MonoBehaviour:
   scoreDisplay: {fileID: 1771012712}
   gameEnded: 0
   activatePlayer: 0
+  progressChecker: {fileID: 0}
 --- !u!114 &1267804334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5054,6 +5057,21 @@ MonoBehaviour:
   menuaudiomanager: {fileID: 0}
   PauseMenu: {fileID: 705295604}
   PauseButton: {fileID: 1717869733}
+--- !u!114 &1267804337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267804328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6c7b5716870f94c80972862be49e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelID: 2
+  playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
+  storedLevelProgression: 0
 --- !u!114 &1294789420 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2695255128511029154, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}

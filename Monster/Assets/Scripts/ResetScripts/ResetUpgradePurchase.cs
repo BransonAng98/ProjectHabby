@@ -14,7 +14,6 @@ public class ResetUpgradePurchase : MonoBehaviour
 
     public void ResetUpgrade()
     {
-        resourceData.currentGold = 10000;
         playerData.upgradeLevel = 1;
         PlayerPrefs.DeleteAll();
     }

@@ -112,9 +112,10 @@ public class PlayerHandler : MonoBehaviour, ISoundable
     public AudioSource attackAudioSource;
     public AudioSource jumpAudioSource;
     public AudioSource roarAudioSource;
+    public AudioSource ultimateroarAudioSource;
     public AudioClip[] foostepsSFX;
     public AudioClip[] attackSFX;
-    public AudioClip monsterRoarSFX;
+    public AudioClip[] monsterRoarSFX;
     public AudioClip[] painRoarSFX;
 
     // Start is called before the first frame update
@@ -853,7 +854,9 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             if (currentUltimateCharge >= playerData.maxUltimateCharge)
             {
+                
                 currentUltimateCharge = playerData.maxUltimateCharge;
+               
             }
         }
 
@@ -865,6 +868,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void UseUltimate(int whichUlt)
     {
+        UltimateRoar();
         canEarnUlt = false;
         switch (whichUlt)
         {
@@ -903,6 +907,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     public void TriggerUltimate1()
     {
+        
         VibrateHaptics.VibrateHeavyClick();
         Invoke("StopVibration", 1f);
         utlimates[0].UseDamageUltimate();
@@ -912,6 +917,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void TriggerUltimate2()
     {
+      
         vfxManager.StartFading();
         countdown = 1f;
         canAttack = false;
@@ -1025,6 +1031,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 if (!isExhausting)
                 {
                     isExhausting = true;
+                    ExhaustedRoar();
                 }
                 break;
 
@@ -1404,11 +1411,24 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
             if (idleRoarTimer > varTime)
             {
-                roarAudioSource.PlayOneShot(monsterRoarSFX);
+                AudioClip soundtoPlay = monsterRoarSFX[Random.Range(0, 0)];
+                roarAudioSource.PlayOneShot(soundtoPlay);
                 varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
                 idleRoarTimer = 0f;
             }
         }
+    }
+
+    public void UltimateRoar()
+    {
+        AudioClip soundtoPlay = monsterRoarSFX[Random.Range(1,4)];
+        ultimateroarAudioSource.PlayOneShot(soundtoPlay);
+    }
+
+    public void ExhaustedRoar()
+    {
+        AudioClip soundtoPlay = monsterRoarSFX[Random.Range(5,6)];
+        ultimateroarAudioSource.PlayOneShot(soundtoPlay);
     }
 
     public void PainRoar()
