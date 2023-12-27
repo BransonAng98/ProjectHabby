@@ -109,8 +109,8 @@ public class LobbyManager : MonoBehaviour
         {
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
-
             VibrateHaptics.Release();
+            levelData.cityLevel = selectedLevel;
             switch (selectedLevel)
             {
                 case 0:
