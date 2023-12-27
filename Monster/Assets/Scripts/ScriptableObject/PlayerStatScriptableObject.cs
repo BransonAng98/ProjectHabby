@@ -21,6 +21,7 @@ public class PlayerStatScriptableObject : ScriptableObject
     public int setUltimate;
     public int ultimateLevel;
     public int upgradeLevel;
+    public int levelProgress;
 
     private void OnEnable()
     {

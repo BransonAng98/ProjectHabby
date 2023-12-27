@@ -26,13 +26,58 @@ public class LobbyManager : MonoBehaviour
     
     private StaminaSystem staminaSystem;
 
+    [SerializeField] int selectedLevel;
+    public TextMeshProUGUI levelIndicator;
+    public Button attackButton;
+    public Button leftButton;
+    public Button rightButton;
+
     // Start is called before the first frame update
     void Start()
     {
         menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
         staminaSystem = GameObject.Find("StaminaSystem").GetComponent<StaminaSystem>();
         VibrateHaptics.Initialize();
+        SetLevelAtStart();
+    }
+
+    private void Update()
+    {
         UpdateLevelData();
+        LimitLevelEnds();
+    }
+
+    void LimitLevelEnds()
+    {
+        if(selectedLevel == 1 && levelData.worldID == 1)
+        {
+            leftButton.interactable = false;
+        }
+
+        else
+        {
+            leftButton.interactable = true;
+        }
+
+        if(selectedLevel == 6 && levelData.worldID == 3)
+        {
+            rightButton.interactable = false;
+        }
+
+        else
+        {
+            rightButton.interactable = true;
+        }
+    }
+
+    void SetLevelAtStart()
+    {
+        selectedLevel = playerData.levelProgress;
+        if(selectedLevel > 6)
+        {
+            levelData.worldID++;
+            selectedLevel = 1;
+        }
     }
 
     void SetCountryName()
@@ -78,7 +123,8 @@ public class LobbyManager : MonoBehaviour
     {
         SetCountryName();
         SetCountryFlag();
-        levelName.text = countryName + ": " + levelData.cityLevel;
+        levelName.text = countryName;
+        levelIndicator.text = selectedLevel.ToString();
     }
 
     public void LoadLevel()
@@ -87,16 +133,20 @@ public class LobbyManager : MonoBehaviour
         {
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
-
             VibrateHaptics.Release();
-            switch (levelData.cityLevel)
+            levelData.cityLevel = selectedLevel;
+            switch (selectedLevel)
             {
+                case 0:
+                    SceneManager.LoadScene("France_Easy_Level");
+                    break;
+
                 case 1:
-                    SceneManager.LoadScene("France_Tutorial_Level");
+                    SceneManager.LoadScene("France_Easy_Level");
                     break;
 
                 case 2:
-                    SceneManager.LoadScene("France_Easy_Level");
+                    SceneManager.LoadScene("France_Medium_Level");
                     break;
 
                 case 3:
@@ -104,14 +154,10 @@ public class LobbyManager : MonoBehaviour
                     break;
 
                 case 4:
-                    SceneManager.LoadScene("France_Medium_Level");
-                    break;
-
-                case 5:
                     SceneManager.LoadScene("France_Hard_Level");
                     break;
 
-                case 6:
+                case 5:
                     SceneManager.LoadScene("LandmarkDesScene");
                     break;
             }
@@ -173,5 +219,78 @@ public class LobbyManager : MonoBehaviour
     private void OnDestroy()
     {
         VibrateHaptics.Release();
+    }
+
+    public void GoBack()
+    {
+        if(selectedLevel > 1)
+        {
+            selectedLevel--;
+        }
+
+        else
+        {
+            if(levelData.worldID > 1)
+            {
+                levelData.worldID--;
+                selectedLevel = 6;
+            }
+
+            else
+            {
+                selectedLevel = 1;
+            }
+        }
+
+        CheckButtonActive();
+    }
+
+    public void GoForward()
+    {
+        if (selectedLevel < 6)
+        {
+            selectedLevel++;
+        }
+
+        else
+        {
+            if(levelData.worldID > 3)
+            {
+                return;
+            }
+            levelData.worldID++;
+            selectedLevel = 1;
+        }
+        CheckButtonActive();
+    }
+
+    void CheckButtonActive()
+    {
+        if(levelData.worldID > 1)
+        {
+            attackButton.interactable = false;
+        }
+
+        else
+        {
+            if(selectedLevel <= playerData.levelProgress)
+            {
+                if(selectedLevel == 6 && PlayerPrefs.HasKey("LandmarkDestructionCleared"))
+                {
+                    attackButton.interactable = false;
+                }
+
+                else
+                {
+
+                    attackButton.interactable = true;
+
+                }
+            }
+            else
+            {
+                attackButton.interactable = false;
+            }
+        }
     }
 }

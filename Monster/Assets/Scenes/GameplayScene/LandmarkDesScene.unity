@@ -2244,6 +2244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1609969051}
   - component: {fileID: 1609969052}
+  - component: {fileID: 1609969053}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -2279,6 +2280,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: b2a1f5841014e914caacedec67cfc4ad, type: 2}
+  progressChecker: {fileID: 0}
+--- !u!114 &1609969053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609969050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6c7b5716870f94c80972862be49e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelID: 4
+  playerData: {fileID: 11400000, guid: 59dab0eb911ed154a9696246ede0b205, type: 2}
+  storedLevelProgression: 0
 --- !u!1 &1663061674
 GameObject:
   m_ObjectHideFlags: 0
