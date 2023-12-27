@@ -44,6 +44,30 @@ public class LobbyManager : MonoBehaviour
     private void Update()
     {
         UpdateLevelData();
+        LimitLevelEnds();
+    }
+
+    void LimitLevelEnds()
+    {
+        if(selectedLevel == 1 && levelData.worldID == 1)
+        {
+            leftButton.interactable = false;
+        }
+
+        else
+        {
+            leftButton.interactable = true;
+        }
+
+        if(selectedLevel == 6 && levelData.worldID == 3)
+        {
+            rightButton.interactable = false;
+        }
+
+        else
+        {
+            rightButton.interactable = true;
+        }
     }
 
     void SetLevelAtStart()
@@ -209,7 +233,7 @@ public class LobbyManager : MonoBehaviour
             if(levelData.worldID > 1)
             {
                 levelData.worldID--;
-                selectedLevel = 5;
+                selectedLevel = 6;
             }
 
             else
@@ -251,32 +275,22 @@ public class LobbyManager : MonoBehaviour
         {
             if(selectedLevel <= playerData.levelProgress)
             {
-                attackButton.interactable = true;
+                if(selectedLevel == 6 && PlayerPrefs.HasKey("LandmarkDestructionCleared"))
+                {
+                    attackButton.interactable = false;
+                }
+
+                else
+                {
+
+                    attackButton.interactable = true;
+
+                }
             }
             else
             {
                 attackButton.interactable = false;
             }
-        }
-
-        if(levelData.worldID == 1 && selectedLevel == 1)
-        {
-            leftButton.interactable = false;
-        }
-
-        else
-        {
-            leftButton.interactable = true;
-        }
-
-        if(levelData.worldID == 3 && selectedLevel == 5)
-        {
-            rightButton.interactable = false;
-        }
-
-        else
-        {
-            rightButton.interactable = true;
         }
     }
 }
