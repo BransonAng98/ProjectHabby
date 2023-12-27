@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialManager : MonoBehaviour
+public class UpgradeTutorialManager : MonoBehaviour
 {
     public Image tutorialpage1;
     public Image tutorialpage2;
     public LevelManagerScriptableObject leveldata;
+    public ButtonDataHandler buttonscript;
 
     [SerializeField] int currentPg;
-    public GameManagerScript gamemanager;
     // Start is called before the first frame update
     void Start()
     {
+        buttonscript = GameObject.Find("IconButton1").GetComponent<ButtonDataHandler>();
         currentPg = 0;
-        gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         tutorialpage1.enabled = false;
         tutorialpage2.enabled = false;
-
     }
 
     // Update is called once per frame
@@ -31,31 +30,33 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-
-
     public void ShowTutorial()
     {
-        if (gamemanager.activatePlayer == true)
+        if (leveldata.upgradetutorialPlayed == false)
         {
-            if(currentPg == 1)
+            if (currentPg == 0)
             {
-                Time.timeScale = 0;
                 tutorialpage1.enabled = true;
-                
+
             }
 
-            if(currentPg == 2)
+            if (currentPg == 1)
             {
                 tutorialpage1.enabled = false;
-                tutorialpage2.enabled = true;
             }
-            if(currentPg == 3)
+            if (currentPg == 2 & buttonscript.secondFrameOn == true)
+            {
+                tutorialpage2.enabled = true;
+               
+            }
+
+            if (currentPg == 3)
             {
                 tutorialpage2.enabled = false;
-                Time.timeScale = 1;
-                leveldata.tutorialPlayed = true;
-                PlayerPrefs.SetString("TutorialPlayed", "Tutorial has been played");
+                leveldata.upgradetutorialPlayed = true;
+                PlayerPrefs.SetString("UpgradeTutorialPlayed", "Upgrade Tutorial has been played");
             }
+
         }
     }
 }

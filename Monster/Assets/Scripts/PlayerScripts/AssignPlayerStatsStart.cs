@@ -101,5 +101,25 @@ public class AssignPlayerStatsStart : MonoBehaviour
         {
             levelData.tutorialPlayed = false;
         }
+
+        if (PlayerPrefs.HasKey("LevelSelectTutorialPlayed"))
+        {
+            levelData.levelselecttutorialPlayed = true;
+        }
+
+        else
+        {
+            levelData.levelselecttutorialPlayed = false;
+        }
+
+        if (PlayerPrefs.HasKey("UpgradeTutorialPlayed"))
+        {
+            levelData.upgradetutorialPlayed = true;
+        }
+
+        else
+        {
+            levelData.upgradetutorialPlayed = false;
+        }
     }
 }
