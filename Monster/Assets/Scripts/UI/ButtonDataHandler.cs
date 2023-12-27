@@ -16,7 +16,7 @@ public class ButtonDataHandler : MonoBehaviour
     public Button secondButton;
     public TextMeshProUGUI upgradeText;
     public int upgradeCost;
-
+    public bool secondFrameOn;
     public GameObject purchaseImage;
     // Start is called before the first frame update
     void Start()
@@ -64,6 +64,7 @@ public class ButtonDataHandler : MonoBehaviour
     {
         if (!secondFrame.activeSelf)
         {
+            secondFrameOn = true;
             secondFrame.SetActive(true);
             thisGO.interactable = false;
             CheckSecondButtonActive();

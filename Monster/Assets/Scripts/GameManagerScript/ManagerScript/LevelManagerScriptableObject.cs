@@ -11,6 +11,8 @@ public class LevelManagerScriptableObject : ScriptableObject
     public float currentDestruction;
     public bool cutscenePlayed;
     public bool tutorialPlayed;
+    public bool levelselecttutorialPlayed;
+    public bool upgradetutorialPlayed;
     public bool loopGame;
     public float baseTime;
 
