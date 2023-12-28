@@ -89,7 +89,7 @@ public class MeteorScript : MonoBehaviour
         Invoke("DelayStopShake", 0.6f);
         MeteorCrashingSFX();
         SpawnCrater();
-        playerHandler.ChargeUltimate(45);
+        playerHandler.ChargeUltimate(20);
         Vector2 OverlapPos = new Vector2(playerHandler.transform.position.x, playerHandler.transform.position.y +1f);
      
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(OverlapPos, meteorRadius);

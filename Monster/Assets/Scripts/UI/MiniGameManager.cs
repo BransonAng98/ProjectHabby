@@ -8,6 +8,7 @@ public class MiniGameManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     [SerializeField] PlayerProgressChecker progressChecker;
+    public PlayerStatScriptableObject playerData;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class MiniGameManager : MonoBehaviour
         Debug.Log("Trying to change");
         levelData.worldID = 1;
         levelData.cityLevel = 1;
+        playerData.levelProgress++;
         progressChecker.UpdatePlayerProgress();
         SceneManager.LoadScene("LevelSelectScene");
     }

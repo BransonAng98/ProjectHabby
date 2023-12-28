@@ -110,8 +110,12 @@ public class ClockSystem : MonoBehaviour
     {
         switch (levelData.cityLevel)
         {
-            case 1:
+            case 0:
                 addOnTime = 0;
+                break;
+
+            case 1:
+                addOnTime = 20;
                 break;
 
             case 2:
@@ -121,17 +125,12 @@ public class ClockSystem : MonoBehaviour
 
             case 3:
                 //Prev was 45
-                addOnTime = 75;
+                addOnTime = 50;
                 break;
 
             case 4:
                 //Prev was 60
-                addOnTime = 90;
-                break;
-
-            case 5:
-                //prev was 90
-                addOnTime = 135;
+                addOnTime = 70;
                 break;
         }
 

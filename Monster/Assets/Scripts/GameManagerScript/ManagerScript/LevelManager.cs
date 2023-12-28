@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
+    public PlayerStatScriptableObject playerData;
     private float calculateCityDestruction;
     public float calculation1;
 
@@ -55,23 +56,19 @@ public class LevelManager : MonoBehaviour
         switch (levelData.cityLevel)
         {
             case 1:
-                calculateCityDestruction = 0;
+                calculateCityDestruction = 20;
                 break;
 
             case 2:
-                calculateCityDestruction = 150f;
-                break;
-
-            case 3:
-                calculateCityDestruction = 350;
-                break;
-
-            case 4:
                 calculateCityDestruction = 450f;
                 break;
 
-            case 5:
+            case 3:
                 calculateCityDestruction = 750f;
+                break;
+
+            case 4:
+                calculateCityDestruction = 2250f;
                 break;
         }
 
@@ -93,7 +90,8 @@ public class LevelManager : MonoBehaviour
                 playerHandler.DisableMovement(2);
 
                 levelData.cityLevel += 1;
-
+                playerData.levelProgress++;
+                PlayerPrefs.SetInt("CityLevelStored", levelData.cityLevel);
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
                 isTriggered = true;

@@ -15,6 +15,7 @@ public class PlayerProgressChecker : MonoBehaviour
 
     public void UpdatePlayerProgress()
     {
+        //playerData.levelProgress++;
         //switch (levelID)
         //{
         //    //Tutorial

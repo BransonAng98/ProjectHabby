@@ -91,6 +91,17 @@ public class AssignPlayerStatsStart : MonoBehaviour
             levelData.cutscenePlayed = false;
         }
 
+        //Assign city Level variables
+        if (PlayerPrefs.HasKey("CityLevelStored"))
+        {
+            levelData.cityLevel = PlayerPrefs.GetInt("CityLevelStored");
+        }
+
+        else
+        {
+            levelData.cityLevel = 0;
+        }
+
         //Assign tutorial variables
         if (PlayerPrefs.HasKey("TutorialPlayed"))
         {

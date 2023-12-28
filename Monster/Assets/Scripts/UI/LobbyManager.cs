@@ -131,51 +131,49 @@ public class LobbyManager : MonoBehaviour
 
     public void TurnOnLoading()
     {
-        loadingscreen.SetActive(true);
-        Invoke("LoadLevel", 3f);
-    }
-
-
-    public void LoadLevel()
-    {
-        
         if (staminaSystem.currentEnergy >= 5)
         {
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
             VibrateHaptics.Release();
-            switch (levelData.cityLevel)
-            {
-                case 0:
-                    SceneManager.LoadScene("France_Easy_Level");
-                    break;
 
-                case 1:
-                    SceneManager.LoadScene("France_Easy_Level");
-                    break;
-
-                case 2:
-                    SceneManager.LoadScene("France_Medium_Level");
-                    break;
-
-                case 3:
-                    SceneManager.LoadScene("France_Medium_Level");
-                    break;
-
-                case 4:
-                    SceneManager.LoadScene("France_Hard_Level");
-                    break;
-
-                case 5:
-                    SceneManager.LoadScene("LandmarkDesScene");
-                    break;
-            }
-
-            playerData.levelProgress++;
+            loadingscreen.SetActive(true);
+            Invoke("LoadLevel", 3f);
         }
         else
         {
             Debug.Log("Insufficient Energy You Fool!");
+        }
+    }
+
+
+    public void LoadLevel()
+    {
+        switch (levelData.cityLevel)
+        {
+            case 0:
+                SceneManager.LoadSceneAsync("France_Easy_Level");
+                break;
+
+            case 1:
+                SceneManager.LoadSceneAsync("France_Easy_Level");
+                break;
+
+            case 2:
+                SceneManager.LoadSceneAsync("France_Medium_Level");
+                break;
+
+            case 3:
+                SceneManager.LoadSceneAsync("France_Medium_Level");
+                break;
+
+            case 4:
+                SceneManager.LoadSceneAsync("France_Hard_Level");
+                break;
+
+            case 5:
+                SceneManager.LoadSceneAsync("LandmarkDesScene");
+                break;
         }
 
 
