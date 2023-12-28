@@ -31,6 +31,10 @@ public class LobbyManager : MonoBehaviour
     public Button leftButton;
     public Button rightButton;
 
+    public GameObject loadingscreen;
+    [SerializeField] private bool isLoading;
+    private int currentIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,8 +129,16 @@ public class LobbyManager : MonoBehaviour
         levelName.text = countryName + ": " + selectedLevel;
     }
 
+    public void TurnOnLoading()
+    {
+        loadingscreen.SetActive(true);
+        Invoke("LoadLevel", 3f);
+    }
+
+
     public void LoadLevel()
     {
+        
         if (staminaSystem.currentEnergy >= 5)
         {
             VibrateHaptics.VibrateDoubleClick();
