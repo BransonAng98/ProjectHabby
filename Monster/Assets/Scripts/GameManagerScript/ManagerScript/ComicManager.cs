@@ -9,20 +9,23 @@ public class ComicManager : MonoBehaviour
     public GameObject cover;
     public Animator coveranim;
     public LevelManagerScriptableObject levelData;
+   [SerializeField] private bool isLoading;
 
     private int currentIndex = 0;
     void Start()
     {
-
+        
     }
 
     void Update()
     {
         //GoToGame();
         TurnPage();
-        if(currentIndex == 1)
+        if(currentIndex == 1 & isLoading == true)
         {
-            GoToGame();
+            //GoToGame();
+            Invoke("GoToGame", 2f);
+            isLoading = false;
         }
     }
 
@@ -34,6 +37,7 @@ public class ComicManager : MonoBehaviour
             {
                 ComicPanels[0].SetActive(false);
                 ComicPanels[1].SetActive(true);
+                isLoading = true;
             }
 
             // Activate the new current panel
@@ -49,8 +53,10 @@ public class ComicManager : MonoBehaviour
         levelData.cityLevel = 0;
         PlayerPrefs.SetString("CutscenePlayed", "Cutscene has been played");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("France_Tutorial_Level");
+        //SceneManager.LoadScene("France_Tutorial_Level");
+        SceneManager.LoadSceneAsync("France_Tutorial_Level");
     }
+
 
 }
 
