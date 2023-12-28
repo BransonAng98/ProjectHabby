@@ -23,7 +23,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] string countryName;
     public Image countryFlag;
     public List<Sprite> countrySprite = new List<Sprite>();
-    
+
     private StaminaSystem staminaSystem;
 
     [SerializeField] int selectedLevel;
@@ -49,7 +49,7 @@ public class LobbyManager : MonoBehaviour
 
     void LimitLevelEnds()
     {
-        if(selectedLevel == 1 && levelData.worldID == 1)
+        if (selectedLevel == 1 && levelData.worldID == 1)
         {
             leftButton.interactable = false;
         }
@@ -59,7 +59,7 @@ public class LobbyManager : MonoBehaviour
             leftButton.interactable = true;
         }
 
-        if(selectedLevel == 6 && levelData.worldID == 3)
+        if (selectedLevel == 6 && levelData.worldID == 3)
         {
             rightButton.interactable = false;
         }
@@ -73,7 +73,7 @@ public class LobbyManager : MonoBehaviour
     void SetLevelAtStart()
     {
         selectedLevel = playerData.levelProgress;
-        if(selectedLevel > 6)
+        if (selectedLevel > 6)
         {
             levelData.worldID++;
             selectedLevel = 1;
@@ -129,7 +129,7 @@ public class LobbyManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        if(staminaSystem.currentEnergy >= 5)
+        if (staminaSystem.currentEnergy >= 5)
         {
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
@@ -166,8 +166,8 @@ public class LobbyManager : MonoBehaviour
         {
             Debug.Log("Insufficient Energy You Fool!");
         }
-        
-       
+
+
     }
 
     public void SelectUltimate(int whichUlt)
@@ -194,7 +194,7 @@ public class LobbyManager : MonoBehaviour
                 //Apply VFX for button 2
                 break;
         }
-    } 
+    }
 
     public void ResetDemo()
     {
@@ -221,76 +221,8 @@ public class LobbyManager : MonoBehaviour
         VibrateHaptics.Release();
     }
 
-    public void GoBack()
-    {
-        if(selectedLevel > 1)
-        {
-            selectedLevel--;
-        }
 
-        else
-        {
-            if(levelData.worldID > 1)
-            {
-                levelData.worldID--;
-                selectedLevel = 6;
-            }
 
-            else
-            {
-                selectedLevel = 1;
-            }
-        }
 
-        CheckButtonActive();
-    }
 
-    public void GoForward()
-    {
-        if (selectedLevel < 6)
-        {
-            selectedLevel++;
-        }
-
-        else
-        {
-            if(levelData.worldID > 3)
-            {
-                return;
-            }
-            levelData.worldID++;
-            selectedLevel = 1;
-        }
-        CheckButtonActive();
-    }
-
-    void CheckButtonActive()
-    {
-        if(levelData.worldID > 1)
-        {
-            attackButton.interactable = false;
-        }
-
-        else
-        {
-            if(selectedLevel <= playerData.levelProgress)
-            {
-                if(selectedLevel == 6 && PlayerPrefs.HasKey("LandmarkDestructionCleared"))
-                {
-                    attackButton.interactable = false;
-                }
-
-                else
-                {
-
-                    attackButton.interactable = true;
-
-                }
-            }
-            else
-            {
-                attackButton.interactable = false;
-            }
-        }
-    }
 }
