@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
@@ -850,6 +850,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             if (currentUltimateCharge != playerData.maxUltimateCharge)
             {
                 currentUltimateCharge += amount;
+                Debug.Log(currentUltimateCharge);
             }
 
             if (currentUltimateCharge >= playerData.maxUltimateCharge)

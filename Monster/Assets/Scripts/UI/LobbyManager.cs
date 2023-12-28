@@ -27,7 +27,6 @@ public class LobbyManager : MonoBehaviour
     private StaminaSystem staminaSystem;
 
     [SerializeField] int selectedLevel;
-    public TextMeshProUGUI levelIndicator;
     public Button attackButton;
     public Button leftButton;
     public Button rightButton;
@@ -123,8 +122,7 @@ public class LobbyManager : MonoBehaviour
     {
         SetCountryName();
         SetCountryFlag();
-        levelName.text = countryName;
-        levelIndicator.text = selectedLevel.ToString();
+        levelName.text = countryName + ":" + selectedLevel;
     }
 
     public void LoadLevel()
@@ -134,8 +132,8 @@ public class LobbyManager : MonoBehaviour
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
             VibrateHaptics.Release();
-            levelData.cityLevel = selectedLevel;
-            switch (selectedLevel)
+            selectedLevel++;
+            switch (levelData.cityLevel)
             {
                 case 0:
                     SceneManager.LoadScene("France_Easy_Level");
