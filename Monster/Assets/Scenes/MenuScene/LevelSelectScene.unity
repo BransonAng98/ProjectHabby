@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7201330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -783,8 +783,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyText: {fileID: 2628845926633199354}
   timerText: {fileID: 1570015365}
-  noEnergyPrefab: {fileID: 5961831057369860527, guid: e78526507e7cd374784ad1a8def02a64, type: 3}
-  canvas: {fileID: 1868432509}
+  noEnergyPrefab: {fileID: 0}
+  canvas: {fileID: 0}
   currentEnergy: 0
 --- !u!4 &360460544
 Transform:
@@ -4289,7 +4289,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fb0c9837a19b04074b2d971e891952fd, type: 3}
   - {fileID: 21300000, guid: 511e65d70fe6d4c10971352fc864a099, type: 3}
   selectedLevel: 0
-  levelIndicator: {fileID: 482233208}
   attackButton: {fileID: 82695800}
   leftButton: {fileID: 687399714}
   rightButton: {fileID: 1623675446}
@@ -5202,7 +5201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 511.83002, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2628845925992861347
@@ -5344,7 +5343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 196.16501, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2628845926303815194

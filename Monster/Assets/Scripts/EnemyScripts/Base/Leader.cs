@@ -98,7 +98,6 @@ public class Leader : MonoBehaviour
     {
         if (collision.CompareTag("PlayerLeg"))
         {
-            inputHandler.ChargeUltimate(1);
             enemyState = EnemyState.death;
             causeOfDeath = "Stepped to death";
             murderer = collision.name;
@@ -261,6 +260,7 @@ public class Leader : MonoBehaviour
             PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
+        inputHandler.ChargeUltimate(1);
         scoremanager.amtOfcivilians += 1;
         scoremanager.goldearned += 1;
         GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
