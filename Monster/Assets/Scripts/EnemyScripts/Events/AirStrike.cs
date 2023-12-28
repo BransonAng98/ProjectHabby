@@ -58,12 +58,12 @@ public class AirStrike : MonoBehaviour
             switch (leftOrRight)
             {
                 case 0:
-                    Vector3 spawnPointL = new Vector3(pos.position.x - 80f, pos.position.y, 0f);
+                    Vector3 spawnPointL = new Vector3(pos.position.x - 65f, pos.position.y, 0f);
                     SpawnObject(spawnPointL);
                     SpawnMissiles(false, spawnPointL);
                     break;
                 case 1:
-                    Vector3 spawnPointR = new Vector3(pos.position.x + 80f, pos.position.y, 0f);
+                    Vector3 spawnPointR = new Vector3(pos.position.x + 65f, pos.position.y, 0f);
                     SpawnObject(spawnPointR);
                     SpawnMissiles(true, spawnPointR);
                     break;

@@ -56,7 +56,7 @@ public class Artillery : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
         // Wait for 3 seconds before spawning the artillery
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         for (int i = 0; i < numberOfLocations; i++)
         {

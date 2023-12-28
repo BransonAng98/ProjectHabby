@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
                 break;
 
             case 3:
-                calculateCityDestruction = 300;
+                calculateCityDestruction = 350;
                 break;
 
             case 4:
