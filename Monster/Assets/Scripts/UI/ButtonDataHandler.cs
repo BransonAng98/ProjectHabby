@@ -18,12 +18,14 @@ public class ButtonDataHandler : MonoBehaviour
     public int upgradeCost;
     public bool secondFrameOn;
     public GameObject purchaseImage;
+    public GameObject disableIcon;
     // Start is called before the first frame update
     void Start()
     {
         upgradeCost = int.Parse(upgradeText.text);
         thisGO = GetComponent<Button>();
         purchaseImage.SetActive(false);
+        disableIcon.SetActive(false);
         buttonState = PlayerPrefs.GetInt(buttonID);
         secondFrame.SetActive(false);
         CheckForActive();
@@ -31,12 +33,18 @@ public class ButtonDataHandler : MonoBehaviour
 
     void CheckForActive()
     {
-        if(upgradeTier != playerData.upgradeLevel)
+        
+        if(upgradeTier > playerData.upgradeLevel)
         {
-            thisGO.interactable = false;
+            thisGO.interactable = false;    
             if(buttonState == 1)
             {
+                disableIcon.SetActive(false);
                 purchaseImage.SetActive(true);
+            }
+            else
+            {
+                disableIcon.SetActive(true);
             }
         }
 
@@ -44,11 +52,14 @@ public class ButtonDataHandler : MonoBehaviour
         {
             if (buttonState == 1)
             {
+                disableIcon.SetActive(false);
+                purchaseImage.SetActive(true);
                 thisGO.interactable = false;
             }
 
             else
             {
+                disableIcon.SetActive(false);
                 thisGO.interactable = true;
             }
         }
@@ -73,7 +84,7 @@ public class ButtonDataHandler : MonoBehaviour
 
     public void CheckSecondButtonActive()
     {
-        if (resourceData.currentGold > upgradeCost)
+        if (resourceData.currentGold >= upgradeCost)
         {
             secondButton.interactable = true;
         }
@@ -97,6 +108,7 @@ public class ButtonDataHandler : MonoBehaviour
         secondButton.interactable = false;
         secondFrame.SetActive(false);
         purchaseImage.SetActive(true);
+        disableIcon.SetActive(false);
         switch (id)
         {
             case 1:

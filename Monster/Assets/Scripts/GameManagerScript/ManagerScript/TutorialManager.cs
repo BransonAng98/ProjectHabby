@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    public Image tutorialpage1;
-    public Image tutorialpage2;
+    public GameObject tutorialpage1;
+    public GameObject tutorialpage2;
     public LevelManagerScriptableObject leveldata;
 
     [SerializeField] int currentPg;
@@ -16,8 +16,8 @@ public class TutorialManager : MonoBehaviour
     {
         currentPg = 0;
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-        tutorialpage1.enabled = false;
-        tutorialpage2.enabled = false;
+        tutorialpage1.SetActive(false);
+        tutorialpage2.SetActive(false);
 
     }
 
@@ -40,18 +40,18 @@ public class TutorialManager : MonoBehaviour
             if(currentPg == 1)
             {
                 Time.timeScale = 0;
-                tutorialpage1.enabled = true;
-                
+                tutorialpage1.SetActive(true);
+
             }
 
             if(currentPg == 2)
             {
-                tutorialpage1.enabled = false;
-                tutorialpage2.enabled = true;
+                tutorialpage1.SetActive(false);
+                tutorialpage2.SetActive(true);
             }
             if(currentPg == 3)
             {
-                tutorialpage2.enabled = false;
+                tutorialpage2.SetActive(false);
                 Time.timeScale = 1;
                 leveldata.tutorialPlayed = true;
                 PlayerPrefs.SetString("TutorialPlayed", "Tutorial has been played");
