@@ -126,7 +126,8 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if(hitColor != null)
+        VibrateHaptics.VibrateHeavyClick();
+        if (hitColor != null)
         {
             hitColor.Blink();
         }
@@ -143,7 +144,6 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (tempHealth <= 0)
         {
-            VibrateHaptics.VibrateTick();
             inputHandler.ChargeUltimate(destructionScore);
             Death();
             inputHandler.DisableAttack(buildingCollider);
