@@ -10,6 +10,9 @@ public class StaminaSystem : MonoBehaviour
     [SerializeField] TextMeshProUGUI energyText;
     [SerializeField] TextMeshProUGUI timerText;
 
+    public GameObject noEnergyPrefab;
+    public Canvas canvas;
+
     private int maxEnergy = 25;
     public int currentEnergy;
     private int restoreDuration = 3;
@@ -84,6 +87,12 @@ public class StaminaSystem : MonoBehaviour
                 }
             }
             StartCoroutine(RestoreEnergy());
+        }
+        else
+        {
+            GameObject prompter = Instantiate(noEnergyPrefab);
+            // Set the position of the instantiated object
+            prompter.transform.SetParent(canvas.transform, false);
         }
     }
 
