@@ -144,7 +144,6 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (tempHealth <= 0)
         {
-            inputHandler.ChargeUltimate(destructionScore);
             Death();
             inputHandler.DisableAttack(buildingCollider);
         }
@@ -158,6 +157,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public void Death()
     {
         VibrateHaptics.VibrateDoubleClick();
+        inputHandler.ChargeUltimate(destructionScore);
         audiomanager.playBuildingDeathSFX();
         scoremanager.amtOfStructures += 1;
        // playDeathSFX();

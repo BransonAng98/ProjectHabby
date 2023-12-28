@@ -141,8 +141,7 @@ public class PlayerHealthScript : MonoBehaviour
             currentHealth = Mathf.Lerp(currentHealth, playerSO.health, Time.deltaTime * lerpSpeed);
             UpdateHealthBar();
         }
-      
-        CheckAbilityBarPercentage();
+
         CheckHealthState();
         UpdateAbilityBar();
     }
@@ -238,6 +237,10 @@ public class PlayerHealthScript : MonoBehaviour
 
     private void UpdateAbilityBar()
     {
+        float tempPercentage = (playerHandler.currentUltimateCharge / playerSO.maxUltimateCharge) * 100f;
+        abilityBarPercentage = tempPercentage;
+        float prevPercentage = tempPercentage;
+
         abilitySlider.value = abilityBarPercentage; // Update the slider's value
         abilityFill.fillAmount = abilityBarPercentage; // Update the fill amount of the health bar
         AlterPlayer();
@@ -325,11 +328,17 @@ public class PlayerHealthScript : MonoBehaviour
 
     void DecreaseBarValue()
     {
-        if (playerHandler.currentUltimateCharge >= 0)
+        if (playerHandler.currentUltimateCharge > 0)
         {
             //Start to decrease the ultimate bar
             playerHandler.currentUltimateCharge -= barDecrease * Time.deltaTime;
             previousBarValue -= barDecrease * Time.deltaTime;
+        }
+
+        else
+        {
+            playerHandler.currentUltimateCharge = 0f;
+            previousBarValue = 0f;
         }
     }
 
@@ -337,14 +346,6 @@ public class PlayerHealthScript : MonoBehaviour
     {
         healthSlider.value = currentHealth; // Update the slider's value
         healthFill.fillAmount = currentHealth; // Update the fill amount of the health bar
-    }
-
-    //Adaptive Ultimate Bar
-    void CheckAbilityBarPercentage()
-    {
-        float tempPercentage = (playerHandler.currentUltimateCharge / playerSO.maxUltimateCharge) * 100f;
-        abilityBarPercentage = tempPercentage;
-        float prevPercentage = tempPercentage;
     }
 
     void BuffPlayer()

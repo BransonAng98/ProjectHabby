@@ -56,14 +56,13 @@ MonoBehaviour:
   buildingType: {fileID: 0}
   inputHandler: {fileID: 0}
   civilianParent: {fileID: 0}
-  destructionScore: 5
+  destructionScore: 3
   fireVFX: {fileID: 8764043878647920493, guid: 3913a86aeb029f44dbeac5e518c9419c, type: 3}
   deathVFX: {fileID: 1134129239631916, guid: 10c99bc76ad912f4bbaee56bad537650, type: 3}
   damageVFX: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   crumblingVFX: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
   hitVFX: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   smokeVFX: {fileID: 8656522925564163052, guid: 7a0fe4e6f92497142942ba4b230a2b71, type: 3}
-  pointIndicatorVFX: {fileID: 704374276708396479, guid: 79b6591959cbc1742b59289fe29cf8db, type: 3}
   deathVFXRadius: 1
   minFires: 1
   maxFires: 3
@@ -75,10 +74,14 @@ MonoBehaviour:
   minCoins: 1
   maxCoins: 4
   shakeScript: {fileID: 7552205029952688060}
+  hitColor: {fileID: 0}
   groundDispenseVelocity: {x: 1, y: 1}
   verticalDispenseVelocity: {x: 10, y: 13}
   audiomanager: {fileID: 0}
   spawnheight: 1.5
+  scoremanager: {fileID: 0}
+  fracture: {fileID: 0}
+  destroyer: {fileID: 0}
 --- !u!61 &2519511516363967182
 BoxCollider2D:
   m_ObjectHideFlags: 0

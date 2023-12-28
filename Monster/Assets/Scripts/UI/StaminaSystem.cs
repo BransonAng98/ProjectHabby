@@ -10,7 +10,7 @@ public class StaminaSystem : MonoBehaviour
     [SerializeField] TextMeshProUGUI energyText;
     [SerializeField] TextMeshProUGUI timerText;
 
-    private int maxEnergy = 30;
+    private int maxEnergy = 25;
     public int currentEnergy;
     private int restoreDuration = 3;
     private DateTime nextEnergyTime;
@@ -22,7 +22,7 @@ public class StaminaSystem : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("currentEnergy"))
         {
-            PlayerPrefs.SetInt("currentEnergy", 30);
+            PlayerPrefs.SetInt("currentEnergy", 25);
             Load();
             UpdateEnergy();
             StartCoroutine(RestoreEnergy());

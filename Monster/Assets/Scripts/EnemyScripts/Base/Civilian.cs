@@ -348,7 +348,8 @@ public class Civilian : MonoBehaviour
     {
         if (!isTriggered)
         {
-            levelManager.CalculateScore(0.1f);
+            levelManager.CalculateScore(1f);
+            inputHandler.ChargeUltimate(1);
             isTriggered = true;
         }
         entityCollider.enabled = false;

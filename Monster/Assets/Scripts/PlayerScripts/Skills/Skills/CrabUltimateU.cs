@@ -28,7 +28,10 @@ public class CrabUltimateU : UltimateBase
         joystick = GameObject.Find("Floating Joystick");
     }
 
-
+    void CalculateBarDecreaseRate()
+    {
+        barDecreaseRate = playerHandler.playerData.maxUltimateCharge / ultimateDuration;
+    }
 
     void AssignVariables()
     {
@@ -36,20 +39,22 @@ public class CrabUltimateU : UltimateBase
         {
             case 1:
                 ultimateDuration = 5f;
-                barDecreaseRate = 80f;
+                //barDecreaseRate = 80f;
                 break;
 
             case 2:
                 ultimateDuration = 7f;
-                barDecreaseRate = 56f;
+                //barDecreaseRate = 56f;
                 break;
 
             case 3:
                 ultimateDuration = 10f;
-                barDecreaseRate = 39.8f;
+                //barDecreaseRate = 39.8f;
                 break;
 
         }
+
+        CalculateBarDecreaseRate();
     }
 
     // Update is called once per frame

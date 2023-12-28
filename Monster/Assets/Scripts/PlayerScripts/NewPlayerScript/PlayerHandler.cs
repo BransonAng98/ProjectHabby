@@ -963,6 +963,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         // Rapidly decrease the ultimate bar during the ultimate animation
         currentUltimateCharge -= Time.deltaTime * decreaseRate; // Adjust the multiplier as needed
     }
+
    public void DisableUltimateVFX()
     {
         vfxManager.dashBodyVFX.SetActive(false);

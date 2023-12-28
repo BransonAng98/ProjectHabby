@@ -181,7 +181,7 @@ public class CarAI : MonoBehaviour
         scoremanager.goldearned += 3;
         if (!hasTriggered)
         {
-            levelManager.CalculateScore(3);
+            levelManager.CalculateScore(1);
             hasTriggered = true;
         }
 
