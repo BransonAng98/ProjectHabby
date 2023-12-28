@@ -36,8 +36,8 @@ public class LobbyManager : MonoBehaviour
     {
         menuaudiomanager = GameObject.Find("MenuAudioManager").GetComponent<MenuAMScript>();
         staminaSystem = GameObject.Find("StaminaSystem").GetComponent<StaminaSystem>();
+        selectedLevel = playerData.levelProgress;
         VibrateHaptics.Initialize();
-        SetLevelAtStart();
     }
 
     private void Update()
@@ -122,7 +122,7 @@ public class LobbyManager : MonoBehaviour
     {
         SetCountryName();
         SetCountryFlag();
-        levelName.text = countryName + ":" + selectedLevel;
+        levelName.text = countryName + ": " + selectedLevel;
     }
 
     public void LoadLevel()
@@ -132,7 +132,6 @@ public class LobbyManager : MonoBehaviour
             VibrateHaptics.VibrateDoubleClick();
             menuaudiomanager.PlayTap();
             VibrateHaptics.Release();
-            selectedLevel++;
             switch (levelData.cityLevel)
             {
                 case 0:
@@ -159,6 +158,8 @@ public class LobbyManager : MonoBehaviour
                     SceneManager.LoadScene("LandmarkDesScene");
                     break;
             }
+
+            playerData.levelProgress++;
         }
         else
         {

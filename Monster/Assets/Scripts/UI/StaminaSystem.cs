@@ -90,7 +90,7 @@ public class StaminaSystem : MonoBehaviour
         }
         else
         {
-            GameObject prompter = Instantiate(noEnergyPrefab);
+            GameObject prompter = Instantiate(noEnergyPrefab);  
             // Set the position of the instantiated object
             prompter.transform.SetParent(canvas.transform, false);
         }
