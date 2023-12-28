@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 45854392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.05882168, y: 1.4941136, z: 0}
-  m_LocalScale: {x: 80, y: 133.33333, z: 2.6666665}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 150, y: 200, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6516790000295486552}
   m_RootOrder: 7
@@ -2161,21 +2161,21 @@ MonoBehaviour:
   deathVFX: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   dashFootVFX: {fileID: 141433446842962269, guid: 96aae905eacc9824995d15a320d805a8, type: 3}
   upgradeVFX: {fileID: 184778, guid: b694e7b9822f1f941924b418de1a8c50, type: 3}
-  exhaustedVFX: {fileID: 0}
+  exhaustedVFX: {fileID: 1141330259687333427, guid: 63d28bc59f7e76847bf9be4b8515276b, type: 3}
   dashBodyVFX: {fileID: 1090552897384165593}
-  blackSquare: {fileID: 0}
-  rageOnTxt: {fileID: 0}
-  rageOffTxt: {fileID: 0}
+  blackSquare: {fileID: 45854392}
+  rageOnTxt: {fileID: 8288330614334262094, guid: 8f59ef05abf1b1f4db9512498baa7851, type: 3}
+  rageOffTxt: {fileID: 1729535234996712152, guid: 0df990779b4cc014286ebc8901228b44, type: 3}
   gamemanager: {fileID: 0}
-  deathVFXRadius: 2
+  deathVFXRadius: 2.5
   footTremorRadius: 2
   aoeTremorRadius: 10
   numberOfVFX: 3
-  fadeDuration: 2
-  moveSpeed: 0
-  rageFadeDuration: 0
-  delayRageFade: 0
-  objectRenderer: {fileID: 0}
+  fadeDuration: 1
+  moveSpeed: 2
+  rageFadeDuration: 2
+  delayRageFade: 2
+  objectRenderer: {fileID: 45854394}
   legLocations:
   - {fileID: 5507663565289665753}
   - {fileID: 9173137633997902772}
