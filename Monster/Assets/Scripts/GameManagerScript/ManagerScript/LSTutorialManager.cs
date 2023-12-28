@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LSTutorialManager : MonoBehaviour
 {
-    public Image tutorialpage1;
+    public GameObject tutorialpage1;
     public LevelManagerScriptableObject leveldata;
 
     [SerializeField] int currentPg;
@@ -14,7 +14,7 @@ public class LSTutorialManager : MonoBehaviour
     void Start()
     {
         currentPg = 0;
-        tutorialpage1.enabled = false;
+        tutorialpage1.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,13 +33,13 @@ public class LSTutorialManager : MonoBehaviour
             if (currentPg == 0)
             {
 
-                tutorialpage1.enabled = true;
+                tutorialpage1.SetActive(true);
 
             }
 
             if (currentPg == 1)
             {
-                tutorialpage1.enabled = false;
+                tutorialpage1.SetActive(false);
                 leveldata.levelselecttutorialPlayed = true;
                 PlayerPrefs.SetString("LevelSelectTutorialPlayed", "Level Select Tutorial has been played");
 

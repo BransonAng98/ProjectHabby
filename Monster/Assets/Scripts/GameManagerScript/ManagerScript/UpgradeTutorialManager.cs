@@ -42,7 +42,7 @@ public class UpgradeTutorialManager : MonoBehaviour
 
             if (currentPg == 1)
             {
-                tutorialpage1.SetActive(true);
+                tutorialpage1.SetActive(false);
             }
             if (currentPg == 2 & buttonscript.secondFrameOn == true)
             {
