@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UpgradeTutorialManager : MonoBehaviour
 {
-    public Image tutorialpage1;
-    public Image tutorialpage2;
+    public GameObject tutorialpage1;
+    public GameObject tutorialpage2;
     public LevelManagerScriptableObject leveldata;
     public ButtonDataHandler buttonscript;
 
@@ -16,8 +16,8 @@ public class UpgradeTutorialManager : MonoBehaviour
     {
         buttonscript = GameObject.Find("IconButton1").GetComponent<ButtonDataHandler>();
         currentPg = 0;
-        tutorialpage1.enabled = false;
-        tutorialpage2.enabled = false;
+        tutorialpage1.SetActive(false)  ;
+        tutorialpage2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,23 +36,23 @@ public class UpgradeTutorialManager : MonoBehaviour
         {
             if (currentPg == 0)
             {
-                tutorialpage1.enabled = true;
+                tutorialpage1.SetActive(true);
 
             }
 
             if (currentPg == 1)
             {
-                tutorialpage1.enabled = false;
+                tutorialpage1.SetActive(true);
             }
             if (currentPg == 2 & buttonscript.secondFrameOn == true)
             {
-                tutorialpage2.enabled = true;
-               
+                tutorialpage2.SetActive(true);
+
             }
 
             if (currentPg == 3)
             {
-                tutorialpage2.enabled = false;
+                tutorialpage2.SetActive(false);
                 leveldata.upgradetutorialPlayed = true;
                 PlayerPrefs.SetString("UpgradeTutorialPlayed", "Upgrade Tutorial has been played");
             }
