@@ -33,10 +33,10 @@ public class ButtonDataHandler : MonoBehaviour
 
     void CheckForActive()
     {
-        //Purchased
-        if(upgradeTier != playerData.upgradeLevel)
+        
+        if(upgradeTier > playerData.upgradeLevel)
         {
-            thisGO.interactable = false;
+            thisGO.interactable = false;    
             if(buttonState == 1)
             {
                 disableIcon.SetActive(false);
@@ -53,11 +53,13 @@ public class ButtonDataHandler : MonoBehaviour
             if (buttonState == 1)
             {
                 disableIcon.SetActive(false);
+                purchaseImage.SetActive(true);
                 thisGO.interactable = false;
             }
 
             else
             {
+                disableIcon.SetActive(false);
                 thisGO.interactable = true;
             }
         }
@@ -82,7 +84,7 @@ public class ButtonDataHandler : MonoBehaviour
 
     public void CheckSecondButtonActive()
     {
-        if (resourceData.currentGold > upgradeCost)
+        if (resourceData.currentGold >= upgradeCost)
         {
             secondButton.interactable = true;
         }
@@ -106,6 +108,7 @@ public class ButtonDataHandler : MonoBehaviour
         secondButton.interactable = false;
         secondFrame.SetActive(false);
         purchaseImage.SetActive(true);
+        disableIcon.SetActive(false);
         switch (id)
         {
             case 1:
