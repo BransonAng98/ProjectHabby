@@ -7,11 +7,15 @@ public class ResetGame : MonoBehaviour
 {
     public ResourceScriptableObject resourceData;
     public LevelManagerScriptableObject levelData;
+
+    [SerializeField] StaminaSystem staminaSystem;
+
     public GameObject confirmationScreen;
 
     public void Awake()
     {
         confirmationScreen.SetActive(false);
+        staminaSystem = GameObject.Find("StaminaSystem").GetComponent<StaminaSystem>();
     }
 
     public void OpenConfirmScreen()
@@ -31,5 +35,6 @@ public class ResetGame : MonoBehaviour
         levelData.tutorialPlayed = false;
         PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("StartScene");
+        staminaSystem.ResetStamina();
     }
 }
