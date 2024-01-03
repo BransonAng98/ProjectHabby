@@ -3696,6 +3696,7 @@ MonoBehaviour:
   scoreDisplay: {fileID: 1771012712}
   gameEnded: 0
   activatePlayer: 0
+  progressChecker: {fileID: 0}
 --- !u!114 &1267804334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4937,6 +4938,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1267804331}
+    - target: {fileID: 1636169662036628819, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636169662036628819, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636169662036628819, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -706
+      objectReference: {fileID: 0}
     - target: {fileID: 2692758297060378812, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5109,6 +5122,30 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 61134888}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -706
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333615331746317528, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -206
+      objectReference: {fileID: 0}
     - target: {fileID: 4333615331746317531, guid: 2b2fbf2957cb74b479d9f3598157c76e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
