@@ -7,6 +7,23 @@ public class ResetGame : MonoBehaviour
 {
     public ResourceScriptableObject resourceData;
     public LevelManagerScriptableObject levelData;
+    public GameObject confirmationScreen;
+
+    public void Awake()
+    {
+        confirmationScreen.SetActive(false);
+    }
+
+    public void OpenConfirmScreen()
+    {
+        confirmationScreen.SetActive(true);
+    }
+
+    public void CloseConfirmScreen()
+    {
+        confirmationScreen.SetActive(false);
+    }
+
     public void ResetData()
     {
         resourceData.currentGold = 0;
