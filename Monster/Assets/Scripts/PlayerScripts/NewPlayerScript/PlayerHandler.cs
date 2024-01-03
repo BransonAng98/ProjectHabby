@@ -451,7 +451,14 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         {
             //Code to move the player
             rb.velocity = new Vector2(movementInput.x * movementSpeedHolder, movementInput.y * movementSpeedHolder);
-            skeletonAnim.timeScale = animationSpeed;
+            if (!isAttacking)
+            {
+                skeletonAnim.timeScale = animationSpeed;
+            }
+            else
+            {
+                skeletonAnim.timeScale = attackAnimationSpeed;
+            }
         }
     }
 
