@@ -92,6 +92,7 @@ public class LevelManager : MonoBehaviour
                 levelData.cityLevel += 1;
                 playerData.levelProgress++;
                 PlayerPrefs.SetInt("CityLevelStored", levelData.cityLevel);
+                PlayerPrefs.SetInt("LevelProgress", playerData.levelProgress);
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
                 isTriggered = true;
@@ -113,6 +114,7 @@ public class LevelManager : MonoBehaviour
 
     public void TapToLeave()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("LevelSelectScene");
     }
 
