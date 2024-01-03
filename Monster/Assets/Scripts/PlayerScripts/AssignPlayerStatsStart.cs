@@ -6,6 +6,7 @@ public class AssignPlayerStatsStart : MonoBehaviour
 {
     public PlayerStatScriptableObject playerData;
     public LevelManagerScriptableObject levelData;
+    public ResourceScriptableObject resourceData;
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +101,17 @@ public class AssignPlayerStatsStart : MonoBehaviour
         else
         {
             levelData.cityLevel = 0;
+        }
+
+        //Assign player money variables
+        if (PlayerPrefs.HasKey("PlayerMoney"))
+        {
+            resourceData.currentGold = PlayerPrefs.GetInt("PlayerMoney");
+        }
+
+        else
+        {
+            resourceData.currentGold = 0;
         }
 
         //Assign tutorial variables

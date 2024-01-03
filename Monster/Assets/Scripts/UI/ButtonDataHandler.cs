@@ -105,6 +105,7 @@ public class ButtonDataHandler : MonoBehaviour
 
         SaveData();
         resourceData.currentGold -= upgradeCost;
+        PlayerPrefs.SetInt("PlayerMoney", resourceData.currentGold);
         secondButton.interactable = false;
         secondFrame.SetActive(false);
         purchaseImage.SetActive(true);
@@ -153,5 +154,10 @@ public class ButtonDataHandler : MonoBehaviour
     void Update()
     {
         CheckForActive();
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.Save();
     }
 }

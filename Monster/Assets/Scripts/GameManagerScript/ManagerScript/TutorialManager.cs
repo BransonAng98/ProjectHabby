@@ -46,8 +46,6 @@ public class TutorialManager : MonoBehaviour
             {
                 tutorialpage1.SetActive(false);
                 Time.timeScale = 1;
-                leveldata.tutorialPlayed = true;
-                PlayerPrefs.SetString("TutorialPlayed", "Tutorial has been played");
             }
            
         }

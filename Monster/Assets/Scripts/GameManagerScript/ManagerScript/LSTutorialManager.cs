@@ -42,7 +42,6 @@ public class LSTutorialManager : MonoBehaviour
                 tutorialpage1.SetActive(false);
                 leveldata.levelselecttutorialPlayed = true;
                 PlayerPrefs.SetString("LevelSelectTutorialPlayed", "Level Select Tutorial has been played");
-
             }
            
         }

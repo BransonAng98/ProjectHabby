@@ -111,9 +111,33 @@ public class GameManagerScript : MonoBehaviour
     {
         VibrateHaptics.VibrateClick();
         VibrateHaptics.Release();
+        PlayerPrefs.Save();
+        CheckTutorial();
         SceneManager.LoadScene("LevelSelectScene");
     }
 
+    void CheckTutorial()
+    {
+        if (!PlayerPrefs.HasKey("CutscenePlayed"))
+        {
+            levelData.cutscenePlayed = true;
+            PlayerPrefs.SetString("CutscenePlayed", "Cutscene has been played");
+        }
+        else
+        {
+            return;
+        }
+
+        if (!PlayerPrefs.HasKey("TutorialPlayed"))
+        {
+            levelData.tutorialPlayed = true;
+            PlayerPrefs.SetString("TutorialPlayed", "Tutorial has been played");
+        }
+        else
+        {
+            return;
+        }
+    }
     void DeactivatePlayer()
     {
         playerStatusBars.SetActive(false);
@@ -171,7 +195,6 @@ public class GameManagerScript : MonoBehaviour
         if(tutorialScreen.activeSelf == true)
         {
             tutorialScreen.SetActive(false);
-            levelData.tutorialPlayed = true;
         }
         audiomanager.PlayBGM();
         audiomanager.BGMSource.loop = true;
