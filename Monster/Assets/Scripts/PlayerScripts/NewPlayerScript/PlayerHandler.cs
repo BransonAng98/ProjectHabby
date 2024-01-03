@@ -640,14 +640,12 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
                 foreach (var enemy in listOfEnemies)
                 {
-                    //Debug.Log(enemy);
                     float distance = Vector2.Distance(transform.position, enemy.transform.position);
 
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
                         closestCollider = enemy;
-                        //Debug.Log(closestCollider);
                     }
                 }
 
@@ -850,7 +848,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             if (currentUltimateCharge != playerData.maxUltimateCharge)
             {
                 currentUltimateCharge += amount;
-                Debug.Log(currentUltimateCharge);
             }
 
             if (currentUltimateCharge >= playerData.maxUltimateCharge)
@@ -1006,13 +1003,11 @@ public class PlayerHandler : MonoBehaviour, ISoundable
                 TurnOffPlayer(false);
                 SetCharacterState(PlayerStates.victory);
                 skeletonAnim.AnimationState.TimeScale = 1f;
-                Debug.Log("Player won");
                 break;
 
             case 3:
                 TurnOffPlayer(true);
                 SetCharacterState(PlayerStates.defeat);
-                Debug.Log("Player lost");
                 break;
 
             case 4:
