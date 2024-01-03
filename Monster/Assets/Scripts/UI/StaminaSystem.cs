@@ -77,15 +77,15 @@ public class StaminaSystem : MonoBehaviour
     { 
         if (currentEnergy >= 5)
         {
-            currentEnergy -= 5;
-            UpdateEnergy();
             if (isRestoring == false)
             {
-                if (currentEnergy + 1 == maxEnergy)
+                if (currentEnergy == maxEnergy)
                 {
                     nextEnergyTime = AddDuration(DateTime.Now, restoreDuration);
                 }
             }
+            currentEnergy -= 5;
+            UpdateEnergy(); 
             StartCoroutine(RestoreEnergy());
         }
         else
