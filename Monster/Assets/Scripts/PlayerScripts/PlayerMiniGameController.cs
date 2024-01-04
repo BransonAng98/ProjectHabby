@@ -35,7 +35,7 @@ public class PlayerMiniGameController : MonoBehaviour
     private TextMeshProUGUI hitCountDisplay;
     private TextMeshProUGUI hitFeedbackDisplay;
 
-    public float hideUITextDelay; 
+    public float hideUITextDelay;
     private float timeSinceLastTap = 0f;
     [SerializeField] bool hasInput;
     [SerializeField] CameraShake camShake;
@@ -100,7 +100,7 @@ public class PlayerMiniGameController : MonoBehaviour
 
     public void Attack()
     {
-        if(landmark != null)
+        if (landmark != null)
         {
             VibrateHaptics.VibrateHeavyClick();
             hitCount++;
@@ -124,27 +124,27 @@ public class PlayerMiniGameController : MonoBehaviour
 
     void SetAttackSpeed(float hitCount)
     {
-        if(hitCount >= 0)
+        if (hitCount >= 0)
         {
             animationSpeed = 1.6f;
         }
 
-        if(hitCount > 5)
+        if (hitCount > 5)
         {
             animationSpeed = 2.2f;
         }
 
-        if(hitCount > 10)
+        if (hitCount > 10)
         {
             animationSpeed = 2.8f;
         }
 
-        if(hitCount > 15)
+        if (hitCount > 15)
         {
             animationSpeed = 3.4f;
         }
 
-        if(hitCount > 25)
+        if (hitCount > 25)
         {
             animationSpeed = 4f;
         }
@@ -154,47 +154,22 @@ public class PlayerMiniGameController : MonoBehaviour
     {
         StartCoroutine(FadeOutText(hitCountDisplay));
 
-        if (currentHitCount >= 0)
-        {
-            hitFeedbackDisplay.text = "Amatuer hour";
-        }
-
-        if (currentHitCount > 10)
-        {
-            hitFeedbackDisplay.text = "Getting there...";
-        }
-
-        if (currentHitCount > 20)
-        {
-            hitFeedbackDisplay.text = "DEVASTATION";
-        }
-
-        if (currentHitCount > 30)
-        {
-            hitFeedbackDisplay.text = "CALL THEM A NEW HOME";
-        }
-
-        if (currentHitCount > 40)
-        {
-            hitFeedbackDisplay.text = "END OF THE WORLD";
-        }
-
         currentHitCount = 0;
-        if (hasInput)
-        {
-            StartCoroutine(FadeOutText(hitFeedbackDisplay));
-        }
+        //if (hasInput)
+        //{
+        //    StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        //}
 
-        else
-        {
-            Invoke("TurnOffText", 3f);
-        }
+        //else
+        //{
+        //    Invoke("TurnOffText", 3f);
+        //}
     }
 
     IEnumerator FadeOutText(TextMeshProUGUI text)
     {
         // Adjust the duration based on your preference
-        float duration = 0.5f;
+        float duration = 1.5f;
 
         // Record the starting color
         Color startColor = text.color;
@@ -276,13 +251,79 @@ public class PlayerMiniGameController : MonoBehaviour
         SetCharacterState(prevState);
     }
 
+    void DisplayFlavorText()
+    {
+        if (currentHitCount == 5)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "Getting there...";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 10)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "DEVASTATION";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 15)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "CALL THEM A NEW HOME";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 20)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "END OF THE WORLD";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 25)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "BYE MUM I LOVE YOU";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 30)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "Stop being so crabby";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+
+        if (currentHitCount == 35)
+        {
+            hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
+            hitFeedbackDisplay.gameObject.SetActive(true);
+            hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
+            hitFeedbackDisplay.text = "Crabtacular!";
+            StartCoroutine(FadeOutText(hitFeedbackDisplay));
+        }
+    }
+
     private void Update()
     {
         PlayRoar();
         timeSinceLastTap += Time.deltaTime;
 
 
-        if(landmark != null)
+        if (landmark != null)
         {
             if (Input.touchCount > 0)
             {
@@ -327,11 +368,12 @@ public class PlayerMiniGameController : MonoBehaviour
         {
             SetCharacterState(PlayerState.victory);
         }
-        
-        if(currentHitCount >= 3)
+
+        if (currentHitCount >= 1)
         {
             hitCountDisplay.color = new Color(hitCountDisplay.color.r, hitCountDisplay.color.g, hitCountDisplay.color.b, 1f);
             hitCountDisplay.gameObject.SetActive(true);
+            DisplayFlavorText();
             if (timeSinceLastTap > hideUITextDelay)
             {
                 hasInput = false;

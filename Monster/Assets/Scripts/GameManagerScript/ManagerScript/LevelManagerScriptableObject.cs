@@ -15,6 +15,7 @@ public class LevelManagerScriptableObject : ScriptableObject
     public bool upgradetutorialPlayed;
     public bool loopGame;
     public float baseTime;
+    public bool landmarkTutorialPlayed;
 
     private void OnEnable()
     {

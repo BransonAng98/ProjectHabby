@@ -144,5 +144,15 @@ public class AssignPlayerStatsStart : MonoBehaviour
         {
             levelData.upgradetutorialPlayed = false;
         }
+
+        if (PlayerPrefs.HasKey("LandmarkTutorial"))
+        {
+            levelData.landmarkTutorialPlayed = true;
+        }
+
+        else
+        {
+            levelData.landmarkTutorialPlayed = false;
+        }
     }
 }
