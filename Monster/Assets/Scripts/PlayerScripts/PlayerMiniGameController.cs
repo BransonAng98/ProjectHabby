@@ -294,7 +294,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "BYE MUM I LOVE YOU";
+            hitFeedbackDisplay.text = "Its pinching time";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -312,7 +312,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "Crabtacular!";
+            hitFeedbackDisplay.text = "Crabtacular";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
     }
