@@ -326,6 +326,7 @@ public class PlayerMiniGameController : MonoBehaviour
         
         if(currentHitCount >= 3)
         {
+            hitCountDisplay.color = new Color(hitCountDisplay.color.r, hitCountDisplay.color.g, hitCountDisplay.color.b, 1f);
             hitCountDisplay.gameObject.SetActive(true);
             if (timeSinceLastTap > hideUITextDelay)
             {
