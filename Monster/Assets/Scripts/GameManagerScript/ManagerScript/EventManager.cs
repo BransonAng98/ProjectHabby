@@ -81,7 +81,7 @@ public class EventManager : MonoBehaviour
                     case 1:
                         PerformBannerFade(0.5f, 0.5f, 3f);
                         artilleryScript.ActivateArtillery();
-                        Invoke("PlaySFX", 6f);
+                        Invoke("PlaySFX", 1.5f);
                         bannerText.text = "Incoming Barrage!";
                         timer = 0f;
                         break;
