@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Spine.Unity;
 using Spine;
+using Haptics.Vibrations;
 
 public class PlayerMiniGameController : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class PlayerMiniGameController : MonoBehaviour
         hitFeedbackDisplay.gameObject.SetActive(false);
         camShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
         varTime = Random.Range(minRoarThreshold, maxRoarThreshold);
+        VibrateHaptics.Initialize();
     }
 
     void OnSpineEvent(TrackEntry trackEntry, Spine.Event e)
@@ -100,10 +102,12 @@ public class PlayerMiniGameController : MonoBehaviour
     {
         if(landmark != null)
         {
+            VibrateHaptics.VibrateHeavyClick();
             hitCount++;
             currentHitCount++;
             hitCountDisplay.text = currentHitCount.ToString() + " Hits";
             landmark.TakeDamage(playerData.attackDamage);
+            VibrateHaptics.Release();
             if (hitCountDisplay.gameObject.activeSelf)
             {
                 hitCountDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();

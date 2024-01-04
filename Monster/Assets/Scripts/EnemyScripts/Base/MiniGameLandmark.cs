@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Haptics.Vibrations;
 
 public class MiniGameLandmark : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class MiniGameLandmark : MonoBehaviour
         shakeLandmark = GetComponent<ObjectShakeScript>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fadeCanvasImage = GameObject.Find("Darken").GetComponent<FadeCanvasImage>();
+        VibrateHaptics.Initialize();
     }
 
     private void SpawnCivilian()
@@ -77,6 +79,7 @@ public class MiniGameLandmark : MonoBehaviour
 
     private void SinkLandmark()
     {
+        VibrateHaptics.VibrateClick();
         float sinkAmount = 10f * Time.deltaTime;
         parentObject.transform.Translate(Vector3.down * sinkAmount);
     }
@@ -86,6 +89,7 @@ public class MiniGameLandmark : MonoBehaviour
         if (gameObject != null)
         {
             isDead = true;
+            VibrateHaptics.Release();
             Destroy(gameObject, 0.5f);
             
             fadeCanvasImage.StartFade();
