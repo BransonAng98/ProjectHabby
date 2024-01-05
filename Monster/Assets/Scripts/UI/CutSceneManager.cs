@@ -29,6 +29,10 @@ public class CutSceneManager : MonoBehaviour
     {
         //audiomanager.StopBGM();
         audiomanager.FadeOutBGM(3f);
+        audiomanager.FadeOutScreams(3f);
+        audiomanager.TurnOffEventSounds();
+        audiomanager.StopBuildingSound();
+        audiomanager.StopTreeSound();
         inputHandler.enableInput = false;
         anim.SetBool("isTriggered", true);
     }
