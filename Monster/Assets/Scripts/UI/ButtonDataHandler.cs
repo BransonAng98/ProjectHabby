@@ -20,6 +20,7 @@ public class ButtonDataHandler : MonoBehaviour
     public GameObject purchaseImage;
     public GameObject disableIcon;
     public GameObject purchaseVFXPf;
+    public Canvas canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -106,6 +107,8 @@ public class ButtonDataHandler : MonoBehaviour
 
         SaveData();
         GameObject purchaseVFX = Instantiate(purchaseVFXPf, secondButton.transform.position, Quaternion.identity);
+        purchaseVFX.transform.SetParent(canvas.transform, false);
+
         Destroy(purchaseVFX, 5f);
         resourceData.currentGold -= upgradeCost;
         PlayerPrefs.SetInt("PlayerMoney", resourceData.currentGold);
