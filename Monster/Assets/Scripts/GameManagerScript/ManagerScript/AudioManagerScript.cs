@@ -264,10 +264,21 @@ public class AudioManagerScript : MonoBehaviour
     {
         BGMSource.Stop();
     }
-
+    public void StopBuildingSound()
+    {
+        buildingAudioSource.volume = 0f;
+    }
+    public void StopTreeSound()
+    {
+        treeaudioSource.volume = 0f;
+    }
     public void FadeOutBGM(float duration)
     {
         StartCoroutine(FadeOutBGMCoroutine(duration));
+    }
+    public void TurnOffEventSounds()
+    {
+        militaryAbilitySource.volume = 0f;
     }
 
     // Coroutine for lerping BGM volume
@@ -286,7 +297,26 @@ public class AudioManagerScript : MonoBehaviour
         // Ensure the volume is set to 0 at the end
         BGMSource.volume = 0f;
     }
+    public void FadeOutScreams(float duration)
+    {
+        StartCoroutine(FadeOutScream(duration));
+    }
 
+    private IEnumerator FadeOutScream(float duration)
+    {
+        float elapsedTime = 0f;
+        float startVolume = CivilianSource.volume;
+
+        while (elapsedTime < duration)
+        {
+            CivilianSource.volume = Mathf.Lerp(startVolume, 0f, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the volume is set to 0 at the end
+        CivilianSource.volume = 0f;
+    }
 
     public IEnumerator PlayRandomScreaming()
     {
