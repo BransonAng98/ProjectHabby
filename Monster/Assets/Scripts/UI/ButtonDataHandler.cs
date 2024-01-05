@@ -107,7 +107,17 @@ public class ButtonDataHandler : MonoBehaviour
         }
 
         SaveData();
-        GameObject purchaseVFX = Instantiate(purchaseVFXPf, secondButton.transform.position, Quaternion.identity);
+        //Convert world space positions to screen space position
+        Vector3 worldSpace = secondButton.transform.position;
+        Vector3 screenSpace = Camera.main.WorldToScreenPoint(worldSpace);
+
+        //Acquiring the exact position of the second button on the UI canvas
+        RectTransform canvasRectTransform = canvas.GetComponent<RectTransform>();
+        Vector2 uiPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, screenSpace, Camera.main, out uiPosition);
+
+        //Spawn VFX on acquired position
+        GameObject purchaseVFX = Instantiate(purchaseVFXPf, uiPosition, Quaternion.identity);
         purchaseVFX.transform.SetParent(canvas.transform, false);
         Destroy(purchaseVFX, 5f);
 
