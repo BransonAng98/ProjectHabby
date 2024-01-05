@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Haptics.Vibrations;
 
 public class ButtonDataHandler : MonoBehaviour
 {
@@ -108,8 +109,8 @@ public class ButtonDataHandler : MonoBehaviour
         SaveData();
         GameObject purchaseVFX = Instantiate(purchaseVFXPf, secondButton.transform.position, Quaternion.identity);
         purchaseVFX.transform.SetParent(canvas.transform, false);
-
         Destroy(purchaseVFX, 5f);
+
         resourceData.currentGold -= upgradeCost;
         PlayerPrefs.SetInt("PlayerMoney", resourceData.currentGold);
         secondButton.interactable = false;
@@ -119,16 +120,19 @@ public class ButtonDataHandler : MonoBehaviour
         switch (id)
         {
             case 1:
+                VibrateHaptics.VibrateClick();
                 playerData.maxhealth += 10;
                 PlayerPrefs.SetInt("PlayerHealth", playerData.maxhealth);
                 break;
 
             case 2:
+                VibrateHaptics.VibrateClick();
                 playerData.speed += 1;
                 PlayerPrefs.SetFloat("PlayerMovement", playerData.speed);
                 break;
 
             case 3:
+                VibrateHaptics.VibrateClick();
                 playerData.attackDamage += 1;
                 PlayerPrefs.SetFloat("PlayerAttackDamage", playerData.attackDamage);
                 break;
@@ -142,6 +146,7 @@ public class ButtonDataHandler : MonoBehaviour
 
                 else
                 {
+                    VibrateHaptics.VibrateHeavyClick();
                     playerData.ultimateLevel += 1;
                     PlayerPrefs.SetInt("PlayerUltimateLevel", playerData.ultimateLevel);
                 }
@@ -151,6 +156,7 @@ public class ButtonDataHandler : MonoBehaviour
 
     public void CloseSecondScreen()
     {
+        VibrateHaptics.Release();
         secondFrame.SetActive(false);
         thisGO.interactable = true;
     }
