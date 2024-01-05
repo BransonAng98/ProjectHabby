@@ -15,6 +15,7 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource carAudioSource;
     public AudioSource propAudioSource;
     public AudioSource babblingAudioSource;
+    public AudioSource endScreenAudioSource;
 
     public AudioClip[] treeSFX;
     public AudioClip[] militaryIncomingSFX;
@@ -72,13 +73,13 @@ public class AudioManagerScript : MonoBehaviour
     
     public void PlayVictoryBGM()
     {
-        BGMSource.PlayOneShot(Victory);
+        endScreenAudioSource.PlayOneShot(Victory);
         Debug.Log("Win");
     }
 
     public void PlayDefeatBGM()
     {
-        BGMSource.PlayOneShot(Defeat);
+        endScreenAudioSource.PlayOneShot(Defeat);
         Debug.Log("Lose");
     }
     public void PlayScreaming()
