@@ -19,7 +19,8 @@ public class MiniGameManager : MonoBehaviour
     {
         Debug.Log("Trying to change");
         levelData.worldID = 1;
-        levelData.cityLevel = 1;
+        levelData.cityLevel = 6;
+        PlayerPrefs.SetInt("CityLevelStored", levelData.cityLevel);
         playerData.levelProgress++;
         progressChecker.UpdatePlayerProgress();
         SceneManager.LoadScene("LevelSelectScene");

@@ -132,6 +132,12 @@ public class ClockSystem : MonoBehaviour
                 //Prev was 60
                 addOnTime = 70;
                 break;
+
+            //Loop the final level timing
+            case 6:
+                //Prev was 60
+                addOnTime = 80;
+                break;
         }
 
         timerValue = levelData.baseTime + addOnTime;

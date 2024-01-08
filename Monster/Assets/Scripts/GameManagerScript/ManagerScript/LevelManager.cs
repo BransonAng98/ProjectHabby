@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        HardResetLevel();
         CalculateTotalDestruction();
     }
     void Start()
@@ -41,14 +40,6 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         LerpDestructionBar();
-    }
-
-    void HardResetLevel()
-    {
-        if(levelData.cityLevel > 5)
-        {
-            levelData.cityLevel = 5;
-        }
     }
 
     public void CalculateTotalDestruction()
@@ -70,6 +61,10 @@ public class LevelManager : MonoBehaviour
             case 4:
                 calculateCityDestruction = 1350f;
                 break;
+            //Loop the final level
+            case 6:
+                calculateCityDestruction = 1500f;
+                break;
         }
 
         calculation1 = levelData.baseScore + calculateCityDestruction;
@@ -89,7 +84,15 @@ public class LevelManager : MonoBehaviour
                 playerHandler.isEnd = true;
                 playerHandler.DisableMovement(2);
 
-                levelData.cityLevel += 1;
+                if(levelData.cityLevel < 6)
+                {
+                    levelData.cityLevel += 1;
+                }
+
+                else
+                {
+                    levelData.cityLevel = 6;
+                }
                 playerData.levelProgress++;
                 PlayerPrefs.SetInt("CityLevelStored", levelData.cityLevel);
                 PlayerPrefs.SetInt("LevelProgress", playerData.levelProgress);
