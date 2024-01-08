@@ -258,7 +258,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "Getting there...";
+            hitFeedbackDisplay.text = "JUST KEEP ON SNIPPING!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -267,7 +267,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "DEVASTATION";
+            hitFeedbackDisplay.text = "KRABTASTIC!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -276,7 +276,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "CALL THEM A NEW HOME";
+            hitFeedbackDisplay.text = "CLAW-SOME!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -285,7 +285,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "END OF THE WORLD";
+            hitFeedbackDisplay.text = "CRABTACULAR!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -294,7 +294,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "Its pinching time";
+            hitFeedbackDisplay.text = "CLAW-TASTROPE!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -303,7 +303,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "Stop being so crabby";
+            hitFeedbackDisplay.text = "SHELL SHOCKED!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
 
@@ -312,7 +312,7 @@ public class PlayerMiniGameController : MonoBehaviour
             hitFeedbackDisplay.color = new Color(hitFeedbackDisplay.color.r, hitFeedbackDisplay.color.g, hitFeedbackDisplay.color.b, 1f);
             hitFeedbackDisplay.gameObject.SetActive(true);
             hitFeedbackDisplay.GetComponent<TextStretchAndSquash>().StretchSquashAnimation();
-            hitFeedbackDisplay.text = "Crabtacular";
+            hitFeedbackDisplay.text = "HOLY CRAB!";
             StartCoroutine(FadeOutText(hitFeedbackDisplay));
         }
     }
