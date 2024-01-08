@@ -152,7 +152,7 @@ public class LobbyManager : MonoBehaviour
             VibrateHaptics.Release();
 
             loadingscreen.SetActive(true);
-            Invoke("LoadLevel", 3f);
+            LoadLevel();
         }
         else
         {
