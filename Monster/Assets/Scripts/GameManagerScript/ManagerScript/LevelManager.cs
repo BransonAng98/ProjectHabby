@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelData;
     public PlayerStatScriptableObject playerData;
+    public ResourceScriptableObject resourceData;
     private float calculateCityDestruction;
     public float calculation1;
 
@@ -96,6 +97,8 @@ public class LevelManager : MonoBehaviour
                 playerData.levelProgress++;
                 PlayerPrefs.SetInt("CityLevelStored", levelData.cityLevel);
                 PlayerPrefs.SetInt("LevelProgress", playerData.levelProgress);
+                PlayerPrefs.SetInt("PlayerMoney", resourceData.currentGold);
+                PlayerPrefs.Save();
                 levelData.destructionLevel = 0;
                 gameManager.isVictory = true;
                 isTriggered = true;

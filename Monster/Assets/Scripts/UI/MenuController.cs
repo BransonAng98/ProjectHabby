@@ -83,4 +83,8 @@ public class MenuController : MonoBehaviour
     {
 		VibrateHaptics.Release();
     }
+    private void OnDestroy()
+	{
+		PlayerPrefs.Save();
+	}
 }

@@ -162,6 +162,8 @@ public class ButtonDataHandler : MonoBehaviour
                 }
                 break;
         }
+
+        PlayerPrefs.Save();
     }
 
     public void CloseSecondScreen()

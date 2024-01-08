@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public float eventTiming;
     public int eventNumber;
 
+    public ResourceScriptableObject resourceData;
     public TextMeshProUGUI bannerText;
     public TextMeshProUGUI endStatusText;
     public LevelManager levelManagerScript;
@@ -99,7 +100,8 @@ public class EventManager : MonoBehaviour
     public void TriggerEndStatus()
     {
         endStatus.SetActive(false); // Ensure it starts deactivated
-
+        PlayerPrefs.SetInt("PlayerMoney", resourceData.currentGold);
+        PlayerPrefs.Save();
         if (gameManager.isVictory == false && playerHealth.healthSlider.value <= 0)
         {
             gameManager.gameEnded = true;
