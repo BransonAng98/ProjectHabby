@@ -84,7 +84,7 @@ public class GameManagerScript : MonoBehaviour
         //gameEnded = true;
         inputHandler.enableInput = false;
         Time.timeScale = 1f;
-        levelText.text = "" + levelManager.levelData.cityLevel;
+        levelText.text = "" + levelManager.playerData.levelProgress;
         //GNAText.text = "" + GNAManager.gnaData.inGameGNA;
         endScreen.SetActive(true);
        
