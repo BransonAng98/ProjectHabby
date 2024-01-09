@@ -25,7 +25,7 @@ public class ObjectiveDisplay : MonoBehaviour
     {
         if(landmark != null)
         {
-            text.text = "Destroy the " + landmark.enemyData.enemyName;
+            text.text = "Tap To Destroy the " + landmark.enemyData.enemyName;
         }
 
         else
