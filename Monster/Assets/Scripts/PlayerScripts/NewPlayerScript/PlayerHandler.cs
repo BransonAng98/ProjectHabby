@@ -234,11 +234,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
 
     void VibrationManager()
     {
-        if (isUltimate)
-        {
-            VibrateHaptics.VibrateHeavyClick();
-        }
-
         if (isDashing)
         {
             VibrateHaptics.VibrateTick();
