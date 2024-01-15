@@ -19,6 +19,7 @@ public class LobbyManager : MonoBehaviour
     public MenuAMScript menuaudiomanager;
     public Button ultimate1;
     public Button ultimate2;
+    private string citytoLoad;
 
     [SerializeField] string countryName;
     public Image countryFlag;
@@ -127,6 +128,7 @@ public class LobbyManager : MonoBehaviour
         SetCountryName();
         SetCountryFlag();
         SetLevelInfo();
+        LoadedLevel();
     }
 
     void SetLevelInfo()
@@ -152,7 +154,8 @@ public class LobbyManager : MonoBehaviour
             VibrateHaptics.Release();
 
             loadingscreen.SetActive(true);
-            LoadLevel();
+            StartCoroutine(LoadLevelAsync(citytoLoad));
+            //LoadLevel();
         }
         else
         {
@@ -160,43 +163,55 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+   
 
-    public void LoadLevel()
+    IEnumerator LoadLevelAsync(string citytoLoad)
     {
-        if(levelData.cityLevel < 6)
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(citytoLoad);
+        yield return new WaitUntil(() => loadOperation.isDone);
+    }
+
+    public void LoadedLevel()
+    {
+        if (levelData.cityLevel < 6)
         {
             switch (levelData.cityLevel)
             {
                 case 0:
-                    SceneManager.LoadSceneAsync("France_Tutorial_Level");
+                    citytoLoad = "France_Tutorial_Level";
                     break;
 
                 case 1:
-                    SceneManager.LoadSceneAsync("France_Easy_Level");
+                    citytoLoad = "France_Easy_Level";
                     break;
 
                 case 2:
-                    SceneManager.LoadSceneAsync("France_Medium_Level");
+                    citytoLoad = "France_Medium_Level";
                     break;
 
                 case 3:
-                    SceneManager.LoadSceneAsync("France_Medium_Level");
+                    citytoLoad = "France_Medium_Level";
                     break;
 
                 case 4:
-                    SceneManager.LoadSceneAsync("France_Hard_Level");
+                    citytoLoad = "France_Hard_Level";
                     break;
 
                 case 5:
-                    SceneManager.LoadSceneAsync("LandmarkDesScene");
+                    citytoLoad = "LandmarkDesScene";
                     break;
             }
+           
         }
+
         else
         {
             //Loop the hard level after the player clears the landmark destruction stage
-            SceneManager.LoadSceneAsync("France_Hard_Level");
+            citytoLoad = "France_Hard_Level";
+            
         }
+
+        
     }
 
     public void SelectUltimate(int whichUlt)
@@ -249,9 +264,4 @@ public class LobbyManager : MonoBehaviour
     {
         VibrateHaptics.Release();
     }
-
-
-
-
-
 }
