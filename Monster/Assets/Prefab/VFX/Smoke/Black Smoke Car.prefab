@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 8656522925563801548}
   - component: {fileID: 8656522925583198860}
   - component: {fileID: 8656522925583160108}
-  - component: {fileID: 5124712934979489632}
-  - component: {fileID: 9826861409613935}
   m_Layer: 0
   m_Name: Black Smoke Car
   m_TagString: FxTemporaire
@@ -43,14 +41,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8656522925564163052}
   serializedVersion: 8
-  lengthInSec: 0.5
+  lengthInSec: 3
   simulationSpeed: 0.5
-  stopAction: 0
+  stopAction: 1
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4646,30 +4644,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &5124712934979489632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656522925564163052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7374a923e1b69e846ad26f61462d6f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeDuration: 1
-  delayFadeDuration: 2
---- !u!114 &9826861409613935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656522925564163052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bdb53815c79244590cab4f7c8087f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableTime: 3
