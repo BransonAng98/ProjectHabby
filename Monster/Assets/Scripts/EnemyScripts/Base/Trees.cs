@@ -148,6 +148,6 @@ public class Trees : MonoBehaviour
 
     void SpawnVFX()
     {
-        Instantiate(hitVFX, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("TreeHit", transform.position, Quaternion.identity);
     }
 }

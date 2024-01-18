@@ -5,7 +5,6 @@ using UnityEngine;
 public class ArtilleryBullet : MonoBehaviour
 {
     public EnemyScriptableObject enemyData;
-    public GameObject explosionVFX;
     private CircularIndicator storedData;
     private Collider2D entityCollider;
 
@@ -15,14 +14,6 @@ public class ArtilleryBullet : MonoBehaviour
         
     }
     
-
-    private void Update()
-    {
-       
-    }
-
-
-
     public void GetData(GameObject data)
     {
         if (data)

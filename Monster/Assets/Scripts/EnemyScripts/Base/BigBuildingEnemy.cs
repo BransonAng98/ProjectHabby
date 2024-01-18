@@ -17,31 +17,21 @@ public class BigBuildingEnemy : MonoBehaviour
     public int destructionScore;
 
     //VFX
-    public GameObject fireVFX;
-    public GameObject deathVFX;
-    public GameObject damageVFX;
-    public GameObject crumblingVFX;
-    public GameObject hitVFX;
-    public GameObject smokeVFX;
-    private GameObject fireHandler;
+    private List<GameObject> fireList = new List<GameObject>();
+
     public float deathVFXRadius;
     public int minFires;
     public int maxFires;
     private bool isTriggered;
-    private List<GameObject> fireHandlers = new List<GameObject>();
 
     public Sprite destroyedBuilding;
     private LevelManager levelManager;
-    private EventManager eventManager;
-    private Vector3 targetScale = new Vector3(2f, 0, 0);
 
-    [SerializeField] private GameObject pfCoin;
-    [SerializeField] private GameObject pfFallingDelvin;
+    [SerializeField] private GameObject pfDelvin;
 
     public int minEntities = 0; // Minimum number of entities to spawn
     public int maxEntities = 3; // Maximum number of entities to spawn
-    public int minCoins = 1;
-    public int maxCoins = 4;
+
     private float spawnRadius = 1.0f; // Maximum distance from the current position
 
     public ObjectShakeScript shakeScript;
@@ -77,7 +67,7 @@ public class BigBuildingEnemy : MonoBehaviour
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         civilianParent = GameObject.Find("---Civillian---");
         levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
-        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         hitColor = GetComponent<HittableSpriteGroup>();
     }
@@ -135,7 +125,6 @@ public class BigBuildingEnemy : MonoBehaviour
         tempHealth -= damage;
         SpawnCivilian();
         audiomanager.playBuildingDamageFX();
-        //playDamageSFX();
 
         if (isOnFire != true)
         {
@@ -163,11 +152,11 @@ public class BigBuildingEnemy : MonoBehaviour
        // playDeathSFX();
         TriggerLoot();
 
-        foreach (var fireHandler in fireHandlers)
+        foreach (var fire in fireList)
         {
-            Destroy(fireHandler);
+            fire.SetActive(false);
         }
-        fireHandlers.Clear();
+        fireList.Clear();
 
         if(!hasDied)
         {
@@ -188,18 +177,10 @@ public class BigBuildingEnemy : MonoBehaviour
 
     public void SpawnDeathVFX()
     {
-        //if (fracture != null)
-        //{
-        //    destroyer.AlphaCount = false;
-        //    fracture.Fracture();
-        //    Debug.Log("Fracturing");
-        //}
-
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
-        Instantiate(deathVFX, explosionLoc, Quaternion.identity);
-        Instantiate(crumblingVFX, transform.position, Quaternion.identity);
-        Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0)); 
-  
+        ObjectPooler.Instance.SpawnFromPool("FireExplosionA", explosionLoc, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("CrumbleSmoke", transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("BlackSmoke",transform.position, Quaternion.Euler(-90, 0, 0));
     }
     public void SpawnFireVFX()
     {
@@ -207,15 +188,13 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             // Randomize the number of fires within a range
             int numberOfFires = Random.Range(minFires, maxFires + 1);
-
+            fireList.Clear();
             for (int i = 0; i < numberOfFires; i++)
             {
                 isTriggered = true;
                 Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 0.5f);
                 Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
-                GameObject fireAnim = Instantiate(fireVFX, randomPosition, Quaternion.Euler(-90, 0, 0));
-                fireHandlers.Add(fireAnim);
-                isOnFire = true;
+                fireList.Add(ObjectPooler.Instance.SpawnFromPool("WreckageFlame", randomPosition, Quaternion.Euler(-90, 0, 0)));
             }
         }
     }
@@ -223,8 +202,7 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         //Add points
         levelManager.CalculateScore(destructionScore);
-        Vector2 pointPos = new Vector2(transform.position.x, transform.position.y + 2f);
-
+        
         if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
             scoremanager.bigbuildingKilled += 1;
@@ -244,10 +222,9 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             shakeScript.StartShake();
         }
-        GameObject hit = Instantiate(damageVFX, transform.position, Quaternion.identity);
-        Instantiate(hitVFX, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("DebrisHit", transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("HitMiscA", transform.position, Quaternion.identity);
         spriteRenderer.sprite = damagedSprite;
-        Destroy(hit, 1f);
     }
 
     private void SpawnCivilian()
@@ -263,9 +240,10 @@ public class BigBuildingEnemy : MonoBehaviour
 
             Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
             float randomRotation = Random.Range(0f, 360f);
-            GameObject civilian = Instantiate(pfFallingDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
+            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
             civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
             civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
+           
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
             civilian.transform.SetParent(civilianParent.transform);
@@ -273,18 +251,5 @@ public class BigBuildingEnemy : MonoBehaviour
         }
 
     }
-
-    /*void playDamageSFX()
-    {
-        AudioClip damagesoundtoPlay = damageSFX[Random.Range(0, damageSFX.Length)];
-        buildingAudioSource.PlayOneShot(damagesoundtoPlay);
-        Debug.Log("PlaySound");
-    }
-
-    void playDeathSFX()
-    {
-        AudioClip deathsoundtoPlay = deathSFX[Random.Range(0, deathSFX.Length)];
-        buildingAudioSource.PlayOneShot(deathsoundtoPlay);
-    }*/
 
 }

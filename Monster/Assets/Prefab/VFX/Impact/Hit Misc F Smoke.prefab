@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 141433446842962274}
-  - component: {fileID: 1485505472562914433}
+  - component: {fileID: 7415092453599067404}
   m_Layer: 0
   m_Name: Hit Misc F Smoke
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1485505472562914433
+--- !u!114 &7415092453599067404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,11 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 141433446842962269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdad0a82fc5361e40a2607436fe43f39, type: 3}
+  m_Script: {fileID: 11500000, guid: 98bdb53815c79244590cab4f7c8087f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 2
-  delayFadeDuration: 5
+  disableTime: 3
 --- !u!1 &596844116186520392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,7 +4896,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9779,7 +9778,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14661,7 +14660,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -19521,5 +19520,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7374a923e1b69e846ad26f61462d6f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 2
-  delayFadeDuration: 5
+  fadeDuration: 1
+  delayFadeDuration: 2

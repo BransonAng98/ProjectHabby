@@ -4928,7 +4928,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 2.5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 1
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -9649,6 +9649,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 43bd45c1377e9344c834571bfff20ea7, type: 3}
   - {fileID: 8300000, guid: 8fd3ef887a9be7b4296badb1b29283d6, type: 3}
   - {fileID: 8300000, guid: 2c8eaaaabe5d3bd4cb7b64d815edbcfe, type: 3}
+  gamemanager: {fileID: 0}
 --- !u!82 &6096901176095921888
 AudioSource:
   m_ObjectHideFlags: 0
@@ -44040,7 +44041,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 2
   simulationSpeed: 1
-  stopAction: 2
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}

@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class ParticleFadeEffect : MonoBehaviour
 {
-    public float fadeDuration = 2.0f;
-    public float delayFadeDuration = 5f;
+    public float fadeDuration;
+    public float delayFadeDuration;
 
     private ParticleSystem particles;
     private float initialAlpha;
     private float targetAlpha = 0f;
 
-    void Start()
+    private void start()
     {
         particles = GetComponent<ParticleSystem>();
         var mainModule = particles.main;
         initialAlpha = mainModule.startColor.color.a;
         StartFading();
     }
-
     public void StartFading()
     {
-        Invoke("DelayedFade", delayFadeDuration);
+        Invoke(nameof(DelayedFade), delayFadeDuration);
     }
 
     void DelayedFade()
@@ -45,7 +44,9 @@ public class ParticleFadeEffect : MonoBehaviour
             yield return null;
         }
 
+        // Ensure it reaches the target color exactly
         mainModule.startColor = targetColor;
-        Destroy(gameObject, 2f);
+
     }
+
 }

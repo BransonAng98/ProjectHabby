@@ -20,7 +20,7 @@ public class ObjectFadeEffect : MonoBehaviour
 
     public void StartFading()
     {
-        Invoke("DelayedFade", delayFadeDuration);
+        Invoke(nameof(DelayedFade), delayFadeDuration);
     }
 
     void DelayedFade()
@@ -38,14 +38,14 @@ public class ObjectFadeEffect : MonoBehaviour
             yield return null;
         }
         objectRenderer.material.color = targetColor;
-        DestroyFadedObj();
+        Invoke(nameof(DisableFadedObj),1f);
     }
 
-    public void DestroyFadedObj()
+    public void DisableFadedObj()
     {
         if(objectRenderer.material.color == targetColor)
         {
-            Destroy(gameObject,1f);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -15,7 +15,6 @@ public class Civilian : MonoBehaviour
 
     public Transform player;
     public Animator anim;
-    public GameObject deathVFX;
    
     private float lastPosX;
     [SerializeField] float walkSpeed;
@@ -356,7 +355,7 @@ public class Civilian : MonoBehaviour
 
         if (!hasSpawned)
         {
-            Instantiate(deathVFX, transform.position, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("BloodSplatter",transform.position, Quaternion.identity);
             hasSpawned = true;
         }
 
@@ -378,11 +377,12 @@ public class Civilian : MonoBehaviour
             scoremanager.amtOfcivilians += 1;
             scoremanager.goldearned += 1;
         }
-     
-        GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
+
+        GameObject deadbody = Instantiate(deadSprite,transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
         deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;
+
         Destroy(transform.parent.gameObject);
     }
 

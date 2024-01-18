@@ -56,7 +56,7 @@ public class FadeObjectinParent : MonoBehaviour
         materialPropertyBlock.SetColor("_Color", targetColor);
         objectRenderer.SetPropertyBlock(materialPropertyBlock);
 
-        DestroyFadedObj();
+        //DestroyFadedObj();
     }
 
     public void DestroyFadedObj()

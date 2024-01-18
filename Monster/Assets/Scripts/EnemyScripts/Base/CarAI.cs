@@ -35,10 +35,7 @@ public class CarAI : MonoBehaviour
     public float stopDelay = 2f;
 
     //VFX
-    public GameObject explosionVFX;
-    public GameObject smokeVFX;
     public GameObject smokeTrailVFX;
-    public GameObject kickedVFX;
 
     private Sprite intitialSprite;
 
@@ -191,9 +188,8 @@ public class CarAI : MonoBehaviour
         }
         audiomanager.PlayCarSFX();
         //PlaySFX();
-
-        Instantiate(explosionVFX, transform.position, Quaternion.identity);
-
+        ObjectPooler.Instance.SpawnFromPool("FireExplosionB", transform.position, Quaternion.identity);
+        
         if (isVertical == true)
         {
             spriteRenderer.sprite = verticaldestroyedSprite;
@@ -212,7 +208,7 @@ public class CarAI : MonoBehaviour
         else
         {
             smokeTrailVFX.SetActive(false);
-            GameObject smoke = Instantiate(smokeVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+            GameObject smoke = ObjectPooler.Instance.SpawnFromPool("CarSmoke", transform.position, Quaternion.Euler(-90, 0, 0));
             smoke.transform.SetParent(this.gameObject.transform);
             entityCollider.enabled = false;
         }
@@ -225,7 +221,6 @@ public class CarAI : MonoBehaviour
     {
         VibrateHaptics.Release();
     }
-
     /*public void PlaySFX()
     {
         AudioClip deathSFX = vehicleSFX[(Random.Range(0, vehicleSFX.Length))];
@@ -240,7 +235,7 @@ public class CarAI : MonoBehaviour
     void KickLogic(Collider2D collision)
     {
         VibrateHaptics.VibrateTick();
-        Instantiate(kickedVFX, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("CarKick", transform.position, Quaternion.identity);
         smokeTrailVFX.SetActive(true);
         Vector2 kickDirection = transform.position - player.transform.position;
         Vector2 newDir =  kickDirection.normalized;

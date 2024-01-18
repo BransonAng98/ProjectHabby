@@ -29,7 +29,7 @@ public class artidamagecolliderScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("DamageByArti");
-            GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("ArtilleryExplosion", transform.position, Quaternion.identity);
             collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
             if (!collision.gameObject.GetComponent<PlayerHandler>().isDashing)
             {

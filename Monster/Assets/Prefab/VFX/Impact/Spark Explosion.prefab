@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4461574346646038}
-  - component: {fileID: 5842740201611674635}
+  - component: {fileID: 4592692036377819097}
   m_Layer: 0
   m_Name: Spark Explosion
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5842740201611674635
+--- !u!114 &4592692036377819097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1750940742320366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83d354433035fb44ca1436010e6839c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 98bdb53815c79244590cab4f7c8087f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 1
+  disableTime: 1
 --- !u!1 &288158307028059225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,7 +4884,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9754,7 +9754,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14633,7 +14633,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14738,7 +14738,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -24181,7 +24181,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -24286,7 +24286,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -33987,7 +33987,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -38920,7 +38920,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -43573,7 +43573,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -48473,7 +48473,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -53377,7 +53377,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -58268,7 +58268,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -63159,7 +63159,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 963744515
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0

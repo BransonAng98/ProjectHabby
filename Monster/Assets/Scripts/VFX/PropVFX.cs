@@ -5,7 +5,6 @@ using UnityEngine;
 public class PropVFX : MonoBehaviour
 {
     public AudioManagerScript audiomanager;
-    public GameObject shatterVFX;
     public Sprite destroyedSprite;
     public SpriteRenderer spriteRenderer;
     private Collider2D propCollider;
@@ -28,7 +27,7 @@ public class PropVFX : MonoBehaviour
         {
             spriteRenderer.sortingOrder = 2;
             audiomanager.PlayPropSFX();
-            Instantiate(shatterVFX, transform.position, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("SparkExplosion", transform.position, Quaternion.identity);
             spriteRenderer.sprite = destroyedSprite;
             propCollider.enabled = false;
         }

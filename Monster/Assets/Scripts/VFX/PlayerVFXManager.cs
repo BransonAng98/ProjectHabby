@@ -5,12 +5,10 @@ using UnityEngine;
 public class PlayerVFXManager : MonoBehaviour
 {
     public PlayerHandler inputHandler;
-    public GameObject impactVFX;
     public GameObject aoeVFX;
     public GameObject ultiRdyVFX;
     public GameObject ultimateVFX;
     public GameObject deathVFX;
-    public GameObject dashFootVFX;
     public GameObject upgradeVFX;
     public GameObject exhaustedVFX;
     public GameObject dashBodyVFX;
@@ -57,16 +55,16 @@ public class PlayerVFXManager : MonoBehaviour
 
         if (!isDashing)
         {
-            Instantiate(impactVFX, correction, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("WalkImpact", correction, Quaternion.identity);
         }
         if(isDashing & gamemanager.gameEnded == false)
         {
-            Instantiate(dashFootVFX, correction, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("RushImpact", correction, Quaternion.identity);
         }
 
         if(isDashing & gamemanager.gameEnded == true)
         {
-            Instantiate(impactVFX, correction, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("WalkImpact", correction, Quaternion.identity);
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(correction, footTremorRadius);

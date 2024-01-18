@@ -16,8 +16,6 @@ public class Artillery : MonoBehaviour
     public Transform artilleryPos;
     public float moveSpeed;
     public GameObject CircleIndicatorPrefab;
-    public GameObject explosionVFX;
-    public GameObject impactCrater;
 
     private GameObject storedData;
     
@@ -127,28 +125,19 @@ public class Artillery : MonoBehaviour
                 }
             }
 
-
-
             if (artilleryBullet != null)
             {
                 ArtilleryBullet artilleryBulletComponent = artilleryBullet.GetComponent<ArtilleryBullet>();
                 if (artilleryBulletComponent != null)
                 {
                     artilleryBulletComponent.BlowUp();
-                    //artilleryBulletComponent.PlayExplodeSFX();
                 }
 
-                // Destroy the artillery prefab instance
                 Destroy(artilleryBullet);
                 Vector2 spawnPos = new Vector2(targetPosition.x, targetPosition.y + 1.5f);
 
                 // Create and play the explosion VFX
-                GameObject explosion = Instantiate(explosionVFX, spawnPos, Quaternion.identity);
-
-                // Wait for the VFX to finish playing
-                yield return new WaitForSeconds(0.1f);
-
-                GameObject impact = Instantiate(impactCrater, spawnPos, Quaternion.identity);
+                ObjectPooler.Instance.SpawnFromPool("ArtilleryExplosion", spawnPos, Quaternion.identity);
             }
         }
         else

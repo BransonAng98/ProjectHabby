@@ -245,7 +245,7 @@ public class Leader : MonoBehaviour
         if (!hasSpawned)
         {
             followerList.Clear();
-            Instantiate(deathVFX, transform.position, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool("BloodSplatter", transform.position, Quaternion.identity);
             hasSpawned = true;
         }
 
