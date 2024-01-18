@@ -186,7 +186,7 @@ public class PlayerHandler : MonoBehaviour, ISoundable
             return;
         }
 
-        if (playerData.health == 0)
+        if (playerData.health <= 0)
         {
             vfxManager.SpawnDeathVFX();
         }
@@ -558,8 +558,6 @@ public class PlayerHandler : MonoBehaviour, ISoundable
         if (eventName == "Smash")
         {
             vfxManager.TriggerAoeTremor();
-            //TriggerAOE();
-            vfxManager.SpawnAoeVFX();
         }
     }
 

@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class ObjectFadeEffect : MonoBehaviour
 {
-    public float fadeDuration = 2.0f; // Time it takes to fade in/out
-    public float delayFadeDuration = 5f;
+    public float fadeDuration; // Time it takes to fade in/out
+    public float delayFadeDuration;
     private Renderer objectRenderer;
     private Color targetColor;
     private Color initialColor;
  
 
-    private void Start()
+    private void Awake()
     {
         objectRenderer = GetComponent<Renderer>();
         initialColor = objectRenderer.material.color;
         targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0);
+    }
+
+    private void OnEnable()
+    {
+        objectRenderer.material.color = initialColor;
     }
 
     public void StartFading()

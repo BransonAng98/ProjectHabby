@@ -16,7 +16,6 @@ public class Leader : MonoBehaviour
 
     public Transform player;
     public Animator anim;
-    public GameObject deathVFX;
     public ObjectFadeEffect fadeEffect;
 
     private float lastPosX;
@@ -263,7 +262,8 @@ public class Leader : MonoBehaviour
         inputHandler.ChargeUltimate(1);
         scoremanager.amtOfcivilians += 1;
         scoremanager.goldearned += 1;
-        GameObject deadbody = Instantiate(deadSprite, transform.position, Quaternion.identity);
+
+        GameObject deadbody = ObjectPooler.Instance.SpawnFromPool("DeadCivi", transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
         deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;

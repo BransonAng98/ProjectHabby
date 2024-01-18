@@ -378,7 +378,7 @@ public class Civilian : MonoBehaviour
             scoremanager.goldearned += 1;
         }
 
-        GameObject deadbody = Instantiate(deadSprite,transform.position, Quaternion.identity);
+        GameObject deadbody = ObjectPooler.Instance.SpawnFromPool("DeadCivi", transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
         deadbody.GetComponent<CauseOfDeath>().causeOfDeath = causeOfDeath;
         deadbody.GetComponent<CauseOfDeath>().whoKilledMe = murderer;

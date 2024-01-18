@@ -5,12 +5,8 @@ using UnityEngine;
 public class PlayerVFXManager : MonoBehaviour
 {
     public PlayerHandler inputHandler;
-    public GameObject aoeVFX;
     public GameObject ultiRdyVFX;
     public GameObject ultimateVFX;
-    public GameObject deathVFX;
-    public GameObject upgradeVFX;
-    public GameObject exhaustedVFX;
     public GameObject dashBodyVFX;
     public GameObject blackSquare;
     public GameObject rageOnTxt;
@@ -100,7 +96,7 @@ public class PlayerVFXManager : MonoBehaviour
                 isTriggered = true;
                 Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 2f);
                 Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
-                Instantiate(deathVFX, randomPosition, Quaternion.identity);
+                ObjectPooler.Instance.SpawnFromPool("ElectricExplosionA", randomPosition, Quaternion.identity);
             }
         }
     }
@@ -114,7 +110,7 @@ public class PlayerVFXManager : MonoBehaviour
                 isTriggered = true;
                 Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 2f);
                 Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
-                Instantiate(exhaustedVFX, randomPosition, Quaternion.identity);
+                ObjectPooler.Instance.SpawnFromPool("ElectricExplosionB", randomPosition, Quaternion.identity);
             }
         }
     }
@@ -122,12 +118,6 @@ public class PlayerVFXManager : MonoBehaviour
     public void DeTrigger()
     {
         isTriggered = false;
-    }
-
-    public void SpawnAoeVFX()
-    {
-        Vector2 aoePos = new Vector2(transform.position.x, transform.position.y - 1f);
-        Instantiate(aoeVFX, aoePos, Quaternion.identity);
     }
 
     public void SpawnUltiVFX()
@@ -139,7 +129,7 @@ public class PlayerVFXManager : MonoBehaviour
     public void SpawnUpgradeVFX()
     {
         Vector2 upgradePos = new Vector2(this.transform.position.x, this.transform.position.y + 2f);
-        Instantiate(upgradeVFX, upgradePos, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool("RageStatus", upgradePos, Quaternion.identity);
     }
 
     public void SpawnRageOnText()
@@ -182,15 +172,14 @@ public class PlayerVFXManager : MonoBehaviour
 
             yield return null;
         }
-
         Destroy(obj);
     }
 
     public void SpawnRageOffText()
     {
         Vector2 spawnPosition = new Vector2(transform.position.x, transform.position.y + 8f);
-        GameObject rageOnObject = Instantiate(rageOffTxt, spawnPosition, Quaternion.identity);
-        StartCoroutine(MoveDownAndFade(rageOnObject));
+        GameObject rageOffObject = Instantiate(rageOffTxt, spawnPosition, Quaternion.identity);
+        StartCoroutine(MoveDownAndFade(rageOffObject));
     }
 
     private IEnumerator MoveDownAndFade(GameObject obj)
@@ -226,7 +215,6 @@ public class PlayerVFXManager : MonoBehaviour
 
             yield return null;
         }
-
         Destroy(obj);
     }
 
