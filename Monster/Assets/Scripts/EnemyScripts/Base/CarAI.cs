@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Pathfinding;
 using Haptics.Vibrations;
+using System.Linq;
 public class CarAI : MonoBehaviour
 {
     [SerializeField] private LevelManager levelManager;
@@ -32,6 +33,8 @@ public class CarAI : MonoBehaviour
     public Sprite destroyedSprite;
     public Sprite verticaldestroyedSprite;
 
+    [SerializeField] float movingAngle;
+
     //Kick Variables
     [SerializeField] public bool isKicking;
     [SerializeField] int kickForce = 4;
@@ -57,24 +60,22 @@ public class CarAI : MonoBehaviour
     public Vector2 verticalDispenseVelocity;
     public ScoreManagerScript scoremanager;
 
-    public GameObject waypointParent;
-    // Array of waypoints to walk from one to the next one
-    [SerializeField]
-    private Transform[] waypoints;
+
 
     // Walk speed that can be set in Inspector
     [SerializeField]
     private float moveSpeed = 2f;
 
-    // Index of current waypoint from which Enemy walks
-    // to the next one
-    private int waypointIndex = 0;
+    [SerializeField]
+    private GameObject currentWaypoint;
 
+    public GameObject[] waypoints;
 
 
     void Start()
     {
-        waypointParent = GameObject.Find("Waypoints");
+        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+        currentWaypoint = FindClosestWaypointWithTag("Waypoint");
         VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
@@ -97,15 +98,8 @@ public class CarAI : MonoBehaviour
 
         // Set position of Enemy as position of the first waypoint
         //transform.position = waypoints[waypointIndex].transform.position;
-        if (waypointParent != null)
-        {
-            // Dynamically find and store waypoints from the parent GameObject
-            waypoints = waypointParent.GetComponentsInChildren<Transform>();
-            // Skip the first element (parent itself)
-            waypointIndex = 1;
-            transform.position = waypoints[waypointIndex].position;
-        }
-}
+
+    }
 
     private void Update()
     {
@@ -251,75 +245,122 @@ public class CarAI : MonoBehaviour
         }
 
     }
+    private GameObject FindClosestWaypointWithTag(string tag)
+    {
+        // Initialize variables for tracking the closest waypoint and its distance
+        GameObject closestWaypoint = null;
+        float closestDistance = float.MaxValue;
+
+        // Iterate through all waypoints to find the closest one
+        foreach (GameObject waypoint in waypoints)
+        {
+            float distance = Vector3.Distance(transform.position, waypoint.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestWaypoint = waypoint;
+            }
+        }
+
+        return closestWaypoint;
+    }
 
     // Method that actually make Enemy walk
     private void Move()
     {
-        if (waypointIndex <= waypoints.Length - 1)
-        {
-            Vector3 targetPosition = waypoints[waypointIndex].position;
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
+        if (currentWaypoint != null)
+        {   
 
+            Vector3 targetPosition = currentWaypoint.transform.position;
+            Vector3 moveDirection = (targetPosition - transform.position).normalized;
+            SetSpriteDirection(moveDirection);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
             // Determine the angle of movement
-            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+          
 
-            if (moveDirection.y > 0.5f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
-                // Moving Up
-                SetSpriteUp();
+                Debug.Log("LookForNextWayPoint");
+                SetNextWaypoint();
             }
-             if (moveDirection.y < -0.5f)
+            else
             {
-                // Moving Down
-                SetSpriteDown();
-            }
-             if (moveDirection.x < 0f)
-            {
-                // Moving Left
-                SetSpriteLeft();
-            }
-             if (moveDirection.x > 0f)
-            {
-                // Moving Right
-                SetSpriteRight();
+                Debug.Log("StillTravelling");
+                return;
             }
 
-            // Additional conditions for diagonal movement
-            if (moveDirection.x > 0f && moveDirection.y > 0.5f)
-            {
-                // Moving Upper-Right
-                SetSpriteUpperRight();
-            }
-            if (moveDirection.x > 0f && moveDirection.y < -0.5f)
-            {
-                // Moving Lower-Right
-                SetSpriteLowerRight();
-            }
-             if (moveDirection.x < 0f && moveDirection.y > 0.5f)
-            {
-                // Moving Upper-Left
-                SetSpriteUpperLeft();
-            }
-             if (moveDirection.x < 0f && moveDirection.y < -0.5f)
-            {
-                // Moving Lower-Left
-                SetSpriteLowerLeft();
-            }
-
-
-            if (transform.position == targetPosition)
-            {
-                waypointIndex += 1;
-            }
+            
         }
+    }
+
+    private void SetSpriteDirection(Vector3 moveDirection)
+    {
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        angle = NormalizeAngle(angle);
+        movingAngle = angle;
+
+        if (angle >= 0f && angle < 22.5f || angle >= 337.5f && angle < 360f)
+        {
+            SetSpriteRight();
+        }
+        if (angle >= 22.5f && angle < 67.5f)
+        {
+            SetSpriteUpperRight();
+        }
+        if (angle >= 67.5f && angle < 112.5f)
+        {
+            SetSpriteUp();
+        }
+       if (angle >= 112.5f && angle < 157.5f)
+        {
+            SetSpriteUpperLeft();
+        }
+         if (angle >= 157.5f && angle < 202.5f)
+        {
+            SetSpriteLeft();
+        }
+        if (angle >= 202.5f && angle < 247.5f)
+        {
+            SetSpriteLowerLeft();
+        }
+       if (angle >= 247.5f && angle < 292.5f)
+        {
+            SetSpriteDown();
+        }
+        if (angle >= 292.5f && angle < 337.5f)
+        {
+            SetSpriteLowerRight();
+        }
+    }
+
+    private float NormalizeAngle(float angle)
+    {
+        return (angle + 360) % 360;
+    }
+
+    private void SetNextWaypoint()
+    {
+        // Find the index of the current waypoint in the array
+        int currentIndex = System.Array.IndexOf(waypoints, currentWaypoint);
+
+        // Move to the next waypoint (looping back to the start if at the end)
+        int nextIndex = (currentIndex + 1) % waypoints.Length;
+
+        // Update the currentWaypoint to the next waypoint
+        currentWaypoint = waypoints[nextIndex];
+    }
+
+    private void RemoveWaypoint(GameObject waypointToRemove)
+    {
+        waypoints = waypoints.Where(waypoint => waypoint != waypointToRemove).ToArray();
     }
     public void Death()
     {
         VibrateHaptics.VibrateHeavyClick();
         Invoke("StopVibration", 1f);
-        spriteRenderer.sortingOrder = 2;   
+        spriteRenderer.sortingOrder = 2;
         scoremanager.amtOfCarskilled += 1;
         scoremanager.goldearned += 3;
         if (!hasTriggered)
@@ -335,7 +376,7 @@ public class CarAI : MonoBehaviour
         audiomanager.PlayCarSFX();
         //PlaySFX();
         ObjectPooler.Instance.SpawnFromPool("FireExplosionB", transform.position, Quaternion.identity);
-        
+
         if (isVertical == true)
         {
             spriteRenderer.sprite = verticaldestroyedSprite;
@@ -348,7 +389,7 @@ public class CarAI : MonoBehaviour
 
 
         if (isKicking)
-        { 
+        {
             return;
         }
         else
@@ -360,14 +401,14 @@ public class CarAI : MonoBehaviour
         }
 
         fadescript.StartFading();
-        
+
     }
 
     void StopVibration()
     {
         VibrateHaptics.Release();
     }
-   
+
     public void DestroyObject()
     {
         fakeheight.Delete();
@@ -379,7 +420,7 @@ public class CarAI : MonoBehaviour
         ObjectPooler.Instance.SpawnFromPool("CarKick", transform.position, Quaternion.identity);
         smokeTrailVFX.SetActive(true);
         Vector2 kickDirection = transform.position - player.transform.position;
-        Vector2 newDir =  kickDirection.normalized;
+        Vector2 newDir = kickDirection.normalized;
         isKicking = true;
         fakeheight.isGrounded = false;
         GetComponentInParent<vehicleFakeHeightScript>().Initialize(newDir * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
