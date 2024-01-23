@@ -30,7 +30,7 @@ public class artidamagecolliderScript : MonoBehaviour
         {
             Debug.Log("DamageByArti");
             ObjectPooler.Instance.SpawnFromPool("ArtilleryExplosion", transform.position, Quaternion.identity);
-            collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            collision.gameObject.GetComponent<PlayerHealthScript>().TakeDamage((int)enemyData.attackDamage);
             if (!collision.gameObject.GetComponent<PlayerHandler>().isDashing)
             {
                 collision.gameObject.GetComponent<PlayerHandler>().DisableMovement(6);

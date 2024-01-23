@@ -34,7 +34,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     //Flash Effect
     private PlayerFlash flashEffect;
-    private int thresholdHealth;
+    private float thresholdHealth;
     public int triggerNumber;
 
     //Berserk mode Feedback
@@ -171,7 +171,7 @@ public class PlayerHealthScript : MonoBehaviour
     //    }
     //}
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (Time.time - lastPainRoarTime >= painRoarCooldown)
         {
@@ -201,7 +201,7 @@ public class PlayerHealthScript : MonoBehaviour
                 }
             }
 
-            int healthDifference = thresholdHealth - playerSO.health;
+            float healthDifference = thresholdHealth - playerSO.health;
             if (healthDifference >= triggerNumber)
             {
                 //flashEffect.Flash();

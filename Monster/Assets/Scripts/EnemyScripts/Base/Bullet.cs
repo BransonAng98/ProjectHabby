@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameObject explosion = Instantiate(explosionVFX, transform.position, Quaternion.identity);
-            collision.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            collision.GetComponent<PlayerHealthScript>().TakeDamage((int)enemyData.attackDamage);
             Destroy(gameObject);
         }
     }

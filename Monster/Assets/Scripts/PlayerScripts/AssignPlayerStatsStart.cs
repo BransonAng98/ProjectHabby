@@ -18,7 +18,7 @@ public class AssignPlayerStatsStart : MonoBehaviour
         //Assign saved player health
         if (PlayerPrefs.HasKey("PlayerHealth"))
         {
-            playerData.maxhealth = PlayerPrefs.GetInt("PlayerHealth");
+            playerData.maxhealth = PlayerPrefs.GetFloat("PlayerHealth");
         }
 
         else

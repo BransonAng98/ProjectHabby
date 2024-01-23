@@ -132,7 +132,7 @@ public class ButtonDataHandler : MonoBehaviour
             case 1:
                 VibrateHaptics.VibrateClick();
                 playerData.maxhealth += 10;
-                PlayerPrefs.SetInt("PlayerHealth", playerData.maxhealth);
+                PlayerPrefs.SetFloat("PlayerHealth", playerData.maxhealth);
                 break;
 
             case 2:

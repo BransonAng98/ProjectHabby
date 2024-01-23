@@ -85,7 +85,7 @@ public class HumanSoldier : MonoBehaviour
         if (attackCDLeft <= 0f)
         {
             attackCDLeft = enemyData.attackSpeed;
-            player.gameObject.GetComponent<PlayerHealthScript>().TakeDamage(enemyData.attackDamage);
+            player.gameObject.GetComponent<PlayerHealthScript>().TakeDamage((int)enemyData.attackDamage);
         }
     }
 
