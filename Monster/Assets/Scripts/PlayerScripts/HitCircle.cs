@@ -89,13 +89,11 @@ public class HitCircle : MonoBehaviour
         // Update the current angle by adding the difference and the orbit speed.
         if (!lagInput)
         {
-            Debug.Log("Using Regular Speed");
             currentAngle += (angleDifference + 180f) % 360f + speed * Time.deltaTime;
         }
 
         else
         {
-            Debug.Log("Using Lag Speed");
             currentAngle += (angleDifference + 180f) % 360f + lagSpeed * Time.deltaTime;
         }
 
