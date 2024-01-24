@@ -100,6 +100,9 @@ GameObject:
   - component: {fileID: 1103372780465231704}
   - component: {fileID: 8907072977262992161}
   - component: {fileID: 8758163719606102387}
+  - component: {fileID: 7787479388991922894}
+  - component: {fileID: 6756353367454085184}
+  - component: {fileID: 265259254014918281}
   m_Layer: 13
   m_Name: Body
   m_TagString: Car
@@ -240,6 +243,10 @@ MonoBehaviour:
   downSprite: {fileID: 21300000, guid: 00f5a0bedc37aab47811c74b5444b838, type: 3}
   leftSprite: {fileID: 21300000, guid: 0d1ae091c500dc349bb702b1dd685783, type: 3}
   rightSprite: {fileID: 21300000, guid: 1202af7efa9bf604790e1f1773828944, type: 3}
+  upperrightSprite: {fileID: 0}
+  lowerrightSprite: {fileID: 0}
+  upperleftSprite: {fileID: 0}
+  lowerleftSprite: {fileID: 0}
   destroyedSprite: {fileID: 21300000, guid: 7470a7fb28e8a9241ae7684aecebbd00, type: 3}
   verticaldestroyedSprite: {fileID: 21300000, guid: 4001656293f947c4b88f22d7f9ebeb40, type: 3}
   isKicking: 0
@@ -261,6 +268,7 @@ MonoBehaviour:
   groundDispenseVelocity: {x: 8, y: 10}
   verticalDispenseVelocity: {x: 6, y: 8}
   scoremanager: {fileID: 0}
+  moveSpeed: 2
 --- !u!114 &1103372780465231704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +392,91 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7787479388991922894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871381207532833550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &6756353367454085184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871381207532833550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &265259254014918281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871381207532833550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a413b69083458a4f82c95fe1854848a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 20
+  carscript: {fileID: 0}
+  angle: 0
 --- !u!1001 &8096448591621520543
 PrefabInstance:
   m_ObjectHideFlags: 0

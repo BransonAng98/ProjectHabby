@@ -61,12 +61,18 @@ public class GameManagerScript : MonoBehaviour
         player.GetComponent<MeshRenderer>().enabled = false;
         //scoreDisplay.SetActive(false);
         endScreen.SetActive(false);
-        //AstarPath.active.Scan(); //scan the grid
+      
         DisplayObjective();
         ScanAndInsert();
-        DisableObstacles();
+        //DisableObstacles();
         DeactivatePlayer();
        
+    }
+
+    private void Awake()
+    {
+        AstarPath.active.Scan(); //scan the grid
+        Debug.Log("Scan");
     }
 
 

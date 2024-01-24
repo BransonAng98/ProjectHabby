@@ -33,8 +33,6 @@ public class CarAI : MonoBehaviour
     public Sprite destroyedSprite;
     public Sprite verticaldestroyedSprite;
 
-    [SerializeField] float movingAngle;
-
     //Kick Variables
     [SerializeField] public bool isKicking;
     [SerializeField] int kickForce = 4;
@@ -66,16 +64,8 @@ public class CarAI : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 2f;
 
-    [SerializeField]
-    private GameObject currentWaypoint;
-
-    public GameObject[] waypoints;
-
-
     void Start()
     {
-        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        currentWaypoint = FindClosestWaypointWithTag("Waypoint");
         VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
@@ -245,117 +235,15 @@ public class CarAI : MonoBehaviour
         }
 
     }
-    private GameObject FindClosestWaypointWithTag(string tag)
-    {
-        // Initialize variables for tracking the closest waypoint and its distance
-        GameObject closestWaypoint = null;
-        float closestDistance = float.MaxValue;
-
-        // Iterate through all waypoints to find the closest one
-        foreach (GameObject waypoint in waypoints)
-        {
-            float distance = Vector3.Distance(transform.position, waypoint.transform.position);
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestWaypoint = waypoint;
-            }
-        }
-
-        return closestWaypoint;
-    }
+  
 
     // Method that actually make Enemy walk
     private void Move()
     {
-        if (currentWaypoint != null)
-        {   
 
-            Vector3 targetPosition = currentWaypoint.transform.position;
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
-            SetSpriteDirection(moveDirection);
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            // Determine the angle of movement
-          
-
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                Debug.Log("LookForNextWayPoint");
-                SetNextWaypoint();
-            }
-            else
-            {
-                Debug.Log("StillTravelling");
-                return;
-            }
-
-            
-        }
     }
 
-    private void SetSpriteDirection(Vector3 moveDirection)
-    {
-        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-        angle = NormalizeAngle(angle);
-        movingAngle = angle;
 
-        if (angle >= 0f && angle < 22.5f || angle >= 337.5f && angle < 360f)
-        {
-            SetSpriteRight();
-        }
-        if (angle >= 22.5f && angle < 67.5f)
-        {
-            SetSpriteUpperRight();
-        }
-        if (angle >= 67.5f && angle < 112.5f)
-        {
-            SetSpriteUp();
-        }
-       if (angle >= 112.5f && angle < 157.5f)
-        {
-            SetSpriteUpperLeft();
-        }
-         if (angle >= 157.5f && angle < 202.5f)
-        {
-            SetSpriteLeft();
-        }
-        if (angle >= 202.5f && angle < 247.5f)
-        {
-            SetSpriteLowerLeft();
-        }
-       if (angle >= 247.5f && angle < 292.5f)
-        {
-            SetSpriteDown();
-        }
-        if (angle >= 292.5f && angle < 337.5f)
-        {
-            SetSpriteLowerRight();
-        }
-    }
-
-    private float NormalizeAngle(float angle)
-    {
-        return (angle + 360) % 360;
-    }
-
-    private void SetNextWaypoint()
-    {
-        // Find the index of the current waypoint in the array
-        int currentIndex = System.Array.IndexOf(waypoints, currentWaypoint);
-
-        // Move to the next waypoint (looping back to the start if at the end)
-        int nextIndex = (currentIndex + 1) % waypoints.Length;
-
-        // Update the currentWaypoint to the next waypoint
-        currentWaypoint = waypoints[nextIndex];
-    }
-
-    private void RemoveWaypoint(GameObject waypointToRemove)
-    {
-        waypoints = waypoints.Where(waypoint => waypoint != waypointToRemove).ToArray();
-    }
     public void Death()
     {
         VibrateHaptics.VibrateHeavyClick();
