@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 7660289110482186031}
   - component: {fileID: 4165200129343943132}
   - component: {fileID: 3442428245298467500}
+  - component: {fileID: 42094857097130602}
+  - component: {fileID: 6256618877926633792}
+  - component: {fileID: 7083337808350465374}
   m_Layer: 13
   m_Name: Body
   m_TagString: Car
@@ -156,6 +159,10 @@ MonoBehaviour:
   downSprite: {fileID: 21300000, guid: 837dbd26465119043b9b858fcd1e0e27, type: 3}
   leftSprite: {fileID: 21300000, guid: 217b8465ce541104ca15c64a1629d32d, type: 3}
   rightSprite: {fileID: 21300000, guid: 4e88edcf7be52a84a86663c50b362ab9, type: 3}
+  upperrightSprite: {fileID: 21300000, guid: 465c4cdd5e30dd740859aa58a109342b, type: 3}
+  lowerrightSprite: {fileID: 21300000, guid: 958d22d8b3d41e9478e4b4155a0ce3a1, type: 3}
+  upperleftSprite: {fileID: 21300000, guid: 7b11211af2b67c84dbbb812beb7ac847, type: 3}
+  lowerleftSprite: {fileID: 21300000, guid: 1dba77f531be3d146b87898a9274cd7e, type: 3}
   destroyedSprite: {fileID: 21300000, guid: cd90ea8f06e2a5a49abfaf9e20da71bf, type: 3}
   verticaldestroyedSprite: {fileID: 21300000, guid: d345b7845cfc1904b9f9769a6d767555, type: 3}
   isKicking: 0
@@ -177,6 +184,7 @@ MonoBehaviour:
   groundDispenseVelocity: {x: 8, y: 10}
   verticalDispenseVelocity: {x: 6, y: 8}
   scoremanager: {fileID: 0}
+  moveSpeed: 2
 --- !u!114 &7660289110482186031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +308,93 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &42094857097130602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051405372224184972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &6256618877926633792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051405372224184972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &7083337808350465374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051405372224184972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a413b69083458a4f82c95fe1854848a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 20
+  carscript: {fileID: 0}
+  angle: 0
+  delta: {x: 0, y: 0}
+  scale: 0
 --- !u!1 &4411149530234238777
 GameObject:
   m_ObjectHideFlags: 0

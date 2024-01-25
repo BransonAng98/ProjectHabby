@@ -5,90 +5,107 @@ using Pathfinding;
 
 public class CarWanderingScript : MonoBehaviour
 {
-    public float radius = 20;
+    [SerializeField]
+    private float radius = 50;
+
     IAstarAI ai;
     public CarAI carscript;
-    [SerializeField]
-    private float angle;
 
     Vector3 previousPosition;
     [SerializeField]
     private Vector2 delta;
     [SerializeField]
-    private float scale = 10f;
+    private float scale = 0f;
+
+    private Vector3 previousDirection;
     void Start()
     {
         ai = GetComponent<IAstarAI>();
         carscript = gameObject.GetComponent<CarAI>();
     }
-    Vector3 PickRandomPoint()
+    Vector3 PickRandomPoint(Vector3 avoidDirection)
     {
-        var point = Random.insideUnitSphere * radius;
-        point.y = 0;
-        point += ai.position;
-        return point;
+        Vector3 randomPoint;
+        do
+        {
+            randomPoint = Random.insideUnitSphere * radius;
+            randomPoint.y = 0;
+            randomPoint += ai.position;
+        } while (Vector3.Dot((randomPoint - ai.position).normalized, avoidDirection) > 0.8f); // Adjust the threshold as needed
+
+        return randomPoint;
     }
+
     void Update()
     {
-        delta = (transform.position - previousPosition) * scale;
+        delta = transform.position - previousPosition;
         previousPosition = transform.position;
         SetSpriteDirection();
         
-        // Update the destination of the AI if
-        // the AI is not already calculating a path and
-        // the ai has reached the end of the path or it has no path at all
         if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
         {
-            ai.destination = PickRandomPoint();
-            Vector2 direction = (ai.destination - ai.position).normalized;
-            angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-            angle = NormalizeAngle(angle);
+            Vector3 avoidDirection = -previousDirection.normalized;
+            ai.destination = PickRandomPoint(avoidDirection);
+            previousDirection = (ai.destination - ai.position).normalized;
             ai.SearchPath();
         }
     }
 
-   void SetSpriteDirection()
-{
-        if (ai.destination != null)
+    void SetSpriteDirection()
+    {
+        const float threshold = 0.03f;
+        const float diagonalThreshold = 0.05f; // Adjust this value for diagonal turns
+
+        if (Mathf.Abs(delta.x) > threshold || Mathf.Abs(delta.y) > threshold)
         {
-            if (delta.x > 0f)
+            if (Mathf.Abs(delta.x) > diagonalThreshold || Mathf.Abs(delta.y) > diagonalThreshold)
             {
-                carscript.SetSpriteRight();
+                // Diagonal movement
+                if (delta.x > 0)
+                {
+                    if (delta.y > 0)
+                        carscript.SetSpriteUpperRight();
+                    else if (delta.y < 0)
+                        carscript.SetSpriteLowerRight();
+                    else
+                        carscript.SetSpriteRight();
+                }
+                else if (delta.x < 0)
+                {
+                    if (delta.y > 0)
+                        carscript.SetSpriteUpperLeft();
+                    else if (delta.y < 0)
+                        carscript.SetSpriteLowerLeft();
+                    else
+                        carscript.SetSpriteLeft();
+                }
+                else
+                {
+                    // delta.x is close to zero (not moving horizontally)
+                    if (delta.y > 0)
+                        carscript.SetSpriteUp();
+                    else if (delta.y < 0)
+                        carscript.SetSpriteDown();
+                    // If delta.y is close to zero, you can handle it as a special case or leave it empty.
+                }
             }
-            if (delta.x > 0f && delta.y > 0.5)
+            else
             {
-                carscript.SetSpriteUpperRight();
-            }
-            if (delta.y > 0.5f)
-            {
-                carscript.SetSpriteUp();
-            }
-            if (delta.x <0f && delta.y < -0.5f)
-            {
-                carscript.SetSpriteUpperLeft();
-            }
-            if (delta.x < 0f)
-            {
-                carscript.SetSpriteLeft();
-            }
-            if (delta.x < 0f && delta.y < -0.5f)
-            {
-                carscript.SetSpriteLowerLeft();
-            }
-            if (delta.y < -0.5f)
-            {
-                carscript.SetSpriteDown();
-            }
-            if (delta.x > 0f && delta.y < -0.5f)
-            {
-                carscript.SetSpriteLowerRight();
+                // Non-diagonal movement
+                if (delta.x > threshold)
+                    carscript.SetSpriteRight();
+                else if (delta.x < -threshold)
+                    carscript.SetSpriteLeft();
+                else
+                {
+                    if (delta.y > threshold)
+                        carscript.SetSpriteUp();
+                    else if (delta.y < -threshold)
+                        carscript.SetSpriteDown();
+                    // If delta.y is close to zero, you can handle it as a special case or leave it empty.
+                }
             }
         }
-}
-
-    private float NormalizeAngle(float angle)
-    {
-        return (angle + 360) % 360;
     }
 }
 

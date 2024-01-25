@@ -243,10 +243,10 @@ MonoBehaviour:
   downSprite: {fileID: 21300000, guid: 00f5a0bedc37aab47811c74b5444b838, type: 3}
   leftSprite: {fileID: 21300000, guid: 0d1ae091c500dc349bb702b1dd685783, type: 3}
   rightSprite: {fileID: 21300000, guid: 1202af7efa9bf604790e1f1773828944, type: 3}
-  upperrightSprite: {fileID: 0}
-  lowerrightSprite: {fileID: 0}
-  upperleftSprite: {fileID: 0}
-  lowerleftSprite: {fileID: 0}
+  upperrightSprite: {fileID: 21300000, guid: 2a978c73724eb75488d88f8be0a9dd79, type: 3}
+  lowerrightSprite: {fileID: 21300000, guid: af8a67ab2892c6443a96ebc51382da8b, type: 3}
+  upperleftSprite: {fileID: 21300000, guid: cf2d06dffa9f68e48b7da804a533be7b, type: 3}
+  lowerleftSprite: {fileID: 21300000, guid: 901f732aed9f76048b9516d7cb758a7f, type: 3}
   destroyedSprite: {fileID: 21300000, guid: 7470a7fb28e8a9241ae7684aecebbd00, type: 3}
   verticaldestroyedSprite: {fileID: 21300000, guid: 4001656293f947c4b88f22d7f9ebeb40, type: 3}
   isKicking: 0
@@ -474,9 +474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a413b69083458a4f82c95fe1854848a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 20
+  radius: 30
   carscript: {fileID: 0}
   angle: 0
+  delta: {x: 0, y: 0}
+  scale: 0
 --- !u!1001 &8096448591621520543
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -100,6 +100,9 @@ GameObject:
   - component: {fileID: 7524875918537491130}
   - component: {fileID: 7474612046342693737}
   - component: {fileID: 6156495145681878783}
+  - component: {fileID: 3920107073156097034}
+  - component: {fileID: 3141729341112262495}
+  - component: {fileID: 525304167313497518}
   m_Layer: 13
   m_Name: Body
   m_TagString: Car
@@ -240,6 +243,10 @@ MonoBehaviour:
   downSprite: {fileID: 21300000, guid: 7d1907bf43591c6468f1749cac0194b6, type: 3}
   leftSprite: {fileID: 21300000, guid: 8d7ecf101f8074c4cacbd222b443ea24, type: 3}
   rightSprite: {fileID: 21300000, guid: b23ac8ded22d33e4884ea811da001785, type: 3}
+  upperrightSprite: {fileID: 21300000, guid: e367b65fad4ec3d449545e3287ae7aa7, type: 3}
+  lowerrightSprite: {fileID: 21300000, guid: f67b8d6b3dd44034f82bd639773502cb, type: 3}
+  upperleftSprite: {fileID: 21300000, guid: 73fbfbb7818a8294597b63208e47f3ed, type: 3}
+  lowerleftSprite: {fileID: 21300000, guid: 5f40d177059680d4eaf6932487abe8af, type: 3}
   destroyedSprite: {fileID: 21300000, guid: 13b493d7595c18042ae2bd7faa0c34b4, type: 3}
   verticaldestroyedSprite: {fileID: 21300000, guid: e96fa2808f1f22242bf7d8b5fe4461ac, type: 3}
   isKicking: 0
@@ -261,6 +268,7 @@ MonoBehaviour:
   groundDispenseVelocity: {x: 8, y: 10}
   verticalDispenseVelocity: {x: 6, y: 8}
   scoremanager: {fileID: 0}
+  moveSpeed: 2
 --- !u!114 &7524875918537491130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +392,93 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3920107073156097034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724049617952168082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a413b69083458a4f82c95fe1854848a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0
+  carscript: {fileID: 0}
+  angle: 0
+  delta: {x: 0, y: 0}
+  scale: 0
+--- !u!114 &3141729341112262495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724049617952168082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &525304167313497518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724049617952168082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
 --- !u!1001 &3123520278796839913
 PrefabInstance:
   m_ObjectHideFlags: 0
