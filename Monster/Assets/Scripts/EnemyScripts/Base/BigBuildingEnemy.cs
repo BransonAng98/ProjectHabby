@@ -32,7 +32,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public int minEntities = 0; // Minimum number of entities to spawn
     public int maxEntities = 3; // Maximum number of entities to spawn
 
-    private float spawnRadius = 1.0f; // Maximum distance from the current position
+    private float spawnRadius = 0.1f; // Maximum distance from the current position
 
     public ObjectShakeScript shakeScript;
 

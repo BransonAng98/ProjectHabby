@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4411149530234238778}
   - component: {fileID: 3541482301067884804}
   - component: {fileID: 9102435065870075070}
+  - component: {fileID: 7216725233773876839}
   m_Layer: 13
   m_Name: CarVariant1
   m_TagString: Car
@@ -84,6 +85,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeDuration: 1
   delayFadeDuration: 3
+--- !u!114 &7216725233773876839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411149530234238777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd13a942f2f59e4aa6e162d2598cff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 9139557895105500516}
+  cullingDistance: 30
+  checkInterval: 0.5
 --- !u!1 &6871381207532833550
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,9 +492,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 30
   carscript: {fileID: 0}
-  angle: 0
   delta: {x: 0, y: 0}
   scale: 0
+  detectionRadius: 1
+  goingup: 0
+  goingleft: 0
+  goingright: 0
+  goingdown: 0
 --- !u!1001 &8096448591621520543
 PrefabInstance:
   m_ObjectHideFlags: 0
