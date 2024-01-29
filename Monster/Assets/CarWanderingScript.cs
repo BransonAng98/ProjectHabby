@@ -10,6 +10,7 @@ public class CarWanderingScript : MonoBehaviour
 
     IAstarAI ai;
     public CarAI carscript;
+  
 
     Vector3 previousPosition;
     [SerializeField]
@@ -17,95 +18,125 @@ public class CarWanderingScript : MonoBehaviour
     [SerializeField]
     private float scale = 0f;
 
-    private Vector3 previousDirection;
+    // Bools
+    public bool goingup;
+    public bool goingleft;
+    public bool goingright;
+    public bool goingdown;
+
     void Start()
     {
         ai = GetComponent<IAstarAI>();
         carscript = gameObject.GetComponent<CarAI>();
     }
-    Vector3 PickRandomPoint(Vector3 avoidDirection)
+    Vector3 PickRandomPoint()
     {
-        Vector3 randomPoint;
-        do
-        {
-            randomPoint = Random.insideUnitSphere * radius;
-            randomPoint.y = 0;
-            randomPoint += ai.position;
-        } while (Vector3.Dot((randomPoint - ai.position).normalized, avoidDirection) > 0.8f); // Adjust the threshold as needed
-
-        return randomPoint;
+        var point = Random.insideUnitSphere * radius;
+        point.y = 0;
+        point += ai.position;
+        return point;
     }
-
     void Update()
     {
         delta = transform.position - previousPosition;
         previousPosition = transform.position;
         SetSpriteDirection();
-        
+
         if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
         {
-            Vector3 avoidDirection = -previousDirection.normalized;
-            ai.destination = PickRandomPoint(avoidDirection);
-            previousDirection = (ai.destination - ai.position).normalized;
+            ai.destination = PickRandomPoint();
+            Vector2 direction = (ai.destination - ai.position).normalized;
             ai.SearchPath();
         }
     }
 
     void SetSpriteDirection()
     {
-        const float threshold = 0.03f;
-        const float diagonalThreshold = 0.05f; // Adjust this value for diagonal turns
-
-        if (Mathf.Abs(delta.x) > threshold || Mathf.Abs(delta.y) > threshold)
+        const float thresshold = 0.03f;
+        if (delta.x > thresshold)//going right
         {
-            if (Mathf.Abs(delta.x) > diagonalThreshold || Mathf.Abs(delta.y) > diagonalThreshold)
+            goingright = true;
+           
+            carscript.SetSpriteRight();
+
+            if (goingup == true)
             {
-                // Diagonal movement
-                if (delta.x > 0)
+                carscript.SetSpriteUpperRight();
+                goingright = false;
+                goingup = false;
+            }
+
+            if (goingdown == true)
+            {
+                carscript.SetSpriteLowerRight();
+                goingright = false;
+                goingdown = false;
+            }
+        }
+        else if (delta.x < -thresshold) // going left
+        {
+            goingleft = true;
+            
+            carscript.SetSpriteLeft();
+
+            if (goingup == true)
+            {
+                carscript.SetSpriteUpperLeft();
+                goingup = false;
+                goingleft = false;
+            }
+
+            if (goingdown == true)
+            {
+                carscript.SetSpriteLowerLeft();
+                goingdown = false;
+                goingleft = false;
+            }
+        }
+        else // delta.x is close to zero (not moving horizontally)
+        {
+            if (delta.y > thresshold) // going up 
+            {
+                goingup = true;
+                
+                carscript.SetSpriteUp();
+
+                if (goingright == true)
                 {
-                    if (delta.y > 0)
-                        carscript.SetSpriteUpperRight();
-                    else if (delta.y < 0)
-                        carscript.SetSpriteLowerRight();
-                    else
-                        carscript.SetSpriteRight();
+                    carscript.SetSpriteUpperRight();
+                    goingright = false;
+                    goingup = false;
                 }
-                else if (delta.x < 0)
+
+                if (goingleft == true)
                 {
-                    if (delta.y > 0)
-                        carscript.SetSpriteUpperLeft();
-                    else if (delta.y < 0)
-                        carscript.SetSpriteLowerLeft();
-                    else
-                        carscript.SetSpriteLeft();
-                }
-                else
-                {
-                    // delta.x is close to zero (not moving horizontally)
-                    if (delta.y > 0)
-                        carscript.SetSpriteUp();
-                    else if (delta.y < 0)
-                        carscript.SetSpriteDown();
-                    // If delta.y is close to zero, you can handle it as a special case or leave it empty.
+                    carscript.SetSpriteUpperLeft();
+                    goingleft = false;
+                    goingup = false;
                 }
             }
-            else
+            else if (delta.y < -thresshold)
             {
-                // Non-diagonal movement
-                if (delta.x > threshold)
-                    carscript.SetSpriteRight();
-                else if (delta.x < -threshold)
-                    carscript.SetSpriteLeft();
-                else
+                goingdown = true;
+               
+                carscript.SetSpriteDown();
+                
+                if(goingright == true)
                 {
-                    if (delta.y > threshold)
-                        carscript.SetSpriteUp();
-                    else if (delta.y < -threshold)
-                        carscript.SetSpriteDown();
-                    // If delta.y is close to zero, you can handle it as a special case or leave it empty.
+                    carscript.SetSpriteLowerRight();
+                    goingright = false;
+                    goingdown = false;
+                }
+
+                if (goingleft == true)
+                {
+                    carscript.SetSpriteLowerLeft();
+                    goingleft = false;
+                    goingdown = false;
                 }
             }
+            // If delta.y is close to zero, you can handle it as a special case or leave it empty.
+           
         }
     }
 }
-
