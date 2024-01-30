@@ -70,6 +70,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
     {
         if(carscript.isKicking)
         {
+            carscript.hasDied = true;
             groundVelocity = Vector2.zero;
             GetComponentInChildren<Rigidbody2D>().angularVelocity = 0f;
             carscript.entityCollider.enabled = false;

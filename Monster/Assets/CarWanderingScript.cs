@@ -18,9 +18,6 @@ public class CarWanderingScript : MonoBehaviour
     [SerializeField]
     private float scale = 0f;
 
-    [SerializeField]
-    private float detectionRadius = 1; // New variable for detection radius
-
     // Bools
     public bool goingup;
     public bool goingleft;
@@ -41,17 +38,25 @@ public class CarWanderingScript : MonoBehaviour
     }
     void Update()
     {
-        delta = transform.position - previousPosition;
-        previousPosition = transform.position;
-        SetSpriteDirection();
-        CheckPlayerProximity();
-
-        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
+        if (!carscript.hasDied)  // Check if the car is still alive
         {
-            ai.destination = PickRandomPoint();
-            Vector2 direction = (ai.destination - ai.position).normalized;
-            ai.SearchPath();
+            delta = transform.position - previousPosition;
+            previousPosition = transform.position;
+            SetSpriteDirection();
+
+            if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
+            {
+                ai.destination = PickRandomPoint();
+                Vector2 direction = (ai.destination - ai.position).normalized;
+                ai.SearchPath();
+            }
         }
+
+        else
+        {
+            return;
+        }
+       
     }
 
     void SetSpriteDirection()
@@ -144,19 +149,4 @@ public class CarWanderingScript : MonoBehaviour
         }
     }
 
-    void CheckPlayerProximity()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
-
-        foreach (Collider2D col in hitColliders)
-        {
-            if (col.CompareTag("Player"))
-            {
-                Debug.Log("PlayerNearCar");
-                // Player is within the detection radius
-                ai.maxSpeed = 0; // Set A* Pathfinding speed to 0 (stop the car)
-                return; // No need to check further if the player is found
-            }
-        }
-    }
 }

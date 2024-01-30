@@ -50,7 +50,7 @@ public class CarAI : MonoBehaviour
 
     public Collider2D entityCollider;
     public bool isVertical;
-    bool hasDied;
+    public bool hasDied;
     public vehicleFakeHeightScript fakeheight;
     public FadeObjectinParent fadescript;
     //public FadeObjectinParent fadescript;
@@ -64,8 +64,11 @@ public class CarAI : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 2f;
 
+    IAstarAI ai;
+
     void Start()
     {
+        ai = GetComponent<IAstarAI>();
         VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
@@ -93,7 +96,7 @@ public class CarAI : MonoBehaviour
 
     private void Update()
     {
-        Move();
+
     }
 
     void SetValue()
@@ -174,7 +177,7 @@ public class CarAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerLeg")
         {
-            moveSpeed = 0f;
+            ai.maxSpeed = 0;
             int random = Random.Range(0, 1 + 1);
             switch (random)
             {
@@ -235,17 +238,11 @@ public class CarAI : MonoBehaviour
         }
 
     }
-  
-
-    // Method that actually make Enemy walk
-    private void Move()
-    {
-
-    }
-
+ 
 
     public void Death()
     {
+        ai.maxSpeed = 0;
         VibrateHaptics.VibrateHeavyClick();
         Invoke("StopVibration", 1f);
         spriteRenderer.sortingOrder = 2;
@@ -304,6 +301,7 @@ public class CarAI : MonoBehaviour
 
     void KickLogic(Collider2D collision)
     {
+        hasDied = true;
         VibrateHaptics.VibrateTick();
         ObjectPooler.Instance.SpawnFromPool("CarKick", transform.position, Quaternion.identity);
         smokeTrailVFX.SetActive(true);
