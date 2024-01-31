@@ -94,6 +94,10 @@ public class LeaderCow : MonoBehaviour
                 blockingEntity = collision.gameObject.transform;
                 isBlocked = true;
             }
+            if(collision.gameObject.tag == "PlayerLeg")
+            {
+                entityState = CowState.detonate;
+            }
         }
 
         else
