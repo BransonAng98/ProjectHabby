@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7816865469239689885}
+  - component: {fileID: 6034070398508047634}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -32,6 +33,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6034070398508047634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816865469239689884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5418014571ae04ca949c325eb46746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerReference: {fileID: 0}
+  onGroundHitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6034070398508047634}
+        m_TargetAssemblyTypeName: FakeHeightScript, Assembly-CSharp
+        m_MethodName: Stick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  transObject: {fileID: 7816865469239689885}
+  transBody: {fileID: 7816865470077555000}
+  groundVelocity: {x: 0, y: 0}
+  verticalVelocity: 0
+  Gravity: 0
+  isGrounded: 0
 --- !u!1 &7816865470077554999
 GameObject:
   m_ObjectHideFlags: 0

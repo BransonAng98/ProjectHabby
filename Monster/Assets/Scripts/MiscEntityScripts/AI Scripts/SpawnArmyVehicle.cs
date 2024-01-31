@@ -28,6 +28,17 @@ public class SpawnArmyVehicle : MonoBehaviour
     [SerializeField] float tempSpeed;
     [SerializeField] float tempAttack;
 
+    //SpawnLogic + Shierffs
+    public float spawnheight;
+    public int minEntities = 0; // Minimum number of entities to spawn
+    public int maxEntities = 3; // Maximum number of entities to spawn
+
+    private float spawnRadius = 0.1f; // Maximum distance from the current position
+    public Vector2 groundDispenseVelocity;
+    public Vector2 verticalDispenseVelocity;
+
+    public GameObject SoldierParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -110,6 +121,25 @@ public class SpawnArmyVehicle : MonoBehaviour
     void Deploy()
     {
         //Spawn enemies here
+        int numberofEntities = Random.Range(minEntities, maxEntities + 1);
+        for(int i = 0; i < numberofEntities; i++)
+        {
+            Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
+            Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
+
+            Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
+            Vector3 spawnPos = transform.position + new Vector3(0, spawnheight, 0) + randomDirection * Random.Range(0.0f, spawnRadius);
+            float randomRotation = Random.Range(0f, 360f);
+            GameObject civilian = Instantiate(spawnedSoldiers, spawnPos, Quaternion.Euler(0f, 0f, randomRotation));
+            civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+            civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
+
+            //Sets the civilian state upon initialization
+            civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
+            civilian.transform.SetParent(SoldierParent.transform);
+            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
+        }
+       
 
         Invoke("TransitToRetreat", transitTiming);
     }
