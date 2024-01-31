@@ -37,6 +37,8 @@ public class CarWanderingScript : MonoBehaviour
         point += ai.position;
         return point;
     }
+    Vector3 lastPickedDirection;
+
     void Update()
     {
         if (!carscript.hasDied)
@@ -47,14 +49,13 @@ public class CarWanderingScript : MonoBehaviour
 
             if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
             {
-                // Ensure that the new direction is not opposite to the last direction
-                Vector2 newDirection = (PickRandomPoint() - ai.position).normalized;
+                Vector2 newDirection;
 
-                while (Vector2.Dot(newDirection, lastDirection) < -0.5f)
+                // Ensure that the new direction is not opposite to the last picked direction
+                do
                 {
-                    // If the new direction is opposite to the last direction, pick a new random point
                     newDirection = (PickRandomPoint() - ai.position).normalized;
-                }
+                } while (Vector2.Dot(newDirection, lastPickedDirection) < -0.5f);
 
                 ai.destination = ai.position + (Vector3)newDirection * radius;
                 lastDirection = newDirection;
@@ -68,12 +69,14 @@ public class CarWanderingScript : MonoBehaviour
         }
     }
 
+
     void SetSpriteDirection()
     {
-        const float thresshold = 0.03f;
+        const float thresshold = 0.01f;
         if (delta.x > thresshold)//going right
         {
             goingright = true;
+            goingleft = false;
 
             carscript.SetSpriteRight();
 
@@ -94,6 +97,7 @@ public class CarWanderingScript : MonoBehaviour
         else if (delta.x < -thresshold) // going left
         {
             goingleft = true;
+            goingright = false;
 
             carscript.SetSpriteLeft();
 
@@ -116,7 +120,7 @@ public class CarWanderingScript : MonoBehaviour
             if (delta.y > thresshold) // going up 
             {
                 goingup = true;
-
+                goingdown = false;
                 carscript.SetSpriteUp();
 
                 if (goingright == true)
@@ -136,6 +140,7 @@ public class CarWanderingScript : MonoBehaviour
             else if (delta.y < -thresshold)
             {
                 goingdown = true;
+                goingleft = false;
 
                 carscript.SetSpriteDown();
 
@@ -157,5 +162,4 @@ public class CarWanderingScript : MonoBehaviour
 
         }
     }
-
 }
