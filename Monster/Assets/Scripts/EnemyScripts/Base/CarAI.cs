@@ -32,6 +32,7 @@ public class CarAI : MonoBehaviour
     public Sprite lowerleftSprite;
     public Sprite destroyedSprite;
     public Sprite verticaldestroyedSprite;
+    public Sprite upperdestroyedSprite;
 
     //Kick Variables
     [SerializeField] public bool isKicking;
@@ -63,12 +64,13 @@ public class CarAI : MonoBehaviour
     // Walk speed that can be set in Inspector
     [SerializeField]
     private float moveSpeed = 2f;
-
+    public CarWanderingScript carwanderScript;
     IAstarAI ai;
 
     void Start()
     {
         ai = GetComponent<IAstarAI>();
+        carwanderScript = gameObject.GetComponent<CarWanderingScript>();
         VibrateHaptics.Initialize();
         scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
@@ -86,7 +88,6 @@ public class CarAI : MonoBehaviour
         lastPosition = transform.position;
         intitialSprite = spriteRenderer.sprite;
         smokeTrailVFX.SetActive(false);
-        CheckOrientation();
         SetValue();
 
         // Set position of Enemy as position of the first waypoint
@@ -96,7 +97,7 @@ public class CarAI : MonoBehaviour
 
     private void Update()
     {
-
+        CheckOrientation();
     }
 
     void SetValue()
@@ -264,11 +265,30 @@ public class CarAI : MonoBehaviour
 
         if (isVertical == true)
         {
-            spriteRenderer.sprite = verticaldestroyedSprite;
+            if(carwanderScript.goingdown)
+            {
+                spriteRenderer.sprite = verticaldestroyedSprite;
+            }
+
+            if (carwanderScript.goingup)
+            {
+                spriteRenderer.sprite = upperdestroyedSprite;
+            }
+
         }
         if (isVertical == false)
         {
-            spriteRenderer.sprite = destroyedSprite;
+            if(carwanderScript.goingright)
+            {
+                spriteRenderer.sprite = destroyedSprite;
+            }
+
+            if (carwanderScript.goingleft)
+            {
+                spriteRenderer.sprite = destroyedSprite;
+                spriteRenderer.flipX = true; // Flip the sprite horizontally
+            }
+
         }
 
 
@@ -317,14 +337,28 @@ public class CarAI : MonoBehaviour
 
     public void CheckOrientation()
     {
-        if (spriteRenderer.sprite == upSprite || spriteRenderer.sprite == downSprite)
+        if (spriteRenderer.sprite == upSprite) 
         {
             isVertical = true;
+            carwanderScript.goingup = true;
         }
 
-        if (spriteRenderer.sprite == leftSprite || spriteRenderer.sprite == rightSprite)
+        if (spriteRenderer.sprite == downSprite)
+        {
+            isVertical = true;
+            carwanderScript.goingdown = true;
+        }
+
+        if (spriteRenderer.sprite == leftSprite)
         {
             isVertical = false;
+            carwanderScript.goingleft = true;
+        }
+
+        if (spriteRenderer.sprite == rightSprite)
+        {
+            isVertical = false;
+            carwanderScript.goingright = true;
         }
     }
 }

@@ -54,7 +54,7 @@ public class vehicleFakeHeightScript : MonoBehaviour
         if (transBody.position.y  < transObject.position.y && !isGrounded)
         {
             isGrounded = true;
-            transBody.position = transObject.position;
+            //transBody.position = transObject.position;
             
             Groundhit();
         }

@@ -17,6 +17,7 @@ public class CarWanderingScript : MonoBehaviour
     private Vector2 delta;
     [SerializeField]
     private float scale = 0f;
+    Vector3 lastDirection;
 
     // Bools
     public bool goingup;
@@ -38,7 +39,7 @@ public class CarWanderingScript : MonoBehaviour
     }
     void Update()
     {
-        if (!carscript.hasDied)  // Check if the car is still alive
+        if (!carscript.hasDied)
         {
             delta = transform.position - previousPosition;
             previousPosition = transform.position;
@@ -46,17 +47,25 @@ public class CarWanderingScript : MonoBehaviour
 
             if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
             {
-                ai.destination = PickRandomPoint();
-                Vector2 direction = (ai.destination - ai.position).normalized;
+                // Ensure that the new direction is not opposite to the last direction
+                Vector2 newDirection = (PickRandomPoint() - ai.position).normalized;
+
+                while (Vector2.Dot(newDirection, lastDirection) < -0.5f)
+                {
+                    // If the new direction is opposite to the last direction, pick a new random point
+                    newDirection = (PickRandomPoint() - ai.position).normalized;
+                }
+
+                ai.destination = ai.position + (Vector3)newDirection * radius;
+                lastDirection = newDirection;
+
                 ai.SearchPath();
             }
         }
-
         else
         {
             return;
         }
-       
     }
 
     void SetSpriteDirection()

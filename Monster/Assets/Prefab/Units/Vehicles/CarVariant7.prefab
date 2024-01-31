@@ -165,6 +165,7 @@ MonoBehaviour:
   lowerleftSprite: {fileID: 21300000, guid: 1e2ffe442c0af51458381feafce9db98, type: 3}
   destroyedSprite: {fileID: 21300000, guid: 7470a7fb28e8a9241ae7684aecebbd00, type: 3}
   verticaldestroyedSprite: {fileID: 21300000, guid: 4001656293f947c4b88f22d7f9ebeb40, type: 3}
+  upperdestroyedSprite: {fileID: 21300000, guid: d5bb3c7835b3a6943b554c04213e1f0a, type: 3}
   isKicking: 0
   kickForce: 3
   rotationSpeed: 1000
@@ -179,6 +180,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cf858d3a505c11a46b4f28472cb27ec5, type: 3}
   entityCollider: {fileID: 0}
   isVertical: 0
+  hasDied: 0
   fakeheight: {fileID: 0}
   fadescript: {fileID: 0}
   groundDispenseVelocity: {x: 8, y: 10}
@@ -394,7 +396,6 @@ MonoBehaviour:
   carscript: {fileID: 0}
   delta: {x: 0, y: 0}
   scale: 0
-  detectionRadius: 1
   goingup: 0
   goingleft: 0
   goingright: 0
