@@ -213,6 +213,11 @@ public class LeaderCow : MonoBehaviour
                 affectedEntity.TakeDamage(tempDamage);
                 entityState = CowState.death;
             }
+
+            else
+            {
+                return;
+            }
         }
     }
 
