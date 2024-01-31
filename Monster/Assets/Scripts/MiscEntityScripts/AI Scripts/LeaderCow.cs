@@ -20,6 +20,10 @@ public class LeaderCow : MonoBehaviour
     public float changeDirectionInterval;
     public float maxWanderDistance;
     public Transform blockingEntity;
+    public float detonationTime;
+    public GameObject detonationeRadiusPf;
+    public float blastRadiusMaxSize = 10f;
+    public float blastExpansionSpeed = 2f;
 
     //Private Variables
     private PlayerHandler inputHandler;
@@ -32,6 +36,7 @@ public class LeaderCow : MonoBehaviour
     private Transform playerTransform;
     private Vector2 targetPosition;
     private Vector2 randomDirection;
+    private float currentBlastRadiusSize;
 
     //Serializable Variables
     [SerializeField] float tempHealth;
@@ -93,6 +98,7 @@ public class LeaderCow : MonoBehaviour
 
         else
         {
+            Instantiate(detonationeRadiusPf, transform.position, Quaternion.identity);
             entityState = CowState.detonate;
         }
     }
@@ -146,6 +152,7 @@ public class LeaderCow : MonoBehaviour
         }
         else
         {
+            isDetonating = true;
             entityState = CowState.panic;
 
             if (!isTriggered)
@@ -157,9 +164,9 @@ public class LeaderCow : MonoBehaviour
     void ChooseRandomDirection()
     {
         // Choose a random direction
+        isTriggered = true;
         float randomAngle = Random.Range(0f, 360f);
         randomDirection = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
-        isTriggered = true;
     }
 
     void Panic()
@@ -169,11 +176,39 @@ public class LeaderCow : MonoBehaviour
 
     void Detonate()
     {
+        detonationTime -= Time.deltaTime;
+        if(detonationTime <= 0)
+        {
+            Explode();
+        }
+
+        else
+        {
+            ExpandBlastRadius();
+        }
+    }
+    void ExpandBlastRadius()
+    {
+        if (currentBlastRadiusSize < blastRadiusMaxSize)
+        {
+            currentBlastRadiusSize += Time.deltaTime * blastExpansionSpeed;
+            UpdateBlastRadiusVisual();
+        }
+    }
+
+    void UpdateBlastRadiusVisual()
+    {
+        // This assumes you have a circular blast radius visual represented by a GameObject
+        detonationeRadiusPf.transform.localScale = new Vector3(currentBlastRadiusSize, currentBlastRadiusSize, 1f);
+    }
+
+    void Explode()
+    {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in hitColliders)
         {
             Targetable affectedEntity = collider.GetComponent<Targetable>();
-            if(affectedEntity != null)
+            if (affectedEntity != null)
             {
                 affectedEntity.TakeDamage(tempDamage);
                 entityState = CowState.death;

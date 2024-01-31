@@ -146,5 +146,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcab6e0106ca41942adab4442b58197b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityState: 0
   enemyData: {fileID: 11400000, guid: 02699f2167a1adb429277c2af0923f9b, type: 2}
   followerCowList: []
+  changeDirectionInterval: 0
+  maxWanderDistance: 0
+  blockingEntity: {fileID: 0}
+  detonationTime: 0
+  detonationeRadiusPf: {fileID: 3517634249984662951, guid: ba77cf1e8417c684c8b270ea130cbe3c, type: 3}
+  blastRadiusMaxSize: 10
+  blastExpansionSpeed: 2
+  tempHealth: 0
+  tempSpeed: 0
+  tempDamage: 0
+  tempRange: 0
+  explosionRadius: 0
+  isBlocked: 0
+  isDetonating: 0
+  isTriggered: 0
