@@ -87,4 +87,14 @@ public class MenuController : MonoBehaviour
 	{
 		PlayerPrefs.Save();
 	}
+
+	public void PrivacyPolicy()
+    {
+		Application.OpenURL("https://projectdsvc.com/privacyPolicy.html");
+	}
+
+	public void ExitMenu()
+    {
+		Application.Quit();
+    }
 }
