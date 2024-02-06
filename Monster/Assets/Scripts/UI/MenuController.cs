@@ -90,7 +90,7 @@ public class MenuController : MonoBehaviour
 
 	public void PrivacyPolicy()
     {
-		Application.OpenURL("https://projectdsvc.com/privacyPolicy.html");
+		Application.OpenURL("https://ngahjoo.wordpress.com/privacy/");
 	}
 
 	public void ExitMenu()
