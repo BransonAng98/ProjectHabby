@@ -19,22 +19,29 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     //Public Variable
     public PlayerStatScriptableObject playerData;
-    public AnimationReferenceAsset movingDown, movingLeft, movingRight, attacking1, attacking2, attacking3, ultimating, victorying, defeating, exhausting, damaging;
-    public string currentAnimation;
     public Joystick joystick;
     public LayerMask targetLayer;
     public List<Transform> enemyList = new List<Transform>();
     public float distanceToMaintain;
     public float thresholdTime;
     public bool canMove;
+    public bool canAttack;
+    public Vector2 velocity;
+    public float maxYVelocity = 100f;
+    public float maxAcceleration = 10f;
+    public float acceleration = 10f;
+    public float distanceTravelled;
+    public float tapTimeThreshold;
 
     //Private Variable
     private PlayerState currentState;
     private Transform thiefTransform;
+    private Collider2D entityCollider;
     private Skeleton skeleton;
     private SkeletonAnimation skeletonAnim;
-    private Collider2D entityCollider;
     private Rigidbody2D rb;
+    private Thief thiefEntity;
+    private float TimeSinceLastTap;
 
     //Serilizable Variable
     [SerializeField] bool isCCed;
@@ -48,9 +55,11 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         //External Check
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
+        thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
 
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
+        entityCollider = GetComponent<Collider2D>();
 
         //Setting Variables
 
@@ -165,6 +174,15 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             movementInput = new Vector2(moveX, 0).normalized;
             rb.velocity = movementInput;
+
+            //How fast the player is moving
+            float velocityRatio = velocity.y / maxYVelocity;
+            acceleration = maxAcceleration * (1 - velocityRatio);
+            velocity.y += acceleration * Time.deltaTime;
+            if(velocity.y >= maxYVelocity)
+            {
+                velocity.y = maxYVelocity;
+            }
         }
     }
 
@@ -187,7 +205,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         if (enemyList.Count != 0)
         {
             enemyList[0].GetComponent<Targetable>().TakeDamage(30);
-            //attackCount += 1;
         }
 
         else { return; }
@@ -195,19 +212,22 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void Skill()
     {
-
+        // Need to decide on the skill
     }
 
     void Death()
     {
         canMove = false;
+        entityCollider.enabled = false;
+        Destroy(gameObject.transform.parent, 2f);
     }
 
     void CheckDistance()
     {
-        float distance = Vector3.Distance(transform.position, thiefTransform.position);
+        distanceTravelled += velocity.y * Time.deltaTime;
 
-        if(distance > distanceToMaintain)
+        float distance = Vector3.Distance(transform.position, thiefTransform.position);
+        if(distance < distanceToMaintain)
         {
             if(distanceTimerCountdown > thresholdTime)
             {
@@ -232,24 +252,53 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     void SpecialAttack()
     {
         canMove = false;
+
+        if(thiefEntity != null)
+        {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    thiefEntity.brokenFree = false;
+                    thiefEntity.TakeDamage(15);
+                }
+
+                if(touch.phase == TouchPhase.Ended)
+                {
+                    if(TimeSinceLastTap != tapTimeThreshold)
+                    {
+                        TimeSinceLastTap += Time.deltaTime;
+                    }
+
+                    else
+                    {
+                        TimeSinceLastTap = 0f;
+                        thiefEntity.brokenFree = true;
+                    }
+                }
+            }
+        }
     }
 
     void Damaged()
     {
         canMove = false;
+        entityCollider.enabled = false;
         Invoke("RecoverFromCC", 1.5f);
     }
 
     void RecoverFromCC()
     {
         currentState = PlayerState.move;
+        entityCollider.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckDistance();
-
         switch (currentState)
         {
             case PlayerState.move:
