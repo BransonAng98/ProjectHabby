@@ -24,9 +24,13 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public Joystick joystick;
     public LayerMask targetLayer;
     public List<Transform> enemyList = new List<Transform>();
+    public float distanceToMaintain;
+    public float thresholdTime;
+    public bool canMove;
 
     //Private Variable
     private PlayerState currentState;
+    private Transform thiefTransform;
     private Skeleton skeleton;
     private SkeletonAnimation skeletonAnim;
     private Collider2D entityCollider;
@@ -37,11 +41,13 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] bool canMoveLeft;
     [SerializeField] bool canMoveRight;
     [SerializeField] Vector2 movementInput;
+    [SerializeField] float distanceTimerCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
         //External Check
+        thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
 
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
@@ -137,11 +143,14 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if (isCCed)
         {
+            canMove = false;
             currentState = PlayerState.damaged;
         }
 
         else
         {
+            canMove = true;
+
             float moveX = joystick.Horizontal;
             
             if(canMoveLeft != true && moveX < 0)
@@ -163,12 +172,13 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if (isCCed)
         {
+            canMove = false;
             currentState = PlayerState.damaged;
         }
 
         else
         {
-
+            canMove = true;
         }
     }
 
@@ -190,16 +200,43 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void Death()
     {
+        canMove = false;
+    }
 
+    void CheckDistance()
+    {
+        float distance = Vector3.Distance(transform.position, thiefTransform.position);
+
+        if(distance > distanceToMaintain)
+        {
+            if(distanceTimerCountdown > thresholdTime)
+            {
+                distanceTimerCountdown += Time.deltaTime;
+            }
+
+            else
+            {
+                if (currentState != PlayerState.death)
+                {
+                    currentState = PlayerState.death;
+                }
+            }
+        }
+
+        else
+        {
+            distanceTimerCountdown = 0f;
+        }
     }
 
     void SpecialAttack()
     {
-
+        canMove = false;
     }
 
     void Damaged()
     {
+        canMove = false;
         Invoke("RecoverFromCC", 1.5f);
     }
 
@@ -211,6 +248,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckDistance();
+
         switch (currentState)
         {
             case PlayerState.move:
