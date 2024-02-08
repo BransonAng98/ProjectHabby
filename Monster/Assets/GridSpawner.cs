@@ -76,8 +76,8 @@ public class GridSpawner : MonoBehaviour
 
                 if (indexToInstantiate < gridPrefabs.Count)
                 {
-                    GameObject prefabToInstantiate = gridPrefabs[indexToInstantiate];
-
+                    int randomIndex = Random.Range(0, gridPrefabs.Count);
+                    GameObject prefabToInstantiate = gridPrefabs[randomIndex];
                     // Calculate the position based on the row and column
                     Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, -row * spacingY, 0f); // Adjust y to negative row * spacingY
 
