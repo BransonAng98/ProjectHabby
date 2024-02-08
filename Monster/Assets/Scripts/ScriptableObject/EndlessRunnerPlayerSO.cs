@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerScriptableObject", menuName = "ScriptableObject/EndlessPlayer")]
+[CreateAssetMenu(fileName = "EndlessRunnerPlayerSO", menuName = "ScriptableObject/EndlessPlayer")]
 public class EndlessRunnerPlayerSO : ScriptableObject
 {
     public float health;

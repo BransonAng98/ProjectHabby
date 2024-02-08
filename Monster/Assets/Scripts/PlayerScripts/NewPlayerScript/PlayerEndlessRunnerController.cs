@@ -18,7 +18,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     }
 
     //Public Variable
-    public PlayerStatScriptableObject playerData;
+    public EndlessRunnerPlayerSO playerData;
     public Joystick joystick;
     public LayerMask targetLayer;
     public List<Transform> enemyList = new List<Transform>();
@@ -28,13 +28,12 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public bool canAttack;
     public Vector2 velocity;
     public float maxYVelocity = 100f;
-    public float maxAcceleration = 10f;
-    public float acceleration = 10f;
     public float distanceTravelled;
     public float tapTimeThreshold;
+    public PlayerState currentState;
+    public float dragCoefficient = 0.1f;
 
     //Private Variable
-    private PlayerState currentState;
     private Transform thiefTransform;
     private Collider2D entityCollider;
     private Skeleton skeleton;
@@ -45,11 +44,18 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     //Serilizable Variable
     [SerializeField] bool isCCed;
-    [SerializeField] bool canMoveLeft;
-    [SerializeField] bool canMoveRight;
+    [SerializeField] bool canMoveLeft = true; 
+    [SerializeField] bool canMoveRight = true;
     [SerializeField] Vector2 movementInput;
     [SerializeField] float distanceTimerCountdown;
     [SerializeField] float ccRecoverTime;
+
+    [SerializeField] float tempHealth;
+    [SerializeField] float tempSpeed;
+    [SerializeField] float tempAccel;
+    [SerializeField] float tempMaxAccel;
+    [SerializeField] float tempCCCD;
+    [SerializeField] float showMoveX;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +69,16 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         entityCollider = GetComponent<Collider2D>();
 
         //Setting Variables
+        AssignStat();
+    }
 
+    void AssignStat()
+    {
+        tempHealth = playerData.health;
+        tempSpeed = playerData.speed;
+        tempAccel = playerData.acceleration;
+        tempMaxAccel = playerData.maxAcceleration;
+        tempCCCD = playerData.ccRecoverTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -162,24 +177,44 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             canMove = true;
 
             float moveX = joystick.Horizontal;
-            
-            if(canMoveLeft != true && moveX < 0)
+            showMoveX = moveX;
+
+            if (moveX < 0 || moveX > 0)
             {
-                moveX = 0;
+                rb.drag = 0;
+
+                if (canMoveLeft != true && moveX < 0)
+                {
+                    moveX = 0;
+                }
+
+                if (canMoveRight != true && moveX > 0)
+                {
+                    moveX = 0;
+                }
+
+                movementInput = new Vector2(moveX, 0).normalized;
+                rb.velocity = movementInput * tempSpeed;
             }
 
-            if(canMoveRight != true && moveX > 0)
+            else
             {
-                moveX = 0;
+                showMoveX = 0;
+                if (rb.velocity.x > 0 || rb.velocity.x < 0)
+                {
+                    rb.drag = dragCoefficient;
+                }
+                else
+                {
+                    // If velocity is already zero, reset the drag to zero
+                    rb.drag = 0f;
+                }
             }
-
-            movementInput = new Vector2(moveX, 0).normalized;
-            rb.velocity = movementInput;
 
             //How fast the player is moving
             float velocityRatio = velocity.y / maxYVelocity;
-            acceleration = maxAcceleration * (1 - velocityRatio);
-            velocity.y += acceleration * Time.deltaTime;
+            tempAccel = tempMaxAccel * (1 - velocityRatio);
+            velocity.y += tempAccel * Time.deltaTime;
             if(velocity.y >= maxYVelocity)
             {
                 velocity.y = maxYVelocity;
@@ -225,13 +260,22 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void CheckDistance()
     {
-        distanceTravelled += velocity.y * Time.deltaTime;
+        if (canMove)
+        {
+            distanceTravelled += velocity.y * Time.deltaTime;
+        }
+
+        else
+        {
+            velocity = Vector2.zero;
+        }
 
         float distance = Vector3.Distance(transform.position, thiefTransform.position);
         if(distance < distanceToMaintain)
         {
-            if(distanceTimerCountdown > thresholdTime)
+            if(distanceTimerCountdown < thresholdTime)
             {
+                //Trigger Countdown here
                 distanceTimerCountdown += Time.deltaTime;
             }
 
@@ -253,6 +297,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     void SpecialAttack()
     {
         canMove = false;
+        //Stop the screen from moving
 
         if(thiefEntity != null)
         {
@@ -287,7 +332,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         canMove = false;
         entityCollider.enabled = false;
-        Invoke("RecoverFromCC", 1.5f);
+        Invoke("RecoverFromCC", tempCCCD);
     }
 
     void RecoverFromCC()

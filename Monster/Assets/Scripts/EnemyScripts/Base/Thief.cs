@@ -12,15 +12,13 @@ public class Thief : MonoBehaviour
     }
 
     //Public Variable
-    public EnemyScriptableObject enemyData;
+    public ThiefSO enemyData;
     public ThiefState entityState;
     public Transform minDist;
     public Transform maxDist;
 
     public Vector2 velocity;
     public float maxYVelocity;
-    public float maxAcceleration;
-    public float acceleration;
     public float distanceTravelled;
     public bool brokenFree;
 
@@ -33,6 +31,8 @@ public class Thief : MonoBehaviour
     [SerializeField] float distanceThreshold;
     [SerializeField] float tempHealth;
     [SerializeField] float tempSpeed;
+    [SerializeField] float tempAccel;
+    [SerializeField] float tempMaxAccel;
 
     // Start is called before the first frame update
     void Start()
@@ -56,8 +56,8 @@ public class Thief : MonoBehaviour
     {
         //How fast the thief is moving
         float velocityRatio = velocity.y / maxYVelocity;
-        acceleration = maxAcceleration * (1 - velocityRatio);
-        velocity.y += acceleration * Time.deltaTime;
+        tempAccel = tempMaxAccel * (1 - velocityRatio);
+        velocity.y += tempAccel * Time.deltaTime;
         if (velocity.y >= maxYVelocity)
         {
             velocity.y = maxYVelocity;
