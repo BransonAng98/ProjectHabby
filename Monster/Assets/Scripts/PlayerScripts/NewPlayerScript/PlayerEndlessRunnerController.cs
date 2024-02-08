@@ -100,6 +100,27 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                 return;
             }
         }
+
+        if (collision.gameObject.tag == "Limits")
+        {
+            Vector3 objPos = collision.gameObject.transform.position;
+            Vector3 currentPos = transform.position;
+
+            if (currentPos.x < objPos.x)
+            {
+                Debug.Log("Collided object is on the right.");
+                canMoveRight = false;
+            }
+            else if (currentPos.x > objPos.x)
+            {
+                Debug.Log("Collided object is on the left.");
+                canMoveLeft = false;
+            }
+            else
+            {
+                Debug.Log("Collided object is at the same position.");
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -121,35 +142,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                 return;
             }
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Limits")
-        {
-            Vector3 objPos = collision.gameObject.transform.position;
-            Vector3 currentPos = transform.position;
-
-            if (currentPos.x < objPos.x)
-            {
-                Debug.Log("Collided object is on the right.");
-                canMoveRight = false;
-            }
-            else if (currentPos.x > objPos.x)
-            {
-                Debug.Log("Collided object is on the left.");
-                canMoveLeft = true;
-            }
-            else
-            {
-                Debug.Log("Collided object is at the same position.");
-            }
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //Reset conditions
         if (collision.gameObject.tag == "Limits")
         {
             if (!canMoveLeft)
@@ -224,22 +217,14 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void Attack()
     {
-        if (isCCed)
-        {
-            canMove = false;
-            currentState = PlayerState.damaged;
-        }
-
-        else
-        {
-            canMove = true;
-        }
+        TriggerDamage();
     }
 
     public void TriggerDamage()
     {
         if (enemyList.Count != 0)
         {
+            //Destroy(enemyList[0].gameObject);
             enemyList[0].GetComponent<Targetable>().TakeDamage(30);
         }
 
@@ -353,6 +338,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             case PlayerState.attack:
                 Attack();
+                Move();
                 break;
 
             case PlayerState.skill:
