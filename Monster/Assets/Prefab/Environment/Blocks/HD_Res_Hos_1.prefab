@@ -510,6 +510,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &6257053714018023602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2049925284079585097}
+  m_Layer: 0
+  m_Name: ---Civillian---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2049925284079585097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6257053714018023602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8803872740345178636}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6908559347329209958
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +781,7 @@ Transform:
   - {fileID: 7686918159925378517}
   - {fileID: 6195982337681626653}
   - {fileID: 7574135543736139067}
+  - {fileID: 2049925284079585097}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2074,12 +2106,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 8803872740345178636}
     m_Modifications:
     - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: maxSpawnPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: maxSpawnPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: minSpawnPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
+      propertyPath: minSpawnPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: maxNumberOfEnemiesToSpawn
-      value: 70
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1283793056020068459, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: minNumberOfEnemiesToSpawn
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2502542426989302196, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: m_Name
@@ -2087,7 +2135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2502542426989302196, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8688685213567343824, guid: 58cc67ccc9292bd439760abaac3b708e, type: 3}
       propertyPath: m_RootOrder

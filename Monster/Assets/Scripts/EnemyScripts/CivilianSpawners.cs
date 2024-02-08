@@ -23,11 +23,22 @@ public class CivilianSpawners : MonoBehaviour
 
     private void Awake()
     {
-        civiParent = GameObject.Find("---Civillian---");
+        // Find or create the "---Civillian---" child object for parenting
+        if (transform.Find("---Civillian---") == null)
+        {
+            civiParent = new GameObject("---Civillian---");
+            civiParent.transform.parent = transform;
+        }
+        else
+        {
+            civiParent = transform.Find("---Civillian---").gameObject;
+        }
+
+        SpawnEnemies();
     }
     void Start()
     {
-        SpawnEnemies();
+        //SpawnEnemies();
 
     }
 
@@ -60,8 +71,9 @@ public class CivilianSpawners : MonoBehaviour
 
                 // Spawn the selected enemy prefab at the random position
                 GameObject preFabtocreate = Instantiate(enemyPrefabToSpawn, spawnPosition, Quaternion.identity);
+                Debug.Log("SpawnEnemies");
+                // Parent the spawned enemy to the civiParent object
                 preFabtocreate.transform.parent = civiParent.transform;
-
             }
         }
     }
