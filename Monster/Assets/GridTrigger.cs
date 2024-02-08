@@ -29,13 +29,14 @@ public class GridTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            isTriggered = true;
-            Debug.Log("CheckpointHit");
-            if (isTriggered == true)
-            {
-                gridGeneratorScript.Checkpoint++;
-                isTriggered = false;
-            }
+            gridGeneratorScript.Checkpoint++;
+            //isTriggered = true;
+            //Debug.Log("CheckpointHit");
+            //if (isTriggered == true)
+            //{
+            //    gridGeneratorScript.Checkpoint++;
+            //    isTriggered = false;
+            //}
 
         }
 

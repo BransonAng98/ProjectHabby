@@ -21,7 +21,7 @@ public class GridSpawner : MonoBehaviour
 
     void Start()
     {
-        Checkpoint = 4;
+        Checkpoint = 3;
         SpawnGrid();
     }
 
@@ -29,7 +29,7 @@ public class GridSpawner : MonoBehaviour
     {
         MoveGrids();
 
-        if (Checkpoint == 1)
+        if (Checkpoint == 3)
         {
             SpawnGrid();
         }
@@ -44,12 +44,13 @@ public class GridSpawner : MonoBehaviour
         if (activeGrids.Count > 0)
         {
             // Get the last spawned grid's position and adjust the spawn position accordingly
-            GameObject lastGrid = activeGrids[0];
-            initialSpawnPosition = lastGrid.transform.position - new Vector3(0f, spacingY * 4  , 0f);
+            GameObject lastGrid = activeGrids[activeGrids.Count - 1]; // Get the last grid
+            float yOffset = spacingY * (numberOfRows - 3) ; // Calculate the vertical offset based on the number of rows
+            initialSpawnPosition = lastGrid.transform.position + new Vector3(0f, -yOffset, 0f);
         }
 
         // Adjust checkpoint
-        Checkpoint -= 4;
+        Checkpoint -= 3;
 
         for (int row = 0; row < numberOfRows; row++)
         {
@@ -62,7 +63,7 @@ public class GridSpawner : MonoBehaviour
                     GameObject prefabToInstantiate = gridPrefabs[indexToInstantiate];
 
                     // Calculate the position based on the row and column
-                    Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, row * spacingY, 0f);
+                    Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, -row * spacingY, 0f); // Adjust y to negative row * spacingY
 
                     GameObject instantiatedGrid = Instantiate(prefabToInstantiate, spawnPosition, Quaternion.identity);
                     activeGrids.Add(instantiatedGrid); // Add the instantiated grid to the activeGrids list
