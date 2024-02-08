@@ -49,6 +49,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] bool canMoveRight;
     [SerializeField] Vector2 movementInput;
     [SerializeField] float distanceTimerCountdown;
+    [SerializeField] float ccRecoverTime;
 
     // Start is called before the first frame update
     void Start()
