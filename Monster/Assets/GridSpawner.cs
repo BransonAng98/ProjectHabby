@@ -8,21 +8,25 @@ public class GridSpawner : MonoBehaviour
     public List<GameObject> gridPrefabs = new List<GameObject>(); // Array of grid prefabs
     public float gridSpeed = 5f; // Speed at which the grids will move
 
-
     public int Checkpoint;
 
-    public int numberOfColumns = 2; // Number of columns in the grid
-    public int numberOfRows = 2;    // Number of rows in the grid
+    [SerializeField] int numberOfColumns; // Number of columns in the grid
+    [SerializeField] int numberOfRows;    // Number of rows in the grid
 
     public float spacingX = 50.0f;   // Horizontal spacing between prefabs
     public float spacingY = 50.0f;   // Vertical spacing between prefabs
-    [SerializeField]
+
+    [SerializeField] bool isSpawned;
     public List<GameObject> activeGrids = new List<GameObject>(); // List to keep track of active grids
 
     void Start()
     {
-        Checkpoint = 3;
-        SpawnGrid();
+        isSpawned = true;
+        if (isSpawned == true)
+        {
+            SpawnStartingGrid();
+            isSpawned = false;
+        }
     }
 
     void Update()
@@ -33,9 +37,21 @@ public class GridSpawner : MonoBehaviour
         {
             SpawnGrid();
         }
+
+        if(isSpawned == false)
+        {
+            numberOfColumns = 1;
+            numberOfRows = 3;
+        }
     }
 
-
+    void SpawnStartingGrid()
+    {
+            numberOfColumns = 1;
+            numberOfRows = 4;
+            Checkpoint = 3;
+            SpawnGrid();
+    }
 
     void SpawnGrid()
     {
@@ -45,7 +61,7 @@ public class GridSpawner : MonoBehaviour
         {
             // Get the last spawned grid's position and adjust the spawn position accordingly
             GameObject lastGrid = activeGrids[activeGrids.Count - 1]; // Get the last grid
-            float yOffset = spacingY * (numberOfRows - 3) ; // Calculate the vertical offset based on the number of rows
+            float yOffset = spacingY * (numberOfRows - 2) ; // Calculate the vertical offset based on the number of rows
             initialSpawnPosition = lastGrid.transform.position + new Vector3(0f, -yOffset, 0f);
         }
 
