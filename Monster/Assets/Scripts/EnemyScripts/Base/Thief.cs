@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Thief : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Thief : MonoBehaviour
         run,
         caught,
         released,
+        death,
     }
 
     //Public Variable
@@ -21,11 +23,12 @@ public class Thief : MonoBehaviour
     public float maxYVelocity;
     public float distanceTravelled;
     public bool brokenFree;
+    public bool isCaught;
 
     public GameObject pfEgg;
 
     //Private Variable
-    [SerializeField] private PlayerEndlessRunnerController player;
+    private PlayerEndlessRunnerController player;
 
     //Serializable Variable
     [SerializeField] float distanceThreshold;
@@ -70,14 +73,14 @@ public class Thief : MonoBehaviour
     {
         distanceTravelled += velocity.y * Time.deltaTime;
 
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        float distance = distanceTravelled - player.distanceTravelled;
         if (distance < distanceThreshold)
         {
             if(transform.position != minDist.position)
             {
                 //Move the thief slowly towards the player
                 Debug.Log("Moving towards the player");
-                Vector3 targetPosition = Vector3.MoveTowards(transform.position, minDist.position, tempSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, minDist.position, tempSpeed * Time.deltaTime);
             }
 
             else
@@ -145,14 +148,48 @@ public class Thief : MonoBehaviour
 
         else
         {
-            //End the level
+            return;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        tempHealth -= damage;
+
+        if(tempHealth >= 0)
+        {
+            entityState = ThiefState.death;
+        }
+
+        else
+        {
+            //Trigger damage VFX here
+            return;
+        }
+    }
+
+    void Death()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed / 2 * Time.deltaTime);
+        Invoke("EndLevel", 3f);
+    }
+
+    void EndLevel()
+    {
+        SceneManager.LoadScene("Endless_MainMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        DistanceBetween();
+        if (!isCaught)
+        {
+            DistanceBetween();
+        }
+        else
+        {
+            return;
+        }
 
         switch (entityState)
         {
@@ -166,6 +203,10 @@ public class Thief : MonoBehaviour
 
             case ThiefState.released:
                 Released();
+                break;
+
+            case ThiefState.death:
+                Death();
                 break;
         }
     }
