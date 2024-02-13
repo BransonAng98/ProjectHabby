@@ -85,6 +85,7 @@ public class Thief : MonoBehaviour
 
             else
             {
+                player.currentState = PlayerEndlessRunnerController.PlayerState.SpecialAttack;
                 entityState = ThiefState.caught;
             }
         }
@@ -103,11 +104,6 @@ public class Thief : MonoBehaviour
                 return;
             }
         }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        tempHealth -= damage;
     }
 
     void Caught()
@@ -129,12 +125,7 @@ public class Thief : MonoBehaviour
 
         else
         {
-
-            if (tempHealth <= 0)
-            {
-                //Spawn egg using fake height script
-                entityState = ThiefState.released;
-            }
+            return;
         }
     }
 
@@ -156,7 +147,7 @@ public class Thief : MonoBehaviour
     {
         tempHealth -= damage;
 
-        if(tempHealth >= 0)
+        if(tempHealth <= 0)
         {
             entityState = ThiefState.death;
         }
@@ -171,7 +162,7 @@ public class Thief : MonoBehaviour
     void Death()
     {
         transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed / 2 * Time.deltaTime);
-        Invoke("EndLevel", 3f);
+        Invoke("EndLevel", 6f);
     }
 
     void EndLevel()

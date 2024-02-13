@@ -848,7 +848,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00031340355, y: 66.71537, z: -10}
+  m_LocalPosition: {x: -0.00021166132, y: 66.71538, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   maxYVelocity: 100
   distanceTravelled: 0
-  tapTimeThreshold: 3
+  tapTimeThreshold: 5
   currentState: 0
   dragCoefficient: 5
   helicopter: {fileID: 1585548939}
@@ -1863,6 +1863,7 @@ MonoBehaviour:
   tempMaxAccel: 0
   tempCCCD: 0
   showMoveX: 0
+  tapRecorded: 0
   erSM: {fileID: 0}
 --- !u!114 &266924922205074553
 MonoBehaviour:

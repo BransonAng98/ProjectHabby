@@ -40,7 +40,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     private SkeletonAnimation skeletonAnim;
     private Rigidbody2D rb;
     private Thief thiefEntity;
-    private float TimeSinceLastTap;
+    [SerializeField] private float timeSinceLastTap;
 
     public GameObject helicopter;
     public float heliPlayerDistance;
@@ -58,6 +58,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] float tempMaxAccel;
     [SerializeField] float tempCCCD;
     [SerializeField] float showMoveX;
+    [SerializeField] bool tapRecorded;
 
     public ERScoreManager erSM;
 
@@ -112,17 +113,25 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             if (currentPos.x < objPos.x)
             {
-                Debug.Log("Collided object is on the right.");
                 canMoveRight = false;
+
+                if(showMoveX == 0)
+                {
+                    rb.velocity = Vector2.zero;
+                }
             }
             else if (currentPos.x > objPos.x)
             {
-                Debug.Log("Collided object is on the left.");
                 canMoveLeft = false;
+
+                if (showMoveX == 0)
+                {
+                    rb.velocity = Vector2.zero;
+                }
             }
             else
             {
-                Debug.Log("Collided object is at the same position.");
+                return;
             }
         }
     }
@@ -296,23 +305,33 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
+                    Debug.Log("Tap registered");
+                    tapRecorded = true;
+                    timeSinceLastTap = 0;
                     thiefEntity.brokenFree = false;
                     thiefEntity.TakeDamage(15);
                 }
 
                 if(touch.phase == TouchPhase.Ended)
                 {
-                    if(TimeSinceLastTap != tapTimeThreshold)
-                    {
-                        TimeSinceLastTap += Time.deltaTime;
-                    }
+                    tapRecorded = false;
+                }
+            }
 
-                    else
-                    {
-                        TimeSinceLastTap = 0f;
-                        thiefEntity.brokenFree = true;
-                        Debug.Log("Thief has escaped");
-                    }
+            if (!tapRecorded)
+            {
+                if (timeSinceLastTap <= tapTimeThreshold)
+                {
+                    timeSinceLastTap += Time.deltaTime;
+                }
+
+                else
+                {
+                    timeSinceLastTap = 0f;
+                    tapRecorded = false;
+                    thiefEntity.brokenFree = true;
+                    currentState = PlayerState.move;
+                    Debug.Log("Thief has escaped");
                 }
             }
         }
