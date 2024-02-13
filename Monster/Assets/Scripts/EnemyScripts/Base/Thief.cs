@@ -25,7 +25,7 @@ public class Thief : MonoBehaviour
     public GameObject pfEgg;
 
     //Private Variable
-    private PlayerEndlessRunnerController player;
+    [SerializeField] private PlayerEndlessRunnerController player;
 
     //Serializable Variable
     [SerializeField] float distanceThreshold;
@@ -50,6 +50,8 @@ public class Thief : MonoBehaviour
     {
         tempHealth = enemyData.health;
         tempSpeed = enemyData.speed;
+        tempAccel = enemyData.acceleration;
+        tempMaxAccel = enemyData.maxAcceleration;
     }
 
     void Run()
@@ -74,7 +76,8 @@ public class Thief : MonoBehaviour
             if(transform.position != minDist.position)
             {
                 //Move the thief slowly towards the player
-                Vector3 targetPosition = Vector3.Lerp(transform.position, minDist.position, tempSpeed / 2 * Time.deltaTime);
+                Debug.Log("Moving towards the player");
+                Vector3 targetPosition = Vector3.MoveTowards(transform.position, minDist.position, tempSpeed * Time.deltaTime);
             }
 
             else
@@ -88,6 +91,7 @@ public class Thief : MonoBehaviour
             if(transform.position != maxDist.position)
             {
                 //Slowly move towards out of the camera
+                Debug.Log("Moving away from the player");
                 transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed * Time.deltaTime);
             }
 
