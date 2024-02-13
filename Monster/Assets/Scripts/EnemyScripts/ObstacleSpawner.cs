@@ -27,9 +27,15 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void FindObstacleParent()
     {
-        if (obstacleParent == null)
+        // Find or create the "---Civillian---" child object for parenting
+        if (transform.Find("---Civillian---") == null)
         {
-            obstacleParent = GameObject.Find("---Obstacles---");
+            obstacleParent = new GameObject("---Civillian---");
+            obstacleParent.transform.parent = transform;
+        }
+        else
+        {
+            obstacleParent = transform.Find("---Civillian---").gameObject;
         }
     }
 

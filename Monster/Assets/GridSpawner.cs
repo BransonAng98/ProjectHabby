@@ -67,7 +67,7 @@ public class GridSpawner : MonoBehaviour
         {
             // Get the last spawned grid's position and adjust the spawn position accordingly
             GameObject lastGrid = activeGrids[activeGrids.Count - 1]; // Get the last grid
-            float yOffset = spacingY * (numberOfRows - 2) ; // Calculate the vertical offset based on the number of rows
+            float yOffset = spacingY * (numberOfRows - 2); // Calculate the vertical offset based on the number of rows
             initialSpawnPosition = lastGrid.transform.position + new Vector3(0f, -yOffset, 0f);
         }
 
@@ -83,8 +83,8 @@ public class GridSpawner : MonoBehaviour
                 if (indexToInstantiate < gridPrefabs.Count)
                 {
                     int randomIndex = Random.Range(0, gridPrefabs.Count);
-                    GameObject prefabToInstantiate = gridPrefabs[randomIndex];
-                    // Calculate the position based on the row and column
+                    GameObject prefabToInstantiate = gridPrefabs[randomIndex]; // Select a random prefab from gridPrefabs
+                                                                               // Calculate the position based on the row and column
                     Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, -row * spacingY, 0f); // Adjust y to negative row * spacingY
 
                     GameObject instantiatedGrid = Instantiate(prefabToInstantiate, spawnPosition, Quaternion.identity);
