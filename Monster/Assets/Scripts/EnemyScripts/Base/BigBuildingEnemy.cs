@@ -25,7 +25,7 @@ public class BigBuildingEnemy : MonoBehaviour
     private bool isTriggered;
 
     public Sprite destroyedBuilding;
-    private LevelManager levelManager;
+    //private LevelManager levelManager;
 
     [SerializeField] private GameObject pfDelvin;
 
@@ -44,9 +44,9 @@ public class BigBuildingEnemy : MonoBehaviour
     public Vector2 groundDispenseVelocity;
     public Vector2 verticalDispenseVelocity;
 
-    public AudioManagerScript audiomanager;
+    //public AudioManagerScript audiomanager;
     public float spawnheight;
-    public ScoreManagerScript scoremanager;
+   //public ScoreManagerScript scoremanager;
 
     //Destruction Variables
     [SerializeField] D2dFracturer fracture;
@@ -61,14 +61,14 @@ public class BigBuildingEnemy : MonoBehaviour
     void Start()
     {
         VibrateHaptics.Initialize();
-        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+        //scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         civilianParent = GameObject.Find("---Civillian---");
-        levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        //levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         hitColor = GetComponent<HittableSpriteGroup>();
     }
 
@@ -123,8 +123,8 @@ public class BigBuildingEnemy : MonoBehaviour
         }
 
         tempHealth -= damage;
-        SpawnCivilian();
-        audiomanager.playBuildingDamageFX();
+       //SpawnCivilian();
+        //audiomanager.playBuildingDamageFX();
 
         if (isOnFire != true)
         {
@@ -147,8 +147,8 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         VibrateHaptics.VibrateDoubleClick();
         inputHandler.ChargeUltimate(destructionScore);
-        audiomanager.playBuildingDeathSFX();
-        scoremanager.amtOfStructures += 1;
+        //audiomanager.playBuildingDeathSFX();
+        //scoremanager.amtOfStructures += 1;
        // playDeathSFX();
         TriggerLoot();
 
@@ -201,18 +201,18 @@ public class BigBuildingEnemy : MonoBehaviour
     void TriggerLoot()
     {
         //Add points
-        levelManager.CalculateScore(destructionScore);
+        //levelManager.CalculateScore(destructionScore);
         
         if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
-            scoremanager.bigbuildingKilled += 1;
-            scoremanager.goldearned += 10;
+            //scoremanager.bigbuildingKilled += 1;
+            //scoremanager.goldearned += 10;
         }
 
         if (buildingType.enemyType == Targetable.EnemyType.Building)
         {
-            scoremanager.smallbuildingKilled += 1;
-            scoremanager.goldearned += 5;
+            //scoremanager.smallbuildingKilled += 1;
+            //scoremanager.goldearned += 5;
         }
     }
 
@@ -227,29 +227,29 @@ public class BigBuildingEnemy : MonoBehaviour
         spriteRenderer.sprite = damagedSprite;
     }
 
-    private void SpawnCivilian()
-    {
-        int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
-        for (int i = 0; i < numberOfEntities; i++)
-        {
-            // Choose between two fixed directions
-            Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
-            Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
+    //private void SpawnCivilian()
+    //{
+    //    int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
+    //    for (int i = 0; i < numberOfEntities; i++)
+    //    {
+    //        // Choose between two fixed directions
+    //        Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
+    //        Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
 
-            Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
+    //        Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
 
-            Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
-            float randomRotation = Random.Range(0f, 360f);
-            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
-            civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
-            civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
+    //        Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
+    //        float randomRotation = Random.Range(0f, 360f);
+    //        GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
+    //        civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+    //        civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
            
-            //Sets the civilian state upon initialization
-            civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
-            civilian.transform.SetParent(civilianParent.transform);
-            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
-        }
+    //        //Sets the civilian state upon initialization
+    //        civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
+    //        civilian.transform.SetParent(civilianParent.transform);
+    //        civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
+    //    }
 
-    }
+    //}
 
 }

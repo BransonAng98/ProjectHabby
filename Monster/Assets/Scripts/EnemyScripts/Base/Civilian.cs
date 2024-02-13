@@ -20,7 +20,7 @@ public class Civilian : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
 
-    [SerializeField] private LevelManager levelManager;
+    //[SerializeField] private LevelManager levelManager;
 
     //Idle Time Variable
     [SerializeField] float idleTime;
@@ -41,8 +41,8 @@ public class Civilian : MonoBehaviour
     private float timeSinceLastDirectionChange = 0.0f;
     private PlayerHandler inputHandler;
     [SerializeField] private Transform blockingEntity;
-    private EventManager eventManager;
-    private GameManagerScript gamemanager;
+    //private EventManager eventManager;
+    //private GameManagerScript gamemanager;
 
     public bool isBlocked;
     private bool hasSpawned;
@@ -54,7 +54,7 @@ public class Civilian : MonoBehaviour
 
     public AudioSource civilianAudioSource;
     public AudioClip[] DeathSFX;
-    public AudioManagerScript audiomanager;
+    //public AudioManagerScript audiomanager;
     private bool deathSFXPlayed = false;
     public GameObject deadSprite;
 
@@ -67,10 +67,10 @@ public class Civilian : MonoBehaviour
     public bool isKicking;
     public float rotationSpeed;
 
-    public ScoreManagerScript scoremanager;
+    //public ScoreManagerScript scoremanager;
     private void Awake()
     {
-        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+        //scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         fakeheight = GetComponentInParent<FakeHeightScript>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
@@ -78,10 +78,10 @@ public class Civilian : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
-        levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
-        gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        //eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        //levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        //gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         SetValue();
     }
 
@@ -338,8 +338,8 @@ public class Civilian : MonoBehaviour
 
         if (fakeheight.isGrounded == true)
         {
-            audiomanager.PlaycivillianDeathSFX();
-            entityCollider.enabled = true;
+            //audiomanager.PlaycivillianDeathSFX();
+            //entityCollider.enabled = true;
             enemyState = EnemyState.death;
         }
     }
@@ -347,7 +347,7 @@ public class Civilian : MonoBehaviour
     {
         if (!isTriggered)
         {
-            levelManager.CalculateScore(1f);
+            //levelManager.CalculateScore(1f);
             inputHandler.ChargeUltimate(1);
             isTriggered = true;
         }
@@ -367,15 +367,15 @@ public class Civilian : MonoBehaviour
         // Check if the death sound effect has already been played
         if (!deathSFXPlayed)
         {
-            audiomanager.PlaycivillianDeathSFX();
+            //audiomanager.PlaycivillianDeathSFX();
             //PlayDeathSFX();
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
 
         if(isKicking == false)
         {
-            scoremanager.amtOfcivilians += 1;
-            scoremanager.goldearned += 1;
+            //scoremanager.amtOfcivilians += 1;
+            //scoremanager.goldearned += 1;
         }
 
         GameObject deadbody = ObjectPooler.Instance.SpawnFromPool("DeadCivi", transform.position, Quaternion.identity);
@@ -445,10 +445,10 @@ public class Civilian : MonoBehaviour
 
         }
 
-        if(gamemanager.gameEnded== true)
-        {
-            StopMovement();
-        }
+        //if(gamemanager.gameEnded== true)
+        //{
+        //    StopMovement();
+        //}
     }
 
     /*public void PlayDeathSFX()

@@ -21,8 +21,8 @@ public class Leader : MonoBehaviour
     private float lastPosX;
     private float runSpeed;
 
-    [SerializeField] private LevelManager levelManager;
-    private GameManagerScript gamemanager;
+    //[SerializeField] private LevelManager levelManager;
+    //private GameManagerScript gamemanager;
 
     //Leader Circle of Infulence
     public List<Civilian> followerList = new List<Civilian>();
@@ -42,7 +42,7 @@ public class Leader : MonoBehaviour
     private float timeSinceLastDirectionChange = 0.0f;
     private PlayerHandler inputHandler;
     private Transform blockingEntity;
-    private EventManager eventManager;
+    //private EventManager eventManager;
 
     public bool isBlocked;
     private bool hasSpawned;
@@ -57,10 +57,10 @@ public class Leader : MonoBehaviour
     //Troubleshoot
     public string causeOfDeath;
     public string murderer;
-    public ScoreManagerScript scoremanager;
+    //public ScoreManagerScript scoremanager;
     private void Awake()
     {
-        scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+        //scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         entityCollider = GetComponent<Collider2D>();
@@ -68,9 +68,9 @@ public class Leader : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
-        levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
-        gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+        //eventManager = GameObject.FindGameObjectWithTag("EventManager").GetComponent<EventManager>();
+        //levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
+        //gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
         fadeEffect = GetComponent<ObjectFadeEffect>();
     }
@@ -236,7 +236,7 @@ public class Leader : MonoBehaviour
 
         if (!isTriggered)
         {
-            levelManager.CalculateScore(0.1f);
+            //levelManager.CalculateScore(0.1f);
             isTriggered = true;
         }
         entityCollider.enabled = false;
@@ -260,8 +260,8 @@ public class Leader : MonoBehaviour
             deathSFXPlayed = true; // Set the flag to true to indicate that the sound effect has been played
         }
         inputHandler.ChargeUltimate(1);
-        scoremanager.amtOfcivilians += 1;
-        scoremanager.goldearned += 1;
+        //scoremanager.amtOfcivilians += 1;
+        //scoremanager.goldearned += 1;
 
         GameObject deadbody = ObjectPooler.Instance.SpawnFromPool("DeadCivi", transform.position, Quaternion.identity);
         deadbody.GetComponent<ObjectFadeEffect>().StartFading();
@@ -317,10 +317,10 @@ public class Leader : MonoBehaviour
                 break;
 
         }
-        if(gamemanager.gameEnded == true)
-        {
-            StopMovement();
-        }
+        //if(gamemanager.gameEnded == true)
+        //{
+        //    StopMovement();
+        //}
     }
 
     public void PlayDeathSFX()

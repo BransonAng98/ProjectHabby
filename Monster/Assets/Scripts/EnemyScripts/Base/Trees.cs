@@ -37,7 +37,7 @@ public class Trees : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         entityCollider = GetComponent<Collider2D>();
         shakeScript = GetComponent<ObjectShakeScript>();
-        audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
+        //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         fakeheight = GetComponentInParent<treeFakeHeightScript>();
     }
 
