@@ -7,11 +7,13 @@ public class GridSpawner : MonoBehaviour
 
     public List<GameObject> gridPrefabs = new List<GameObject>(); // Array of grid prefabs
     public float gridSpeed = 5f; // Speed at which the grids will move
-
+    public float playerDistanceTravelled = 0f; // Total distance traveled by the player
     public int Checkpoint;
 
     [SerializeField] int numberOfColumns; // Number of columns in the grid
     [SerializeField] int numberOfRows;    // Number of rows in the grid
+
+    public ERScoreManager erSM;
 
     public float spacingX = 50.0f;   // Horizontal spacing between prefabs
     public float spacingY = 50.0f;   // Vertical spacing between prefabs
@@ -21,6 +23,8 @@ public class GridSpawner : MonoBehaviour
 
     void Start()
     {
+        
+        erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
         isSpawned = true;
         if (isSpawned == true)
         {
@@ -31,6 +35,8 @@ public class GridSpawner : MonoBehaviour
 
     void Update()
     {
+        playerDistanceTravelled += gridSpeed * Time.deltaTime;
+        erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
         MoveGrids();
 
         if (Checkpoint == 3)

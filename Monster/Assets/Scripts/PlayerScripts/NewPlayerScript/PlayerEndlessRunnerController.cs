@@ -42,6 +42,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     private Thief thiefEntity;
     private float TimeSinceLastTap;
 
+    public GameObject helicopter;
+    public float heliPlayerDistance;
     //Serilizable Variable
     [SerializeField] bool isCCed;
     [SerializeField] bool canMoveLeft = true; 
@@ -57,13 +59,15 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] float tempCCCD;
     [SerializeField] float showMoveX;
 
+    public ERScoreManager erSM;
+
     // Start is called before the first frame update
     void Start()
     {
         //External Check
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
         thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
-
+        erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
         entityCollider = GetComponent<Collider2D>();
@@ -330,6 +334,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        heliPlayerDistance = Vector2.Distance(helicopter.transform.position,transform.position);
+        erSM.DistanceToTarget = Mathf.RoundToInt(heliPlayerDistance);
         CheckDistance();
         switch (currentState)
         {
