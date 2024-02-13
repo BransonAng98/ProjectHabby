@@ -255,7 +255,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             velocity = Vector2.zero;
         }
 
-        float distance = Vector3.Distance(transform.position, thiefTransform.position);
+        float distance = distanceTravelled - thiefEntity.distanceTravelled;
         if(distance < distanceToMaintain)
         {
             if(distanceTimerCountdown < thresholdTime)
@@ -307,6 +307,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                     {
                         TimeSinceLastTap = 0f;
                         thiefEntity.brokenFree = true;
+                        Debug.Log("Thief has escaped");
                     }
                 }
             }
