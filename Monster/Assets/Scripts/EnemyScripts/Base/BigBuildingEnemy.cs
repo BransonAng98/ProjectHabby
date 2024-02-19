@@ -15,6 +15,7 @@ public class BigBuildingEnemy : MonoBehaviour
     public PlayerHandler inputHandler;
     public GameObject civilianParent;
     public int destructionScore;
+    public PlayerEndlessRunnerController player;
 
     //VFX
     private List<GameObject> fireList = new List<GameObject>();
@@ -46,7 +47,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
     //public AudioManagerScript audiomanager;
     public float spawnheight;
-   //public ScoreManagerScript scoremanager;
+    //public ScoreManagerScript scoremanager;
 
     //Destruction Variables
     [SerializeField] D2dFracturer fracture;
@@ -74,15 +75,17 @@ public class BigBuildingEnemy : MonoBehaviour
         
         //audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManagerScript>();
         hitColor = GetComponent<HittableSpriteGroup>();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEndlessRunnerController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(buildingType.enemyType == Targetable.EnemyType.Building)
         {
-            if (collision.CompareTag("PlayerLeg"))
+            if (collision.CompareTag("Player"))
             {
-                //TakeDamage(inputHandler.stepDamageHolder);
+                TakeDamage(30);
             }
         }
 
@@ -96,7 +99,7 @@ public class BigBuildingEnemy : MonoBehaviour
     {
         if (buildingType.enemyType == Targetable.EnemyType.BigBuilding)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("PlayerLeg"))
             {
                 PlayerHandler playerHandler = collision.GetComponent<PlayerHandler>();
                 if (playerHandler != null)
@@ -189,6 +192,16 @@ public class BigBuildingEnemy : MonoBehaviour
         if(!hasDied)
         {
             hasDied = true;
+        }
+
+        if (player.enemyList.Contains(this.transform))
+        {
+            player.enemyList.Remove(this.transform);
+        }
+
+        else
+        {
+            return;
         }
 
         buildingCollider.enabled = false;
