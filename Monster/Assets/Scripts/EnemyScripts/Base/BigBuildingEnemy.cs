@@ -64,7 +64,7 @@ public class BigBuildingEnemy : MonoBehaviour
         //scoremanager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
         tempHealth = SO_enemy.health;
         buildingCollider = GetComponent<BoxCollider2D>();
-        inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        //inputHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
         civilianParent = GameObject.Find("---Civillian---");
         //levelManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelManager>();
         
@@ -78,7 +78,7 @@ public class BigBuildingEnemy : MonoBehaviour
         {
             if (collision.CompareTag("PlayerLeg"))
             {
-                TakeDamage(inputHandler.stepDamageHolder);
+                //TakeDamage(inputHandler.stepDamageHolder);
             }
         }
 
@@ -99,7 +99,7 @@ public class BigBuildingEnemy : MonoBehaviour
                 {
                     if (playerHandler.isDashing)
                     {
-                        TakeDamage(inputHandler.stepDamageHolder);
+                        //TakeDamage(inputHandler.stepDamageHolder);
                     }
                     else { return; }
                 }
@@ -134,7 +134,7 @@ public class BigBuildingEnemy : MonoBehaviour
         if (tempHealth <= 0)
         {
             Death();
-            inputHandler.DisableAttack(buildingCollider);
+            //inputHandler.DisableAttack(buildingCollider);
         }
         else
         {
@@ -146,7 +146,15 @@ public class BigBuildingEnemy : MonoBehaviour
     public void Death()
     {
         VibrateHaptics.VibrateDoubleClick();
-        inputHandler.ChargeUltimate(destructionScore);
+        //if(inputHandler != null)
+        //{
+        //    inputHandler.ChargeUltimate(destructionScore);
+        //}
+
+        //else
+        //{
+        //    return;
+        //}
         //audiomanager.playBuildingDeathSFX();
         //scoremanager.amtOfStructures += 1;
        // playDeathSFX();
@@ -246,7 +254,7 @@ public class BigBuildingEnemy : MonoBehaviour
          
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
-            civilian.transform.SetParent(civilianParent.transform);
+            //civilian.transform.SetParent(civilianParent.transform);
             civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
         }
 

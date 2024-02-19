@@ -394,7 +394,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                 break;
 
             case PlayerState.attack:
-                //Attack();
+                Attack();
                 Move();
                 break;
 
