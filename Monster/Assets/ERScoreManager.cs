@@ -21,7 +21,7 @@ public class ERScoreManager : MonoBehaviour
     void Update()
     {
         DistanceDisplay.text = ""+ DistanceTravelled + "M";
-        TargetDistanceDisplay.text = "Distance To Target " + DistanceToTarget + "M";
+        TargetDistanceDisplay.text = DistanceToTarget + "M";
 
     }
 }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Spine.Unity;
 using Spine;
+using TMPro;
 using Haptics.Vibrations;
 
 public class PlayerEndlessRunnerController : MonoBehaviour
@@ -34,9 +36,12 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public float dragCoefficient = 0.1f;
     public Transform minDist;
     public LayerMask enemyLayer;
+    public TextMeshProUGUI distText;
+    public Image vignette;
 
     public float knockbackForce = 100f;
     public float knockbackDuration = 10f;
+    public float flashSpeed;
     public bool isCCed;
 
     //Private Variable
@@ -50,6 +55,9 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     public GameObject helicopter;
     public float heliPlayerDistance;
+
+    private Color normalColor = Color.white;
+    private Color enlargedColor = Color.red;
 
     //Serilizable Variable
     [SerializeField] bool canMoveLeft = true; 
@@ -433,9 +441,24 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         }
     }
 
+    public void FlashVignette()
+    {
+        distText.color = Color.Lerp(normalColor, enlargedColor, Mathf.PingPong(Time.time * flashSpeed, 1f));
+        vignette.enabled = true;
+
+        float alpha = Mathf.PingPong(Time.time * flashSpeed, 1f);
+
+        alpha = Mathf.Lerp(0f, 1f, alpha);
+
+        Color vignetteColor = vignette.color;
+        vignetteColor.a = alpha;
+        vignette.color = vignetteColor;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        FlashVignette();
         heliPlayerDistance = Vector2.Distance(helicopter.transform.position,transform.position);
         erSM.DistanceToTarget = Mathf.RoundToInt(heliPlayerDistance);
         CheckDistance();
