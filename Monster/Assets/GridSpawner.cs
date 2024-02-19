@@ -21,8 +21,6 @@ public class GridSpawner : MonoBehaviour
     [SerializeField] bool isSpawned;
     public List<GameObject> activeGrids = new List<GameObject>(); // List to keep track of active grids
 
-    public PlayerEndlessRunnerController player;
-
     void Start()
     {
         
@@ -33,18 +31,13 @@ public class GridSpawner : MonoBehaviour
             SpawnStartingGrid();
             isSpawned = false;
         }
-
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEndlessRunnerController>();
     }
 
     void Update()
     {
         playerDistanceTravelled += gridSpeed * Time.deltaTime;
         erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
-        if (player.canMove)
-        {
-            MoveGrids();
-        }
+        MoveGrids();
 
         if (Checkpoint == 3)
         {
