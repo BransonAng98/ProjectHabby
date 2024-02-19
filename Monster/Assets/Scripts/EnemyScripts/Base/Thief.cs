@@ -25,6 +25,8 @@ public class Thief : MonoBehaviour
     public bool brokenFree;
     public bool isCaught;
 
+    public GameObject winScreen;
+
     public GameObject pfEgg;
 
     //Private Variable
@@ -48,6 +50,7 @@ public class Thief : MonoBehaviour
 
         //Assigning Stat
         AssignStat();
+        winScreen.gameObject.SetActive(false);
     }
 
     void AssignStat()
@@ -164,12 +167,13 @@ public class Thief : MonoBehaviour
     void Death()
     {
         transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempDeathSpeed * Time.deltaTime);
+        player.gameEnd = true;
         Invoke("EndLevel", 6f);
     }
 
     void EndLevel()
     {
-        SceneManager.LoadScene("Endless_MainMenu");
+        winScreen.SetActive(true);
     }
 
     // Update is called once per frame

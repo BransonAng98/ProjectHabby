@@ -6,6 +6,7 @@ using Spine.Unity;
 using Spine;
 using TMPro;
 using Haptics.Vibrations;
+using TMPro;
 
 public class PlayerEndlessRunnerController : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public float knockbackDuration = 10f;
     public float flashSpeed;
     public bool isCCed;
+    public GameObject loseScreen;
+    public TextMeshProUGUI tapText;
 
     //Private Variable
     private Transform thiefTransform;
@@ -55,6 +58,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     public GameObject helicopter;
     public float heliPlayerDistance;
+    public bool gameEnd;
 
     private Color normalColor = Color.white;
     private Color enlargedColor = Color.red;
@@ -95,6 +99,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
         //Setting Variables
         AssignStat();
+        loseScreen.gameObject.SetActive(false);
+        tapText.gameObject.SetActive(false);
     }
 
     void AssignStat()
@@ -304,7 +310,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         canMove = false;
         entityCollider.enabled = false;
-        Destroy(gameObject.transform.parent, 2f);
+        Destroy(gameObject, 2f);
+        loseScreen.gameObject.SetActive(true);
     }
 
     void CheckDistance()
@@ -319,12 +326,15 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             velocity = Vector2.zero;
         }
 
-        float distance = distanceTravelled - thiefEntity.distanceTravelled;
-        if(distance < distanceToMaintain)
+        float distance = thiefEntity.distanceTravelled - distanceTravelled;
+        if(distance > distanceToMaintain)
         {
-            if(distanceTimerCountdown < thresholdTime)
+            FlashVignette();
+
+            if (distanceTimerCountdown < thresholdTime)
             {
                 //Trigger Countdown here
+                Debug.Log("Trigger end game countdown");
                 distanceTimerCountdown += Time.deltaTime;
             }
 
@@ -339,6 +349,9 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
         else
         {
+            vignette.enabled = false;
+            distText.color = Color.white;
+            Debug.Log("Reset end game countdown");
             distanceTimerCountdown = 0f;
         }
     }
@@ -365,6 +378,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         MovePlayerForSpecial();
         if(thiefEntity != null)
         {
+            tapText.gameObject.SetActive(true);
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -394,6 +408,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             else
             {
+                tapText.gameObject.SetActive(false);
                 transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
                 timeSinceLastTap = 0f;
                 tapRecorded = false;
@@ -458,10 +473,18 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FlashVignette();
         heliPlayerDistance = Vector2.Distance(helicopter.transform.position,transform.position);
         erSM.DistanceToTarget = Mathf.RoundToInt(heliPlayerDistance);
-        CheckDistance();
+        if (gameEnd)
+        {
+            vignette.enabled = false;
+            return;
+        }
+
+        else
+        {
+            CheckDistance();
+        }
         switch (currentState)
         {
             case PlayerState.move:
