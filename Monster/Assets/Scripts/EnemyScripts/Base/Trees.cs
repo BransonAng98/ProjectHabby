@@ -66,8 +66,8 @@ public class Trees : MonoBehaviour
 
         if (entityCollider != null)
         {
-            SpawnVFX();
-            audiomanager.PlayTreeSFX();
+            //SpawnVFX();
+            //audiomanager.PlayTreeSFX();
             entityCollider.enabled = false;
 
             if (!isShake)
@@ -82,7 +82,7 @@ public class Trees : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerLeg"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             entityCollider.enabled = false;
             int random = Random.Range(0, 3);

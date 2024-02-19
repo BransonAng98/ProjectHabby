@@ -417,7 +417,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             if (transform.position.y != startingPos.y)
             {
                 Debug.Log("Moving back to starting pos:" + startingPos);
-                transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
+                Vector2 movePos = new Vector2(transform.position.x, startingPos.y);
+                transform.position = Vector3.MoveTowards(transform.position, movePos, tempSpeed * Time.deltaTime);
             }
 
             else
