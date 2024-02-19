@@ -6,7 +6,7 @@ public class GridTrigger : MonoBehaviour
 {
     public BoxCollider2D entitycollider;
     public GridSpawner gridGeneratorScript;
-    public bool isTriggered;
+    [SerializeField] bool isTriggered;
     // Start is called before the first frame update
 
     void Start()
@@ -29,13 +29,14 @@ public class GridTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            isTriggered = true;
-            Debug.Log("CheckpointHit");
-            if (isTriggered == true)
-            {
-                gridGeneratorScript.Checkpoint++;
-                isTriggered = false;
-            }
+            gridGeneratorScript.Checkpoint++;
+            //isTriggered = true;
+            //Debug.Log("CheckpointHit");
+            //if (isTriggered == true)
+            //{
+            //    gridGeneratorScript.Checkpoint++;
+            //    isTriggered = false;
+            //}
 
         }
 
@@ -47,6 +48,4 @@ public class GridTrigger : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
 }
