@@ -45,10 +45,10 @@ public class GridSpawner : MonoBehaviour
     void Update()
     {
         playerDistanceTravelled += gridSpeed * Time.deltaTime;
-        erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
         if (player.canMove)
         {
             isTriggered = false;
+            erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
             MoveGrids();
             // Update grid speed
             if (gridSpeed < maxgridSpeed)
