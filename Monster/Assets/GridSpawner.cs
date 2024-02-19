@@ -7,8 +7,12 @@ public class GridSpawner : MonoBehaviour
 
     public List<GameObject> gridPrefabs = new List<GameObject>(); // Array of grid prefabs
     public float gridSpeed = 5f; // Speed at which the grids will move
+    public float maxgridSpeed = 40f;
     public float playerDistanceTravelled = 0f; // Total distance traveled by the player
     public int Checkpoint;
+
+    public float accelerationDuration = 30f; // Duration over which speed increases
+    private float accelerationTimer = 0f; // Timer for acceleration duration
 
     [SerializeField] int numberOfColumns; // Number of columns in the grid
     [SerializeField] int numberOfRows;    // Number of rows in the grid
@@ -51,10 +55,17 @@ public class GridSpawner : MonoBehaviour
             SpawnGrid();
         }
 
-        if(isSpawned == false)
+        if (isSpawned == false)
         {
             numberOfColumns = 1;
             numberOfRows = 3;
+        }
+
+        // Update grid speed
+        if (gridSpeed < maxgridSpeed)
+        {
+            accelerationTimer += Time.deltaTime;
+            gridSpeed = Mathf.Lerp(0f, maxgridSpeed, accelerationTimer / accelerationDuration);
         }
     }
 

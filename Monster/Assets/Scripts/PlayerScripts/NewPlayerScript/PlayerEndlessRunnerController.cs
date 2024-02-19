@@ -69,6 +69,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] Vector2 startingPos;
 
     public ERScoreManager erSM;
+    public GridSpawner gridspawnerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
         thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
+        gridspawnerScript = GameObject.Find("GridSpawner").GetComponent<GridSpawner>();
 
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
