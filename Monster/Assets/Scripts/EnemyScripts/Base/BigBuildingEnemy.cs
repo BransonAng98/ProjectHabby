@@ -118,6 +118,22 @@ public class BigBuildingEnemy : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (buildingType.enemyType == Targetable.EnemyType.Building)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                TakeDamage(30f);
+            }
+        }
+
+        else
+        {
+            return;
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         VibrateHaptics.VibrateHeavyClick();

@@ -77,9 +77,11 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
         thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
+
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
         entityCollider = GetComponent<Collider2D>();
+        startingPos = GetComponentInParent<Transform>().position;
 
         //Setting Variables
         AssignStat();
@@ -92,7 +94,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         tempAccel = playerData.acceleration;
         tempMaxAccel = playerData.maxAcceleration;
         tempCCCD = playerData.ccRecoverTime;
-        startingPos = transform.position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
