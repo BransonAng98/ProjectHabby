@@ -123,7 +123,7 @@ public class BigBuildingEnemy : MonoBehaviour
         }
 
         tempHealth -= damage;
-       //SpawnCivilian();
+        SpawnCivilian();
         //audiomanager.playBuildingDamageFX();
 
         if (isOnFire != true)
@@ -227,29 +227,29 @@ public class BigBuildingEnemy : MonoBehaviour
         spriteRenderer.sprite = damagedSprite;
     }
 
-    //private void SpawnCivilian()
-    //{
-    //    int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
-    //    for (int i = 0; i < numberOfEntities; i++)
-    //    {
-    //        // Choose between two fixed directions
-    //        Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
-    //        Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
+    private void SpawnCivilian()
+    {
+        int numberOfEntities = Random.Range(minEntities, maxEntities + 1);
+        for (int i = 0; i < numberOfEntities; i++)
+        {
+            // Choose between two fixed directions
+            Vector3 fixedDirection1 = new Vector3(1.0f, 0.0f, 0.0f); // Example: Right direction
+            Vector3 fixedDirection2 = new Vector3(-1.0f, 0.0f, 0.0f); // Example: Left direction
 
-    //        Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
+            Vector3 randomDirection = (Random.Range(0, 2) == 0) ? fixedDirection1 : fixedDirection2;
 
-    //        Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
-    //        float randomRotation = Random.Range(0f, 360f);
-    //        GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
-    //        civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
-    //        civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
-           
-    //        //Sets the civilian state upon initialization
-    //        civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
-    //        civilian.transform.SetParent(civilianParent.transform);
-    //        civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
-    //    }
+            Vector3 spawnPos = transform.position + new Vector3(0,spawnheight,0) + randomDirection * Random.Range(0.0f, spawnRadius);
+            float randomRotation = Random.Range(0f, 360f);
+            GameObject civilian = Instantiate(pfDelvin, spawnPos, Quaternion.Euler(0f,0f,randomRotation));
+            civilian.GetComponent<FakeHeightScript>().Initialize(randomDirection * Random.Range(groundDispenseVelocity.x, groundDispenseVelocity.y), Random.Range(verticalDispenseVelocity.x, verticalDispenseVelocity.y));
+            civilian.GetComponent<FakeHeightScript>().spawnerReference = this.gameObject;
+         
+            //Sets the civilian state upon initialization
+            civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
+            civilian.transform.SetParent(civilianParent.transform);
+            civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
+        }
 
-    //}
+    }
 
 }
