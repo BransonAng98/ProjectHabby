@@ -101,7 +101,7 @@ public class Thief : MonoBehaviour
 
             else
             {
-                return;
+                entityState = ThiefState.run;
             }
         }
     }
