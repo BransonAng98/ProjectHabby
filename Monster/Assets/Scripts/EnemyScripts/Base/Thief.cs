@@ -34,6 +34,7 @@ public class Thief : MonoBehaviour
     [SerializeField] float distanceThreshold;
     [SerializeField] float tempHealth;
     [SerializeField] float tempSpeed;
+    [SerializeField] float tempDeathSpeed;
     [SerializeField] float tempAccel;
     [SerializeField] float tempMaxAccel;
 
@@ -55,6 +56,7 @@ public class Thief : MonoBehaviour
         tempSpeed = enemyData.speed;
         tempAccel = enemyData.acceleration;
         tempMaxAccel = enemyData.maxAcceleration;
+        tempDeathSpeed = tempSpeed / 5f;
     }
 
     void Run()
@@ -125,7 +127,7 @@ public class Thief : MonoBehaviour
 
         else
         {
-            return;
+            transform.position = minDist.position;
         }
     }
 
@@ -161,7 +163,7 @@ public class Thief : MonoBehaviour
 
     void Death()
     {
-        transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed / 2 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempDeathSpeed * Time.deltaTime);
         Invoke("EndLevel", 6f);
     }
 

@@ -32,6 +32,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public float tapTimeThreshold;
     public PlayerState currentState;
     public float dragCoefficient = 0.1f;
+    public Transform minDist;
 
     //Private Variable
     private Transform thiefTransform;
@@ -44,6 +45,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     public GameObject helicopter;
     public float heliPlayerDistance;
+
     //Serilizable Variable
     [SerializeField] bool isCCed;
     [SerializeField] bool canMoveLeft = true; 
@@ -59,6 +61,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] float tempCCCD;
     [SerializeField] float showMoveX;
     [SerializeField] bool tapRecorded;
+
+    [SerializeField] Transform startingPos;
 
     public ERScoreManager erSM;
 
@@ -84,6 +88,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         tempAccel = playerData.acceleration;
         tempMaxAccel = playerData.maxAcceleration;
         tempCCCD = playerData.ccRecoverTime;
+        startingPos = transform;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,7 +97,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         {
             if (!enemyList.Contains(collision.transform))
             {
-                if(currentState != PlayerState.attack)
+                if(currentState != PlayerState.attack && currentState != PlayerState.SpecialAttack)
                 {
                     currentState = PlayerState.attack;
                 }
@@ -144,7 +149,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             {
                 enemyList.Remove(collision.transform);
 
-                if(enemyList.Count == 0)
+                if(enemyList.Count == 0 && currentState != PlayerState.SpecialAttack)
                 {
                     currentState = PlayerState.move;
                 }
@@ -218,12 +223,21 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             }
 
             //How fast the player is moving
-            float velocityRatio = velocity.y / maxYVelocity;
-            tempAccel = tempMaxAccel * (1 - velocityRatio);
-            velocity.y += tempAccel * Time.deltaTime;
-            if(velocity.y >= maxYVelocity)
+
+            if (isCCed)
             {
-                velocity.y = maxYVelocity;
+                velocity.y = 0;
+            }
+
+            else
+            {
+                float velocityRatio = velocity.y / maxYVelocity;
+                tempAccel = tempMaxAccel * (1 - velocityRatio);
+                velocity.y += tempAccel * Time.deltaTime;
+                if (velocity.y >= maxYVelocity)
+                {
+                    velocity.y = maxYVelocity;
+                }
             }
         }
     }
@@ -292,11 +306,26 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         }
     }
 
+    void MovePlayerForSpecial()
+    {
+        if(transform.position != minDist.position)
+        {
+            Vector2 movePosition = new Vector2(minDist.position.x, minDist.position.y + 6f);
+            transform.position = Vector3.MoveTowards(transform.position, movePosition, tempSpeed * Time.deltaTime);
+        }
+
+        else
+        {
+            return;
+        }
+    }
+
     void SpecialAttack()
     {
         canMove = false;
+        joystick.gameObject.SetActive(false);
         //Stop the screen from moving
-
+        MovePlayerForSpecial();
         if(thiefEntity != null)
         {
             if (Input.touchCount > 0)
@@ -317,22 +346,24 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                     tapRecorded = false;
                 }
             }
+        }
 
-            if (!tapRecorded)
+        if (!tapRecorded)
+        {
+            if (timeSinceLastTap < tapTimeThreshold)
             {
-                if (timeSinceLastTap <= tapTimeThreshold)
-                {
-                    timeSinceLastTap += Time.deltaTime;
-                }
+                timeSinceLastTap += 1f * Time.deltaTime;
+            }
 
-                else
-                {
-                    timeSinceLastTap = 0f;
-                    tapRecorded = false;
-                    thiefEntity.brokenFree = true;
-                    currentState = PlayerState.move;
-                    Debug.Log("Thief has escaped");
-                }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, startingPos.position, tempSpeed * Time.deltaTime);
+                timeSinceLastTap = 0f;
+                tapRecorded = false;
+                thiefEntity.brokenFree = true;
+                joystick.gameObject.SetActive(true);
+                currentState = PlayerState.move;
+                Debug.Log("Thief has escaped");
             }
         }
     }

@@ -1584,6 +1584,7 @@ MonoBehaviour:
   distanceThreshold: 15
   tempHealth: 0
   tempSpeed: 0
+  tempDeathSpeed: 0
   tempAccel: 0
   tempMaxAccel: 0
 --- !u!1 &1620836734
@@ -2134,6 +2135,7 @@ MonoBehaviour:
   tapTimeThreshold: 5
   currentState: 0
   dragCoefficient: 5
+  minDist: {fileID: 265371474}
   timeSinceLastTap: 0
   helicopter: {fileID: 1585548939}
   heliPlayerDistance: 0
@@ -2150,6 +2152,7 @@ MonoBehaviour:
   tempCCCD: 0
   showMoveX: 0
   tapRecorded: 0
+  startingPos: {fileID: 0}
   erSM: {fileID: 0}
 --- !u!114 &266924922205074553
 MonoBehaviour:
