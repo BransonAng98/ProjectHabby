@@ -141,6 +141,13 @@ public class Civilian : MonoBehaviour
             blockingEntity = collision.gameObject.transform;
             isBlocked = true;
         }
+
+
+        if (collision.gameObject.tag == "Player")
+        {
+            causeOfDeath = "Stepped to death";
+            enemyState = EnemyState.death;
+        }
     }
 
     public void AddCivilian(Transform leaderGO)
@@ -307,7 +314,7 @@ public class Civilian : MonoBehaviour
             }
             else
             {
-                MoveTowards(leaderPos.position, walkSpeed);
+                //MoveTowards(leaderPos.position, walkSpeed);
             }
         }
     }

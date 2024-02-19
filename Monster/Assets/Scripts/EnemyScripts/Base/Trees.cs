@@ -107,6 +107,32 @@ public class Trees : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            entityCollider.enabled = false;
+            int random = Random.Range(0, 3);
+            switch (random)
+            {
+                case 0:
+                    if (!isKicking)
+                    {
+                        Death();
+                    }
+                    break;
+
+                case 1:
+                    fallleft = true;
+
+                    break;
+                case 2:
+                    fallright = true;
+                    break;
+            }
+        }
+    }
+
     public void TreeFallLeft()
     {
         Quaternion targetRotation = transform.rotation * Quaternion.Euler(0f, 0f, 90f);

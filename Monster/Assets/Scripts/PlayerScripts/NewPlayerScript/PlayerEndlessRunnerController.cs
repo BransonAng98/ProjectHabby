@@ -33,6 +33,10 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public PlayerState currentState;
     public float dragCoefficient = 0.1f;
     public Transform minDist;
+    public LayerMask enemyLayer;
+
+    public float knockbackForce = 100f;
+    public float knockbackDuration = 10f;
 
     //Private Variable
     private Transform thiefTransform;
@@ -41,7 +45,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     private SkeletonAnimation skeletonAnim;
     private Rigidbody2D rb;
     private Thief thiefEntity;
-    [SerializeField] private float timeSinceLastTap;
+    private float knockbackTimer;
 
     public GameObject helicopter;
     public float heliPlayerDistance;
@@ -61,8 +65,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] float tempCCCD;
     [SerializeField] float showMoveX;
     [SerializeField] bool tapRecorded;
-
-    [SerializeField] Transform startingPos;
+    [SerializeField] private float timeSinceLastTap;
+    [SerializeField] Vector2 startingPos;
 
     public ERScoreManager erSM;
 
@@ -88,7 +92,29 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         tempAccel = playerData.acceleration;
         tempMaxAccel = playerData.maxAcceleration;
         tempCCCD = playerData.ccRecoverTime;
-        startingPos = transform;
+        startingPos = transform.position;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "MilitaryBuilding")
+        {
+            
+            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+
+            // Apply knockback force
+            rb.velocity = Vector2.zero;
+            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+
+            // Start knockback timer
+            knockbackTimer = knockbackDuration;
+
+            Debug.Log("Collision");
+
+            currentState = PlayerState.damaged;
+
+            Destroy(collision.gameObject, 0.5f);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -357,7 +383,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, startingPos.position, tempSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
                 timeSinceLastTap = 0f;
                 tapRecorded = false;
                 thiefEntity.brokenFree = true;
@@ -372,13 +398,34 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         canMove = false;
         entityCollider.enabled = false;
-        Invoke("RecoverFromCC", tempCCCD);
-    }
 
-    void RecoverFromCC()
-    {
-        currentState = PlayerState.move;
-        entityCollider.enabled = true;
+        if (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.deltaTime;
+            if (knockbackTimer <= 0)
+            {
+                // Reset velocity after knockback duration expires
+                rb.velocity = Vector2.zero;
+                velocity.y = 0; 
+            }
+        }
+
+        else
+        {
+            Debug.Log("Moving back Phase");
+            if (transform.position.y != startingPos.y)
+            {
+                Debug.Log("Moving back to starting pos:" + startingPos);
+                transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
+            }
+
+            else
+            {
+                Debug.Log("Moved back to OG pos");
+                currentState = PlayerState.move;
+                entityCollider.enabled = true;
+            }
+        }
     }
 
     // Update is called once per frame
