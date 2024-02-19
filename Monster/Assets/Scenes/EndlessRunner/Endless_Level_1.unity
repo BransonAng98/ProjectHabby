@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3931633157328061738, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3931633157328061738, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
+      propertyPath: isTriggered
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8765843850186578843, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
       propertyPath: m_Name
       value: Blank_Zone_1
@@ -695,6 +703,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blank_Zone_2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2100078680105142509, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100078680105142509, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
+      propertyPath: isTriggered
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4960015063656522286, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -780,6 +796,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3931633157328061738, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3931633157328061738, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
+      propertyPath: isTriggered
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8765843850186578843, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
       propertyPath: m_Name
       value: Blank_Zone_1 (1)
@@ -1019,7 +1043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00021166132, y: 66.71538, z: -10}
+  m_LocalPosition: {x: -0.00031340355, y: 66.71537, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1781,6 +1805,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blank_Zone_2
       objectReference: {fileID: 0}
+    - target: {fileID: 2100078680105142509, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100078680105142509, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
+      propertyPath: isTriggered
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4960015063656522286, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2159,7 +2191,7 @@ MonoBehaviour:
   showMoveX: 0
   tapRecorded: 0
   timeSinceLastTap: 0
-  startingPos: {fileID: 0}
+  startingPos: {x: 0, y: 0}
   erSM: {fileID: 0}
 --- !u!61 &2116676880
 BoxCollider2D:
