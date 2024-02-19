@@ -52,6 +52,10 @@ public class BigBuildingEnemy : MonoBehaviour
     [SerializeField] D2dFracturer fracture;
     [SerializeField] D2dRequirements destroyer;
 
+    public GameObject fireVFX;
+    public GameObject crumbleVFX;
+    public GameObject blackVFX;
+
     private void Awake()
     {
         buildingType = GetComponent<Targetable>();
@@ -128,7 +132,7 @@ public class BigBuildingEnemy : MonoBehaviour
 
         if (isOnFire != true)
         {
-            SpawnFireVFX();
+            //SpawnFireVFX();
         }
 
         if (tempHealth <= 0)
@@ -186,26 +190,55 @@ public class BigBuildingEnemy : MonoBehaviour
     public void SpawnDeathVFX()
     {
         Vector2 explosionLoc = new Vector2(transform.position.x, transform.position.y + 1.5f);
-        ObjectPooler.Instance.SpawnFromPool("FireExplosionA", explosionLoc, Quaternion.identity);
-        ObjectPooler.Instance.SpawnFromPool("CrumbleSmoke", transform.position, Quaternion.identity);
-        ObjectPooler.Instance.SpawnFromPool("BlackSmoke",transform.position, Quaternion.Euler(-90, 0, 0));
+
+        //fireVFX = ObjectPooler.Instance.SpawnFromPool("FireExplosionA", explosionLoc, Quaternion.identity);
+        //crumbleVFX =ObjectPooler.Instance.SpawnFromPool("CrumbleSmoke", transform.position, Quaternion.identity);
+        //blackVFX =ObjectPooler.Instance.SpawnFromPool("BlackSmoke",transform.position, Quaternion.Euler(-90, 0, 0));
+
+        GameObject VFX1 = Instantiate(fireVFX, explosionLoc, Quaternion.identity);
+        GameObject VFX2 = Instantiate(crumbleVFX, transform.position, Quaternion.identity);
+        GameObject VFX3 =  Instantiate(blackVFX, transform.position, Quaternion.Euler(-90, 0, 0));
+
+        VFX1.transform.SetParent(this.transform);
+        VFX2.transform.SetParent(this.transform);
+        VFX3.transform.SetParent(this.transform);
     }
-    public void SpawnFireVFX()
-    {
-        if (!isTriggered)
-        {
-            // Randomize the number of fires within a range
-            int numberOfFires = Random.Range(minFires, maxFires + 1);
-            fireList.Clear();
-            for (int i = 0; i < numberOfFires; i++)
-            {
-                isTriggered = true;
-                Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 0.5f);
-                Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
-                fireList.Add(ObjectPooler.Instance.SpawnFromPool("WreckageFlame", randomPosition, Quaternion.Euler(-90, 0, 0)));
-            }
-        }
-    }
+
+    //public void UnparentVFX()
+    //{
+    //    // Unparent only the VFX objects if they were previously parented
+    //    if (fireVFX != null)
+    //    {
+    //        fireVFX.transform.SetParent(null);
+    //        fireVFX = null;
+    //    }
+    //    if (crumbleVFX != null)
+    //    {
+    //        crumbleVFX.transform.SetParent(null);
+    //        crumbleVFX = null;
+    //    }
+    //    if (blackVFX != null)
+    //    {
+    //        blackVFX.transform.SetParent(null);
+    //        blackVFX = null;
+    //    }
+    //}
+    //public void SpawnFireVFX()
+    //{
+    //    if (!isTriggered)
+    //    {
+    //        // Randomize the number of fires within a range
+    //        int numberOfFires = Random.Range(minFires, maxFires + 1);
+    //        fireList.Clear();
+    //        for (int i = 0; i < numberOfFires; i++)
+    //        {
+    //            isTriggered = true;
+    //            Vector3 spawnLoc = new Vector3(transform.position.x, transform.position.y + 0.5f);
+    //            Vector3 randomPosition = spawnLoc + Random.insideUnitSphere * deathVFXRadius;
+    //            fireList.Add(ObjectPooler.Instance.SpawnFromPool("WreckageFlame", randomPosition, Quaternion.Euler(-90, 0, 0)));
+    //        }
+    //    }
+    //}
     void TriggerLoot()
     {
         //Add points
@@ -254,7 +287,7 @@ public class BigBuildingEnemy : MonoBehaviour
          
             //Sets the civilian state upon initialization
             civilian.GetComponentInChildren<Civilian>().enemyState = Civilian.EnemyState.fall;
-            //civilian.transform.SetParent(civilianParent.transform);
+            civilian.transform.SetParent(this.transform);
             civilian.GetComponentInChildren<Civilian>().entityCollider.enabled = false;
         }
 

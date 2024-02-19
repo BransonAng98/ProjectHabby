@@ -72,8 +72,16 @@ public class CivilianSpawners : MonoBehaviour
                 // Spawn the selected enemy prefab at the random position
                 GameObject preFabtocreate = Instantiate(enemyPrefabToSpawn, spawnPosition, Quaternion.identity);
                 Debug.Log("SpawnEnemies");
+
                 // Parent the spawned enemy to the civiParent object
-                preFabtocreate.transform.parent = civiParent.transform;
+                if (civiParent != null)
+                {
+                    preFabtocreate.transform.parent = civiParent.transform;
+                }
+                else
+                {
+                    Debug.LogWarning("civiParent is not assigned!");
+                }
             }
         }
     }
