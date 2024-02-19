@@ -37,6 +37,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     public float knockbackForce = 100f;
     public float knockbackDuration = 10f;
+    public bool isCCed;
 
     //Private Variable
     private Transform thiefTransform;
@@ -51,7 +52,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public float heliPlayerDistance;
 
     //Serilizable Variable
-    [SerializeField] bool isCCed;
     [SerializeField] bool canMoveLeft = true; 
     [SerializeField] bool canMoveRight = true;
     [SerializeField] Vector2 movementInput;
@@ -367,7 +367,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                     tapRecorded = true;
                     timeSinceLastTap = 0;
                     thiefEntity.brokenFree = false;
-                    thiefEntity.TakeDamage(15);
+                    thiefEntity.TakeDamage(5);
                 }
 
                 if(touch.phase == TouchPhase.Ended)
@@ -401,7 +401,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         canMove = false;
         entityCollider.enabled = false;
-
+        isCCed = true;
         if (knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
@@ -426,6 +426,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             else
             {
                 Debug.Log("Moved back to OG pos");
+                isCCed = false;
                 currentState = PlayerState.move;
                 entityCollider.enabled = true;
             }

@@ -23,6 +23,7 @@ public class GridSpawner : MonoBehaviour
     public float spacingY = 50.0f;   // Vertical spacing between prefabs
 
     [SerializeField] bool isSpawned;
+    [SerializeField] bool isTriggered;
     public List<GameObject> activeGrids = new List<GameObject>(); // List to keep track of active grids
 
     public PlayerEndlessRunnerController player;
@@ -47,7 +48,27 @@ public class GridSpawner : MonoBehaviour
         erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
         if (player.canMove)
         {
+            isTriggered = false;
             MoveGrids();
+            // Update grid speed
+            if (gridSpeed < maxgridSpeed)
+            {
+                accelerationTimer += Time.deltaTime;
+                gridSpeed = Mathf.Lerp(0f, maxgridSpeed, accelerationTimer / accelerationDuration);
+            }
+        }
+
+        else
+        {
+            if (player.isCCed)
+            {
+                DecreaseGridSpeed();
+            }
+
+            else
+            {
+                return;
+            }
         }
 
         if (Checkpoint == 3)
@@ -60,12 +81,26 @@ public class GridSpawner : MonoBehaviour
             numberOfColumns = 1;
             numberOfRows = 3;
         }
+    }
 
-        // Update grid speed
-        if (gridSpeed < maxgridSpeed)
+    void DecreaseGridSpeed()
+    {
+        if (!isTriggered)
         {
-            accelerationTimer += Time.deltaTime;
-            gridSpeed = Mathf.Lerp(0f, maxgridSpeed, accelerationTimer / accelerationDuration);
+            isTriggered = true;
+            float decreaseAmt = maxgridSpeed * 0.3f;
+            gridSpeed -= decreaseAmt;
+            accelerationTimer = 0f;
+
+            if(gridSpeed < 0)
+            {
+                gridSpeed = 1f;
+            }
+
+            else
+            {
+                return;
+            }
         }
     }
 
