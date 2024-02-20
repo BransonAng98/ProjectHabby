@@ -233,37 +233,20 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             float moveX = joystick.Horizontal;
             showMoveX = moveX;
 
-            if (moveX < 0 || moveX > 0)
+            rb.drag = 0;
+
+            if (canMoveLeft != true && moveX < 0)
             {
-                rb.drag = 0;
-
-                if (canMoveLeft != true && moveX < 0)
-                {
-                    moveX = 0;
-                }
-
-                if (canMoveRight != true && moveX > 0)
-                {
-                    moveX = 0;
-                }
-
-                movementInput = new Vector2(moveX, 0).normalized;
-                rb.velocity = movementInput * tempSpeed;
+                moveX = 0;
             }
 
-            else
+            if (canMoveRight != true && moveX > 0)
             {
-                showMoveX = 0;
-                if (rb.velocity.x > 0 || rb.velocity.x < 0)
-                {
-                    rb.drag = dragCoefficient;
-                }
-                else
-                {
-                    // If velocity is already zero, reset the drag to zero
-                    rb.drag = 0f;
-                }
+                moveX = 0;
             }
+
+            movementInput = new Vector2(moveX, 0).normalized;
+            rb.velocity = movementInput * tempSpeed;
 
             //How fast the player is moving
 
@@ -372,8 +355,14 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void SpecialAttack()
     {
+        entityCollider.enabled = false;
         canMove = false;
         joystick.gameObject.SetActive(false);
+
+        //Reset distance travelled for both objects
+        distanceTravelled = 0;
+        thiefEntity.distanceTravelled = 0;
+        
         //Stop the screen from moving
         MovePlayerForSpecial();
         if(thiefEntity != null)
@@ -409,6 +398,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             else
             {
                 tapText.gameObject.SetActive(false);
+                entityCollider.enabled = true;
                 transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
                 timeSinceLastTap = 0f;
                 tapRecorded = false;
@@ -432,7 +422,9 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             {
                 // Reset velocity after knockback duration expires
                 rb.velocity = Vector2.zero;
-                velocity.y = 0; 
+                float reduceVelocity = maxYVelocity * 0.3f;
+                float holderVelocity = velocity.y - reduceVelocity;
+                velocity.y = holderVelocity; 
             }
         }
 
@@ -443,7 +435,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             {
                 Debug.Log("Moving back to starting pos:" + startingPos);
                 Vector2 movePos = new Vector2(transform.position.x, startingPos.y);
-                transform.position = Vector3.MoveTowards(transform.position, movePos, tempSpeed * Time.deltaTime);
+                float recoverSpeed = tempSpeed / 2f;
+                transform.position = Vector3.MoveTowards(transform.position, movePos, recoverSpeed * Time.deltaTime);
             }
 
             else
