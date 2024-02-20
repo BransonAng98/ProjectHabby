@@ -1177,7 +1177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -153}
+  m_AnchoredPosition: {x: 466, y: -227}
   m_SizeDelta: {x: 421.5987, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1700797359934864571
@@ -1529,7 +1529,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1599,7 +1599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -84}
+  m_AnchoredPosition: {x: 527, y: -158}
   m_SizeDelta: {x: 301.2311, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1700797360865034887
@@ -1664,8 +1664,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1835,10 +1835,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thiefParent: {fileID: 0}
   eggIcon: {fileID: 1700797361111759714}
-  maxDist: 0
-  scaleFactor: 2
+  maxDist: 10
   minScale: {x: 0.25, y: 0.25}
-  maxScale: {x: 2, y: 2}
+  maxScale: {x: 3, y: 3}
   distDiff: 0
 --- !u!1 &1700797361111759715
 GameObject:

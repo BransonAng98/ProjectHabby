@@ -7,10 +7,9 @@ public class ObjectiveIndicator : MonoBehaviour
 {
     public GameObject thiefParent;
     public RectTransform eggIcon;
-    public float maxDist;
-    public float scaleFactor = 5f;
-    public Vector2 minScale = new Vector2(0.1f, 0.1f);
-    public Vector2 maxScale = new Vector2(3f, 3f);
+    public float maxDist = 10f;
+    public Vector2 minScale;
+    public Vector2 maxScale;
 
     [SerializeField] public float distDiff;
     private PlayerEndlessRunnerController runnerController;
@@ -38,10 +37,16 @@ public class ObjectiveIndicator : MonoBehaviour
         distDiff = thiefController.distanceTravelled - runnerController.distanceTravelled;
 
         // Map the distance to a scale value between 0 and 1
-        float normalizedDistance = Mathf.Clamp01(distDiff / thiefController.distanceTravelled) * scaleFactor;
+        float normalizedDistance = Mathf.Clamp01(distDiff / thiefController.distanceTravelled);
 
-        // Interpolate between the min and max scale based on the normalized distance
-        Vector2 targetScale = Vector2.Lerp(minScale, maxScale, 1f - normalizedDistance); // Inverse lerp since we want the UI to scale up as distance decreases
+        // Define an additional speed multiplier to control how fast the UI scales
+        float speedMultiplier = 5f; // Adjust this value to control the speed of scaling
+
+        // Invert the normalized distance to reverse the scaling direction
+        normalizedDistance = 1f - normalizedDistance;
+
+        // Interpolate between the min and max scale based on the inverted normalized distance, with increased speed
+        Vector2 targetScale = Vector2.Lerp(minScale, maxScale, Mathf.Pow(normalizedDistance, speedMultiplier));
 
         // Apply the target scale to the UI image
         eggIcon.localScale = targetScale;
@@ -49,10 +54,11 @@ public class ObjectiveIndicator : MonoBehaviour
 
     void TurnOffIcon()
     {
+        // Check if the entity's position is inside the camera's view
         Vector3 viewportPosition = mainCamera.WorldToViewportPoint(thiefParent.transform.position);
         bool isVisible = viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1 && viewportPosition.z >= 0;
 
         // Toggle the entity's visibility
-        eggIcon.gameObject.SetActive(isVisible);
+        eggIcon.gameObject.SetActive(!isVisible); // Toggle the visibility based on whether the object is outside the view
     }
 }
