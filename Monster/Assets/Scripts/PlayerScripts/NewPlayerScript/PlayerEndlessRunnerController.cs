@@ -121,7 +121,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "MilitaryBuilding")
         {
-            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+            Vector2 knockbackDirection = Vector2.down;
 
             // Apply knockback force
             rb.velocity = Vector2.zero;

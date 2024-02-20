@@ -185,6 +185,7 @@ public class Thief : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempDeathSpeed * Time.deltaTime);
         player.gameEnd = true;
+        //player.currentState = PlayerEndlessRunnerController.PlayerState.victory;
         Invoke("EndLevel", 6f);
     }
 
