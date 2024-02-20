@@ -72,7 +72,7 @@ public class GridSpawner : MonoBehaviour
             }
         }
 
-        if (Checkpoint == 3)
+        if (Checkpoint == 4)
         {
             SpawnGrid();
         }
@@ -120,8 +120,8 @@ public class GridSpawner : MonoBehaviour
         if (activeGrids.Count > 0)
         {
             // Get the last spawned grid's position and adjust the spawn position accordingly
-            GameObject lastGrid = activeGrids[activeGrids.Count - 1]; // Get the last grid
-            float yOffset = spacingY * (numberOfRows - 2); // Calculate the vertical offset based on the number of rows
+            GameObject lastGrid = activeGrids[0]; // Get the last grid
+            float yOffset = spacingY * (numberOfRows - 6); // Calculate the vertical offset based on the number of rows
             initialSpawnPosition = lastGrid.transform.position + new Vector3(0f, -yOffset, 0f);
         }
 
@@ -180,12 +180,11 @@ public class GridSpawner : MonoBehaviour
     }
 
     void MoveGrids()
+    {
+        foreach (GameObject grid in activeGrids)
         {
-            foreach (GameObject grid in activeGrids)
-            {
-                // Move the grid upwards
-                grid.transform.Translate(Vector2.up * gridSpeed * Time.deltaTime);
-            }
+            // Move the grid upwards
+            grid.transform.Translate(Vector2.down * gridSpeed * Time.deltaTime);
         }
     }
-
+}

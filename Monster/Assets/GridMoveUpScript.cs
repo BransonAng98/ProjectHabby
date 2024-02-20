@@ -29,6 +29,6 @@ public class GridMoveUpScript : MonoBehaviour
     public void moveGrid()
     {
         movespeed = gridspawnerScript.gridSpeed;
-        transform.Translate(Vector2.up * movespeed * Time.deltaTime);
+        transform.Translate(Vector2.down * movespeed * Time.deltaTime);
     }
 }
