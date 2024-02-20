@@ -27,10 +27,11 @@ public class GridSpawner : MonoBehaviour
     public List<GameObject> activeGrids = new List<GameObject>(); // List to keep track of active grids
 
     public PlayerEndlessRunnerController player;
+    private float[] prefabProbabilities = { 0.4f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.2f, 0.1f, 0.2f, 0.1f };
 
     void Start()
     {
-        
+
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
         isSpawned = true;
         if (isSpawned == true)
@@ -92,7 +93,7 @@ public class GridSpawner : MonoBehaviour
             gridSpeed -= decreaseAmt;
             accelerationTimer = 0f;
 
-            if(gridSpeed < 0)
+            if (gridSpeed < 0)
             {
                 gridSpeed = 1f;
             }
@@ -106,10 +107,10 @@ public class GridSpawner : MonoBehaviour
 
     void SpawnStartingGrid()
     {
-            numberOfColumns = 1;
-            numberOfRows = 4;
-            Checkpoint = 3;
-            SpawnGrid();
+        numberOfColumns = 1;
+        numberOfRows = 4;
+        Checkpoint = 3;
+        SpawnGrid();
     }
 
     void SpawnGrid()
@@ -127,6 +128,8 @@ public class GridSpawner : MonoBehaviour
         // Adjust checkpoint
         Checkpoint -= 3;
 
+        int previousPrefabIndex = -1; // Initialize with an invalid index
+
         for (int row = 0; row < numberOfRows; row++)
         {
             for (int col = 0; col < numberOfColumns; col++)
@@ -135,13 +138,38 @@ public class GridSpawner : MonoBehaviour
 
                 if (indexToInstantiate < gridPrefabs.Count)
                 {
-                    int randomIndex = Random.Range(0, gridPrefabs.Count);
-                    GameObject prefabToInstantiate = gridPrefabs[randomIndex]; // Select a random prefab from gridPrefabs
-                                                                               // Calculate the position based on the row and column
-                    Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, -row * spacingY, 0f); // Adjust y to negative row * spacingY
+                    // Weighted random selection (excluding the previously spawned prefab)
+                    float randomValue = Random.value;
+                    float cumulativeProbability = 0f;
+                    int selectedPrefabIndex = -1;
 
-                    GameObject instantiatedGrid = Instantiate(prefabToInstantiate, spawnPosition, Quaternion.identity);
-                    activeGrids.Add(instantiatedGrid); // Add the instantiated grid to the activeGrids list
+                    for (int i = 0; i < gridPrefabs.Count; i++)
+                    {
+                        if (i != previousPrefabIndex) // Skip the previously spawned prefab
+                        {
+                            cumulativeProbability += prefabProbabilities[i];
+                            if (randomValue <= cumulativeProbability)
+                            {
+                                selectedPrefabIndex = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (selectedPrefabIndex != -1)
+                    {
+                        GameObject prefabToInstantiate = gridPrefabs[selectedPrefabIndex];
+                        // Calculate the position based on the row and column
+                        Vector3 spawnPosition = initialSpawnPosition + new Vector3(col * spacingX, -row * spacingY, 0f);
+                        GameObject instantiatedGrid = Instantiate(prefabToInstantiate, spawnPosition, Quaternion.identity);
+                        activeGrids.Add(instantiatedGrid); // Add the instantiated grid to the activeGrids list
+
+                        previousPrefabIndex = selectedPrefabIndex; // Update the previously spawned prefab index
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Not enough prefabs in the list to fill the grid.");
+                    }
                 }
                 else
                 {
@@ -152,11 +180,12 @@ public class GridSpawner : MonoBehaviour
     }
 
     void MoveGrids()
-    {
-        foreach (GameObject grid in activeGrids)
         {
-            // Move the grid upwards
-            grid.transform.Translate(Vector2.up * gridSpeed * Time.deltaTime);
+            foreach (GameObject grid in activeGrids)
+            {
+                // Move the grid upwards
+                grid.transform.Translate(Vector2.up * gridSpeed * Time.deltaTime);
+            }
         }
     }
-}
+
