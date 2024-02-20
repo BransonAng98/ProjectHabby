@@ -54,11 +54,10 @@ public class ObjectiveIndicator : MonoBehaviour
 
     void TurnOffIcon()
     {
-        // Check if the entity's position is inside the camera's view
-        Vector3 viewportPosition = mainCamera.WorldToViewportPoint(thiefParent.transform.position);
+        Vector3 viewportPosition = mainCamera.WorldToViewportPoint(thiefController.transform.position);
         bool isVisible = viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1 && viewportPosition.z >= 0;
 
-        // Toggle the entity's visibility
-        eggIcon.gameObject.SetActive(!isVisible); // Toggle the visibility based on whether the object is outside the view
+        // Toggle the visibility of objectToToggle based on whether objectToCheck is visible
+        eggIcon.gameObject.SetActive(!isVisible);
     }
 }

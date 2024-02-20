@@ -337,7 +337,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if(transform.position != minDist.position)
         {
-            Vector2 movePosition = new Vector2(minDist.position.x, minDist.position.y + 6f);
+            Vector2 movePosition = new Vector2(minDist.position.x, minDist.position.y - 6f);
             transform.position = Vector3.MoveTowards(transform.position, movePosition, tempSpeed * Time.deltaTime);
         }
 
