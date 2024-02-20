@@ -62,6 +62,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public GameObject helicopter;
     public float heliPlayerDistance;
     public bool gameEnd;
+    private Animator anim;
 
     private Color normalColor = Color.white;
     private Color enlargedColor = Color.red;
@@ -100,6 +101,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         startingPos = GetComponentInParent<Transform>().position;
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
         //Setting Variables
         AssignStat();
@@ -132,7 +134,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             entityCollider.enabled = false;
             currentState = PlayerState.damaged;
-
+            anim.SetBool("knockBack", true);
             Destroy(collision.gameObject, 0.5f);
         }
     }
@@ -440,6 +442,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         entityCollider.enabled = true;
         isDamaged = false;
+        anim.SetBool("knockBack", false);
     }
 
     public void FlashVignette()

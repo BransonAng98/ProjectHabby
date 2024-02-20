@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2908489714837479805}
   - component: {fileID: -6427463321400838585}
   - component: {fileID: -159185190635758436}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Prop4
   m_TagString: Prop
   m_Icon: {fileID: 0}
@@ -98,10 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb7816923a382748b44bbacde9c9bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audiomanager: {fileID: 0}
-  shatterVFX: {fileID: 1750940742320366, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
   destroyedSprite: {fileID: 21300000, guid: 2567ce9ae62ea4845bdd9db6a15d2b3b, type: 3}
   spriteRenderer: {fileID: 2908489714837479805}
+  sparkexplosionVFX: {fileID: 1750940742320366, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
 --- !u!61 &-159185190635758436
 BoxCollider2D:
   m_ObjectHideFlags: 0

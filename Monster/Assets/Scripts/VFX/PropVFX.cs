@@ -8,6 +8,7 @@ public class PropVFX : MonoBehaviour
     public Sprite destroyedSprite;
     public SpriteRenderer spriteRenderer;
     private Collider2D propCollider;
+    public GameObject sparkexplosionVFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +24,13 @@ public class PropVFX : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PlayerLeg"))
+        if (collision.CompareTag("Player"))
         {
             spriteRenderer.sortingOrder = 2;
             //audiomanager.PlayPropSFX();
-            ObjectPooler.Instance.SpawnFromPool("SparkExplosion", transform.position, Quaternion.identity);
+            GameObject sparkexplosion = Instantiate(sparkexplosionVFX, transform.position, Quaternion.identity);
+            sparkexplosion.transform.SetParent(this.transform);
+           // ObjectPooler.Instance.SpawnFromPool("SparkExplosion", transform.position, Quaternion.identity);
             spriteRenderer.sprite = destroyedSprite;
             propCollider.enabled = false;
         }
