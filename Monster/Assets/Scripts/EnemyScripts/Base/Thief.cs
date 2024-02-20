@@ -76,7 +76,15 @@ public class Thief : MonoBehaviour
 
     void DistanceBetween()
     {
-        distanceTravelled += velocity.y * Time.deltaTime;
+        if (!isCaught || !brokenFree)
+        {
+            distanceTravelled += velocity.y * Time.deltaTime;
+        }
+
+        else
+        {
+            return;
+        }
 
         float distance = distanceTravelled - player.distanceTravelled;
         if (distance < distanceThreshold)
@@ -84,13 +92,23 @@ public class Thief : MonoBehaviour
             if(transform.position != minDist.position)
             {
                 //Move the thief slowly towards the player
+                Debug.Log("Moving towards the player");
                 transform.position = Vector3.MoveTowards(transform.position, minDist.position, tempSpeed * Time.deltaTime);
             }
 
             else
             {
-                player.currentState = PlayerEndlessRunnerController.PlayerState.SpecialAttack;
-                entityState = ThiefState.caught;
+                if (!brokenFree)
+                {
+                    player.currentState = PlayerEndlessRunnerController.PlayerState.SpecialAttack;
+                    isCaught = true;
+                    entityState = ThiefState.caught;
+                }
+                else
+                {
+                    player.currentState = PlayerEndlessRunnerController.PlayerState.move;
+                    entityState = ThiefState.released;
+                }
             }
         }
 
@@ -99,6 +117,7 @@ public class Thief : MonoBehaviour
             if(transform.position != maxDist.position)
             {
                 //Slowly move towards out of the camera
+                Debug.Log("Moving away from the player");
                 transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed * Time.deltaTime);
             }
 
@@ -116,40 +135,33 @@ public class Thief : MonoBehaviour
             if (transform.position != maxDist.position)
             {
                 //Slowly move towards out of the camera
-                Debug.Log("Moving away from the player after release");
-                isCaught = false;
                 transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed * 1.5f * Time.deltaTime);
             }
 
             else
             {
-                Debug.Log("Start running");
                 entityState = ThiefState.run;
-                tempAccel = 5f;
                 brokenFree = false;
             }
         }
 
         else
         {
-            isCaught = true;
+            transform.position = minDist.position;
         }
     }
 
     void Released()
     {
-        brokenFree = true;
         if (transform.position != maxDist.position)
         {
             //Slowly move towards out of the camera
-            Debug.Log("Moving away from the player after release");
-            isCaught = false;
             transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed /2 * Time.deltaTime);
         }
 
         else
         {
-            entityState = ThiefState.run;
+            return;
         }
     }
 
@@ -184,14 +196,7 @@ public class Thief : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (entityState == ThiefState.run)
-        {
-            DistanceBetween();
-        }
-        else
-        {
-            return;
-        }
+        DistanceBetween();
 
         switch (entityState)
         {

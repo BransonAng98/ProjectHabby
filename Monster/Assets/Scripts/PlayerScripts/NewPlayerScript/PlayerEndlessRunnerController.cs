@@ -46,10 +46,10 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public bool isCCed;
     public GameObject loseScreen;
     public TextMeshProUGUI tapText;
+    public Collider2D entityCollider;
 
     //Private Variable
     private Transform thiefTransform;
-    private Collider2D entityCollider;
     private Skeleton skeleton;
     private SkeletonAnimation skeletonAnim;
     private Rigidbody2D rb;
@@ -94,7 +94,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
-        entityCollider = GetComponent<Collider2D>();
         startingPos = GetComponentInParent<Transform>().position;
 
         //Setting Variables
@@ -116,7 +115,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "MilitaryBuilding")
         {
-            
             Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
 
             // Apply knockback force
@@ -126,8 +124,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             // Start knockback timer
             knockbackTimer = knockbackDuration;
 
-            Debug.Log("Collision");
-
+            entityCollider.enabled = false;
             currentState = PlayerState.damaged;
 
             Destroy(collision.gameObject, 0.5f);
@@ -249,21 +246,12 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             rb.velocity = movementInput * tempSpeed;
 
             //How fast the player is moving
-
-            if (isCCed)
+            float velocityRatio = velocity.y / maxYVelocity;
+            tempAccel = tempMaxAccel * (1 - velocityRatio);
+            velocity.y += tempAccel * Time.deltaTime;
+            if (velocity.y >= maxYVelocity)
             {
-                velocity.y = 0;
-            }
-
-            else
-            {
-                float velocityRatio = velocity.y / maxYVelocity;
-                tempAccel = tempMaxAccel * (1 - velocityRatio);
-                velocity.y += tempAccel * Time.deltaTime;
-                if (velocity.y >= maxYVelocity)
-                {
-                    velocity.y = maxYVelocity;
-                }
+                velocity.y = maxYVelocity;
             }
         }
     }
@@ -306,7 +294,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
         else
         {
-            velocity = Vector2.zero;
+            return;
         }
 
         float distance = thiefEntity.distanceTravelled - distanceTravelled;
@@ -358,10 +346,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         entityCollider.enabled = false;
         canMove = false;
         joystick.gameObject.SetActive(false);
-
-        //Reset distance travelled for both objects
-        distanceTravelled = 0;
-        thiefEntity.distanceTravelled = 0;
         
         //Stop the screen from moving
         MovePlayerForSpecial();
@@ -377,7 +361,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                     Debug.Log("Tap registered");
                     tapRecorded = true;
                     timeSinceLastTap = 0;
-                    thiefEntity.brokenFree = false;
                     thiefEntity.TakeDamage(5);
                 }
 
@@ -413,7 +396,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     void Damaged()
     {
         canMove = false;
-        entityCollider.enabled = false;
         isCCed = true;
         if (knockbackTimer > 0)
         {
@@ -422,9 +404,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             {
                 // Reset velocity after knockback duration expires
                 rb.velocity = Vector2.zero;
-                float reduceVelocity = maxYVelocity * 0.3f;
-                float holderVelocity = velocity.y - reduceVelocity;
-                velocity.y = holderVelocity; 
+                velocity.y *= 0.6f; 
             }
         }
 
@@ -441,12 +421,17 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             else
             {
+                Invoke("TriggerCollider", 5f);
                 Debug.Log("Moved back to OG pos");
                 isCCed = false;
                 currentState = PlayerState.move;
-                entityCollider.enabled = true;
             }
         }
+    }
+
+    void TriggerCollider()
+    {
+        entityCollider.enabled = true;
     }
 
     public void FlashVignette()

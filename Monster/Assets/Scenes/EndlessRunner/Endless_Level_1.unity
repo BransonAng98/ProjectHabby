@@ -1950,7 +1950,7 @@ MonoBehaviour:
   minDist: {fileID: 265371474}
   maxDist: {fileID: 651108301}
   velocity: {x: 0, y: 0}
-  maxYVelocity: 85
+  maxYVelocity: 90
   distanceTravelled: 300
   brokenFree: 0
   isCaught: 0
@@ -2588,7 +2588,7 @@ SpriteRenderer:
   m_SortingLayerID: 963744515
   m_SortingLayer: 2
   m_SortingOrder: 101
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: 2122b75e8b10f764e899861618bc5a4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2686,6 +2686,7 @@ MonoBehaviour:
   isCCed: 0
   loseScreen: {fileID: 5917371079091787923}
   tapText: {fileID: 66888289}
+  entityCollider: {fileID: 2116676880}
   helicopter: {fileID: 1585548939}
   heliPlayerDistance: 0
   gameEnd: 0
@@ -2705,8 +2706,8 @@ MonoBehaviour:
   startingPos: {x: 0, y: 0}
   erSM: {fileID: 0}
   gridspawnerScript: {fileID: 0}
---- !u!61 &2116676880
-BoxCollider2D:
+--- !u!70 &2116676880
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2719,18 +2720,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!114 &266924922205074553
 MonoBehaviour:
   m_ObjectHideFlags: 0

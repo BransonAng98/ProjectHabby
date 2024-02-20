@@ -89,9 +89,9 @@ public class GridSpawner : MonoBehaviour
         if (!isTriggered)
         {
             isTriggered = true;
-            float decreaseAmt = maxgridSpeed * 0.3f;
+            float decreaseAmt = maxgridSpeed * 0.1f;
             gridSpeed -= decreaseAmt;
-            accelerationTimer = 0f;
+            accelerationTimer *= 0.6f;
 
             if (gridSpeed < 0)
             {
