@@ -975,8 +975,8 @@ Transform:
   m_GameObject: {fileID: 599043515}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.39958, y: 14.810444, z: 0.37238574}
-  m_LocalScale: {x: 6.2856, y: 6.2856, z: 6.2856}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2116676875}
   m_Father: {fileID: 825319400}
@@ -1316,7 +1316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00031340355, y: 66.71537, z: -10}
+  m_LocalPosition: {x: -0.00021166132, y: 66.71538, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2664,7 +2664,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   enemyList: []
-  distanceToMaintain: 250
+  distanceToMaintain: 400
   thresholdTime: 10
   canMove: 0
   canAttack: 0
@@ -2695,6 +2695,7 @@ MonoBehaviour:
   gameEnd: 0
   canMoveLeft: 1
   canMoveRight: 1
+  isDamaged: 0
   movementInput: {x: 0, y: 0}
   distanceTimerCountdown: 0
   ccRecoverTime: 0
@@ -2722,8 +2723,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Offset: {x: 0, y: -0.45}
+  m_Size: {x: 0.53, y: 0.17}
   m_Direction: 0
 --- !u!114 &266924922205074553
 MonoBehaviour:
