@@ -6,7 +6,6 @@ using Spine.Unity;
 using Spine;
 using TMPro;
 using Haptics.Vibrations;
-using TMPro;
 
 public class PlayerEndlessRunnerController : MonoBehaviour
 {
@@ -39,9 +38,11 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public LayerMask enemyLayer;
     public TextMeshProUGUI distText;
     public Image vignette;
-
+    public float normalAlpha = 1f;
+    public float damagedAlpha = 0.5f;
     public float knockbackForce = 100f;
     public float knockbackDuration = 10f;
+    public float blinkDuration;
     public float flashSpeed;
     public bool isCCed;
     public GameObject loseScreen;
@@ -52,9 +53,11 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     private Transform thiefTransform;
     private Skeleton skeleton;
     private SkeletonAnimation skeletonAnim;
+    private SpriteRenderer playerSpriteRenderer;
     private Rigidbody2D rb;
     private Thief thiefEntity;
     private float knockbackTimer;
+    private float blinkTimer;
 
     public GameObject helicopter;
     public float heliPlayerDistance;
@@ -66,6 +69,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     //Serilizable Variable
     [SerializeField] bool canMoveLeft = true; 
     [SerializeField] bool canMoveRight = true;
+    [SerializeField] bool isDamaged;
     [SerializeField] Vector2 movementInput;
     [SerializeField] float distanceTimerCountdown;
     [SerializeField] float ccRecoverTime;
@@ -95,11 +99,13 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
         startingPos = GetComponentInParent<Transform>().position;
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
 
         //Setting Variables
         AssignStat();
         loseScreen.gameObject.SetActive(false);
         tapText.gameObject.SetActive(false);
+        blinkTimer = 0f;
     }
 
     void AssignStat()
@@ -395,6 +401,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void Damaged()
     {
+        isDamaged = true;
         canMove = false;
         isCCed = true;
         if (knockbackTimer > 0)
@@ -421,7 +428,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             else
             {
-                Invoke("TriggerCollider", 5f);
+                Invoke("TriggerCollider", blinkDuration);
                 Debug.Log("Moved back to OG pos");
                 isCCed = false;
                 currentState = PlayerState.move;
@@ -432,6 +439,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     void TriggerCollider()
     {
         entityCollider.enabled = true;
+        isDamaged = false;
     }
 
     public void FlashVignette()
@@ -447,6 +455,39 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         vignetteColor.a = alpha;
         vignette.color = vignetteColor;
     }
+
+    void HitEffect()
+    {
+        if (isDamaged)
+        {
+            if (blinkTimer < blinkDuration)
+            {
+                // Calculate the alpha for the damaged effect using Lerp and PingPong
+                float damagedEffectAlpha = Mathf.Lerp(normalAlpha, damagedAlpha, Mathf.PingPong(Time.time * flashSpeed, 1f));
+
+                // Apply the alpha to the player sprite
+                Color playerColor = playerSpriteRenderer.color;
+                playerColor.a = damagedEffectAlpha;
+                playerSpriteRenderer.color = playerColor;
+
+                // Update the blink timer
+                blinkTimer += Time.deltaTime;
+            }
+        }
+        else
+        {
+            SetPlayerAlpha(1f);
+        }
+    }
+    void SetPlayerAlpha(float alpha)
+    {
+        Color playerColor = playerSpriteRenderer.color;
+        playerColor.a = alpha;
+        playerSpriteRenderer.color = playerColor;
+        blinkTimer = 0f;
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -490,5 +531,11 @@ public class PlayerEndlessRunnerController : MonoBehaviour
                 Damaged();
                 break;
         }
+
+    }
+
+    private void FixedUpdate()
+    {
+        HitEffect();
     }
 }

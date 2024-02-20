@@ -1316,7 +1316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00021166132, y: 66.71538, z: -10}
+  m_LocalPosition: {x: -0.00031340355, y: 66.71537, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2680,8 +2680,11 @@ MonoBehaviour:
     m_Bits: 0
   distText: {fileID: 1884748472}
   vignette: {fileID: 1279644745}
+  normalAlpha: 1
+  damagedAlpha: 0.5
   knockbackForce: 10
   knockbackDuration: 0.5
+  blinkDuration: 2
   flashSpeed: 3
   isCCed: 0
   loseScreen: {fileID: 5917371079091787923}
