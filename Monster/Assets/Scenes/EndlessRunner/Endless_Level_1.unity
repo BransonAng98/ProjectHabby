@@ -1177,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000077656824, y: -149.32603, z: -10}
+  m_LocalPosition: {x: 0.0000032740306, y: -149.32603, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1961,6 +1961,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2116676875}
     m_Modifications:
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: TrailModule.textureMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334917874028872317, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6989808703875998525, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
       propertyPath: m_Name
       value: SpeedEffect_ParticleStsten
