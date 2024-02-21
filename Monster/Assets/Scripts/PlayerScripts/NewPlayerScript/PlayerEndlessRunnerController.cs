@@ -48,6 +48,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public GameObject loseScreen;
     public TextMeshProUGUI tapText;
     public Collider2D entityCollider;
+    public GameObject speedVFX;
 
     //Private Variable
     private Transform thiefTransform;
@@ -76,6 +77,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] Vector2 movementInput;
     [SerializeField] float distanceTimerCountdown;
     [SerializeField] float ccRecoverTime;
+    [SerializeField] float vfxPlayTime;
+    [SerializeField] float maxVfxPlayTime;
 
     [SerializeField] float tempHealth;
     [SerializeField] float tempSpeed;
@@ -84,6 +87,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     [SerializeField] float tempCCCD;
     [SerializeField] float showMoveX;
     [SerializeField] bool tapRecorded;
+    [SerializeField] bool speedVFXPlay;
+    [SerializeField] int vfxPlayTimes;
     [SerializeField] private float timeSinceLastTap;
     [SerializeField] Vector2 startingPos;
 
@@ -101,6 +106,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
         gamemanagerScript = GameObject.Find("GameManager").GetComponent<ERGameManager>();
         gridspawnerScript = GameObject.Find("GridSpawner").GetComponent<GridSpawner>();
+        speedVFX.SetActive(false);
 
         //Internal Check
         rb = GetComponent<Rigidbody2D>();
@@ -141,6 +147,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             gamemanagerScript.ModifyHitCounter(true, 1);
             anim.SetBool("knockBack", true);
             Destroy(collision.gameObject, 0.5f);
+            speedVFXPlay = false;
+            buildingCount = 0;
         }
     }
 
@@ -235,6 +243,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         if(buildingCount > buildingPointThreshold)
         {
             gamemanagerScript.ModifyHitCounter(false, 1);
+            speedVFXPlay = true;
             buildingCount = 0;
         }
 
@@ -373,6 +382,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void SpecialAttack()
     {
+        speedVFXPlay = false;
         anim.speed = 0;
         entityCollider.enabled = false;
         canMove = false;
@@ -520,6 +530,29 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         blinkTimer = 0f;
     }
 
+    void PlaySpeedVFX()
+    {
+        if (speedVFXPlay)
+        {
+            speedVFX.SetActive(true);
+            if (vfxPlayTime < maxVfxPlayTime)
+            {
+                vfxPlayTime += 1f * Time.deltaTime;
+            }
+
+            else
+            {
+                speedVFXPlay = false;
+                vfxPlayTime = 0f;
+                speedVFX.SetActive(false);
+            }
+        }
+
+        else
+        {
+            speedVFX.SetActive(false);
+        }
+    }
 
 
     // Update is called once per frame
@@ -537,6 +570,9 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         {
             CheckDistance();
         }
+
+        PlaySpeedVFX();
+
         switch (currentState)
         {
             case PlayerState.move:

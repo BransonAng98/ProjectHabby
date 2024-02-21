@@ -818,6 +818,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8803872740345178636, guid: 323a41ce9ae0abf469a930fa0b3af1aa, type: 3}
   m_PrefabInstance: {fileID: 602220281}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &605861507 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7419756965664345913, guid: 5287680579ef2f241bd264e91df2d0f6, type: 3}
+  m_PrefabInstance: {fileID: 1259989780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &651108300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0000032740306, y: -149.32603, z: -10}
+  m_LocalPosition: {x: 0.00000077656824, y: -149.32603, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1520,17 +1531,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5287680579ef2f241bd264e91df2d0f6, type: 3}
---- !u!114 &1259989781 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8753378187085822483, guid: 5287680579ef2f241bd264e91df2d0f6, type: 3}
-  m_PrefabInstance: {fileID: 1259989780}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1481986951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1954,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4960015063656522286, guid: 24fa47a8bc40e924ba343631c0a107c8, type: 3}
   m_PrefabInstance: {fileID: 1889315516}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1907832128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2116676875}
+    m_Modifications:
+    - target: {fileID: 6989808703875998525, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_Name
+      value: SpeedEffect_ParticleStsten
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.785
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+--- !u!4 &1907832129 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8518167559707632852, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+  m_PrefabInstance: {fileID: 1907832128}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1907832130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6989808703875998525, guid: a2bc4d05583a1da4ba96b34641f65358, type: 3}
+  m_PrefabInstance: {fileID: 1907832128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1917913617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2278,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1907832129}
   m_Father: {fileID: 599043516}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2327,7 +2395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 81a0b355e79359243ad2f98bba49873c, type: 2}
-  joystick: {fileID: 1259989781}
+  joystick: {fileID: 605861507}
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2358,6 +2426,7 @@ MonoBehaviour:
   loseScreen: {fileID: 1980093275}
   tapText: {fileID: 993508600}
   entityCollider: {fileID: 2116676880}
+  speedVFX: {fileID: 1907832130}
   helicopter: {fileID: 1585548939}
   heliPlayerDistance: 0
   gameEnd: 0
@@ -2368,6 +2437,8 @@ MonoBehaviour:
   movementInput: {x: 0, y: 0}
   distanceTimerCountdown: 0
   ccRecoverTime: 0
+  vfxPlayTime: 0
+  maxVfxPlayTime: 5
   tempHealth: 0
   tempSpeed: 0
   tempAccel: 0
@@ -2375,6 +2446,8 @@ MonoBehaviour:
   tempCCCD: 0
   showMoveX: 0
   tapRecorded: 0
+  speedVFXPlay: 0
+  vfxPlayTimes: 0
   timeSinceLastTap: 0
   startingPos: {x: 0, y: 0}
   erSM: {fileID: 0}
