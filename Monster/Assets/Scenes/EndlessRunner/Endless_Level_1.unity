@@ -1177,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164219847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0000032740306, y: -149.32603, z: -10}
+  m_LocalPosition: {x: 0.00000077656824, y: -149.32603, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2090,7 +2090,8 @@ MonoBehaviour:
   - {fileID: 1382596275936686184, guid: cdc8bb46a1cd53348aa760d92bd596dc, type: 3}
   - {fileID: 1310076751194191448, guid: 3c34bf43b42ae544894e6ad71d0c5248, type: 3}
   gridSpeed: 10
-  maxgridSpeed: 50
+  mingridSpeed: 10
+  maxgridSpeed: 35
   playerDistanceTravelled: 0
   Checkpoint: 0
   accelerationDuration: 50
@@ -2481,7 +2482,8 @@ MonoBehaviour:
   erSM: {fileID: 0}
   gridspawnerScript: {fileID: 0}
   buildingCount: 0
-  buildingPointThreshold: 10
+  buildingPointThreshold: 15
+  gridSpawnerScript: {fileID: 0}
 --- !u!70 &2116676880
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

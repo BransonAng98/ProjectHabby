@@ -96,6 +96,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     public GridSpawner gridspawnerScript;
     [SerializeField] int buildingCount;
     [SerializeField] int buildingPointThreshold;
+    public GridSpawner gridSpawnerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -104,6 +105,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
         thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
+        gridspawnerScript = GameObject.Find("GridSpawner").GetComponent<GridSpawner>();
         gamemanagerScript = GameObject.Find("GameManager").GetComponent<ERGameManager>();
         gridspawnerScript = GameObject.Find("GridSpawner").GetComponent<GridSpawner>();
         speedVFX.SetActive(false);
@@ -134,6 +136,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "MilitaryBuilding")
         {
+            gridspawnerScript.gridSpeed -= 5.0f;
             Vector2 knockbackDirection = Vector2.down;
 
             // Apply knockback force
@@ -156,6 +159,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BigBuilding")
         {
+            gridspawnerScript.gridSpeed += 0.5f;
             if (!enemyList.Contains(collision.transform))
             {
                 if(currentState != PlayerState.attack && currentState != PlayerState.SpecialAttack)

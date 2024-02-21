@@ -7,7 +7,8 @@ public class GridSpawner : MonoBehaviour
 
     public List<GameObject> gridPrefabs = new List<GameObject>(); // Array of grid prefabs
     public float gridSpeed = 5f; // Speed at which the grids will move
-    public float maxgridSpeed = 40f;
+    public float mingridSpeed = 10f;
+    public float maxgridSpeed = 35f;
     public float playerDistanceTravelled = 0f; // Total distance traveled by the player
     public int Checkpoint;
 
@@ -51,12 +52,22 @@ public class GridSpawner : MonoBehaviour
             isTriggered = false;
             erSM.DistanceTravelled = Mathf.RoundToInt(playerDistanceTravelled);
             MoveGrids();
-            // Update grid speed
-            if (gridSpeed < maxgridSpeed)
+
+            if(gridSpeed > maxgridSpeed)
             {
-                accelerationTimer += Time.deltaTime;
-                gridSpeed = Mathf.Lerp(0f, maxgridSpeed, accelerationTimer / accelerationDuration);
+                gridSpeed = maxgridSpeed;
             }
+
+            if(gridSpeed < mingridSpeed)
+            {
+                gridSpeed = mingridSpeed;
+            }
+            // Update grid speed
+            //if (gridSpeed < maxgridSpeed)
+            //{
+            //    accelerationTimer += Time.deltaTime;
+            //    gridSpeed = Mathf.Lerp(0f, maxgridSpeed, accelerationTimer / accelerationDuration);
+            //}
         }
 
         else
