@@ -377,22 +377,30 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         entityCollider.enabled = false;
         canMove = false;
         joystick.gameObject.SetActive(false);
-        
+        rb.velocity = Vector2.zero;
+
         //Stop the screen from moving
         MovePlayerForSpecial();
         if(thiefEntity != null)
         {
-            tapText.gameObject.SetActive(true);
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    tapRecorded = true;
-                    timeSinceLastTap = 0;
-                    thiefEntity.TakeDamage(5);
-                    Debug.Log("Tap recorded");
+                    if(thiefEntity.entityState != Thief.ThiefState.death)
+                    {
+                        tapRecorded = true;
+                        timeSinceLastTap = 0;
+                        thiefEntity.TakeDamage(5);
+                        Debug.Log("Tap recorded");
+                    }
+
+                    else
+                    {
+                        return;
+                    }
                 }
 
                 if(touch.phase == TouchPhase.Ended)
