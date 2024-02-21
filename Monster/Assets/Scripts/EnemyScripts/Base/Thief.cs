@@ -16,8 +16,8 @@ public class Thief : MonoBehaviour
     //Public Variable
     public ThiefSO enemyData;
     public ThiefState entityState;
-    public Transform minDist;
-    public Transform maxDist;
+   
+    public List<Transform> movePos = new List<Transform>();
 
     public Vector2 velocity;
     public float maxYVelocity;
@@ -28,6 +28,8 @@ public class Thief : MonoBehaviour
     public GameObject winScreen;
 
     public GameObject pfEgg;
+
+    public int posID;
 
     //Private Variable
     private PlayerEndlessRunnerController player;
@@ -51,6 +53,7 @@ public class Thief : MonoBehaviour
         //Assigning Stat
         AssignStat();
         winScreen.gameObject.SetActive(false);
+        posID = 2;
     }
 
     void AssignStat()
@@ -85,46 +88,81 @@ public class Thief : MonoBehaviour
         {
             return;
         }
+    }
 
-        float distance = distanceTravelled - player.distanceTravelled;
-        if (distance < distanceThreshold)
+    public void ModifyID(int newValue)
+    {
+        posID = newValue;
+    }
+
+    private void UpdatePos()
+    {
+        switch (posID)
         {
-            if(transform.position != minDist.position)
-            {
-                //Move the thief slowly towards the player
-                Debug.Log("Moving towards the player");
-                transform.position = Vector3.MoveTowards(transform.position, minDist.position, tempSpeed * Time.deltaTime);
-            }
-
-            else
-            {
-                if (!brokenFree)
+            case 0:
+                if(transform.position != movePos[0].position)
                 {
-                    player.currentState = PlayerEndlessRunnerController.PlayerState.SpecialAttack;
-                    isCaught = true;
-                    entityState = ThiefState.caught;
+                    transform.position = Vector2.MoveTowards(transform.position, movePos[0].position, tempSpeed * Time.deltaTime);
                 }
+
                 else
                 {
-                    player.currentState = PlayerEndlessRunnerController.PlayerState.move;
-                    entityState = ThiefState.released;
+                    entityState = ThiefState.caught;
+                    player.currentState = PlayerEndlessRunnerController.PlayerState.SpecialAttack;
                 }
-            }
-        }
+                break;
 
-        else
-        {
-            if(transform.position != maxDist.position)
-            {
-                //Slowly move towards out of the camera
-                Debug.Log("Moving away from the player");
-                transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed * Time.deltaTime);
-            }
+            case 1:
+                if(transform.position != movePos[1].position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, movePos[1].position, tempSpeed * Time.deltaTime);
+                }
 
-            else
-            {
-                entityState = ThiefState.run;
-            }
+                else
+                {
+                    return;
+                }
+                break;
+
+            case 2:
+                if (transform.position != movePos[2].position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, movePos[2].position, tempSpeed * Time.deltaTime);
+                }
+
+                else
+                {
+                    return;
+                }
+                break;
+
+            case 3:
+                if (transform.position != movePos[3].position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, movePos[3].position, tempSpeed * Time.deltaTime);
+                }
+
+                else
+                {
+                    return;
+                }
+                break;
+
+            case 4:
+                if (transform.position != movePos[4].position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, movePos[4].position, tempSpeed * Time.deltaTime);
+                }
+
+                else
+                {
+                    return;
+                }
+                break;
+
+            case 5:
+                player.currentState = PlayerEndlessRunnerController.PlayerState.death;
+                break;
         }
     }
 
@@ -132,14 +170,16 @@ public class Thief : MonoBehaviour
     {
         if(brokenFree)
         {
-            if (transform.position != maxDist.position)
+            if (transform.position != movePos[2].position)
             {
+                Debug.Log("Moving to pos 2");
                 //Slowly move towards out of the camera
-                transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed * 1.5f * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, movePos[2].position, tempSpeed * 1.5f * Time.deltaTime);
             }
 
             else
             {
+                Debug.Log("Running");
                 entityState = ThiefState.run;
                 brokenFree = false;
             }
@@ -147,16 +187,16 @@ public class Thief : MonoBehaviour
 
         else
         {
-            transform.position = minDist.position;
+            transform.position = movePos[0].position;
         }
     }
 
     void Released()
     {
-        if (transform.position != maxDist.position)
+        if (transform.position != movePos[2].position)
         {
             //Slowly move towards out of the camera
-            transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempSpeed /2 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, movePos[2].position, tempSpeed /2 * Time.deltaTime);
         }
 
         else
@@ -183,7 +223,7 @@ public class Thief : MonoBehaviour
 
     void Death()
     {
-        transform.position = Vector3.MoveTowards(transform.position, maxDist.position, tempDeathSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, movePos[4].position, tempDeathSpeed * Time.deltaTime);
         player.gameEnd = true;
         //player.currentState = PlayerEndlessRunnerController.PlayerState.victory;
         Invoke("EndLevel", 6f);
@@ -198,6 +238,10 @@ public class Thief : MonoBehaviour
     void Update()
     {
         DistanceBetween();
+        if(entityState != ThiefState.death)
+        {
+            UpdatePos();
+        }
 
         switch (entityState)
         {

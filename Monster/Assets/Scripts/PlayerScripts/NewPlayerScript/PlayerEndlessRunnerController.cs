@@ -67,6 +67,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
     private Color normalColor = Color.white;
     private Color enlargedColor = Color.red;
 
+    public ERGameManager gamemanagerScript;
+
     //Serilizable Variable
     [SerializeField] bool canMoveLeft = true; 
     [SerializeField] bool canMoveRight = true;
@@ -87,6 +89,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     public ERScoreManager erSM;
     public GridSpawner gridspawnerScript;
+    [SerializeField] int buildingCount;
+    [SerializeField] int buildingPointThreshold;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +99,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         thiefTransform = GameObject.FindGameObjectWithTag("Thief").GetComponent<Transform>();
         thiefEntity = GameObject.FindGameObjectWithTag("Thief").GetComponent<Thief>();
         erSM = GameObject.Find("ScoreManager").GetComponent<ERScoreManager>();
+        gamemanagerScript = GameObject.Find("GameManager").GetComponent<ERGameManager>();
         gridspawnerScript = GameObject.Find("GridSpawner").GetComponent<GridSpawner>();
 
         //Internal Check
@@ -132,8 +137,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             // Start knockback timer
             knockbackTimer = knockbackDuration;
 
-            entityCollider.enabled = false;
             currentState = PlayerState.damaged;
+            gamemanagerScript.ModifyHitCounter(true, 1);
             anim.SetBool("knockBack", true);
             Destroy(collision.gameObject, 0.5f);
         }
@@ -223,6 +228,22 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         }
     }
 
+    void ManageBuildingPoints(int building)
+    {
+        buildingCount += building;
+
+        if(buildingCount > buildingPointThreshold)
+        {
+            gamemanagerScript.ModifyHitCounter(false, 1);
+            buildingCount = 0;
+        }
+
+        else
+        {
+            return;
+        }
+    }
+
     void Move()
     {
         if (isCCed)
@@ -275,6 +296,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
         {
             //Destroy(enemyList[0].gameObject);
             enemyList[0].GetComponent<Targetable>().TakeDamage(30);
+            ManageBuildingPoints(1);
         }
 
         else { return; }
@@ -305,34 +327,34 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             return;
         }
 
-        float distance = thiefEntity.distanceTravelled - distanceTravelled;
-        if(distance > distanceToMaintain)
-        {
-            FlashVignette();
+        //float distance = thiefEntity.distanceTravelled - distanceTravelled;
+        //if(distance > distanceToMaintain)
+        //{
+        //    FlashVignette();
 
-            if (distanceTimerCountdown < thresholdTime)
-            {
-                //Trigger Countdown here
-                Debug.Log("Trigger end game countdown");
-                distanceTimerCountdown += Time.deltaTime;
-            }
+        //    if (distanceTimerCountdown < thresholdTime)
+        //    {
+        //        //Trigger Countdown here
+        //        Debug.Log("Trigger end game countdown");
+        //        distanceTimerCountdown += Time.deltaTime;
+        //    }
 
-            else
-            {
-                if (currentState != PlayerState.death)
-                {
-                    currentState = PlayerState.death;
-                }
-            }
-        }
+        //    else
+        //    {
+        //        if (currentState != PlayerState.death)
+        //        {
+        //            currentState = PlayerState.death;
+        //        }
+        //    }
+        //}
 
-        else
-        {
-            vignette.enabled = false;
-            distText.color = Color.white;
-            Debug.Log("Reset end game countdown");
-            distanceTimerCountdown = 0f;
-        }
+        //else
+        //{
+        //    vignette.enabled = false;
+        //    distText.color = Color.white;
+        //    Debug.Log("Reset end game countdown");
+        //    distanceTimerCountdown = 0f;
+        //}
     }
 
     void MovePlayerForSpecial()
@@ -351,6 +373,7 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
     void SpecialAttack()
     {
+        anim.speed = 0;
         entityCollider.enabled = false;
         canMove = false;
         joystick.gameObject.SetActive(false);
@@ -366,10 +389,10 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    Debug.Log("Tap registered");
                     tapRecorded = true;
                     timeSinceLastTap = 0;
                     thiefEntity.TakeDamage(5);
+                    Debug.Log("Tap recorded");
                 }
 
                 if(touch.phase == TouchPhase.Ended)
@@ -388,21 +411,23 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
             else
             {
+                anim.speed = 1;
+                currentState = PlayerState.damaged;
                 tapText.gameObject.SetActive(false);
                 entityCollider.enabled = true;
                 transform.position = Vector3.MoveTowards(transform.position, startingPos, tempSpeed * Time.deltaTime);
                 timeSinceLastTap = 0f;
                 tapRecorded = false;
                 thiefEntity.brokenFree = true;
-                joystick.gameObject.SetActive(true);
-                currentState = PlayerState.move;
-                Debug.Log("Thief has escaped");
+                gamemanagerScript.ModifyHitCounter(true, 2);
+                joystick.gameObject.SetActive(true); 
             }
         }
     }
 
     void Damaged()
     {
+        entityCollider.enabled = false;
         isDamaged = true;
         canMove = false;
         isCCed = true;
@@ -419,10 +444,8 @@ public class PlayerEndlessRunnerController : MonoBehaviour
 
         else
         {
-            Debug.Log("Moving back Phase");
             if (transform.position.y != startingPos.y)
             {
-                Debug.Log("Moving back to starting pos:" + startingPos);
                 Vector2 movePos = new Vector2(transform.position.x, startingPos.y);
                 float recoverSpeed = tempSpeed / 2f;
                 transform.position = Vector3.MoveTowards(transform.position, movePos, recoverSpeed * Time.deltaTime);
@@ -431,7 +454,6 @@ public class PlayerEndlessRunnerController : MonoBehaviour
             else
             {
                 Invoke("TriggerCollider", blinkDuration);
-                Debug.Log("Moved back to OG pos");
                 isCCed = false;
                 currentState = PlayerState.move;
             }
