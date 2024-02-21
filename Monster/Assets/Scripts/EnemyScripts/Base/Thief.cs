@@ -24,7 +24,7 @@ public class Thief : MonoBehaviour
     public float distanceTravelled;
     public bool brokenFree;
     public bool isCaught;
-
+    public GameObject tapText;
     public GameObject winScreen;
 
     public GameObject pfEgg;
@@ -187,7 +187,10 @@ public class Thief : MonoBehaviour
 
         else
         {
-            transform.position = movePos[0].position;
+            if(transform.position == movePos[0].position)
+            {
+                tapText.SetActive(true);
+            }
         }
     }
 
@@ -223,6 +226,7 @@ public class Thief : MonoBehaviour
 
     void Death()
     {
+        tapText.SetActive(false);
         transform.position = Vector3.MoveTowards(transform.position, movePos[4].position, tempDeathSpeed * Time.deltaTime);
         player.gameEnd = true;
         //player.currentState = PlayerEndlessRunnerController.PlayerState.victory;
